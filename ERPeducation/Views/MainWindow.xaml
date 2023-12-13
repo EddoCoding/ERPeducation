@@ -1,0 +1,302 @@
+﻿<Window x:Class="ERPeducation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1200">
+    <Window.Resources>
+        <Style x:Key="ButtonBurger" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <Image Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}" Height="25" Width="25" Margin="10,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}" Height="35" Width="35" Margin="10,0"/>
+                                <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyMenuButtonStyle" TargetType="MenuItem">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MenuItem">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                        Margin="0" Padding="0">
+                            <TextBlock Text="Новая вкладка" Margin="10,2" Padding="0" FontSize="13"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonCloseTabItem" TargetType="Button">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}"
+                        Margin="{TemplateBinding Margin}">
+                            <TextBlock Text="X" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="red"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleTabItem" TargetType="{x:Type TabItem}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Margin" Value="-1,0,1,-1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="IsSelected" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                Margin="-1,-2,0,0" Padding="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="auto">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0">
+                                <TextBlock Text="{Binding Title}" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Button Command="{Binding CloseCommand}" Style="{StaticResource ButtonCloseTabItem}"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="DarkGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="StyleButtonClose" TargetType="{x:Type Button}">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="Выход" VerticalAlignment="Center" Margin="10,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="White" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                    <Label Content="ERP" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" 
+                        VerticalContentAlignment="Center" Padding="0" Margin="10,0"/>
+                    <Label Content="Образование" FontSize="16" VerticalAlignment="Center" 
+                        VerticalContentAlignment="Center" Margin="0,0,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.Column="0">
+                    <Label Content="Enterprise Resource Planning" Padding="0" Margin="10,0,0,5"/>
+                </StackPanel>
+
+            </Grid>
+
+            <Image Source="/Image/profile.png" Width="25" Height="25" HorizontalAlignment="Right" Margin="10,0"/>
+
+            <Label Grid.Column="1" Content="{Binding FullName}" VerticalContentAlignment="Center" VerticalAlignment="Center"
+                   HorizontalAlignment="Right" FontSize="14"/>
+            <!-- ФИО пользователя -->
+
+            <Button Grid.Column="2" VerticalContentAlignment="Center" Style="{StaticResource StyleButtonClose}" Command="{Binding CommandWindowClose}"/> <!-- Кнопкка выхода -->
+        </Grid>
+
+        <Grid Grid.Row="1" Background="LightGray" VerticalAlignment="Stretch" Margin="5,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding Width}"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Background="White" Margin="0,0,0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="17*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="0" Grid.ColumnSpan="2" Height="40" Style="{StaticResource ButtonBurger}" Tag="/Common/Image/burger.png" 
+                        Command="{Binding CommandBurger}" HorizontalAlignment="{Binding HorizontalAlignment}"/>
+                <!-- Бургер -->
+
+                <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="ButtonRector" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/rector.png" IsEnabled="{Binding IsEnabled[0]}"
+                        Content="{Binding DataForTabs[0]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonRector}">
+                    <Button.ContextMenu>
+                        <ContextMenu Background="WhiteSmoke">
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding DataForTabs[0]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <!-- Ректор -->
+
+                <Button Grid.Row="2" Grid.ColumnSpan="2" x:Name="ButtonDeanRoom" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/deanRoom.png" IsEnabled="{Binding IsEnabled[1]}"
+                        Content="{Binding DataForTabs[1]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonDeanRoom}">
+                    <Button.ContextMenu>
+                        <ContextMenu Background="WhiteSmoke">
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding DataForTabs[1]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <!-- Деканат -->
+
+                <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="ButtonTrainingDivision" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/trainingDivision.png" IsEnabled="{Binding IsEnabled[2]}"
+                        Content="{Binding DataForTabs[2]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonTrainingDivision}">
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding DataForTabs[2]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <!-- Учебный отдел -->
+
+                <Button Grid.Row="4" Grid.ColumnSpan="2" x:Name="ButtonTeacher" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/teacher.png" IsEnabled="{Binding IsEnabled[3]}"
+                        Content="{Binding DataForTabs[3]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonTeacher}">
+                    <Button.ContextMenu>
+                        <ContextMenu Background="WhiteSmoke">
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding DataForTabs[3]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <!-- Преподаватель -->
+
+                <Button Grid.Row="5" Grid.ColumnSpan="2" x:Name="ButtonEnrollee" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/enrollee.png" IsEnabled="{Binding IsEnabled[4]}"
+                        Content="{Binding DataForTabs[4]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonEnrollee}">
+                    <Button.ContextMenu>
+                        <ContextMenu Background="WhiteSmoke">
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding DataForTabs[4]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button> 
+                <!-- Абитуриент -->
+
+                <Button Grid.Row="6" Grid.ColumnSpan="2" x:Name="ButtonAdministration" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/administration.png" IsEnabled="{Binding IsEnabled[5]}"
+                Content="{Binding DataForTabs[5]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonAdministration}" VerticalAlignment="Bottom">
+                    <Button.ContextMenu>
+                        <ContextMenu Background="WhiteSmoke">
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding DataForTabs[5]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <!-- Администрирование -->
+                
+            </Grid>
+
+            <TabControl Grid.Column="1" Grid.Row="0" ItemsSource="{Binding TabItem}" TabStripPlacement="Bottom" 
+                    ItemContainerStyle="{StaticResource MyStyleTabItem}" Margin="5,0,5,2" BorderBrush="LightGray">
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding Content}"/>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
+        </Grid>
+    </Grid>
+
+</Window>
