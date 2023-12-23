@@ -36,9 +36,9 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid Background="White" Margin="0">
-        <TabControl ItemsSource="{Binding TabItem}" ItemContainerStyle="{StaticResource MyStyleTabItem}"  
+        <TabControl ItemsSource="{Binding Data.TabItem}" ItemContainerStyle="{StaticResource MyStyleTabItem}"  
                     TabStripPlacement="Left" Margin="5,0,5,2" BorderBrush="LightGray">
             <TabControl.ContentTemplate>
                 <DataTemplate>
