@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
