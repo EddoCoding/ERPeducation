@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ERPeducation.ViewModels
+namespace ERPeducation.ViewModels.Modules.Rector
 {
     public class RectorViewModel
     {
