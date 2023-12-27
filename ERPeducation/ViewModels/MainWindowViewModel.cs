@@ -1,7 +1,7 @@
 ﻿using ERPeducation.Common;
 using ERPeducation.Common.Command;
 using ERPeducation.Views;
-using ERPeducation.ViewModels.Modules.Enrollee;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.Teacher;
 using ERPeducation.ViewModels.Modules.Administration;
 using ERPeducation.ViewModels.Modules.DeanRoom;
