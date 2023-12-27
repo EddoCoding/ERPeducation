@@ -1,27 +1,25 @@
 ﻿using ERPeducation.Common;
-using ERPeducation.Interface;
 using ERPeducation.Views.ModuleEnrolle;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Controls;
 
-namespace ERPeducation.ViewModels
+namespace ERPeducation.ViewModels.AdmissionCampaign
 {
     public class EnrolleeViewModel
     {
         public BaseDataForModules<TabItemEnrollee> Data { get; set; }
 
-        public EnrolleeViewModel() 
+        public EnrolleeViewModel()
         {
             Data = new BaseDataForModules<TabItemEnrollee>()
             {
                 DataForTabs = new string[] { "Личная информация", "Контактная информация", "Образование", "Направление подготовки",
-                                         "Поданные документы", "Результаты испытаний", "Заключить договор", "Печать"},
+                                         "Поданные документы", "Результаты испытаний", "Заключить договор", "Формирование дела", "Печать"},
                 TabItem = new ObservableCollection<TabItemEnrollee>()
             };
 
-            UserControl[] userControls = new UserControl[] 
-            { 
+            UserControl[] userControls = new UserControl[]
+            {
                 new EnrollePersonalInformationView()
             };
 
