@@ -3,7 +3,7 @@ using ERPeducation.Views.ModuleEnrolle;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
-namespace ERPeducation.ViewModels.Modules.Enrollee
+namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class EnrolleeViewModel
     {

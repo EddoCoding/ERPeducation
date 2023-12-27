@@ -1,4 +1,4 @@
-﻿namespace ERPeducation.ViewModels.Modules.Enrollee
+﻿namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class TabItemEnrollee
     {
