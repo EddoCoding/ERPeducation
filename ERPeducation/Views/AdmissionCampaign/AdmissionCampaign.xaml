@@ -4,9 +4,121 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign"
+             xmlns:vm="clr-namespace:ERPeducation.ViewModels.Modules.AdmissionCampaign"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <UserControl.Resources>
+        <Style x:Key="MyStyleButton" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleGridViewColumnHeader" TargetType="GridViewColumnHeader">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewColumnHeader">
+                        <ContentPresenter>
+                            <ContentPresenter.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Абитуриент" FontSize="16" Margin="5"/>
+                                </DataTemplate>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleListViewItem" TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <TextBlock Text="{Binding FullName}" FontSize="14" Margin="5,1,0,0" Foreground="Black" Height="30" Padding="5">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="WhiteSmoke"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <vm:AdmissionCampaignViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Приёмная кампания" Margin="10,5,0,0" Padding="0" FontSize="20" FontWeight="DemiBold"/>
+
+        <Grid Grid.Row="1" Margin="0,10,0,30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="450" MaxWidth="600"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="0,30,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Style="{StaticResource MyStyleButton}" Content="+ Добавить абитуриента" Margin="10,0,0,0" Command="{Binding .}"/>
+                    <Button Grid.Column="1" Style="{StaticResource MyStyleButton}" Content="- Отозвать заявление" Margin="15,0,5,0" Command="{Binding .}"/>
+                    <Button Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource MyStyleButton}" Content="Фильтр" Margin="15,0,5,0" Command="{Binding .}"/>
+                </Grid>
+                <!--ДОБАВИТЬ БИНДИНГИ КОМАНД-->
+
+                <ListView Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" ItemsSource="{Binding Enrollees}" SelectedItem="{Binding SelectedEnrollee}"
+                          BorderThickness="1" BorderBrush="Gray" ItemContainerStyle="{StaticResource MyStyleListViewItem}">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <StaticResource ResourceKey="MyStyleGridViewColumnHeader"/>
+                            </GridView.ColumnHeaderContainerStyle>
+                        </GridView>
+                    </ListView.View><!--СТИЛЬ НАЗВАНИЯ КОЛОНКИ-->
+                </ListView>
+
+            </Grid>
+
+            <Grid Grid.Column="1" Background="White" Margin="50,50,10,0">
+                <Grid.Effect>
+                    <DropShadowEffect ShadowDepth="1" Color="Black" BlurRadius="20" Opacity="0.3"/>
+                </Grid.Effect>
+
+                <TextBlock Text="ОвощеБАЗА" Margin="10"/>
+            </Grid>
+
+        </Grid>
     </Grid>
+    
 </UserControl>

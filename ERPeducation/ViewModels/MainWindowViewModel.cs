@@ -14,6 +14,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using ERPeducation.Interface;
+using ERPeducation.Views.AdmissionCampaign;
 
 namespace ERPeducation.ViewModels
 {
@@ -118,36 +119,37 @@ namespace ERPeducation.ViewModels
         void AddTabItem(object contentButton)
         {
             bool ExistsTabItem = Data.TabItem.Any(MyTabItem => MyTabItem.Title == contentButton.ToString());
-            if (!ExistsTabItem && contentButton.ToString() == "Ректор")
-            {
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleRector(new RectorViewModel())));
-                return;
-            }
-            if (!ExistsTabItem && contentButton.ToString() == "Деканат")
-            {
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleDeanRoom(new DeanRoomViewModel())));
-                return;
-            }
-            if (!ExistsTabItem && contentButton.ToString() == "Учебный отдел")
-            {
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTrainingDivision(new TrainingDivisionViewModel())));
-                return;
-            }
-            if (!ExistsTabItem && contentButton.ToString() == "Преподаватель")
-            {
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTeacher(new TeacherViewModel())));
-                return;
-            }
+            //if (!ExistsTabItem && contentButton.ToString() == "Ректор")
+            //{
+            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleRector(new RectorViewModel())));
+            //    return;
+            //}
+            //if (!ExistsTabItem && contentButton.ToString() == "Деканат")
+            //{
+            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleDeanRoom(new DeanRoomViewModel())));
+            //    return;
+            //}
+            //if (!ExistsTabItem && contentButton.ToString() == "Учебный отдел")
+            //{
+            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTrainingDivision(new TrainingDivisionViewModel())));
+            //    return;
+            //}
+            //if (!ExistsTabItem && contentButton.ToString() == "Преподаватель")
+            //{
+            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTeacher(new TeacherViewModel())));
+            //    return;
+            //}
             if (!ExistsTabItem && contentButton.ToString() == "Приёмная кампания")
             {
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleEnrollee(new EnrolleeViewModel())));
+                //Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleEnrollee(new EnrolleeViewModel())));
+                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new AdmissionCampaign()));
                 return;
             }
-            if (!ExistsTabItem && contentButton.ToString() == "Администрирование")
-            {
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleAdministration(new AdministrationViewModel())));
-                return;
-            }
+            //if (!ExistsTabItem && contentButton.ToString() == "Администрирование")
+            //{
+            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleAdministration(new AdministrationViewModel())));
+            //    return;
+            //}
         }
         void NewTabItem(object contentButton)
         {
