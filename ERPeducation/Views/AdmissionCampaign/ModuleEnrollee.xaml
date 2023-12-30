@@ -14,7 +14,7 @@
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Margin" Value="-1,0,1,-1"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="IsSelected" Value="True"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -25,10 +25,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkGray"/>
+                                <Setter Property="Background" Value="LightGray"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="DarkGray"/>
+                                <Setter Property="Background" Value="LightGray"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -39,10 +39,18 @@
 
     <Grid Background="White" Margin="0">
         <TabControl ItemsSource="{Binding Data.TabItem}" ItemContainerStyle="{StaticResource MyStyleTabItem}"  
-                    TabStripPlacement="Left" Margin="5,0,5,2" BorderBrush="LightGray">
+                    TabStripPlacement="Left" Margin="10,10,0,2" BorderThickness="0" Padding="1">
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <ContentPresenter Content="{Binding ContentTabEnrollee}"/>
+                    
+                    <Grid Grid.Column="1" Background="White" Margin="20,0,20,20">
+                        <Grid.Effect>
+                            <DropShadowEffect ShadowDepth="1" Color="Black" BlurRadius="20" Opacity="0.4"/>
+                        </Grid.Effect>
+
+                        <ContentPresenter Content="{Binding ContentTabEnrollee}"/>
+                    </Grid>
+                    
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>

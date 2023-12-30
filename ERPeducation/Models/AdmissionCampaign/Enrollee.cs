@@ -7,6 +7,12 @@
         public string MiddleName { get; set; }
         public string FullName { get; set; }
 
-        public Enrollee(string surName, string name, string middleName) => FullName = $"{surName}\t{name}\t{middleName}";
+        public Enrollee(string surName, string name, string middleName)
+        {
+            SurName = surName;
+            Name = name;
+            MiddleName = middleName;
+            FullName = $"{surName} {name} {middleName}";
+        }
     }
 }

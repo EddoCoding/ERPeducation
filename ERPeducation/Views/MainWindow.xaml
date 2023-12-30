@@ -198,7 +198,7 @@
                    HorizontalAlignment="Right" FontSize="14"/>
             <!-- ФИО пользователя -->
 
-            <Button Grid.Column="2" VerticalContentAlignment="Center" Style="{StaticResource StyleButtonClose}" Command="{Binding CommandWindowClose}"/> <!-- Кнопкка выхода -->
+            <Button Grid.Column="2" VerticalContentAlignment="Center" Style="{StaticResource StyleButtonClose}" Command="{Binding CloseCommand}"/> <!-- Кнопкка выхода -->
         </Grid>
 
         <Grid Grid.Row="1" Background="LightGray" VerticalAlignment="Stretch" Margin="5,0,0,0">

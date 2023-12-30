@@ -1,9 +1,7 @@
-﻿using ERPeducation.Common.Command;
-using ERPeducation.Interface;
+﻿using ERPeducation.Command;
 using ERPeducation.Models.AdmissionCampaign;
-using System;
+using ERPeducation.Views;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,6 +10,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
     public class AdmissionCampaignViewModel
     {
         #region Свойства
+        MainWindowViewModel mainWindowViewModel {  get; set; }
         public ObservableCollection<Enrollee> Enrollees { get; set; }
         Enrollee selectedEnrollee;
         public Enrollee SelectedEnrollee
@@ -21,12 +20,18 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         }
         #endregion
         #region Команды
+        public ICommand AddEnrolleeCommand { get; set; }
+        public ICommand WithdrawStatementCommand { get; set; }
+        public ICommand FilterCommand { get; set; }
         #endregion
 
-        public string[] q { get; set; } = { "1", "2", "3", "4", "5" }; //УБРАТЬ ПОТОМ
-
-        public AdmissionCampaignViewModel()
+        public AdmissionCampaignViewModel(MainWindowViewModel mainWindowViewModel)
         {
+            this.mainWindowViewModel = mainWindowViewModel;
+            AddEnrolleeCommand = new RelayCommand(() => mainWindowViewModel.Data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент", new ModuleEnrollee(new EnrolleeViewModel()))));
+            WithdrawStatementCommand = new RelayCommand(() => MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK));
+            FilterCommand = new RelayCommand(() => MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK));
+
             Enrollees = new ObservableCollection<Enrollee>()
             {
                 new Enrollee("Викторова1", "Виктория1", "Викторовна1"),

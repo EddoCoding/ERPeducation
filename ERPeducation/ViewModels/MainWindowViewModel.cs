@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Input;
 using ERPeducation.Interface;
 using ERPeducation.Views.AdmissionCampaign;
+using ERPeducation.Command;
 
 namespace ERPeducation.ViewModels
 {
@@ -52,11 +53,13 @@ namespace ERPeducation.ViewModels
         }
         #endregion
         #region Команды
+        public ICommand CloseCommand {  get; set; }
         public ICommand CommandBurger { get; private set; }
         public ICommand CommandAddTabItem { get; private set; }
         public ICommand CommandNewTabItem { get; private set; }
         public ICommand CommandWindowClose {  get; private set; }
         #endregion
+
 
         public MainWindowViewModel(Action close, string role, string fullName)
         {
@@ -69,7 +72,6 @@ namespace ERPeducation.ViewModels
                 //МОДУЛЬ - ДОПОЛНИТЕЛЬНЫЙ(БУХГАЛТЕРИЯ, КАДРЫ, ФАКУЛЬТЕТ) +ДОБАВИТЬ ПОТОМ!!!!!!
             };
 
-            Close = close;
             FullName = fullName;
             Role = role;
             switch (role)
@@ -107,7 +109,7 @@ namespace ERPeducation.ViewModels
             CommandBurger = new MyCommand(WidthStackPanel);
             CommandAddTabItem = new MyCommand(AddTabItem);
             CommandNewTabItem = new MyCommand(NewTabItem);
-            CommandWindowClose = new MyCommand(WindowClose);
+            CloseCommand = new RelayCommand(() => close());
         }
 
         #region Обработчики
@@ -142,7 +144,7 @@ namespace ERPeducation.ViewModels
             if (!ExistsTabItem && contentButton.ToString() == "Приёмная кампания")
             {
                 //Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleEnrollee(new EnrolleeViewModel())));
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new AdmissionCampaign()));
+                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new AdmissionCampaign(new AdmissionCampaignViewModel(this))));
                 return;
             }
             //if (!ExistsTabItem && contentButton.ToString() == "Администрирование")
@@ -155,32 +157,30 @@ namespace ERPeducation.ViewModels
         {
             switch (contentButton.ToString())
             {
-                case "Ректор":
-                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleRector(new RectorViewModel())));
-                    break;
-                case "Деканат":
-                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleDeanRoom(new DeanRoomViewModel())));
-                    break;
-                case "Учебный отдел":
-                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTrainingDivision(new TrainingDivisionViewModel())));
-                    break;
-                case "Преподаватель":
-                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTeacher(new TeacherViewModel())));
-                    break;
+                //case "Ректор":
+                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleRector(new RectorViewModel())));
+                //    break;
+                //case "Деканат":
+                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleDeanRoom(new DeanRoomViewModel())));
+                //    break;
+                //case "Учебный отдел":
+                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTrainingDivision(new TrainingDivisionViewModel())));
+                //    break;
+                //case "Преподаватель":
+                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTeacher(new TeacherViewModel())));
+                //    break;
                 case "Приёмная кампания":
-                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleEnrollee(new EnrolleeViewModel())));
+                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new AdmissionCampaign(new AdmissionCampaignViewModel(this))));
                     break;
-                case "Администрирование":
-                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleAdministration(new AdministrationViewModel())));
-                    break;
+                //case "Администрирование":
+                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleAdministration(new AdministrationViewModel())));
+                //    break;
             }
             
         }
-        void WindowClose(object contentButton) => Close();
         #endregion
         #region Методы
         void CloseTab(TabItemMainWindowViewModel tab) => Data.TabItem.Remove(tab);
-        public Action Close { get; set; }
         #endregion
     }
 }
