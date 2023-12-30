@@ -10,6 +10,7 @@
   <ItemGroup>
     <None Remove="Common\Image\administration.png" />
     <None Remove="Common\Image\burger.png" />
+    <None Remove="Common\Image\Calendar.png" />
     <None Remove="Common\Image\deanRoom.png" />
     <None Remove="Common\Image\enrollee.png" />
     <None Remove="Common\Image\profile.png" />
@@ -23,6 +24,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\burger.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\calendar.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\deanRoom.png">
