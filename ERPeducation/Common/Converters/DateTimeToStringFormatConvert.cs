@@ -14,8 +14,14 @@ namespace ERPeducation.Common.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string stringValue && string.IsNullOrEmpty(stringValue)) return DateTime.MinValue;
-            return value;
+            try 
+            {
+                return DateTime.ParseExact((string)value, "dd.MM.yyyy", CultureInfo.InvariantCulture); 
+            }
+            catch 
+            {
+                return DateTime.MinValue;
+            }
         }
     }
 }

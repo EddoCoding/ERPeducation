@@ -1,28 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ERPeducation.Views.ModuleEnrolle
 {
-    /// <summary>
-    /// Логика взаимодействия для EnrollePersonalInformationView.xaml
-    /// </summary>
     public partial class EnrollePersonalInformationView : UserControl
     {
-        public EnrollePersonalInformationView()
+        public EnrollePersonalInformationView(object viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

@@ -28,9 +28,17 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public AdmissionCampaignViewModel(MainWindowViewModel mainWindowViewModel)
         {
             this.mainWindowViewModel = mainWindowViewModel;
-            AddEnrolleeCommand = new RelayCommand(() => mainWindowViewModel.Data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент", new ModuleEnrollee(new EnrolleeViewModel()))));
+
+
+
+
+            AddEnrolleeCommand = new RelayCommand(() => mainWindowViewModel.Data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент", 
+                new ModuleEnrollee(new EnrolleeViewModel()))));
             WithdrawStatementCommand = new RelayCommand(() => MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK));
             FilterCommand = new RelayCommand(() => MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK));
+
+
+
 
             Enrollees = new ObservableCollection<Enrollee>()
             {

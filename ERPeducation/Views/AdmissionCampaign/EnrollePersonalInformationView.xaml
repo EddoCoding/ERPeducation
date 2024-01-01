@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:ERPeducation.Views.ModuleEnrolle"
              xmlns:vm="clr-namespace:ERPeducation.ViewModels.Modules.AdmissionCampaign"
              xmlns:Convert="clr-namespace:ERPeducation.Common.Converters"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+    
     <UserControl.Resources>
         <Convert:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
 
@@ -21,7 +21,8 @@
                 <Setter.Value>
                     <ControlTemplate>
                         <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Margin="100,0,50,0">
-                            <TextBox BorderThickness="0" Padding="3" FontSize="14" SelectionBrush="DarkGray"/>
+                            <TextBox BorderThickness="0" Padding="3" FontSize="14" SelectionBrush="DarkGray" 
+                             Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -104,7 +105,7 @@
             <Setter Property="Placement" Value="Right"/>
             <Setter Property="StaysOpen" Value="False"/>
             <Setter Property="AllowsTransparency" Value="True"/>
-            <Setter Property="Height" Value="200"/>
+            <Setter Property="Height" Value="199"/>
             <Setter Property="Width" Value="198"/>
         </Style>
         <Style x:Key="MyStyleCalendarButton" TargetType="CalendarButton">
@@ -314,7 +315,7 @@
                             <Rectangle x:Name="HighlightBackground" Fill="Gray" Opacity="0" RadiusX="1" RadiusY="1"/>
                             <ContentPresenter x:Name="NormalText" TextElement.Foreground="Black" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="5,1,5,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             <Path x:Name="Blackout" Data="M8.1772461,11.029181 L10.433105,11.029181 L11.700684,12.801641 L12.973633,11.029181 L15.191895,11.029181 L12.844727,13.999395 L15.21875,17.060919 L12.962891,17.060919 L11.673828,15.256231 L10.352539,17.060919 L8.1396484,17.060919 L10.519043,14.042364 z" 
-                          Fill="#FF000000" HorizontalAlignment="Stretch" Margin="8" Opacity="0" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Stretch"/>
+                            Fill="#FF000000" HorizontalAlignment="Stretch" Margin="8" Opacity="0" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Stretch"/>
                             <Rectangle x:Name="DayButtonFocusVisual" IsHitTestVisible="false" RadiusX="1" RadiusY="1" Stroke="Black" Visibility="Collapsed"/>
                         </Grid>
                     </ControlTemplate>
@@ -347,8 +348,8 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="10">
+                             BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0">
+                                <Border BorderBrush="Gray" BorderThickness="0">
                                     <Grid>
                                         <Grid.Resources>
                                             <ControlTemplate x:Key="PreviousButtonTemplate" TargetType="{x:Type Button}">
@@ -420,6 +421,7 @@
                                                 </Grid>
                                             </ControlTemplate>
                                         </Grid.Resources>
+
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
@@ -495,7 +497,6 @@
         </Style>
         <Style x:Key="MyStyleCalendar" TargetType="Calendar">
             <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Calendar}">
@@ -519,9 +520,20 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1">
+                            <Border Grid.Column="0">
                                 <TextBox Padding="5" FontSize="14" BorderThickness="0" SelectionBrush="DarkGray" Text="{Binding DateOfBirth, 
                                     StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="BorderBrush" Value="Gray"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
                             </Border>
                             <Button Grid.Column="1" Style="{StaticResource StyleForImageCalendar}" Command="{Binding OpenPopupCommand}"/>
                             <Popup Grid.Column="2" Style="{StaticResource MyStylePopup}" IsOpen="{Binding OpenPopup}">
@@ -529,7 +541,11 @@
                                     <Calendar Style="{StaticResource MyStyleCalendar}"
                                               CalendarDayButtonStyle="{StaticResource MyStyleCalendarDayButton}" 
                                               CalendarButtonStyle="{StaticResource MyStyleCalendarButton}"
-                                              SelectedDate="{Binding DateOfBirth}"/>
+                                              SelectedDate="{Binding DateOfBirth}">
+                                        <Calendar.Effect>
+                                            <DropShadowEffect ShadowDepth="1" Color="Black" BlurRadius="10" Opacity="0.7"/>
+                                        </Calendar.Effect>
+                                    </Calendar>
                                 </Grid>
                             </Popup>
                         </Grid>
@@ -537,69 +553,219 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+        <Style x:Key="MyStyleButton" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleListViewItem" TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Grid Style="{StaticResource MyStyleGrid}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding SurName}" Style="{StaticResource MyStyleTextBlock}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource MyStyleTextBlock}"/>
+                            <TextBlock Grid.Column="2" Text="{Binding MiddleName}" Style="{StaticResource MyStyleTextBlock}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
-    <UserControl.DataContext>
-        <vm:EnrollePersonalInformationViewModel/>
-    </UserControl.DataContext>
-    
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        
-        <Label Grid.Row="0" Content="Личная информация" Margin="15,10,0,0" Padding="0" FontSize="18"/>
-
-        <Grid Grid.Row="1" Margin="10,20,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="400"/>
-            </Grid.ColumnDefinitions>
+        <Grid Background="White">
             <Grid.RowDefinitions>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="27"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="27"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Фамилия" Style="{StaticResource MyStyleLabel}"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource MyStyleTextBox}"/> <!--СДЕЛАТЬ БИНДИНГ НА ФАМИЛИЮ-->
+            <Label Grid.Row="0" Content="Личная информация" Margin="15,10,0,0" Padding="0" FontSize="18"/>
 
-            <Label Grid.Row="2" Grid.Column="0" Content="Имя" Style="{StaticResource MyStyleLabel}"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource MyStyleTextBox}"/>
+            <Grid Grid.Row="1" Margin="10,40,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="27"/>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="27"/>
+                </Grid.RowDefinitions>
 
-            <Label Grid.Row="4" Grid.Column="0" Content="Отчество" Style="{StaticResource MyStyleLabel}"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource MyStyleTextBox}"/>
-            <!--СДЕЛАТЬ БИНДИНГ НА ОТЧЕСТВО-->
-        </Grid>
-        <!--СДЕЛАТЬ БИНДИНГ НА ИМЯ-->
+                <Label Grid.Row="0" Grid.Column="0" Content="Фамилия" Style="{StaticResource MyStyleLabel}"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SurName}" Style="{StaticResource MyStyleTextBox}"/>
 
-        <Grid Grid.Row="2" Margin="10,50,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="400"/>
-            </Grid.ColumnDefinitions>
+                <Label Grid.Row="2" Grid.Column="0" Content="Имя" Style="{StaticResource MyStyleLabel}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource MyStyleTextBox}"/>
 
-            <Label Grid.Column="0" Content="Пол" Style="{StaticResource MyStyleLabel}"/>
-            <ComboBox Grid.Column="1" Style="{StaticResource MyStyleComboBox}" ItemsSource="{Binding Gender}"
+                <Label Grid.Row="4" Grid.Column="0" Content="Отчество" Style="{StaticResource MyStyleLabel}"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding MiddleName}" Style="{StaticResource MyStyleTextBox}"/>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="10,40,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Пол" Style="{StaticResource MyStyleLabel}"/>
+                <ComboBox Grid.Column="1" Style="{StaticResource MyStyleComboBox}" ItemsSource="{Binding Gender}"
                       ItemContainerStyle="{StaticResource MyStyleComboBoxItem}" SelectedItem="{Binding ValueComboBox}"/>
-        </Grid>
+            </Grid>
 
-        <Grid Grid.Row="3" Margin="10,10,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="400"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="3" Margin="10,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Дата рождения" Style="{StaticResource MyStyleLabel}"/>
+                <DatePicker Grid.Column="1" Style="{StaticResource MyStyleDatePicker}" 
+                        SelectedDate="{Binding DateOfBirth}"/>
+            </Grid>
+
+            <Grid Grid.Row="4" Margin="10,40,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding RadioButtonСitizenship}"/>
+                    <Label Grid.Column="1" Content="Гражданство" Style="{StaticResource MyStyleLabel}" Margin="8,0,0,0"/>
+                    <TextBox Grid.Column="2" Text="{Binding Citizenship}" IsEnabled="{Binding RadioButtonСitizenship}">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Margin" Value="50,0,0,0"/>
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Width="253">
+                                                <TextBox BorderThickness="0" Padding="3" FontSize="14" SelectionBrush="Gray" Text="{Binding Citizenship}"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="DarkCyan"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Content="Действует с:" Style="{StaticResource MyStyleLabel}" Margin="20,0,0,0"/>
+                    <TextBox Grid.Column="1" IsEnabled="{Binding RadioButtonСitizenship}">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Margin" Value="10,0,0,0"/>
+                                <Setter Property="BorderBrush" Value="Gray"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Width="253">
+                                                <TextBox BorderThickness="0" FontSize="14" Padding="3" SelectionBrush="Gray" 
+                                                     Text="{Binding IsValidFrom, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" Value="DarkCyan"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding RadioButtonWithoutСitizenship}"/>
+                    <Label Grid.Column="1" Content="Без гражданства" Style="{StaticResource MyStyleLabel}" Margin="8,0,0,0"/>
+                </Grid>
+
+            </Grid>
+
+            <Label Grid.Row="5" Content="Документы" Margin="10,40,0,0" Style="{StaticResource MyStyleLabel}"/>
+
+            <Grid Grid.Row="6" Margin="10,10,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Content="+ Добавить" Margin="0,0,15,0" Style="{StaticResource MyStyleButton}"/>
+                    <Button Grid.Column="1" Content="- Удалить" Margin="0,0,15,0" Style="{StaticResource MyStyleButton}"/>
+                    <Button Grid.Column="2" Content="Изменить" Style="{StaticResource MyStyleButton}"/>
+                    <Button Grid.Column="3" Content="Обновить" HorizontalAlignment="Right" Style="{StaticResource MyStyleButton}"/>
+                </Grid>
+
+                <ListView Grid.Row="1" Margin="0,10,0,30" BorderThickness="1" BorderBrush="Gray"/>
+            </Grid>
+            <!--СДЕЛАТЬ ПРИВЯЗКИ КОМАНД И LISTVIEW-->
+
+            <Button Height="50" Width="50" Content="Нажми" Command="{Binding ForCheck}"/>
+
+        </Grid>
             
-            <Label Grid.Column="0" Content="Дата рождения" Style="{StaticResource MyStyleLabel}"/>
-            <DatePicker Grid.Column="1" Style="{StaticResource MyStyleDatePicker}" SelectedDate="{Binding DateOfBirth}"/>
-        </Grid>
-
-    </Grid>
 </UserControl>

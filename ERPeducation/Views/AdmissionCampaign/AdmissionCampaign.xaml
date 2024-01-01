@@ -12,6 +12,7 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="Gray"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -73,9 +74,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-
     
-
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
