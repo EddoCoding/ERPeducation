@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ERPeducation
 {
     /// <summary>
-    /// Логика взаимодействия для Calen.xaml
+    /// Логика взаимодействия для PassportView.xaml
     /// </summary>
-    public partial class Calen : UserControl
+    public partial class PassportView : UserControl
     {
-        public Calen()
+        public PassportView()
         {
             InitializeComponent();
         }

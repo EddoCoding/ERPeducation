@@ -1,20 +1,18 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.Windows;
 using ERPeducation.Interface;
+using ERPeducation.Models.AdmissionCampaign.Documents;
+using ERPeducation.Views;
+using ERPeducation.Views.ModuleEnrolle;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class EnrollePersonalInformationViewModel : INPC
     {
-        #region Визуальные свойства
-        //public Brush BackGround { get; set; } = new SolidColorBrush(Color.FromRgb(0,0,0));
-        //public float Opacity { get; set; } = 1.0f;
-        #endregion
-
-
         #region Свойства
         string surName;
         public string SurName
@@ -49,7 +47,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         public string[] Gender { get; set; } = { "Муж", "Жен" };
 
-
         string valueComboBox = string.Empty;
         public string ValueComboBox
         {
@@ -71,7 +68,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 IsValidFrom = dateOfBirth;
                 OnPropertyChanged(nameof(DateOfBirth));
             }
-        } //Свойство для хранения даты дня рождения
+        }
 
         private bool openPopup;
         public bool OpenPopup
@@ -82,7 +79,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 openPopup = value;
                 OnPropertyChanged(nameof(OpenPopup));
             }
-        } //Свойство для открывания/закрывания календаря
+        }
 
         string citizenship;
         public string Citizenship
@@ -105,11 +102,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 OnPropertyChanged(nameof(IsValidFrom));
             }
         }
-
-
-
-
-
 
         private bool radioButtonCitizenship = true;
         public bool RadioButtonСitizenship
@@ -148,15 +140,13 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 }
             }
         }
+
+        public ObservableCollection<DocsBase> Documents { get; set; } = new ObservableCollection<DocsBase>();
         #endregion
-
-
-
-
-
         #region Команды
         public ICommand OpenPopupCommand { get; set; }
         public ICommand ForCheck { get; set; }
+        public ICommand AddDocumentCommand { get; set; }
         #endregion
 
         public EnrollePersonalInformationViewModel()
@@ -167,10 +157,20 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 else OpenPopup = false;
             });
 
-            ForCheck = new RelayCommand(() => { MessageBox.Show($"Фамилия: {SurName} Имя: {Name} Отчество: {MiddleName}\n" +
+
+            AddDocumentCommand = new RelayCommand(() => 
+            {
+                
+            });
+
+            ForCheck = new RelayCommand(() => {
+                MessageBox.Show($"Фамилия: {SurName} Имя: {Name} Отчество: {MiddleName}\n" +
                                                                 $"Пол: {ValueComboBox}\n" +
                                                                 $"Дата рождения: {DateOfBirth.ToShortDateString()}\n" +
-                                                                $"Гражданство: {Citizenship} Действует с: {IsValidFrom.ToShortDateString()}"); });
+                                                                $"Гражданство: {Citizenship} Действует с: {IsValidFrom.ToShortDateString()}\n");
+            });
+
+
         }
     }
 }

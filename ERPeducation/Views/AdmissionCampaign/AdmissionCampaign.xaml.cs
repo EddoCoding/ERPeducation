@@ -6,10 +6,10 @@ namespace ERPeducation.Views.AdmissionCampaign
 {
     public partial class AdmissionCampaign : UserControl
     {
-        public AdmissionCampaign(AdmissionCampaignViewModel admissionCampaignViewModel)
+        public AdmissionCampaign(AdmissionCampaignViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = admissionCampaignViewModel;
+            DataContext = viewModel;
         }
     }
 }
