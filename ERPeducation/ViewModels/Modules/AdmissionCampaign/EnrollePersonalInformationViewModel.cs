@@ -2,8 +2,7 @@
 using ERPeducation.Common.Windows;
 using ERPeducation.Interface;
 using ERPeducation.Models.AdmissionCampaign.Documents;
-using ERPeducation.Views;
-using ERPeducation.Views.ModuleEnrolle;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -141,7 +140,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             }
         }
 
-        public ObservableCollection<DocsBase> Documents { get; set; } = new ObservableCollection<DocsBase>();
+        public ObservableCollection<DocumentBase> Documents { get; set; } = new ObservableCollection<DocumentBase>();
         #endregion
         #region Команды
         public ICommand OpenPopupCommand { get; set; }
@@ -157,18 +156,15 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 else OpenPopup = false;
             });
 
+            AddDocumentCommand = new RelayCommand(() => { new Documents(new DocumentsViewModel.DocumentsViewModel(this)).ShowDialog(); }); 
+            //Вызов окна добавления документов
 
-            AddDocumentCommand = new RelayCommand(() => 
-            {
-                
-            });
-
-            ForCheck = new RelayCommand(() => {
+            ForCheck = new RelayCommand(() => { 
                 MessageBox.Show($"Фамилия: {SurName} Имя: {Name} Отчество: {MiddleName}\n" +
-                                                                $"Пол: {ValueComboBox}\n" +
-                                                                $"Дата рождения: {DateOfBirth.ToShortDateString()}\n" +
-                                                                $"Гражданство: {Citizenship} Действует с: {IsValidFrom.ToShortDateString()}\n");
-            });
+                                $"Пол: {ValueComboBox}\n" +
+                                $"Дата рождения: {DateOfBirth.ToShortDateString()}\n" +
+                                $"Гражданство: {Citizenship} Действует с: {IsValidFrom.ToShortDateString()}\n");
+            }); //Для проверки привязок
 
 
         }
