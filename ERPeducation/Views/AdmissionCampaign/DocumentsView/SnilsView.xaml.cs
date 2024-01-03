@@ -4,9 +4,10 @@ namespace ERPeducation.Views.AdmissionCampaign.DocumentsView
 {
     public partial class SnilsView : UserControl
     {
-        public SnilsView()
+        public SnilsView(object viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

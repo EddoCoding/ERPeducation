@@ -1,6 +1,5 @@
 ﻿using ERPeducation.Interface;
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
@@ -8,7 +7,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
     public class DocumentsViewModel : INPC
     {
         #region Свойства
-        public string[] Docs { get; set; } = { "Паспорт", "СНИЛС", "ИНН", "Военный билет", "Иностранный паспорт" };
+        public string[] Docs { get; set; } = { "Паспорт", "СНИЛС", "ИНН", "Иностранный паспорт" };
 
         string valueComboBox = string.Empty;
         public string ValueComboBox
@@ -36,10 +35,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
         public EnrollePersonalInformationViewModel enrolleeViewModel { get; set; }
 
-        public DocumentsViewModel(EnrollePersonalInformationViewModel enrolleeViewModel)
-        {
-            this.enrolleeViewModel = enrolleeViewModel;
-        }
+        public DocumentsViewModel(EnrollePersonalInformationViewModel enrolleeViewModel) => this.enrolleeViewModel = enrolleeViewModel;
 
         void GetView()
         {
@@ -49,16 +45,13 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                     UserControl = new PassportView(new PassportViewModel(enrolleeViewModel));
                     break;
                 case "СНИЛС":
-                    UserControl = new SnilsView();
+                    UserControl = new SnilsView(new SnilsViewModel(enrolleeViewModel));
                     break;
                 case "ИНН":
-                    UserControl = new InnView();
-                    break;
-                case "Военный билет":
-                    UserControl = new MilitaryTicketView();
+                    UserControl = new InnView(new InnViewModel(enrolleeViewModel));
                     break;
                 case "Иностранный паспорт":
-                    UserControl = new ForeignPassportView();
+                    UserControl = new ForeignPassportView(new ForeignPassportViewModel(enrolleeViewModel));
                     break;
             }
         }

@@ -2,7 +2,6 @@
 using ERPeducation.Common.Windows;
 using ERPeducation.Interface;
 using ERPeducation.Models.AdmissionCampaign.Documents;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -140,14 +139,25 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             }
         }
 
-        public ObservableCollection<DocumentBase> Documents { get; set; } = new ObservableCollection<DocumentBase>();
+        public ObservableCollection<DocsBase> Documents { get; set; } = new ObservableCollection<DocsBase>();
+
+        DocsBase docsBase;
+        public DocsBase DocsBase
+        {
+            get => docsBase;
+            set
+            {
+                docsBase = value;
+                OnPropertyChanged(nameof(DocsBase));
+            }
+        }
         #endregion
         #region Команды
         public ICommand OpenPopupCommand { get; set; }
         public ICommand ForCheck { get; set; }
         public ICommand AddDocumentCommand { get; set; }
         #endregion
-
+        
         public EnrollePersonalInformationViewModel()
         {
             OpenPopupCommand = new RelayCommand(() =>
@@ -156,8 +166,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 else OpenPopup = false;
             });
 
-            AddDocumentCommand = new RelayCommand(() => { new Documents(new DocumentsViewModel.DocumentsViewModel(this)).ShowDialog(); }); 
-            //Вызов окна добавления документов
+            AddDocumentCommand = new RelayCommand(() => { new Documents(new DocumentsViewModel.DocumentsViewModel(this)).ShowDialog(); });
+            //Вызов окна добавления документа
 
             ForCheck = new RelayCommand(() => { 
                 MessageBox.Show($"Фамилия: {SurName} Имя: {Name} Отчество: {MiddleName}\n" +
@@ -166,6 +176,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                                 $"Гражданство: {Citizenship} Действует с: {IsValidFrom.ToShortDateString()}\n");
             }); //Для проверки привязок
 
+            
 
         }
     }

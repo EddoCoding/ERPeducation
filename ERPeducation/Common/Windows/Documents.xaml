@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows"
-        mc:Ignorable="d" Title="Документы" Height="200" Width="400">
+        mc:Ignorable="d" Title="Документы" Height="610" Width="525">
     <Window.Resources>
         <Style x:Key="DocumentsComBoBox" TargetType="ComboBox">
             <Setter Property="Width" Value="190"/>
@@ -67,20 +67,20 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
+    <Grid Background="DarkCyan">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Height="40" VerticalAlignment="Top" Margin="10">
-            <Label Content="Тип документа" VerticalAlignment="Center" FontSize="15"/>
+            <Label Content="Тип документа" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Foreground="White"/>
 
             <ComboBox ItemsSource="{Binding Docs}" Style="{StaticResource DocumentsComBoBox}" ItemContainerStyle="{StaticResource DocumentComboBoxItem}" 
                       SelectedItem="{Binding ValueComboBox}"/>
         </StackPanel>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Background="White">
             <ContentControl Content="{Binding UserControl}"/>
         </Grid>
 

@@ -762,7 +762,16 @@
                     <Button Grid.Column="3" Content="Обновить" HorizontalAlignment="Right" Style="{StaticResource MyStyleButton}"/>
                 </Grid>
 
-            <ListView Grid.Row="1" Margin="0,10,0,30" BorderThickness="1" BorderBrush="Gray" ItemsSource="{Binding Documents}"/>
+            <ListView Grid.Row="1" Margin="0,10,0,30" BorderThickness="1" BorderBrush="Gray" 
+                      ItemsSource="{Binding Documents}" SelectedItem="{Binding DocsBase}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Margin="10" Text="{Binding Title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             </Grid>
             <!--СДЕЛАТЬ ПРИВЯЗКИ КОМАНД И LISTVIEW-->
 

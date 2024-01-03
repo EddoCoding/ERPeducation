@@ -2,6 +2,7 @@
 {
     public class DocsBase
     {
-        public string TypeDocument { get; set; }
+        public string NameDocument { get; set; }
+        public string AdditionalInformation { get; set; }
     }
 }
