@@ -49,4 +49,8 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Services\" />
+  </ItemGroup>
+
 </Project>

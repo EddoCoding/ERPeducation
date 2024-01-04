@@ -1,21 +1,15 @@
-﻿using ERPeducation.Common;
+﻿using ERPeducation.Command;
+using ERPeducation.Common;
 using ERPeducation.Common.Command;
-using ERPeducation.Views;
+using ERPeducation.Interface;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
-using ERPeducation.ViewModels.Modules.Teacher;
-using ERPeducation.ViewModels.Modules.Administration;
-using ERPeducation.ViewModels.Modules.DeanRoom;
-using ERPeducation.ViewModels.Modules.Rector;
-using ERPeducation.ViewModels.Modules.TrainingDivision;
+using ERPeducation.Views.AdmissionCampaign;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using ERPeducation.Interface;
-using ERPeducation.Views.AdmissionCampaign;
-using ERPeducation.Command;
 
 namespace ERPeducation.ViewModels
 {

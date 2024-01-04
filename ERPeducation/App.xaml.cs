@@ -9,7 +9,8 @@ namespace ERPeducation
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            new MainWindow() { DataContext = new MainWindowViewModel(() => MainWindow.Close(), "Admin", "Администратор") }.Show(); //потом перенести в метод входа из окна логинапароля
+            new MainWindow() { DataContext = new MainWindowViewModel(() => MainWindow.Close(), "Admin", "Администратор") }.Show(); 
+            //потом перенести в метод входа из окна логинапароля
         }
     }
 }

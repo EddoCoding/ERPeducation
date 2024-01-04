@@ -1,6 +1,11 @@
-﻿using ERPeducation.Interface;
+﻿using ERPeducation.Command;
+using ERPeducation.Common.Windows;
+using ERPeducation.Interface;
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
+using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 {
@@ -31,11 +36,18 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 OnPropertyChanged(nameof(UserControl));
             }
         }
+        
+        public EnrollePersonalInformationViewModel enrolleeViewModel { get; set; }
+        #endregion
+        #region Команды
+        public ICommand CloseWindowCommand { get; set; }
         #endregion
 
-        public EnrollePersonalInformationViewModel enrolleeViewModel { get; set; }
-
-        public DocumentsViewModel(EnrollePersonalInformationViewModel enrolleeViewModel) => this.enrolleeViewModel = enrolleeViewModel;
+        public DocumentsViewModel(EnrollePersonalInformationViewModel enrolleeViewModel, Window window)
+        {
+            this.enrolleeViewModel = enrolleeViewModel;
+            CloseWindowCommand = new RelayCommand(() => { window.Close(); });
+        }
 
         void GetView()
         {

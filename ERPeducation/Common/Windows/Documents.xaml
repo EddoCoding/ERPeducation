@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows"
-        mc:Ignorable="d" Title="Документы" Height="610" Width="525">
+        mc:Ignorable="d" Title="Документы" Height="570" Width="518"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
-        <Style x:Key="DocumentsComBoBox" TargetType="ComboBox">
+        <Style x:Key="DocumentLabelStyle" TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Content" Value="Тип документа"/>
+        </Style>
+        <Style x:Key="DocumentComBoBoxStyle" TargetType="ComboBox">
             <Setter Property="Width" Value="190"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="15"/>
@@ -49,16 +57,35 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="DocumentComboBoxItem" TargetType="ComboBoxItem">
+        <Style x:Key="DocumentComboBoxItemStyle" TargetType="ComboBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBoxItem">
-                        <Border Background="White" BorderThickness="1">
+                        <Border Background="White" BorderThickness="1" Margin="-1">
                             <TextBlock Text="{Binding}" Margin="5" FontSize="13"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="DocumentButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalContentAlignment" Value="Right"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" BorderThickness="1" BorderBrush="Black" Padding="0" Height="30" Margin="27,0,0,0">
+                            <Label x:Name="Label" Content="Отменить добавление" FontWeight="DemiBold" Foreground="Black"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
+                                <Setter TargetName="Label" Property="Foreground" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -73,14 +100,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Height="40" VerticalAlignment="Top" Margin="10">
-            <Label Content="Тип документа" VerticalAlignment="Center" FontSize="15" FontWeight="DemiBold" Foreground="White"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Height="40" VerticalAlignment="Top" Margin="10,10,0,10">
+            <Label Style="{StaticResource DocumentLabelStyle}"/>
 
-            <ComboBox ItemsSource="{Binding Docs}" Style="{StaticResource DocumentsComBoBox}" ItemContainerStyle="{StaticResource DocumentComboBoxItem}" 
-                      SelectedItem="{Binding ValueComboBox}"/>
+            <ComboBox ItemsSource="{Binding Docs}" Style="{StaticResource DocumentComBoBoxStyle}" ItemContainerStyle="{StaticResource DocumentComboBoxItemStyle}" 
+                      SelectedItem="{Binding ValueComboBox}" IsDropDownOpen="True"/>
+
+            <Button Style="{StaticResource DocumentButtonStyle}" Command="{Binding CloseWindowCommand}"/>
         </StackPanel>
 
-        <Grid Grid.Row="1" Background="White">
+        <Grid Grid.Row="1" Background="WhiteSmoke">
             <ContentControl Content="{Binding UserControl}"/>
         </Grid>
 

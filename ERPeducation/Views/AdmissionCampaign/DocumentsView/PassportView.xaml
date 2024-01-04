@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.DocumentsView"
-             mc:Ignorable="d"  d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="LabelStyle" TargetType="Label">
             <Setter Property="FontSize" Value="14"/>
@@ -60,7 +60,7 @@
                             <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
                                    Focusable="True" PopupAnimation="Slide">
                                 <Border x:Name="DropDown" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
-                                        SnapsToDevicePixels="True" BorderThickness="0">
+                                        SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="Gray">
                                     <ScrollViewer SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
                                     </ScrollViewer>
@@ -75,7 +75,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBoxItem">
-                        <Border Background="White" BorderThickness="1">
+                        <Border Background="White" BorderThickness="1" Margin="-1">
                             <TextBlock Text="{Binding}" Margin="5" FontSize="13"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -103,6 +103,7 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Border" Property="Background" Value="DarkCyan"/>
                                 <Setter TargetName="Label" Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="DarkCyan"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -110,7 +111,8 @@
             </Setter>
         </Style>  
     </UserControl.Resources>
-    <StackPanel Background="GhostWhite">
+    
+    <StackPanel>
 
         <Label Style="{StaticResource LabelStyle}" Content="Данные паспорта" FontWeight="DemiBold"/>
 

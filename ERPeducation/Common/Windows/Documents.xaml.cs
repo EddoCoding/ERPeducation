@@ -4,10 +4,9 @@ namespace ERPeducation.Common.Windows
 {
     public partial class Documents : Window
     {
-        public Documents(object viewModel)
+        public Documents()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
     }
 }

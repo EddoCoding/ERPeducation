@@ -166,7 +166,12 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 else OpenPopup = false;
             });
 
-            AddDocumentCommand = new RelayCommand(() => { new Documents(new DocumentsViewModel.DocumentsViewModel(this)).ShowDialog(); });
+            AddDocumentCommand = new RelayCommand(() => 
+            {
+                Documents documents = new Documents();
+                documents.DataContext = new DocumentsViewModel.DocumentsViewModel(this, documents);
+                documents.ShowDialog();
+            });
             //Вызов окна добавления документа
 
             ForCheck = new RelayCommand(() => { 

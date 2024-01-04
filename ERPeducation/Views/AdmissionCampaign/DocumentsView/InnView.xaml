@@ -6,7 +6,86 @@
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.DocumentsView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Red">
-            
+    <UserControl.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="10,5,0,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Height="30" VerticalAlignment="Bottom">
+                            <TextBox BorderThickness="0" Padding="4" FontSize="14" SelectionBrush="Gray"
+                         Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Margin" Value="14,0,0,13"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="White" Width="140">
+                            <Label x:Name="Label" Content="Добавить документ" FontSize="13" HorizontalAlignment="Center" FontWeight="DemiBold"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="DarkCyan"/>
+                                <Setter TargetName="Label" Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Style="{StaticResource LabelStyle}" Content="Данные ИНН" 
+               FontWeight="DemiBold" VerticalAlignment="Top"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+            <Label Content="Дата присвоения" Style="{StaticResource LabelStyle}"/>
+            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="82"/>
+
+            <Label Content="Номер" Style="{StaticResource LabelStyle}" Margin="109,0,0,0"/>
+            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="106"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
+            <Label Content="Орган" Style="{StaticResource LabelStyle}"/>
+            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="82,0,0,0" Width="360"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
+            <Label Content="Серия и номер" Style="{StaticResource LabelStyle}"/>
+            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="24,0,0,0" Width="100"/>
+        </StackPanel>
+
+        <Button Grid.Row="4" Style="{StaticResource ButtonStyle}" Command="{Binding command}"/>
     </Grid>
 </UserControl>
