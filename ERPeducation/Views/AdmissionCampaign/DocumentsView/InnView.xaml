@@ -70,22 +70,22 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
             <Label Content="Дата присвоения" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="82"/>
+            <TextBox Text="{Binding DateOfAssignment}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="82"/>
 
             <Label Content="Номер" Style="{StaticResource LabelStyle}" Margin="109,0,0,0"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="106"/>
+            <TextBox Text="{Binding NumberINN}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="106"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Орган" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="82,0,0,0" Width="360"/>
+            <TextBox Text="{Binding Organization}" Style="{StaticResource TextBoxStyle}" Margin="82,0,0,0" Width="360"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Серия и номер" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="24,0,0,0" Width="100"/>
+            <TextBox Text="{Binding SeriesNumber}" Style="{StaticResource TextBoxStyle}" Margin="24,0,0,0" Width="100"/>
         </StackPanel>
 
-        <Button Grid.Row="4" Style="{StaticResource ButtonStyle}" Command="{Binding command}"/>
+        <Button Grid.Row="4" Style="{StaticResource ButtonStyle}" Command="{Binding AddInnCommand}"/>
     </Grid>
 </UserControl>

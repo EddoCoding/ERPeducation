@@ -38,7 +38,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
-                            <ToggleButton x:Name="togglebutton" Content="{Binding .}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                            <ToggleButton x:Name="togglebutton" Content="{Binding ValueComboBox}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
                                   RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="ToggleButton">
@@ -136,23 +136,23 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Аббревиатура" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="27,0,0,0" Width="50"/>
+            <TextBox Text="{Binding Abbreviation}" Style="{StaticResource TextBoxStyle}" Margin="27,0,0,0" Width="50"/>
 
             <Label Content="Номер" Style="{StaticResource LabelStyle}" Margin="39,0,0,0"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="121"/>
+            <TextBox Text="{Binding Number}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="121"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Выдан кем" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="49,0,0,0" Width="364"/>
+            <TextBox Text="{Binding IssuedBy}" Style="{StaticResource TextBoxStyle}" Margin="49,0,0,0" Width="364"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Дата выдачи" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="36,0,0,0" Width="80"/>
+            <TextBox Text="{Binding DateOfIssue}" Style="{StaticResource TextBoxStyle}" Margin="36,0,0,0" Width="80"/>
 
             <Label Content="Действует до" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="80"/>
+            <TextBox Text="{Binding Validity}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="80"/>
         </StackPanel>
 
         <Label Grid.Row="4" Style="{StaticResource LabelStyle}" Content="Личные данные" 
@@ -160,40 +160,41 @@
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Фамилия" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="60,0,0,0" Width="275"/>
+            <TextBox Text="{Binding SurName}" Style="{StaticResource TextBoxStyle}" Margin="60,0,0,0" Width="275"/>
         </StackPanel>
-        
+
         <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Имя" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="91,0,0,0" Width="275"/>
+            <TextBox Text="{Binding Name}" Style="{StaticResource TextBoxStyle}" Margin="91,0,0,0" Width="275"/>
         </StackPanel>
-        
+
         <StackPanel Grid.Row="7" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Отчество" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="59,0,0,0" Width="275"/>
+            <TextBox Text="{Binding MiddleName}" Style="{StaticResource TextBoxStyle}" Margin="59,0,0,0" Width="275"/>
         </StackPanel>
 
         <StackPanel Grid.Row="8" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Пол" Style="{StaticResource LabelStyle}"/>
-            <ComboBox Style="{StaticResource ComboBoxStyle}" Margin="93,0,0,0"/>
+            <ComboBox ItemsSource="{Binding Gender}" SelectedItem="{Binding ValueComboBox}" Style="{StaticResource ComboBoxStyle}" 
+                      ItemContainerStyle="{StaticResource ComboBoxItemStyle}" Margin="93,0,0,0"/>
         </StackPanel>
 
         <StackPanel Grid.Row="9" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Дата рождения" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="20,0,0,0" Width="80"/>
+            <TextBox Text="{Binding DateOfBirth}" Style="{StaticResource TextBoxStyle}" Margin="20,0,0,0" Width="80"/>
         </StackPanel>
 
         <StackPanel Grid.Row="10" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Место рождения" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="364"/>
+            <TextBox Text="{Binding PlaceOfBirth}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="364"/>
         </StackPanel>
 
         <StackPanel Grid.Row="11" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Гражданство" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="36,0,0,0" Width="275"/>
+            <TextBox Text="{Binding Citizenship}" Style="{StaticResource TextBoxStyle}" Margin="36,0,0,0" Width="275"/>
         </StackPanel>
 
-        <Button Grid.Row="12" Style="{StaticResource ButtonStyle}" Command="{Binding command}"/>
-        
+        <Button Grid.Row="12" Style="{StaticResource ButtonStyle}" Command="{Binding AddForeignPassportCommand}"/>
+
     </Grid>
 </UserControl>

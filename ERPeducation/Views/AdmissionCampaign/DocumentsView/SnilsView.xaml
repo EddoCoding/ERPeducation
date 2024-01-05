@@ -69,15 +69,15 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
             <Label Content="Номер" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="81,0,0,0" Width="120"/>
+            <TextBox Text="{Binding Number}" Style="{StaticResource TextBoxStyle}" Margin="81,0,0,0" Width="120"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
             <Label Content="Дата регистрации" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="81"/>
+            <TextBox Text="{Binding RegistrationDate}" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0" Width="81"/>
         </StackPanel>
 
-        <Button Grid.Row="3" Style="{StaticResource ButtonStyle}" Command="{Binding command}"/>
+        <Button Grid.Row="3" Style="{StaticResource ButtonStyle}" Command="{Binding AddSnilsCommnad}"/>
             
     </Grid>
         

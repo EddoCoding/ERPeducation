@@ -104,7 +104,7 @@
             <Label Style="{StaticResource DocumentLabelStyle}"/>
 
             <ComboBox ItemsSource="{Binding Docs}" Style="{StaticResource DocumentComBoBoxStyle}" ItemContainerStyle="{StaticResource DocumentComboBoxItemStyle}" 
-                      SelectedItem="{Binding ValueComboBox}" IsDropDownOpen="True"/>
+                      SelectedItem="{Binding ValueComboBox}"/>
 
             <Button Style="{StaticResource DocumentButtonStyle}" Command="{Binding CloseWindowCommand}"/>
         </StackPanel>

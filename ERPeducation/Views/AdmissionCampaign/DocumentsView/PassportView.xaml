@@ -37,7 +37,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
-                            <ToggleButton x:Name="togglebutton" Content="{Binding .}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                            <ToggleButton x:Name="togglebutton" Content="{Binding ValueComboBox}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
                                           RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="ToggleButton">
@@ -118,20 +118,20 @@
 
         <StackPanel Orientation="Horizontal">
             <Label Content="Выдан кем" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Width="422" Margin="40,0,0,0"/>
+            <TextBox Text="{Binding IssuedBy}" Style="{StaticResource TextBoxStyle}" Width="422" Margin="40,0,0,0"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
             <Label Content="Дата выдачи" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Width="142" Margin="27,0,0,0"/>
+            <TextBox Text="{Binding DateOfIssue}" Style="{StaticResource TextBoxStyle}" Width="142" Margin="27,0,0,0"/>
             
             <Label Content="Код подразделения" Style="{StaticResource LabelStyle}" Margin="17,0,0,0"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Width="127"/>
+            <TextBox Text="{Binding DepartmentCode}" Style="{StaticResource TextBoxStyle}" Width="127"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
             <Label Content="Серия и номер" Style="{StaticResource LabelStyle}" />
-            <TextBox Text="{Binding ., StringFormat={}{0:##\ ##\ ######0}}" 
+            <TextBox Text="{Binding SeriesNumber, StringFormat={}{0:##\ ##\ ######0}}" 
                  Style="{StaticResource TextBoxStyle}" Margin="12,0,0,0" Width="159"/>
         </StackPanel>
 
@@ -141,24 +141,24 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Фамилия" Style="{StaticResource LabelStyle}"/>
-                    <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Width="200" Margin="51,0,0,0"/>
+                    <TextBox Text="{Binding SurName}" Style="{StaticResource TextBoxStyle}" Width="200" Margin="51,0,0,0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Имя" Style="{StaticResource LabelStyle}"/>
-                    <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Width="200" Margin="82,0,0,0"/>
+                    <TextBox Text="{Binding Name}" Style="{StaticResource TextBoxStyle}" Width="200" Margin="82,0,0,0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Отчество" Style="{StaticResource LabelStyle}"/>
-                    <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Width="200" Margin="50,0,0,0"/>
+                    <TextBox Text="{Binding MiddleName}" Style="{StaticResource TextBoxStyle}" Width="200" Margin="50,0,0,0"/>
                 </StackPanel>
             </StackPanel>
 
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Grid.Column="0" Grid.Row="8" Content="Дата рождения" Style="{StaticResource LabelStyle}" Margin="-40,0,0,0"/>
-                    <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Width="153"/>
+                    <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding DateOfBirth}" Style="{StaticResource TextBoxStyle}" Width="153"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Пол" Style="{StaticResource LabelStyle}" Margin="-40,0,0,0"/>
@@ -171,35 +171,35 @@
 
         <StackPanel Orientation="Horizontal">
             <Label Content="Место рождения" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Width="422"/>
+            <TextBox Text="{Binding PlaceOfBirth}" Style="{StaticResource TextBoxStyle}" Width="422"/>
         </StackPanel>
 
         <Label Style="{StaticResource LabelStyle}" Content="Место жительства" FontWeight="DemiBold" Margin="10,10,0,0"/>
         
         <StackPanel Orientation="Horizontal">
             <Label Content="Орган" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="70,0,0,0" Width="422"/>
+            <TextBox Text="{Binding Location}" Style="{StaticResource TextBoxStyle}" Margin="70,0,0,0" Width="422"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
             <Label Content="Город" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="70,0,0,0" Width="200"/>
+            <TextBox Text="{Binding City}" Style="{StaticResource TextBoxStyle}" Margin="70,0,0,0" Width="200"/>
 
             <Label Content="ул." Style="{StaticResource LabelStyle}" Margin="-40,0,0,0"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="-15,0,0,0" Width="237"/>
+            <TextBox Text="{Binding Street}" Style="{StaticResource TextBoxStyle}" Margin="-15,0,0,0" Width="237"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
             <Label Content="Дом" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="81,0,0,0" Width="96"/>
+            <TextBox Text="{Binding HouseNumber}" Style="{StaticResource TextBoxStyle}" Margin="81,0,0,0" Width="96"/>
 
             <Label Content="Корпус" Style="{StaticResource LabelStyle}" Margin="-5,0,0,0"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="19,0,0,0" Width="96"/>
+            <TextBox Text="{Binding Frame}" Style="{StaticResource TextBoxStyle}" Margin="19,0,0,0" Width="96"/>
 
             <Label Content="Квартира" Style="{StaticResource LabelStyle}" Margin="-6,0,0,0"/>
-            <TextBox Text="{Binding .}" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,0" Width="96"/>
+            <TextBox Text="{Binding ApartmentNumber}" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,0" Width="96"/>
         </StackPanel>
 
-        <Button Style="{StaticResource ButtonStyle}" Command="{Binding command}"/>
+        <Button Style="{StaticResource ButtonStyle}" Command="{Binding AddPassportCommand}"/>
     </StackPanel>
 </UserControl>

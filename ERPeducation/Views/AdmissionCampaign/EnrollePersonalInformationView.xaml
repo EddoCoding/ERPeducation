@@ -767,7 +767,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
-                            <TextBlock Margin="10" Text="{Binding Title}"/>
+                            <TextBlock Margin="10" Text="Паспорт"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
