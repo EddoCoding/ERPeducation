@@ -1,6 +1,5 @@
 ﻿using ERPeducation.Command;
 using ERPeducation.Interface;
-using ERPeducation.Models.AdmissionCampaign.Documents;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -12,16 +11,80 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         //Данные иностранного паспорта
         #region Свойства
         public string Abbreviation { get; set; }
-        public int Number { get; set; }
+        public string Number { get; set; }
         public string IssuedBy { get; set; }
-        public DateTime DateOfIssue { get; set; }
-        public DateTime Validity { get; set; }
+
+        DateTime dateOfIssue;
+        public DateTime DateOfIssue
+        {
+            get => dateOfIssue;
+            set
+            {
+                dateOfIssue = value;
+                OnPropertyChanged(nameof(DateOfIssue));
+            }
+        }
+
+        private bool openPopupDateOfIssue;
+        public bool OpenPopupDateOfIssue
+        {
+            get => openPopupDateOfIssue;
+            set
+            {
+                openPopupDateOfIssue = value;
+                OnPropertyChanged(nameof(OpenPopupDateOfIssue));
+            }
+        }
+
+        DateTime validity;
+        public DateTime Validity
+        {
+            get => validity;
+            set
+            {
+                validity = value;
+                OnPropertyChanged(nameof(Validity));
+            }
+        }
+
+        private bool openPopupValidity;
+        public bool OpenPopupValidity
+        {
+            get => openPopupValidity;
+            set
+            {
+                openPopupValidity = value;
+                OnPropertyChanged(nameof(OpenPopupValidity));
+            }
+        }
 
         //Личный данные
         public string SurName { get; set; }
         public string Name { get; set; }
         public string MiddleName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+
+        DateTime dateOfBirth;
+        public DateTime DateOfBirth
+        {
+            get => dateOfBirth;
+            set
+            {
+                dateOfBirth = value;
+                OnPropertyChanged(nameof(DateOfBirth));
+            }
+        }
+
+        private bool openPopupForDateOfBirth;
+        public bool OpenPopupForDateOfBirth
+        {
+            get => openPopupForDateOfBirth;
+            set
+            {
+                openPopupForDateOfBirth = value;
+                OnPropertyChanged(nameof(OpenPopupForDateOfBirth));
+            }
+        }
+
         public string[] Gender { get; set; } = { "Муж", "Жен" };
         string valueComboBox = string.Empty;
         public string ValueComboBox
@@ -37,11 +100,30 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         public string Citizenship { get; set; }
         #endregion
         #region Команды
+        public ICommand OpenPopupForDateOfIssueCommand { get; set; }
+        public ICommand OpenPopupForValidityCommand { get; set; }
+        public ICommand OpenPopupForDateOfBirthCommand { get; set; }
         public ICommand AddForeignPassportCommand { get; set; }
         #endregion
 
         public ForeignPassportViewModel(EnrollePersonalInformationViewModel Main)
         {
+            OpenPopupForDateOfIssueCommand = new RelayCommand(() =>
+            {
+                if (OpenPopupDateOfIssue == false) OpenPopupDateOfIssue = true;
+                else OpenPopupDateOfIssue = false;
+            });
+            OpenPopupForDateOfBirthCommand = new RelayCommand(() =>
+            {
+                if (OpenPopupForDateOfBirth == false) OpenPopupForDateOfBirth = true;
+                else OpenPopupForDateOfBirth = false;
+            });
+            OpenPopupForValidityCommand = new RelayCommand(() =>
+            {
+                if (OpenPopupValidity == false) OpenPopupValidity = true;
+                else OpenPopupValidity = false;
+            });
+
             AddForeignPassportCommand = new RelayCommand(() =>
             {
                 MessageBox.Show($"Аббревиатура: {Abbreviation} Номер: {Number}\n" +
