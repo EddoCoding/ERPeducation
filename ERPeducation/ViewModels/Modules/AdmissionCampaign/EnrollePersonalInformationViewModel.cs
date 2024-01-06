@@ -4,7 +4,6 @@ using ERPeducation.Interface;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
@@ -173,16 +172,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 documents.ShowDialog();
             });
             //Вызов окна добавления документа
-
-            ForCheck = new RelayCommand(() => { 
-                MessageBox.Show($"Фамилия: {SurName} Имя: {Name} Отчество: {MiddleName}\n" +
-                                $"Пол: {ValueComboBox}\n" +
-                                $"Дата рождения: {DateOfBirth.ToShortDateString()}\n" +
-                                $"Гражданство: {Citizenship} Действует с: {IsValidFrom.ToShortDateString()}\n");
-            }); //Для проверки привязок
-
-            
-
         }
     }
 }

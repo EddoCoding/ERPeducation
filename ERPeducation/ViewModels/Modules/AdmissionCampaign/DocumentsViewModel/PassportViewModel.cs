@@ -11,9 +11,18 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         #region Свойства
         //Свойства данных паспорта
         public string IssuedBy { get; set; }
-        public DateTime DateOfIssue { get; set; }
-        public int DepartmentCode { get; set; }
-        public int SeriesNumber { get; set; }
+        DateTime dateOfIssue;
+        public DateTime DateOfIssue
+        {
+            get => dateOfIssue;
+            set
+            {
+                dateOfIssue = value;
+                OnPropertyChanged(nameof(DateOfIssue));
+            }
+        }
+        public string DepartmentCode { get; set; }
+        public string SeriesNumber { get; set; }
 
         //Свойства личных данных
         public string SurName { get; set; }
@@ -30,23 +39,67 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 OnPropertyChanged(nameof(ValueComboBox));
             }
         }
-        public DateTime DateOfBirth { get; set; }
+        DateTime dateOfBirth;
+        public DateTime DateOfBirth
+        {
+            get => dateOfBirth;
+            set
+            {
+                dateOfBirth = value;
+                OnPropertyChanged(nameof(DateOfBirth));
+            }
+        }
         public string PlaceOfBirth { get; set; }
 
         //Свойства места жительства
         public string Location { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
-        public int HouseNumber { get; set; }
-        public int Frame { get; set; }
-        public int ApartmentNumber { get; set; }
+        public string HouseNumber { get; set; }
+        public string Frame { get; set; }
+        public string ApartmentNumber { get; set; }
+
+        private bool openPopupDateOfIssue;
+        public bool OpenPopupDateOfIssue
+        {
+            get => openPopupDateOfIssue;
+            set
+            {
+                openPopupDateOfIssue = value;
+                OnPropertyChanged(nameof(OpenPopupDateOfIssue));
+            }
+        }
+
+        private bool openPopupDateOfBirth;
+        public bool OpenPopupDateOfBirth
+        {
+            get => openPopupDateOfBirth;
+            set
+            {
+                openPopupDateOfBirth = value;
+                OnPropertyChanged(nameof(OpenPopupDateOfBirth));
+            }
+        }
         #endregion
         #region Команды
+        public ICommand OpenPopupForDateOfIssueCommand { get; set; }
+        public ICommand OpenPopupForDateOfBirthCommand { get; set; }
         public ICommand AddPassportCommand { get; set; }
         #endregion
 
         public PassportViewModel(EnrollePersonalInformationViewModel Main) 
         {
+            OpenPopupForDateOfIssueCommand = new RelayCommand(() =>
+            {
+                if (OpenPopupDateOfIssue == false) OpenPopupDateOfIssue = true;
+                else OpenPopupDateOfIssue = false;
+            });
+            OpenPopupForDateOfBirthCommand = new RelayCommand(() =>
+            {
+                if (OpenPopupDateOfBirth == false) OpenPopupDateOfBirth = true;
+                else OpenPopupDateOfBirth = false;
+            });
+
             AddPassportCommand = new RelayCommand(() => 
             {
                 MessageBox.Show($"Выдан кем: {IssuedBy}\n" +

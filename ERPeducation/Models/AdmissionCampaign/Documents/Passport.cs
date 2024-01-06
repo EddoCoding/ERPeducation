@@ -7,8 +7,8 @@ namespace ERPeducation.Models.AdmissionCampaign.Documents
         //Данные паспорта
         public string IssuedBy { get; set; }
         public DateTime DateOfIssue { get; set; }
-        public int DepartmentCode { get; set; }
-        public int SeriesNumber { get; set; }
+        public string DepartmentCode { get; set; }
+        public string SeriesNumber { get; set; }
 
         //Личный данные
         public string SurName { get; set; }
@@ -22,8 +22,8 @@ namespace ERPeducation.Models.AdmissionCampaign.Documents
         public string Location { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
-        public int HouseNumber { get; set; }
-        public int Frame { get; set; }
-        public int ApartmentNumber { get; set; }
+        public string HouseNumber { get; set; }
+        public string Frame { get; set; }
+        public string ApartmentNumber { get; set; }
     }
 }

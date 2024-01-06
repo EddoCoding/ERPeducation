@@ -1,8 +1,9 @@
 ﻿<Application x:Class="ERPeducation.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ERPeducation">
+             xmlns:local="clr-namespace:ERPeducation"
+             xmlns:Converter="clr-namespace:ERPeducation.Common.Converters">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>
