@@ -59,9 +59,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="White">
-                            <TextBox BorderThickness="0" Padding="4" FontSize="14" SelectionBrush="Gray"
+                            <TextBox BorderThickness="0" FontSize="14" SelectionBrush="Gray"
                                      Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}" 
-                                     MaxLength="7" HorizontalContentAlignment="Center" VerticalAlignment="Center"/>
+                                     MaxLength="7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
