@@ -5,10 +5,9 @@ namespace ERPeducation.Views.ModuleEnrolle
 {
     public partial class EnrollePersonalInformationView : UserControl
     {
-        public EnrollePersonalInformationView(object viewModel)
+        public EnrollePersonalInformationView()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
     }
 }

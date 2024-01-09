@@ -1,18 +1,18 @@
 ﻿using ERPeducation.Common;
-using ERPeducation.Views.ModuleEnrolle;
-using System;
+using ERPeducation.Common.Interface;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Controls;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class EnrolleeViewModel
     {   
-        public BaseDataForModules<TabItemEnrollee> Data { get; set; }
+        IDialogService _dialogService;
 
-        public EnrolleeViewModel()
+        public BaseDataForModules<TabItemEnrollee> Data { get; set; }
+        public EnrolleeViewModel(IDialogService dialogService)
         {
+            _dialogService = dialogService;
+
             Data = new BaseDataForModules<TabItemEnrollee>()
             {
                 DataForTabs = new string[] { "Личная информация", "Контактная информация", "Образование", "Направление подготовки",
@@ -20,20 +20,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 TabItem = new ObservableCollection<TabItemEnrollee>()
             };
 
-            UserControl[] userControls = new UserControl[]
-            {
-                new EnrollePersonalInformationView(new EnrollePersonalInformationViewModel())
-            };
-            //Массив Views с передачей в них ViewModels
-
-            //Data.TabItem.Add(new TabItemEnrollee(Data.DataForTabs[0], userControls[0]));
-            //Data.TabItem.Add(new TabItemEnrollee(Data.DataForTabs[1], userControls[0]));
-
             for (int i = 0; i < Data.DataForTabs.Length; i++)
             {
-                Data.TabItem.Add(new TabItemEnrollee(Data.DataForTabs[i], userControls[0]));
-            } 
-            //Перебор, добавление вкладок с наименованием из массива строк и контентом для вкладок из массива Views
+                Data.TabItem.Add(new TabItemEnrollee(Data.DataForTabs[i], _dialogService.GetUserControl(Data.DataForTabs[i])));
+            }
+            //Перебор, добавление вкладок с наименованием из массива строк и контентом для вкладок из Сервиса
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using ERPeducation.Command;
-using ERPeducation.Common.Windows;
+using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using System;
@@ -10,7 +10,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class EnrollePersonalInformationViewModel : INPC
     {
-        #region Свойства
+        #region Свойства контролов
         string surName;
         public string SurName
         {
@@ -156,22 +156,15 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ICommand ForCheck { get; set; }
         public ICommand AddDocumentCommand { get; set; }
         #endregion
-        
-        public EnrollePersonalInformationViewModel()
-        {
-            OpenPopupCommand = new RelayCommand(() =>
-            {
-                if (OpenPopup == false) OpenPopup = true;
-                else OpenPopup = false;
-            });
 
-            AddDocumentCommand = new RelayCommand(() => 
-            {
-                Documents documents = new Documents();
-                documents.DataContext = new DocumentsViewModel.DocumentsViewModel(this, documents);
-                documents.ShowDialog();
-            });
-            //Вызов окна добавления документа
+        IDialogService _dialogService;
+        public EnrollePersonalInformationViewModel(IDialogService dialogService)
+        {
+            _dialogService = dialogService;
+
+            AddDocumentCommand = new RelayCommand(OpenWindowDocuments);
         }
+
+        void OpenWindowDocuments() => _dialogService.OpenWindow(this);
     }
 }

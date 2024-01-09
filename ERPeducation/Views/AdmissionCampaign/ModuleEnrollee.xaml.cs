@@ -4,10 +4,9 @@ namespace ERPeducation.Views
 {
     public partial class ModuleEnrollee : UserControl
     {
-        public ModuleEnrollee(object viewModel)
+        public ModuleEnrollee()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
     }
 }

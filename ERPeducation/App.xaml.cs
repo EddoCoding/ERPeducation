@@ -1,4 +1,8 @@
-﻿using ERPeducation.ViewModels;
+﻿using ERPeducation.Common.Interface;
+using ERPeducation.Common.Services;
+using ERPeducation.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows;
 
 namespace ERPeducation
@@ -8,8 +12,8 @@ namespace ERPeducation
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-            new MainWindow() { DataContext = new MainWindowViewModel(() => MainWindow.Close(), "Admin", "Администратор") }.Show(); 
+            IDialogService dialogService = new DialogService();
+            dialogService.OpenMainWindow();
             //потом перенести в метод входа из окна логинапароля
         }
     }

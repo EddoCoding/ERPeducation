@@ -1,9 +1,7 @@
 ﻿using ERPeducation.Command;
-using ERPeducation.Common.Windows;
 using ERPeducation.Interface;
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
 using System;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -43,10 +41,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         public ICommand CloseWindowCommand { get; set; }
         #endregion
 
-        public DocumentsViewModel(EnrollePersonalInformationViewModel enrolleeViewModel, Window window)
+        public DocumentsViewModel(EnrollePersonalInformationViewModel enrolleeViewModel, Action closeWindow)
         {
             this.enrolleeViewModel = enrolleeViewModel;
-            CloseWindowCommand = new RelayCommand(() => { window.Close(); });
+            CloseWindowCommand = new RelayCommand(() => { closeWindow(); });
         }
 
         void GetView()

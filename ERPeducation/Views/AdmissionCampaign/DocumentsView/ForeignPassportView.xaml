@@ -648,7 +648,7 @@
             </Setter>
         </Style>
 
-        <!--Стиль для календаря "Действует до"-->
+        <!--Стиль для календаря "Дата рождения"-->
         <Style x:Key="MyStyleDatePickerForDateOfBirth" TargetType="DatePicker">
             <Setter Property="Template">
                 <Setter.Value>

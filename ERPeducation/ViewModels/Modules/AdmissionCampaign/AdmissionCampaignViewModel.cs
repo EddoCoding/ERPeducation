@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.Interface;
 using ERPeducation.Models.AdmissionCampaign;
 using ERPeducation.Views;
 using System.Collections.ObjectModel;
@@ -25,20 +26,16 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ICommand FilterCommand { get; set; }
         #endregion
 
-        public AdmissionCampaignViewModel(MainWindowViewModel mainWindowViewModel)
+        IDialogService _dialogService;
+        public AdmissionCampaignViewModel(IDialogService dialogService, MainWindowViewModel mainWindowViewModel)
         {
+            _dialogService = dialogService;
+
             this.mainWindowViewModel = mainWindowViewModel;
 
-
-
-
-            AddEnrolleeCommand = new RelayCommand(() => mainWindowViewModel.Data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент", 
-                new ModuleEnrollee(new EnrolleeViewModel()))));
+            AddEnrolleeCommand = new RelayCommand(AddEnrollee);
             WithdrawStatementCommand = new RelayCommand(() => MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK));
             FilterCommand = new RelayCommand(() => MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK));
-
-
-
 
             Enrollees = new ObservableCollection<Enrollee>()
             {
@@ -48,5 +45,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 new Enrollee("Викторова4", "Виктория4", "Викторовна4")
             };
         }
+
+        void AddEnrollee() =>
+            mainWindowViewModel.Data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент", 
+                _dialogService.GetUserControl("Абитуриент")));
+        
     }
 }

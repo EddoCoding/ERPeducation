@@ -775,8 +775,6 @@
             </Grid>
             <!--СДЕЛАТЬ ПРИВЯЗКИ КОМАНД И LISTVIEW-->
 
-            <Button Height="50" Width="50" Content="Нажми" Command="{Binding ForCheck}"/>
-
         </Grid>
             
 </UserControl>
