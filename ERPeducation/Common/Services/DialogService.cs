@@ -80,25 +80,25 @@ namespace ERPeducation.Common.Services
             return null;
         }
 
-        public UserControl GetUserControlForDocuments(string? documents)
+        public UserControl GetUserControlForDocuments(string? documents, EnrollePersonalInformationViewModel viewModel)
         {
             switch (documents)
             {
                 case "Паспорт":
                     PassportView passportView = new PassportView();
-                    passportView.DataContext = new PassportViewModel(new EnrollePersonalInformationViewModel(new DialogService()));
+                    passportView.DataContext = new PassportViewModel(viewModel, new GetPassportService());
                     return passportView;
                 case "СНИЛС":
                     SnilsView snilsView = new SnilsView();
-                    snilsView.DataContext = new SnilsViewModel(new EnrollePersonalInformationViewModel(new DialogService()));
+                    snilsView.DataContext = new SnilsViewModel(viewModel, new GetSnilsService());
                     return snilsView;
                 case "ИНН":
                     InnView innView = new InnView();
-                    innView.DataContext = new SnilsViewModel(new EnrollePersonalInformationViewModel(new DialogService()));
+                    innView.DataContext = new InnViewModel(viewModel, new GetInnService());
                     return innView;
                 case "Иностранный паспорт":
                     ForeignPassportView foreignPassportView = new ForeignPassportView();
-                    foreignPassportView.DataContext = new ForeignPassportViewModel(new EnrollePersonalInformationViewModel(new DialogService()));
+                    foreignPassportView.DataContext = new ForeignPassportViewModel(viewModel, new GetForeignPassportService());
                     return foreignPassportView;
             }
             

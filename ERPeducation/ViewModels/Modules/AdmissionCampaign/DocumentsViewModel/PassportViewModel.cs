@@ -1,7 +1,7 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
 using System;
-using System.Windows;
 using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
@@ -87,8 +87,12 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         public ICommand AddPassportCommand { get; set; }
         #endregion
 
-        public PassportViewModel(EnrollePersonalInformationViewModel Main) 
+        IConnectionModelService _connectModel;
+
+        public PassportViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel) 
         {
+            _connectModel = connectModel;
+
             OpenPopupForDateOfIssueCommand = new RelayCommand(() =>
             {
                 if (OpenPopupDateOfIssue == false) OpenPopupDateOfIssue = true;
@@ -102,22 +106,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
             AddPassportCommand = new RelayCommand(() => 
             {
-                MessageBox.Show($"Выдан кем: {IssuedBy}\n" +
-                    $"Дата выдачи: {DateOfIssue}\n" +
-                    $"Код подразделения: {DepartmentCode}\n" +
-                    $"Серия и номер: {SeriesNumber}\n\n" +
-                    $"Фамилия: {SurName}\n" +
-                    $"Имя: {Name}\n" +
-                    $"Отчество: {MiddleName}\n" +
-                    $"Дата рождения: {DateOfBirth}\n" +
-                    $"Пол: {ValueComboBox}\n" +
-                    $"Место рождения: {PlaceOfBirth}\n\n" +
-                    $"Орган выдавший паспорт: {Location}\n" +
-                    $"Город: {City}\n" +
-                    $"Ул.: {Street}\n" +
-                    $"Номер дом: {HouseNumber}\n" +
-                    $"Корпус: {Frame}\n" +
-                    $"Номер квартиры: {ApartmentNumber}", "Паспорт");
+                Main.Documents.Add(_connectModel.GetModelDocument(this));
             });
         }
     }

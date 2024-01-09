@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
 using System;
 using System.Windows;
@@ -41,8 +42,12 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         public ICommand AddInnCommand { get; set; }
         #endregion
 
-        public InnViewModel(EnrollePersonalInformationViewModel Main)
+        IConnectionModelService _connectModel;
+
+        public InnViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel)
         {
+            _connectModel = connectModel;
+
             OpenPopupForDateOfAssignment = new RelayCommand(() => 
             {
                 if (OpenPopupDateOfAssignment == false) OpenPopupDateOfAssignment = true;
@@ -51,10 +56,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
             AddInnCommand = new RelayCommand(() =>
             {
-                MessageBox.Show($"Дата присвоения: {DateOfAssignment}\n" +
-                    $"Номер ИНН: {NumberINN}\n" +
-                    $"Орган выдавший: {Organization}\n" +
-                    $"Серия и номер: {SeriesNumber}");
+                Main.Documents.Add(_connectModel.GetModelDocument(this));
             });
         }
     }

@@ -1,7 +1,7 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
 using System;
-using System.Windows;
 using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
@@ -39,8 +39,12 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         public ICommand AddSnilsCommand { get; set; }
         #endregion
 
-        public SnilsViewModel(EnrollePersonalInformationViewModel Main)
+        IConnectionModelService _connectModel;
+
+        public SnilsViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel)
         {
+            _connectModel = connectModel;
+
             OpenPopupForRegistrationDateCommand = new RelayCommand(() => 
             {
                 if (OpenPopupRegistrationDate == false) OpenPopupRegistrationDate = true;
@@ -49,8 +53,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
             AddSnilsCommand = new RelayCommand(() =>
             {
-                MessageBox.Show($"Номер снилса: {Number}\n" +
-                    $"Дата регистрации: {RegistrationDate}");
+                Main.Documents.Add(_connectModel.GetModelDocument(this));
             });
         }
     }

@@ -10,6 +10,6 @@ namespace ERPeducation.Common.Interface
         public UserControl GetUserControl(string? titleButton, object viewModel);
         public UserControl GetUserControlForAdmissionCampaign(string TitleTab);
         public UserControl GetUserControlForModuleEnrollee(string moduleEnrolle);
-        public UserControl GetUserControlForDocuments(string documents);
+        public UserControl GetUserControlForDocuments(string? documents, EnrollePersonalInformationViewModel viewModel);
     }
 }

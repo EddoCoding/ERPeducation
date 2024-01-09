@@ -6,7 +6,7 @@ namespace ERPeducation.Models.AdmissionCampaign.Documents
     {
         //Данные паспорта
         public string Abbreviation { get; set; }
-        public int Number { get; set; }
+        public string Number { get; set; }
         public string IssuedBy { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime Validity { get; set; }

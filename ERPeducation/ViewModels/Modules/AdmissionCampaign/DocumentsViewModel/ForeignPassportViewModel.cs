@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
 using System;
 using System.Windows;
@@ -106,8 +107,12 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         public ICommand AddForeignPassportCommand { get; set; }
         #endregion
 
-        public ForeignPassportViewModel(EnrollePersonalInformationViewModel Main)
+        IConnectionModelService _connectModel;
+
+        public ForeignPassportViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel)
         {
+            _connectModel = connectModel;
+
             OpenPopupForDateOfIssueCommand = new RelayCommand(() =>
             {
                 if (OpenPopupDateOfIssue == false) OpenPopupDateOfIssue = true;
@@ -126,17 +131,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
             AddForeignPassportCommand = new RelayCommand(() =>
             {
-                MessageBox.Show($"Аббревиатура: {Abbreviation} Номер: {Number}\n" +
-                    $"Выдан кем: {IssuedBy}\n" +
-                    $"Дата выдачи: {DateOfIssue}\n" +
-                    $"Действует до: {Validity}\n\n" +
-                    $"Фамилия {SurName}\n" +
-                    $"Имя: {Name}\n" +
-                    $"Отчество: {MiddleName}\n" +
-                    $"Дата рождения: {DateOfBirth}\n" +
-                    $"Пол: {ValueComboBox}\n" +
-                    $"Место рождения: {PlaceOfBirth}\n" +
-                    $"Гражданство: {Citizenship}");
+                Main.Documents.Add(_connectModel.GetModelDocument(this));
             });
         }
     }

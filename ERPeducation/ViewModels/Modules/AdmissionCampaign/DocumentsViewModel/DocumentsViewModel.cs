@@ -56,16 +56,16 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
             switch (ValueComboBox)
             {
                 case "Паспорт":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox);
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel);
                     break;
                 case "СНИЛС":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox);
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel);
                     break;
                 case "ИНН":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox);
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel);
                     break;
                 case "Иностранный паспорт":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox);
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel);
                     break;
             }
         }
