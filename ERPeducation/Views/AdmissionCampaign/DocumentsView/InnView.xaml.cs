@@ -4,10 +4,9 @@ namespace ERPeducation.Views.AdmissionCampaign.DocumentsView
 {
     public partial class InnView : UserControl
     {
-        public InnView(object viewModel)
+        public InnView()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
     }
 }

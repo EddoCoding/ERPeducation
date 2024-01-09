@@ -48,7 +48,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         void AddEnrollee() =>
             mainWindowViewModel.Data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент", 
-                _dialogService.GetUserControl("Абитуриент")));
+                _dialogService.GetUserControlForAdmissionCampaign("Абитуриент")));
         
     }
 }

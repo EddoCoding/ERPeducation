@@ -22,7 +22,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
             for (int i = 0; i < Data.DataForTabs.Length; i++)
             {
-                Data.TabItem.Add(new TabItemEnrollee(Data.DataForTabs[i], _dialogService.GetUserControl(Data.DataForTabs[i])));
+                Data.TabItem.Add(new TabItemEnrollee(Data.DataForTabs[i],
+                    _dialogService.GetUserControlForModuleEnrollee(Data.DataForTabs[i])));
             }
             //Перебор, добавление вкладок с наименованием из массива строк и контентом для вкладок из Сервиса
         }

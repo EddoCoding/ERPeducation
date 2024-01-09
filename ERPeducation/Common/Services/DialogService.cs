@@ -1,11 +1,11 @@
 ﻿using ERPeducation.Common.Interface;
-using ERPeducation.Common.Services;
 using ERPeducation.Common.Windows;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
 using ERPeducation.Views;
 using ERPeducation.Views.AdmissionCampaign;
+using ERPeducation.Views.AdmissionCampaign.DocumentsView;
 using ERPeducation.Views.ModuleEnrolle;
 using System.Windows.Controls;
 
@@ -23,7 +23,7 @@ namespace ERPeducation.Common.Services
         public void OpenWindow(EnrollePersonalInformationViewModel documents)
         {
             Documents windowDocuments = new();
-            windowDocuments.DataContext = new DocumentsViewModel(documents, windowDocuments.Close);
+            windowDocuments.DataContext = new DocumentsViewModel(this, documents, windowDocuments.Close);
             windowDocuments.Show();
         }
 
@@ -39,16 +39,21 @@ namespace ERPeducation.Common.Services
             return null;
         }
 
-        public UserControl GetUserControl(string line)
+        public UserControl GetUserControlForAdmissionCampaign(string TitleTab)
         {
-            if(line == "Абитуриент")
+            if(TitleTab == "Абитуриент")
             {
                 ModuleEnrollee moduleEnrollee = new ModuleEnrollee();
                 moduleEnrollee.DataContext = new EnrolleeViewModel(this);
                 return moduleEnrollee;
             }
 
-            switch (line)
+            return null;
+        }
+
+        public UserControl GetUserControlForModuleEnrollee(string moduleEnrolle)
+        {
+            switch (moduleEnrolle)
             {
                 case "Личная информация":
                     EnrollePersonalInformationView enrollePersonalInformationView = new EnrollePersonalInformationView();
@@ -74,7 +79,30 @@ namespace ERPeducation.Common.Services
 
             return null;
         }
+
+        public UserControl GetUserControlForDocuments(string? documents)
+        {
+            switch (documents)
+            {
+                case "Паспорт":
+                    PassportView passportView = new PassportView();
+                    passportView.DataContext = new PassportViewModel(new EnrollePersonalInformationViewModel(new DialogService()));
+                    return passportView;
+                case "СНИЛС":
+                    SnilsView snilsView = new SnilsView();
+                    snilsView.DataContext = new SnilsViewModel(new EnrollePersonalInformationViewModel(new DialogService()));
+                    return snilsView;
+                case "ИНН":
+                    InnView innView = new InnView();
+                    innView.DataContext = new SnilsViewModel(new EnrollePersonalInformationViewModel(new DialogService()));
+                    return innView;
+                case "Иностранный паспорт":
+                    ForeignPassportView foreignPassportView = new ForeignPassportView();
+                    foreignPassportView.DataContext = new ForeignPassportViewModel(new EnrollePersonalInformationViewModel(new DialogService()));
+                    return foreignPassportView;
+            }
+            
+            return null;
+        }
     }
 }
-//UserControl[] userControls = new UserControl[]
-//new EnrollePersonalInformationView(new EnrollePersonalInformationViewModel(new DialogService()))

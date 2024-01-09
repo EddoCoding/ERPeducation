@@ -4,10 +4,9 @@ namespace ERPeducation.Views.AdmissionCampaign.DocumentsView
 {
     public partial class ForeignPassportView : UserControl
     {
-        public ForeignPassportView(object viewModel)
+        public ForeignPassportView()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
     }
 }

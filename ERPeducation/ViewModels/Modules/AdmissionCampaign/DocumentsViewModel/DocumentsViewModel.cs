@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
 using System;
@@ -20,7 +21,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
             {
                 valueComboBox = value;
                 OnPropertyChanged(nameof(ValueComboBox));
-                GetView();
+                GetViewAndViewModel();
             }
         }
 
@@ -41,27 +42,30 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         public ICommand CloseWindowCommand { get; set; }
         #endregion
 
-        public DocumentsViewModel(EnrollePersonalInformationViewModel enrolleeViewModel, Action closeWindow)
+        IDialogService _dialogService;
+        public DocumentsViewModel(IDialogService dialogService, EnrollePersonalInformationViewModel enrolleeViewModel, Action closeWindow)
         {
+            _dialogService = dialogService;
+
             this.enrolleeViewModel = enrolleeViewModel;
             CloseWindowCommand = new RelayCommand(() => { closeWindow(); });
         }
 
-        void GetView()
+        void GetViewAndViewModel()
         {
             switch (ValueComboBox)
             {
                 case "Паспорт":
-                    UserControl = new PassportView(new PassportViewModel(enrolleeViewModel));
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox);
                     break;
                 case "СНИЛС":
-                    UserControl = new SnilsView(new SnilsViewModel(enrolleeViewModel));
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox);
                     break;
                 case "ИНН":
-                    UserControl = new InnView(new InnViewModel(enrolleeViewModel));
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox);
                     break;
                 case "Иностранный паспорт":
-                    UserControl = new ForeignPassportView(new ForeignPassportViewModel(enrolleeViewModel));
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox);
                     break;
             }
         }
