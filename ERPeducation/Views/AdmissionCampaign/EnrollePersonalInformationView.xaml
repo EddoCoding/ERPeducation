@@ -742,27 +742,27 @@
 
             <Grid Grid.Row="6" Margin="10,10,10,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="+ Добавить" Margin="0,0,15,0" Style="{StaticResource MyStyleButton}" 
-                        Command="{Binding AddDocumentCommand}"/>
-                    <Button Grid.Column="1" Content="- Удалить" Margin="0,0,15,0" Style="{StaticResource MyStyleButton}"/>
-                    <Button Grid.Column="2" Content="Изменить" Style="{StaticResource MyStyleButton}"/>
-                    <Button Grid.Column="3" Content="Обновить" HorizontalAlignment="Right" Style="{StaticResource MyStyleButton}"/>
+                    <Button Grid.Column="0" Content="+ Добавить" Margin="0,0,15,0" Style="{StaticResource MyStyleButton}" 
+                            Command="{Binding AddDocumentCommand}"/>
+                    <Button Grid.Column="1" Content="- Удалить" Margin="0,0,15,0" Style="{StaticResource MyStyleButton}"
+                                Command="{Binding DeleteDocumentCommand}"/>
+                    <Button Grid.Column="2" Content="Изменить" Style="{StaticResource MyStyleButton}"
+                                Command="{Binding EditDocumentCommand}"/>
                 </Grid>
 
                 <ListView Grid.Row="1" Margin="0,10,0,30" BorderThickness="1" BorderBrush="Gray" 
-                      ItemsSource="{Binding Documents}" SelectedItem="{Binding DocsBase}">
+                    ItemsSource="{Binding Documents}" SelectedItem="{Binding SelectedDocument}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -771,10 +771,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-                
-            </Grid>
-            <!--СДЕЛАТЬ ПРИВЯЗКИ КОМАНД И LISTVIEW-->
 
-        </Grid>
+            </Grid>
+
+    </Grid>
             
 </UserControl>

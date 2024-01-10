@@ -18,7 +18,7 @@ namespace ERPeducation.Common.Services
                 SeriesNumber = passportData.SeriesNumber,
 
                 SurName = passportData.SurName,
-                Name = passportData.SurName,
+                Name = passportData.Name,
                 MiddleName = passportData.MiddleName,
                 Gender = passportData.ValueComboBox,
                 DateOfBirth = passportData.DateOfBirth,

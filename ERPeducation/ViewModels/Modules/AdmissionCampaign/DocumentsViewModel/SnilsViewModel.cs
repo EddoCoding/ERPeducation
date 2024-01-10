@@ -33,6 +33,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 OnPropertyChanged(nameof(OpenPopupRegistrationDate));
             }
         }
+
+        public string TitleButton { get; set; } = "Добавить документ";
         #endregion
         #region Команды
         public ICommand OpenPopupForRegistrationDateCommand { get; set; }
@@ -41,7 +43,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
         IConnectionModelService _connectModel;
 
-        public SnilsViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel)
+        public SnilsViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel, Action closeWindow)
         {
             _connectModel = connectModel;
 
@@ -54,6 +56,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
             AddSnilsCommand = new RelayCommand(() =>
             {
                 Main.Documents.Add(_connectModel.GetModelDocument(this));
+                closeWindow();
             });
         }
     }

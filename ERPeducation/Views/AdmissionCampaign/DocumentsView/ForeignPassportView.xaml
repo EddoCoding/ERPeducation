@@ -121,8 +121,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                Background="White" Width="140">
-                            <Label x:Name="Label" Content="Добавить документ" FontSize="13" HorizontalAlignment="Center" FontWeight="DemiBold"/>
+                                Background="White" Width="140">
+                            <Label x:Name="Label" Content="{Binding TitleButton}" FontSize="13" HorizontalAlignment="Center" FontWeight="DemiBold"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">

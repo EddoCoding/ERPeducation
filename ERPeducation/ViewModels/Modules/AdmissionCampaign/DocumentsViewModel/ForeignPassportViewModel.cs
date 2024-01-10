@@ -2,7 +2,6 @@
 using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
 using System;
-using System.Windows;
 using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
@@ -87,6 +86,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         }
 
         public string[] Gender { get; set; } = { "Муж", "Жен" };
+
         string valueComboBox = string.Empty;
         public string ValueComboBox
         {
@@ -97,8 +97,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 OnPropertyChanged(nameof(ValueComboBox));
             }
         }
+
         public string PlaceOfBirth { get; set; }
         public string Citizenship { get; set; }
+
+        public string TitleButton { get; set; } = "Добавить документ";
         #endregion
         #region Команды
         public ICommand OpenPopupForDateOfIssueCommand { get; set; }
@@ -109,7 +112,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
         IConnectionModelService _connectModel;
 
-        public ForeignPassportViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel)
+        public ForeignPassportViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel, Action closeWindow)
         {
             _connectModel = connectModel;
 
@@ -132,6 +135,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
             AddForeignPassportCommand = new RelayCommand(() =>
             {
                 Main.Documents.Add(_connectModel.GetModelDocument(this));
+                closeWindow();
             });
         }
     }

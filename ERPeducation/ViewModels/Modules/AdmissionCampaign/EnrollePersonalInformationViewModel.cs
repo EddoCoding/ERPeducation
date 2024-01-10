@@ -4,7 +4,6 @@ using ERPeducation.Interface;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
@@ -22,6 +21,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 OnPropertyChanged(nameof(SurName));
             }
         }
+
         string name;
         public string Name
         {
@@ -32,6 +32,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 OnPropertyChanged(nameof(Name));
             }
         }
+
         string middleName;
         public string MiddleName
         {
@@ -141,21 +142,22 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         public ObservableCollection<DocsBase> Documents { get; set; } = new ObservableCollection<DocsBase>();
 
-        DocsBase docsBase;
-        public DocsBase DocsBase
+        DocsBase selectedDocument;
+        public DocsBase SelectedDocument
         {
-            get => docsBase;
+            get => selectedDocument;
             set
             {
-                docsBase = value;
-                OnPropertyChanged(nameof(DocsBase));
+                selectedDocument = value;
+                OnPropertyChanged(nameof(SelectedDocument));
             }
         }
         #endregion
         #region Команды
         public ICommand OpenPopupCommand { get; set; }
-        public ICommand ForCheck { get; set; }
         public ICommand AddDocumentCommand { get; set; }
+        public ICommand DeleteDocumentCommand { get; set; }
+        public ICommand EditDocumentCommand { get; set; }
         #endregion
 
         IDialogService _dialogService;
@@ -164,8 +166,12 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             _dialogService = dialogService;
 
             AddDocumentCommand = new RelayCommand(OpenWindowDocuments);
+            DeleteDocumentCommand = new RelayCommand(DeleteDocument);
+            EditDocumentCommand = new RelayCommand(EditDocument);
         }
 
         void OpenWindowDocuments() => _dialogService.OpenWindow(this);
+        void DeleteDocument() => Documents.Remove(SelectedDocument);
+        void EditDocument() => _dialogService.ShowUserControlDocumentsForEdit(SelectedDocument, this);
     }
 }

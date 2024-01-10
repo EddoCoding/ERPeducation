@@ -1,7 +1,6 @@
 ﻿using ERPeducation.Command;
 using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
-using ERPeducation.Views.AdmissionCampaign.DocumentsView;
 using System;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,6 +10,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
     public class DocumentsViewModel : INPC
     {
         #region Свойства
+        public string TypeDocument { get; set; } // Свойство применяется в окне изменения документа
         public string[] Docs { get; set; } = { "Паспорт", "СНИЛС", "ИНН", "Иностранный паспорт" };
 
         string valueComboBox = string.Empty;
@@ -35,8 +35,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 OnPropertyChanged(nameof(UserControl));
             }
         }
-        
+
         public EnrollePersonalInformationViewModel enrolleeViewModel { get; set; }
+
+        Action closeWindow;
         #endregion
         #region Команды
         public ICommand CloseWindowCommand { get; set; }
@@ -47,8 +49,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         {
             _dialogService = dialogService;
 
+            this.closeWindow = closeWindow;
             this.enrolleeViewModel = enrolleeViewModel;
-            CloseWindowCommand = new RelayCommand(() => { closeWindow(); });
+            CloseWindowCommand = new RelayCommand(CloseWindowDocuments);
         }
 
         void GetViewAndViewModel()
@@ -56,18 +59,20 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
             switch (ValueComboBox)
             {
                 case "Паспорт":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel);
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
                     break;
                 case "СНИЛС":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel);
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
                     break;
                 case "ИНН":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel);
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
                     break;
                 case "Иностранный паспорт":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel);
+                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
                     break;
             }
         }
+
+        void CloseWindowDocuments() => closeWindow();
     }
 }

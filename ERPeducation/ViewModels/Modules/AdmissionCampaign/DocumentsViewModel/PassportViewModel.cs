@@ -10,7 +10,17 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
     {
         #region Свойства
         //Свойства данных паспорта
-        public string IssuedBy { get; set; }
+        string issuedBy;
+        public string IssuedBy
+        {
+            get => issuedBy;
+            set
+            {
+                issuedBy = value;
+                OnPropertyChanged(nameof(IssuedBy));
+            }
+        }
+
         DateTime dateOfIssue;
         public DateTime DateOfIssue
         {
@@ -21,13 +31,63 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 OnPropertyChanged(nameof(DateOfIssue));
             }
         }
-        public string DepartmentCode { get; set; }
-        public string SeriesNumber { get; set; }
+
+        string departmentCode;
+        public string DepartmentCode
+        {
+            get => departmentCode;
+            set
+            {
+                departmentCode = value;
+                OnPropertyChanged(nameof(DepartmentCode));
+            }
+        }
+
+        string seriesNumber;
+        public string SeriesNumber
+        {
+            get => seriesNumber;
+            set
+            {
+                seriesNumber = value;
+                OnPropertyChanged(nameof(SeriesNumber));
+            }
+        }
 
         //Свойства личных данных
-        public string SurName { get; set; }
-        public string Name { get; set; }
-        public string MiddleName { get; set; }
+        string surName;
+        public string SurName
+        {
+            get => surName;
+            set
+            {
+                surName = value;
+                OnPropertyChanged(nameof(SurName));
+            }
+        }
+
+        string name;
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        string middleName;
+        public string MiddleName
+        {
+            get => middleName;
+            set
+            {
+                middleName = value;
+                OnPropertyChanged(nameof(MiddleName));
+            }
+        }
+
         public string[] Gender { get; set; } = { "Муж", "Жен" };
         string valueComboBox = string.Empty;
         public string ValueComboBox
@@ -39,6 +99,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 OnPropertyChanged(nameof(ValueComboBox));
             }
         }
+
         DateTime dateOfBirth;
         public DateTime DateOfBirth
         {
@@ -49,15 +110,84 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 OnPropertyChanged(nameof(DateOfBirth));
             }
         }
-        public string PlaceOfBirth { get; set; }
+
+        string placeOfBirth;
+        public string PlaceOfBirth
+        {
+            get => placeOfBirth;
+            set
+            {
+                placeOfBirth = value;
+                OnPropertyChanged(nameof(PlaceOfBirth));
+            }
+        }
 
         //Свойства места жительства
-        public string Location { get; set; }
-        public string City { get; set; }
-        public string Street { get; set; }
-        public string HouseNumber { get; set; }
-        public string Frame { get; set; }
-        public string ApartmentNumber { get; set; }
+        string location;
+        public string Location
+        {
+            get => location;
+            set
+            {
+                location = value;
+                OnPropertyChanged(nameof(Location));
+            }
+        }
+
+        string city;
+        public string City
+        {
+            get => city;
+            set
+            {
+                city = value;
+                OnPropertyChanged(nameof(City));
+            }
+        }
+
+        string street;
+        public string Street
+        {
+            get => street;
+            set
+            {
+                street = value;
+                OnPropertyChanged(nameof(Street));
+            }
+        }
+
+        string houseNumber;
+        public string HouseNumber
+        {
+            get => houseNumber;
+            set
+            {
+                houseNumber = value;
+                OnPropertyChanged(nameof(HouseNumber));
+            }
+        }
+
+        string frame;
+        public string Frame
+        {
+            get => frame;
+            set
+            {
+                frame = value;
+                OnPropertyChanged(nameof(Frame));
+            }
+        }
+
+        string apartmentNumber;
+        public string ApartmentNumber
+        {
+            get => apartmentNumber;
+            set
+            {
+                apartmentNumber = value;
+                OnPropertyChanged(nameof(ApartmentNumber));
+            }
+        }
 
         private bool openPopupDateOfIssue;
         public bool OpenPopupDateOfIssue
@@ -80,6 +210,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 OnPropertyChanged(nameof(OpenPopupDateOfBirth));
             }
         }
+
+        public string TitleButton { get; set; } = "Добавить документ";
         #endregion
         #region Команды
         public ICommand OpenPopupForDateOfIssueCommand { get; set; }
@@ -89,7 +221,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
         IConnectionModelService _connectModel;
 
-        public PassportViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel) 
+        public PassportViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel, Action closeWindow) 
         {
             _connectModel = connectModel;
 
@@ -107,6 +239,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
             AddPassportCommand = new RelayCommand(() => 
             {
                 Main.Documents.Add(_connectModel.GetModelDocument(this));
+                closeWindow();
             });
         }
     }

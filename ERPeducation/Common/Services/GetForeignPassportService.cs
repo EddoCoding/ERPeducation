@@ -22,6 +22,7 @@ namespace ERPeducation.Common.Services
                 Name = foreignPassportData.Name,
                 MiddleName = foreignPassportData.MiddleName,
                 DateOfBirth = foreignPassportData.DateOfBirth,
+                Gender = foreignPassportData.ValueComboBox,
                 PlaceOfBirth = foreignPassportData.PlaceOfBirth,
                 Citizenship = foreignPassportData.Citizenship
             };

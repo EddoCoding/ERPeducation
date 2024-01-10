@@ -2,7 +2,6 @@
 using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
 using System;
-using System.Windows;
 using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
@@ -36,6 +35,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         public long NumberINN { get; set; }
         public string Organization { get; set; }
         public string SeriesNumber { get; set; }
+
+        public string TitleButton { get; set; } = "Добавить документ";
         #endregion
         #region Команды
         public ICommand OpenPopupForDateOfAssignment { get; set; }
@@ -44,7 +45,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
         IConnectionModelService _connectModel;
 
-        public InnViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel)
+        public InnViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel, Action closeWindow)
         {
             _connectModel = connectModel;
 
@@ -57,6 +58,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
             AddInnCommand = new RelayCommand(() =>
             {
                 Main.Documents.Add(_connectModel.GetModelDocument(this));
+                closeWindow();
             });
         }
     }
