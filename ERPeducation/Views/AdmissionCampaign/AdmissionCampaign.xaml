@@ -114,7 +114,7 @@
                                 <StaticResource ResourceKey="MyStyleGridViewColumnHeader"/>
                             </GridView.ColumnHeaderContainerStyle>
                         </GridView>
-                    </ListView.View><!--СТИЛЬ НАЗВАНИЯ КОЛОНКИ-->
+                    </ListView.View>
                 </ListView>
 
             </Grid>

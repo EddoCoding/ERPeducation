@@ -7,7 +7,7 @@ namespace ERPeducation.Common.Interface
 {
     public interface IDialogService
     {
-        void OpenWindow(EnrollePersonalInformationViewModel documents);
+        void OpenWindow(object viewModel);
         void OpenMainWindow();
         public UserControl GetUserControl(string? titleButton, object viewModel);
         public UserControl GetUserControlForAdmissionCampaign(string TitleTab);

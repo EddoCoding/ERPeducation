@@ -12,6 +12,8 @@ namespace ERPeducation.Common.Services
 
             Snils snils = new Snils()
             {
+                TypeDocument = "СНИЛС",
+
                 Number = snilsData.Number,
                 RegistrationDate = snilsData.RegistrationDate
             };

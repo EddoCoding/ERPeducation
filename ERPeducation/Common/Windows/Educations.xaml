@@ -1,0 +1,31 @@
+﻿<Window x:Class="ERPeducation.Common.Windows.Educations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation.Common.Windows"
+        mc:Ignorable="d"
+        Title="Educations" Height="450" Width="800">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Уровень образования" FontSize="13" Margin="10,0"/>
+
+        <ComboBox Grid.Row="1" Width="190" HorizontalAlignment="Left" Margin="15,0"
+                  ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SelectedEducation}"/>
+
+        <Label Grid.Row="2" Content="Документ об образовании" Margin="10,10,0,0"/>
+
+        <ComboBox Grid.Row="3" ItemsSource="{Binding EducationDocuments}" SelectedItem="{Binding SelectedEducationDocument}" 
+                  Margin="15,0,0,0" Width="330" HorizontalAlignment="Left"/>
+
+        <UserControl Grid.Row="4" Margin="10" Content="{Binding UserControl}"/>
+
+    </Grid>
+</Window>

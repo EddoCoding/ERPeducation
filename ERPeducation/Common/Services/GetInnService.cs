@@ -12,6 +12,8 @@ namespace ERPeducation.Common.Services
 
             INN inn = new INN()
             {
+                TypeDocument = "ИНН",
+
                 DateOfAssignment = innData.DateOfAssignment,
                 NumberINN = innData.NumberINN,
                 Organization = innData.Organization,

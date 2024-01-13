@@ -12,6 +12,8 @@ namespace ERPeducation.Common.Services
 
             ForeignPassport foreignPassport = new ForeignPassport()
             {
+                TypeDocument = "Иностранный паспорт",
+
                 Abbreviation = foreignPassportData.Abbreviation,
                 Number = foreignPassportData.Number,
                 IssuedBy = foreignPassportData.IssuedBy,

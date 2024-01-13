@@ -5,9 +5,13 @@ using ERPeducation.Models.AdmissionCampaign.Documents;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel;
 using ERPeducation.Views;
 using ERPeducation.Views.AdmissionCampaign;
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
+using ERPeducation.Views.AdmissionCampaign.Tabs;
+using ERPeducation.Views.AdmissionCampaign.TabsView;
 using ERPeducation.Views.ModuleEnrolle;
 using System;
 using System.Windows.Controls;
@@ -23,11 +27,20 @@ namespace ERPeducation.Common.Services
             mainWindow.Show();
         }
 
-        public void OpenWindow(EnrollePersonalInformationViewModel documents)
+        public void OpenWindow(object viewModel)
         {
-            Documents windowDocuments = new();
-            windowDocuments.DataContext = new DocumentsViewModel(this, documents, windowDocuments.Close);
-            windowDocuments.ShowDialog();
+            if(viewModel is EnrollePersonalInformationViewModel)
+            {
+                Documents windowDocuments = new();
+                windowDocuments.DataContext = new DocumentsViewModel(this, (EnrollePersonalInformationViewModel)viewModel, windowDocuments.Close);
+                windowDocuments.ShowDialog();
+            }
+            if(viewModel is EnrolleeEducationViewModel)
+            {
+                Educations educations = new Educations();
+                educations.DataContext = new EducationViewModel(this, (EnrolleeEducationViewModel)viewModel, educations.Close);
+                educations.ShowDialog();
+            }
         }
 
         public UserControl GetUserControl(string? titleButton, object viewModel)
@@ -63,9 +76,13 @@ namespace ERPeducation.Common.Services
                     enrollePersonalInformationView.DataContext = new EnrollePersonalInformationViewModel(this);
                     return enrollePersonalInformationView;
                 case "Контактная информация":
-                    break;
+                    EnrolleeContactInformationView enrolleeContactInformationView = new EnrolleeContactInformationView();
+                    enrolleeContactInformationView.DataContext = new EnrolleeContactInforamationViewModel();
+                    return enrolleeContactInformationView;
                 case "Образование":
-                    break;
+                    EnrolleeEducationView enrolleeEducationView = new EnrolleeEducationView();
+                    enrolleeEducationView.DataContext = new EnrolleeEducationViewModel(this);
+                    return enrolleeEducationView;
                 case "Направление подготовки":
                     break;
                 case "Поданные документы":

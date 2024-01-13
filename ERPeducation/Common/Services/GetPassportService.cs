@@ -12,6 +12,8 @@ namespace ERPeducation.Common.Services
 
             Passport passport = new Passport()
             {
+                TypeDocument = "Паспорт",
+
                 IssuedBy = passportData.IssuedBy,
                 DateOfIssue = passportData.DateOfIssue,
                 DepartmentCode = passportData.DepartmentCode,
