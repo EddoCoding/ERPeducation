@@ -1,14 +1,18 @@
 ﻿using ERPeducation.Command;
 using ERPeducation.Common.Interface;
-using ERPeducation.Interface;
 using ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
+using System.Reactive;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel
 {
-    public class EducationViewModel : INPC
+    public class EducationViewModel : ReactiveObject
     {
         #region Свойства контролов
         public string[] EducationLevels { get; set; } = { "Основное общее", "Среднее общее", "Среднее профессиональное",
@@ -21,40 +25,49 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
             set
             {
                 selectedEducation = value;
-                OnPropertyChanged(nameof(SelectedEducation));
                 if (SelectedEducation == "Основное общее")
                 {
+                    ValueComboBox = "Основное общее";
+                    TypeEducationDocument = "Аттестат об Основном общем образовании";
                     UserControl = new Certificate();
+                }
+                if (SelectedEducation == "Среднее общее")
+                {
+                    ValueComboBox = "Среднее общее";
+                    TypeEducationDocument = "Аттестат о Среднем общем образовании";
+                    UserControl = new Certificate();
+                }
+                if (SelectedEducation == "Среднее профессиональное")
+                {
+                    ValueComboBox = "Среднее профессиональное";
+                    TypeEducationDocument = "Диплом о Среднем профессиональном образовании";
+                    UserControl = new Diploma();
+                }
+                if (SelectedEducation == "Бакалавриат")
+                {
+
+                    ValueComboBox = "Бакалавриат";
+                    TypeEducationDocument = "Диплом Бакалавра";
+                    UserControl = new Diploma();
+                }
+                if (SelectedEducation == "Магистратура")
+                {
+                    ValueComboBox = "Магистратура";
+                    TypeEducationDocument = "Диплом Магистра";
+                    UserControl = new Diploma();
+                }
+                if (SelectedEducation == "Аспирантура")
+                {
+                    ValueComboBox = "Аспирантура";
+                    TypeEducationDocument = "Диплом об окончании Аспирантуры";
+                    UserControl = new Diploma();
                 }
             }
         }
+        [Reactive] public string ValueComboBox { get; set; }
 
-        UserControl userControl;
-        public UserControl UserControl
-        {
-            get => userControl;
-            set
-            {
-                userControl = value;
-                OnPropertyChanged(nameof(UserControl));
-            }
-        }
-
-        public string[] EducationDocuments { get; set; } = { "Аттестат об Основном общем образовании", "Аттестат о Среднем общем образовании",
-                                                             "Диплом о Среднем профессиональном образовании", "Диплом Бакалавра",
-                                                             "Диплом Магистра", "Диплом об окончании Аспирантуры"};
-
-        string selectedEducationDocument;
-        public string SelectedEducationDocument
-        {
-            get => selectedEducationDocument;
-            set
-            {
-                selectedEducationDocument = value;
-                OnPropertyChanged(nameof(SelectedEducationDocument));
-            }
-        }
-
+        [Reactive] public string TypeEducationDocument { get; set; }
+        [Reactive] public UserControl UserControl { get; set; }
 
         #endregion
         #region Команды

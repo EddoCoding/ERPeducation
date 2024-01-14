@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView.Diploma"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Background="Pink" Orientation="Horizontal">
+
+        <StackPanel>
+            <Label Content="Серия и номер" Padding="0"/>
+
+            <TextBox Width="100" HorizontalAlignment="Left" Margin="0,5"/>
+
+            <Label Content="Регистрационный номер" Padding="0"/>
+
+            <TextBox Width="100" HorizontalAlignment="Left" Margin="0,5"/>
+
+            <Label Content="Дата выдачи" Padding="0"/>
+
+            <DatePicker Width="100" HorizontalAlignment="Left" Margin="0,5"/>
+
+            <Label Content="Где выдан" Padding="0"/>
+
+            <TextBox Width="100" HorizontalAlignment="Left" Margin="0,5"/>
+
+            <Label Content="Квалификация" Padding="0"/>
+
+            <TextBox Width="100" HorizontalAlignment="Left" Margin="0,5"/>
+        </StackPanel>
+
+        <StackPanel>
+
+            <Label Content="Серия и номер" Padding="0"/>
+
+            <TextBox Width="100" HorizontalAlignment="Left" Margin="0,5"/>
+
+        </StackPanel>
+
+    </StackPanel>
+</UserControl>

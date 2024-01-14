@@ -6,7 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
+namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation
 {
     public class EnrollePersonalInformationViewModel : INPC
     {

@@ -6,10 +6,24 @@
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
 
-    <Grid Background="Pink">
+    <StackPanel Background="Pink">
 
+        <Label Content="Номер Аттестата" Padding="0"/>
 
+        <TextBox Width="100" HorizontalAlignment="Left" Margin="0,5"/>
 
-    </Grid>
+        <Label Content="Дата Выдачи" Padding="0"/>
+
+        <DatePicker Width="100" HorizontalAlignment="Left" Margin="0,5"/>
+
+        <Label Content="Где выдан" Padding="0"/>
+
+        <TextBox Width="100" HorizontalAlignment="Left" Margin="0,5"/>
+
+    </StackPanel>
+    
 </UserControl>

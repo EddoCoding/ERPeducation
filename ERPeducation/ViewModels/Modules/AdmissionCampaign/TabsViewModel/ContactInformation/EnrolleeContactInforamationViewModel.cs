@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel
+namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.ContactInformation
 {
     public class EnrolleeContactInforamationViewModel
     {
@@ -17,7 +17,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel
 
         public EnrolleeContactInforamationViewModel()
         {
-            command = new RelayCommand(() => 
+            command = new RelayCommand(() =>
             {
                 MessageBox.Show($"Место проживания: {ResidenceAddress}\n" +
                                 $"Адрес по прописке: {RegistrationAddress}\n" +

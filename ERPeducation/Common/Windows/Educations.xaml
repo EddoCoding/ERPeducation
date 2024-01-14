@@ -6,6 +6,85 @@
         xmlns:local="clr-namespace:ERPeducation.Common.Windows"
         mc:Ignorable="d"
         Title="Educations" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="MyStyleLabel" TargetType="Label">
+            <Setter Property="Margin" Value="10,10,0,0"/>
+            <Setter Property="FontSize" Value="13"/>
+        </Style>
+        <Style x:Key="MyStyleComboBox" TargetType="ComboBox">
+            <Setter Property="Width" Value="190"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="15,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton x:Name="togglebutton" Content="{Binding ValueComboBox}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                          RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                            </Border>
+                                            
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" 
+                                                  Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="LightGray"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Top" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide">
+                                <Border x:Name="DropDown" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleComboBoxItem" TargetType="ComboBoxItem">
+            <Setter Property="Margin" Value="-1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="White" BorderThickness="1">
+                            <TextBlock Text="{Binding}" Margin="5" FontSize="12"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleTextBox" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="Gray" BorderThickness="1" Height="25" Margin="15,0,0,0" Width="330" HorizontalAlignment="Left">
+                            <TextBox Text="{Binding TypeEducationDocument}" BorderThickness="0" VerticalAlignment="Center" FontSize="13"
+                                     IsReadOnly="True" IsReadOnlyCaretVisible="False" SelectionBrush="Gray" Margin="5,0,0,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,17 +94,17 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Уровень образования" FontSize="13" Margin="10,0"/>
+        <Label Grid.Row="0" Content="Уровень образования" Style="{StaticResource MyStyleLabel}"/>
 
-        <ComboBox Grid.Row="1" Width="190" HorizontalAlignment="Left" Margin="15,0"
-                  ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SelectedEducation}"/>
+        <ComboBox Grid.Row="1" ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SelectedEducation}"
+                  Style="{StaticResource MyStyleComboBox}" ItemContainerStyle="{StaticResource MyStyleComboBoxItem}"/>
 
-        <Label Grid.Row="2" Content="Документ об образовании" Margin="10,10,0,0"/>
 
-        <ComboBox Grid.Row="3" ItemsSource="{Binding EducationDocuments}" SelectedItem="{Binding SelectedEducationDocument}" 
-                  Margin="15,0,0,0" Width="330" HorizontalAlignment="Left"/>
+        <Label Grid.Row="2" Content="Документ об образовании" Style="{StaticResource MyStyleLabel}"/>
 
-        <UserControl Grid.Row="4" Margin="10" Content="{Binding UserControl}"/>
+        <TextBox Grid.Row="3" Text="{Binding TypeEducationDocument}" Style="{StaticResource MyStyleTextBox}"/>
+
+        <UserControl Grid.Row="4" Margin="15" Content="{Binding UserControl}"/>
 
     </Grid>
 </Window>

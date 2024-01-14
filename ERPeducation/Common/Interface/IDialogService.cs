@@ -1,5 +1,5 @@
 ﻿using ERPeducation.Models.AdmissionCampaign.Documents;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation;
 using System;
 using System.Windows.Controls;
 

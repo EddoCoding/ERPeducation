@@ -5,13 +5,13 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel
+namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel
 {
     public class EnrolleeEducationViewModel
     {
         #region Свойства
         public ObservableCollection<string> Education { get; set; }
-        public ObservableCollection<string> AdditionalEducation { get; set; } 
+        public ObservableCollection<string> AdditionalEducation { get; set; }
         #endregion
         #region Команды
         public ICommand AddEducatinCommand { get; set; }

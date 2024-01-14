@@ -1,6 +1,7 @@
 ﻿using ERPeducation.Command;
 using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation;
 using System;
 using System.Windows.Controls;
 using System.Windows.Input;
