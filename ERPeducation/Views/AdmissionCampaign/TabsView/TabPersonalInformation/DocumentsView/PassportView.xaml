@@ -711,7 +711,7 @@
                             <Popup Grid.Column="2" Style="{StaticResource MyStylePopup}" IsOpen="{Binding OpenPopupDateOfBirth}">
                                 <Grid Background="Transparent">
                                     <Calendar Style="{StaticResource MyStyleCalendar}" CalendarDayButtonStyle="{StaticResource MyStyleCalendarDayButton}" 
-                                      CalendarButtonStyle="{StaticResource MyStyleCalendarButton}" SelectedDate="{Binding DateOfBirth}">
+                                              CalendarButtonStyle="{StaticResource MyStyleCalendarButton}" SelectedDate="{Binding DateOfBirth}">
                                         <Calendar.Effect>
                                             <DropShadowEffect ShadowDepth="1" Color="Black" BlurRadius="10" Opacity="0.7"/>
                                         </Calendar.Effect>

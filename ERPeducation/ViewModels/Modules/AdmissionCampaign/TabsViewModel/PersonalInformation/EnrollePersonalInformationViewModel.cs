@@ -165,6 +165,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Person
         {
             _dialogService = dialogService;
 
+            OpenPopupCommand = new RelayCommand(() => 
+            {
+                if (OpenPopup == false) OpenPopup = true;
+                else OpenPopup = false;
+            });
             AddDocumentCommand = new RelayCommand(OpenWindowDocuments);
             DeleteDocumentCommand = new RelayCommand(DeleteDocument);
             EditDocumentCommand = new RelayCommand(EditDocument);

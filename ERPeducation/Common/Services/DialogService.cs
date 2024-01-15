@@ -13,6 +13,7 @@ using ERPeducation.Views.AdmissionCampaign;
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
 using ERPeducation.Views.AdmissionCampaign.Tabs;
 using ERPeducation.Views.AdmissionCampaign.TabsView;
+using ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView;
 using ERPeducation.Views.ModuleEnrolle;
 using System;
 using System.Windows.Controls;
@@ -295,6 +296,38 @@ namespace ERPeducation.Common.Services
                     foreignPassport.Citizenship = foreignPassport.Citizenship;
                 }
             }
+        }
+
+        public UserControl GetUserControlForTypeEducationDocument(string typeEducation, object enrolleEducationViewModel)
+        {
+            if(typeEducation == "Основное общее")
+            {
+                return new Certificate() { DataContext = new CertificateViewModel("Аттестат об Основном общем образовании", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+            }
+            if(typeEducation == "Среднее общее")
+            {
+                return new Certificate() { DataContext = new CertificateViewModel("Аттестат о Среднем общем образовании", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+            }
+
+            if(typeEducation == "Среднее профессиональное")
+            {
+                return new Diploma() { DataContext = new DiplomaViewModel("Диплом о Среднем профессиональном образовании", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+            }
+            if(typeEducation == "Бакалавриат")
+            {
+                return new Diploma() { DataContext = new DiplomaViewModel("Диплом Бакалавра", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+            }
+            if(typeEducation == "Магистратура")
+            {
+                return new Diploma() { DataContext = new DiplomaViewModel("Диплом Магистра", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+            }
+            if(typeEducation == "Аспирантура")
+            {
+                return new Diploma() { DataContext = new DiplomaViewModel("Диплом об окончании Аспирантуры", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+            }
+
+
+            return null;
         }
     }
 }

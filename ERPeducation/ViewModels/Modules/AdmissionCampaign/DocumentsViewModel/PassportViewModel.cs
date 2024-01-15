@@ -91,6 +91,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
         public string[] Gender { get; set; } = { "Муж", "Жен" };
         string valueComboBox = string.Empty;
+
         public string ValueComboBox
         {
             get => valueComboBox;

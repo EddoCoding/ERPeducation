@@ -90,6 +90,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="StyleForImageCalendar" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -522,7 +523,7 @@
 
                             <Border Grid.Column="0">
                                 <TextBox Padding="5" FontSize="14" BorderThickness="0" SelectionBrush="DarkGray" Text="{Binding DateOfBirth, 
-                                    StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
+                                         StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="BorderBrush" Value="Gray"/>
@@ -553,6 +554,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="MyStyleButton" TargetType="Button">
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="White"/>

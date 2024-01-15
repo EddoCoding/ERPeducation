@@ -14,5 +14,6 @@ namespace ERPeducation.Common.Interface
         public UserControl GetUserControlForModuleEnrollee(string moduleEnrolle);
         public UserControl GetUserControlForDocuments(string? documents, EnrollePersonalInformationViewModel viewModel, Action closeWindow);
         public void ShowUserControlDocumentsForEdit(DocsBase userControl, EnrollePersonalInformationViewModel viewModel);
+        public UserControl GetUserControlForTypeEducationDocument(string typeEducation, object enrolleEducationViewModel);
     }
 }

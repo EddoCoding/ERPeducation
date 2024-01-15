@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows"
         mc:Ignorable="d"
-        Title="Educations" Height="450" Width="800">
+        Title="Educations" Height="520" Width="647">
     <Window.Resources>
         <Style x:Key="MyStyleLabel" TargetType="Label">
             <Setter Property="Margin" Value="10,10,0,0"/>
@@ -75,10 +75,35 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border BorderBrush="Gray" BorderThickness="1" Height="25" Margin="15,0,0,0" Width="330" HorizontalAlignment="Left">
+                        <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1" Height="25" Margin="15,0,0,0" Width="335" HorizontalAlignment="Left">
                             <TextBox Text="{Binding TypeEducationDocument}" BorderThickness="0" VerticalAlignment="Center" FontSize="13"
                                      IsReadOnly="True" IsReadOnlyCaretVisible="False" SelectionBrush="Gray" Margin="5,0,0,0"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleButton" TargetType="Button">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" BorderThickness="1" BorderBrush="Black" Padding="0" Height="30" Margin="0,0,19,0">
+                            <Label x:Name="Label" Content="Отменить добавление" FontWeight="DemiBold" Foreground="Black"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkCyan"/>
+                                <Setter TargetName="Border" Property="Background" Value="DarkCyan"/>
+                                <Setter TargetName="Label" Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -89,22 +114,24 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="Уровень образования" Style="{StaticResource MyStyleLabel}"/>
 
-        <ComboBox Grid.Row="1" ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SelectedEducation}"
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <ComboBox Grid.Column="0" ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SelectedEducation}"
                   Style="{StaticResource MyStyleComboBox}" ItemContainerStyle="{StaticResource MyStyleComboBoxItem}"/>
 
-
-        <Label Grid.Row="2" Content="Документ об образовании" Style="{StaticResource MyStyleLabel}"/>
-
-        <TextBox Grid.Row="3" Text="{Binding TypeEducationDocument}" Style="{StaticResource MyStyleTextBox}"/>
-
-        <UserControl Grid.Row="4" Margin="15" Content="{Binding UserControl}"/>
+            <Button Grid.Column="1" Style="{StaticResource MyStyleButton}" Command="{Binding CloseWindow}"/>
+        </Grid>
+        
+        <UserControl Grid.Row="2" Margin="15,5,15,0" Content="{Binding UserControl}"/>
 
     </Grid>
 </Window>

@@ -1,13 +1,14 @@
 ﻿using ERPeducation.Command;
 using ERPeducation.Common.Interface;
-using ERPeducation.Common.Windows;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel
 {
-    public class EnrolleeEducationViewModel
+    public class EnrolleeEducationViewModel: ReactiveObject
     {
         #region Свойства
         public ObservableCollection<string> Education { get; set; }

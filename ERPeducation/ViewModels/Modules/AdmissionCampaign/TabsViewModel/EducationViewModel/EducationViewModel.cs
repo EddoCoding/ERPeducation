@@ -15,6 +15,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
     public class EducationViewModel : ReactiveObject
     {
         #region Свойства контролов
+        EnrolleeEducationViewModel ViewModel;
         public string[] EducationLevels { get; set; } = { "Основное общее", "Среднее общее", "Среднее профессиональное",
                                                           "Бакалавриат", "Магистратура", "Аспирантура" };
 
@@ -27,46 +28,39 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
                 selectedEducation = value;
                 if (SelectedEducation == "Основное общее")
                 {
-                    ValueComboBox = "Основное общее";
-                    TypeEducationDocument = "Аттестат об Основном общем образовании";
-                    UserControl = new Certificate();
+                    ValueComboBox = SelectedEducation;
+                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel);
                 }
                 if (SelectedEducation == "Среднее общее")
                 {
-                    ValueComboBox = "Среднее общее";
-                    TypeEducationDocument = "Аттестат о Среднем общем образовании";
-                    UserControl = new Certificate();
+                    ValueComboBox = SelectedEducation;
+                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel);
                 }
                 if (SelectedEducation == "Среднее профессиональное")
                 {
-                    ValueComboBox = "Среднее профессиональное";
-                    TypeEducationDocument = "Диплом о Среднем профессиональном образовании";
-                    UserControl = new Diploma();
+                    ValueComboBox = SelectedEducation;
+                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel);
                 }
                 if (SelectedEducation == "Бакалавриат")
                 {
 
-                    ValueComboBox = "Бакалавриат";
-                    TypeEducationDocument = "Диплом Бакалавра";
-                    UserControl = new Diploma();
+                    ValueComboBox = SelectedEducation;
+                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel);
                 }
                 if (SelectedEducation == "Магистратура")
                 {
-                    ValueComboBox = "Магистратура";
-                    TypeEducationDocument = "Диплом Магистра";
-                    UserControl = new Diploma();
+                    ValueComboBox = SelectedEducation;
+                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel);
                 }
                 if (SelectedEducation == "Аспирантура")
                 {
-                    ValueComboBox = "Аспирантура";
-                    TypeEducationDocument = "Диплом об окончании Аспирантуры";
-                    UserControl = new Diploma();
+                    ValueComboBox = SelectedEducation;
+                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel);
                 }
             }
         }
-        [Reactive] public string ValueComboBox { get; set; }
 
-        [Reactive] public string TypeEducationDocument { get; set; }
+        [Reactive] public string ValueComboBox { get; set; }
         [Reactive] public UserControl UserControl { get; set; }
 
         #endregion
@@ -79,6 +73,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
         public EducationViewModel(IDialogService dialogService, EnrolleeEducationViewModel viewModel, Action closeWindow) 
         {
             _dialogService = dialogService;
+
+            ViewModel = viewModel;
 
             CloseWindow = new RelayCommand(closeWindow);
         }
