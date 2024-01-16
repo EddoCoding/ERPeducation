@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.Interface;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -10,7 +11,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
     public class DiplomaViewModel : ReactiveObject
     {
         #region Свойства контролов
-        EnrolleeEducationViewModel ViewModel;
         public string TypeEducation { get; set; }
         public bool IsBool { get; set; }
         public string NumberDiploma { get; set; }
@@ -26,9 +26,14 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
         public ICommand OpenClosePoPup { get; set; }
         #endregion
 
+        EnrolleeEducationViewModel ViewModel;
 
-        public DiplomaViewModel(string typeEducation, EnrolleeEducationViewModel enrolleeEducationViewModel)
+        IEducationModelService _educationModelService1;
+
+        public DiplomaViewModel(IEducationModelService educationModelService, string typeEducation, EnrolleeEducationViewModel enrolleeEducationViewModel)
         {
+            _educationModelService1 = educationModelService;
+
             ViewModel = enrolleeEducationViewModel;
 
             TypeEducation = typeEducation;
@@ -41,7 +46,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
 
             AddEducation = new RelayCommand(() => 
             {
-                MessageBox.Show("Проверка");
+                enrolleeEducationViewModel.Education.Add(_educationModelService1.GetModel(this));
+                //Добавить выход
             });
         }
     }

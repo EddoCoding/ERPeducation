@@ -6,7 +6,7 @@ namespace ERPeducation.Common.Services
 {
     public class GetInnService : IConnectionModelService
     {
-        public DocsBase GetModelDocument(object viewModelData)
+        public DocsBase GetModel(object viewModelData)
         {
             var innData = (InnViewModel)viewModelData;
 

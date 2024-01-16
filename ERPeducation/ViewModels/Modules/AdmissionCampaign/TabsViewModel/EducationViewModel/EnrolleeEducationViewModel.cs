@@ -1,7 +1,7 @@
 ﻿using ERPeducation.Command;
 using ERPeducation.Common.Interface;
+using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -11,7 +11,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
     public class EnrolleeEducationViewModel: ReactiveObject
     {
         #region Свойства
-        public ObservableCollection<string> Education { get; set; }
+        public ObservableCollection<TypeEducationBaseModel> Education { get; set; }
         public ObservableCollection<string> AdditionalEducation { get; set; }
         #endregion
         #region Команды
@@ -29,7 +29,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
         {
             _dialogService = dialogService;
 
-            Education = new ObservableCollection<string>();
+            Education = new ObservableCollection<TypeEducationBaseModel>();
             AdditionalEducation = new ObservableCollection<string>();
 
             AddEducatinCommand = new RelayCommand(() => { _dialogService.OpenWindow(this); });

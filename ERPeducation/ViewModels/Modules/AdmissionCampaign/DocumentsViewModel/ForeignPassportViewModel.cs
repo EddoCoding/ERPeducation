@@ -135,7 +135,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
             AddForeignPassportCommand = new RelayCommand(() =>
             {
-                Main.Documents.Add(_connectModel.GetModelDocument(this));
+                Main.Documents.Add(_connectModel.GetModel(this));
                 closeWindow();
             });
         }

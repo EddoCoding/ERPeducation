@@ -4,6 +4,6 @@ namespace ERPeducation.Common.Interface
 {
     public interface IConnectionModelService
     {
-        DocsBase GetModelDocument(object viewModelData);
+        DocsBase GetModel(object viewModelData);
     }
 }

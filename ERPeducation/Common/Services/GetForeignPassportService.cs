@@ -6,7 +6,7 @@ namespace ERPeducation.Common.Services
 {
     public class GetForeignPassportService : IConnectionModelService
     {
-        public DocsBase GetModelDocument(object viewModelData)
+        public DocsBase GetModel(object viewModelData)
         {
             var foreignPassportData = (ForeignPassportViewModel)viewModelData;
 

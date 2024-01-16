@@ -56,7 +56,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
             AddSnilsCommand = new RelayCommand(() =>
             {
-                Main.Documents.Add(_connectModel.GetModelDocument(this));
+                Main.Documents.Add(_connectModel.GetModel(this));
                 closeWindow();
             });
         }

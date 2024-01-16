@@ -58,7 +58,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
             AddInnCommand = new RelayCommand(() =>
             {
-                Main.Documents.Add(_connectModel.GetModelDocument(this));
+                Main.Documents.Add(_connectModel.GetModel(this));
                 closeWindow();
             });
         }

@@ -302,28 +302,34 @@ namespace ERPeducation.Common.Services
         {
             if(typeEducation == "Основное общее")
             {
-                return new Certificate() { DataContext = new CertificateViewModel("Аттестат об Основном общем образовании", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+                return new Certificate() { DataContext = new CertificateViewModel(new GetCertificateService(), "Аттестат об Основном общем образовании", 
+                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
             }
             if(typeEducation == "Среднее общее")
             {
-                return new Certificate() { DataContext = new CertificateViewModel("Аттестат о Среднем общем образовании", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+                return new Certificate() { DataContext = new CertificateViewModel(new GetCertificateService(), "Аттестат о Среднем общем образовании", 
+                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
             }
 
             if(typeEducation == "Среднее профессиональное")
             {
-                return new Diploma() { DataContext = new DiplomaViewModel("Диплом о Среднем профессиональном образовании", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+                return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), "Диплом о Среднем профессиональном образовании", 
+                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
             }
             if(typeEducation == "Бакалавриат")
             {
-                return new Diploma() { DataContext = new DiplomaViewModel("Диплом Бакалавра", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+                return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), "Диплом Бакалавра", 
+                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
             }
             if(typeEducation == "Магистратура")
             {
-                return new Diploma() { DataContext = new DiplomaViewModel("Диплом Магистра", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+                return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), "Диплом Магистра", 
+                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
             }
             if(typeEducation == "Аспирантура")
             {
-                return new Diploma() { DataContext = new DiplomaViewModel("Диплом об окончании Аспирантуры", (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+                return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), "Диплом об окончании Аспирантуры", 
+                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
             }
 
 
