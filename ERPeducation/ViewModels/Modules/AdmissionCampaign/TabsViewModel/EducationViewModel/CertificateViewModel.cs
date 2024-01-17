@@ -10,6 +10,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
     public class CertificateViewModel : ReactiveObject
     {
         #region Свойства контролов
+        public string TitileButton { get; set; } = "Добавить образование";
         public string TypeEducation { get; set; }
         public bool IsBool { get; set; }
         public long NumberCertificate { get; set; }
@@ -24,7 +25,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
 
         IEducationModelService _modelService;
 
-        public CertificateViewModel(IEducationModelService modelService, string typeEducation, EnrolleeEducationViewModel enrolleEducationViewModel) 
+        public CertificateViewModel(IEducationModelService modelService, string typeEducation, 
+            EnrolleeEducationViewModel enrolleEducationViewModel, Action closeWindow) 
         {
             _modelService = modelService;
 
@@ -39,10 +41,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
             AddEducation = new RelayCommand(() => 
             {
                 enrolleEducationViewModel.Education.Add(_modelService.GetModel(this));
-                //Добавить выход
+                closeWindow();
             });
         }
-
-        public string Jopa;
     }
 }

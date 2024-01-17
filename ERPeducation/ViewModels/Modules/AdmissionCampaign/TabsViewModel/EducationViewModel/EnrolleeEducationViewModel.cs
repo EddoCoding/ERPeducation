@@ -8,11 +8,13 @@ using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel
 {
-    public class EnrolleeEducationViewModel: ReactiveObject
+    public class EnrolleeEducationViewModel : ReactiveObject
     {
-        #region Свойства
+        #region Свойства контролов
         public ObservableCollection<TypeEducationBaseModel> Education { get; set; }
         public ObservableCollection<string> AdditionalEducation { get; set; }
+        public TypeEducationBaseModel SelectedEducation { get; set; }
+        public string SelectedEducation2 { get; set; } // для второй listview
         #endregion
         #region Команды
         public ICommand AddEducatinCommand { get; set; }
@@ -32,13 +34,17 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
             Education = new ObservableCollection<TypeEducationBaseModel>();
             AdditionalEducation = new ObservableCollection<string>();
 
-            AddEducatinCommand = new RelayCommand(() => { _dialogService.OpenWindow(this); });
-            DeleteEducatinCommand = new RelayCommand(() => { MessageBox.Show("Проверка2"); });
-            EditEducatinCommand = new RelayCommand(() => { MessageBox.Show("Проверка3"); });
+            AddEducatinCommand = new RelayCommand(OpenWindowEducationDocument);
+            DeleteEducatinCommand = new RelayCommand(DeleteEducationDocument);
+            EditEducatinCommand = new RelayCommand(EditEducationDocument);
 
             AddAdditionalEducatinCommand = new RelayCommand(() => { AdditionalEducation.Add("Строка2"); });
             DeleteAdditionalEducatinCommand = new RelayCommand(() => { MessageBox.Show("Проверка5"); });
             EditAdditionalEducatinCommand = new RelayCommand(() => { MessageBox.Show("Проверка6"); });
         }
+
+        void OpenWindowEducationDocument() => _dialogService.OpenWindow(this);
+        void DeleteEducationDocument() => Education.Remove(SelectedEducation);
+        void EditEducationDocument() => _dialogService.ShowUserControlEducationDocumentsForEdit(SelectedEducation, this);
     }
 }

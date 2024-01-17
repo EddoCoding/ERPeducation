@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows"
-        mc:Ignorable="d" Title="Документы" Height="570" Width="518"
+        mc:Ignorable="d" Title="Добавить документ" Height="570" Width="518"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="DocumentLabelStyle" TargetType="Label">

@@ -57,7 +57,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ListView">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <ListView ItemsSource="{Binding Education}" SelectedItem="{Binding .}" 
+                            <ListView ItemsSource="{Binding Education}" SelectedItem="{Binding SelectedEducation}" 
                                       ItemContainerStyle="{StaticResource MyStyleListViewItem}" BorderThickness="0">
                                 <ListView.View>
                                     <GridView ColumnHeaderContainerStyle="{StaticResource MyStyleColumnHeaderContainerStyle}">

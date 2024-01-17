@@ -11,6 +11,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
     public class DiplomaViewModel : ReactiveObject
     {
         #region Свойства контролов
+        public string TitileButton { get; set; } = "Добавить образование";
         public string TypeEducation { get; set; }
         public bool IsBool { get; set; }
         public string NumberDiploma { get; set; }
@@ -30,7 +31,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
 
         IEducationModelService _educationModelService1;
 
-        public DiplomaViewModel(IEducationModelService educationModelService, string typeEducation, EnrolleeEducationViewModel enrolleeEducationViewModel)
+        public DiplomaViewModel(IEducationModelService educationModelService, string typeEducation, 
+            EnrolleeEducationViewModel enrolleeEducationViewModel, Action closeWindow)
         {
             _educationModelService1 = educationModelService;
 
@@ -47,7 +49,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
             AddEducation = new RelayCommand(() => 
             {
                 enrolleeEducationViewModel.Education.Add(_educationModelService1.GetModel(this));
-                //Добавить выход
+                closeWindow();
             });
         }
     }

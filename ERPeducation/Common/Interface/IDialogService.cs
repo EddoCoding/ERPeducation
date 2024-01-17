@@ -1,4 +1,6 @@
 ﻿using ERPeducation.Models.AdmissionCampaign.Documents;
+using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation;
 using System;
 using System.Windows.Controls;
@@ -14,6 +16,7 @@ namespace ERPeducation.Common.Interface
         public UserControl GetUserControlForModuleEnrollee(string moduleEnrolle);
         public UserControl GetUserControlForDocuments(string? documents, EnrollePersonalInformationViewModel viewModel, Action closeWindow);
         public void ShowUserControlDocumentsForEdit(DocsBase userControl, EnrollePersonalInformationViewModel viewModel);
-        public UserControl GetUserControlForTypeEducationDocument(string typeEducation, object enrolleEducationViewModel);
+        public UserControl GetUserControlForTypeEducationDocument(string typeEducation, EnrolleeEducationViewModel viewModel, Action closeWindow);
+        public void ShowUserControlEducationDocumentsForEdit(TypeEducationBaseModel userControl, EnrolleeEducationViewModel viewModel);
     }
 }

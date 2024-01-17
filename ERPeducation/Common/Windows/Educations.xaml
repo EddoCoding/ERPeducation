@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows"
         mc:Ignorable="d"
-        Title="Educations" Height="520" Width="647">
+        Title="Добавить документ" Height="520" Width="618"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="MyStyleLabel" TargetType="Label">
-            <Setter Property="Margin" Value="10,10,0,0"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
             <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
         <Style x:Key="MyStyleComboBox" TargetType="ComboBox">
             <Setter Property="Width" Value="190"/>
@@ -91,6 +93,7 @@
         <Style x:Key="MyStyleButton" TargetType="Button">
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -99,8 +102,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkCyan"/>
-                                <Setter TargetName="Border" Property="Background" Value="DarkCyan"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="White"/>
                                 <Setter TargetName="Label" Property="Foreground" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -110,28 +112,26 @@
         </Style>
     </Window.Resources>
     
-    <Grid Background="White">
+    <Grid Background="DarkCyan">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Уровень образования" Style="{StaticResource MyStyleLabel}"/>
+        <Grid Grid.Row="0" Margin="0,0,0,10">
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <ComboBox Grid.Column="0" ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SelectedEducation}"
-                  Style="{StaticResource MyStyleComboBox}" ItemContainerStyle="{StaticResource MyStyleComboBoxItem}"/>
+            <StackPanel>
+                <Label Content="Уровень образования" Style="{StaticResource MyStyleLabel}"/>
+
+                <ComboBox ItemsSource="{Binding EducationLevels}" SelectedItem="{Binding SelectedEducation}"
+                          Style="{StaticResource MyStyleComboBox}" ItemContainerStyle="{StaticResource MyStyleComboBoxItem}"/>
+            </StackPanel>
 
             <Button Grid.Column="1" Style="{StaticResource MyStyleButton}" Command="{Binding CloseWindow}"/>
+            
         </Grid>
         
-        <UserControl Grid.Row="2" Margin="15,5,15,0" Content="{Binding UserControl}"/>
+        <UserControl Grid.Row="1" Content="{Binding UserControl}" Background="WhiteSmoke"/>
 
     </Grid>
 </Window>

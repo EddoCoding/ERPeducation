@@ -2,6 +2,7 @@
 using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows;
 using ERPeducation.Models.AdmissionCampaign.Documents;
+using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
@@ -127,11 +128,11 @@ namespace ERPeducation.Common.Services
             return null;
         }
 
-        public void ShowUserControlDocumentsForEdit(DocsBase userControl, EnrollePersonalInformationViewModel viewModel)
+        public void ShowUserControlDocumentsForEdit(DocsBase model, EnrollePersonalInformationViewModel viewModel)
         {
             WindowDocument document = new WindowDocument();
             DocumentsViewModel documentsViewModel = new DocumentsViewModel(this, viewModel, document.Close);
-            if (userControl is Passport passport)
+            if (model is Passport passport)
             {
                 PassportView passportView = new PassportView();
                 PassportViewModel passportViewModel = new PassportViewModel(viewModel, new GetPassportService(), null);
@@ -163,8 +164,10 @@ namespace ERPeducation.Common.Services
                 GetData();
 
                 passportView.DataContext = passportViewModel;
+
                 documentsViewModel.TypeDocument = documentsViewModel.Docs[0];
                 documentsViewModel.UserControl = passportView;
+
                 document.DataContext = documentsViewModel;
                 document.ShowDialog();
 
@@ -190,7 +193,7 @@ namespace ERPeducation.Common.Services
                     passportViewModel.ApartmentNumber = passport.ApartmentNumber;
                 }
             }
-            if (userControl is Snils snils)
+            if (model is Snils snils)
             {
                 SnilsView snilsView = new SnilsView();
                 SnilsViewModel snilsViewModel = new SnilsViewModel(viewModel, new GetPassportService(), null);
@@ -217,7 +220,7 @@ namespace ERPeducation.Common.Services
                     snilsViewModel.RegistrationDate = snils.RegistrationDate;
                 }
             }
-            if (userControl is INN inn)
+            if (model is INN inn)
             {
                 InnView innView = new InnView();
                 InnViewModel innViewModel = new InnViewModel(viewModel, new GetPassportService(), null);
@@ -247,7 +250,7 @@ namespace ERPeducation.Common.Services
                     innViewModel.SeriesNumber = inn.SeriesNumber;
                 }
             }
-            if (userControl is ForeignPassport foreignPassport)
+            if (model is ForeignPassport foreignPassport)
             {
                 ForeignPassportView foreignPassportView = new ForeignPassportView();
                 ForeignPassportViewModel foreignPassportViewModel = new ForeignPassportViewModel(viewModel, new GetPassportService(), null);
@@ -298,42 +301,283 @@ namespace ERPeducation.Common.Services
             }
         }
 
-        public UserControl GetUserControlForTypeEducationDocument(string typeEducation, object enrolleEducationViewModel)
+        public UserControl GetUserControlForTypeEducationDocument(string typeEducation, EnrolleeEducationViewModel viewModel, Action closeWindow)
         {
-            if(typeEducation == "Основное общее")
+            switch (typeEducation)
             {
-                return new Certificate() { DataContext = new CertificateViewModel(new GetCertificateService(), "Аттестат об Основном общем образовании", 
-                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
+                case "Основное общее": 
+                    return new Certificate() { DataContext = new CertificateViewModel(new GetCertificateService(), 
+                        "Аттестат об Основном общем образовании", viewModel, closeWindow)
+                    };
+                case "Среднее общее":
+                    return new Certificate() { DataContext = new CertificateViewModel(new GetCertificateService(), 
+                        "Аттестат о Среднем общем образовании", viewModel, closeWindow)
+                    };
+                case "Среднее профессиональное":
+                    return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), 
+                        "Диплом о Среднем профессиональном образовании", viewModel, closeWindow)};
+                case "Бакалавриат":
+                    return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), 
+                        "Диплом Бакалавра", viewModel, closeWindow)
+                    };
+                case "Магистратура":
+                    return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), 
+                        "Диплом Магистра", viewModel, closeWindow)
+                    };
+                case "Аспирантура":
+                    return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), 
+                        "Диплом об окончании Аспирантуры", viewModel, closeWindow)
+                    };
             }
-            if(typeEducation == "Среднее общее")
-            {
-                return new Certificate() { DataContext = new CertificateViewModel(new GetCertificateService(), "Аттестат о Среднем общем образовании", 
-                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
-            }
-
-            if(typeEducation == "Среднее профессиональное")
-            {
-                return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), "Диплом о Среднем профессиональном образовании", 
-                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
-            }
-            if(typeEducation == "Бакалавриат")
-            {
-                return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), "Диплом Бакалавра", 
-                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
-            }
-            if(typeEducation == "Магистратура")
-            {
-                return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), "Диплом Магистра", 
-                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
-            }
-            if(typeEducation == "Аспирантура")
-            {
-                return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), "Диплом об окончании Аспирантуры", 
-                    (EnrolleeEducationViewModel)enrolleEducationViewModel) };
-            }
-
 
             return null;
+        }
+
+        public void ShowUserControlEducationDocumentsForEdit(TypeEducationBaseModel model, EnrolleeEducationViewModel viewModel)
+        {
+            WindowEducation education = new WindowEducation();
+            EducationViewModel educationViewModel = new EducationViewModel(this, viewModel, education.Close);
+            if(model is CertificateModel certificate && certificate.TypeEducation == "Основное общее")
+            {
+                Certificate certificateView = new Certificate();
+                CertificateViewModel certificateViewModel = new CertificateViewModel(new GetCertificateService(), 
+                    "Аттестат об Основном общем образовании", null, null);
+
+                certificateViewModel.TitileButton = "Изменить";
+                certificateViewModel.AddEducation = new RelayCommand(() => 
+                {
+                    certificate.TypeEducation = "Основное общее";
+                    certificate.IsBool = certificateViewModel.IsBool;
+                    certificate.DateOfIssue = certificateViewModel.DateOfIssue;
+                    certificate.IssuedBy = certificateViewModel.IssuedBy;
+                    certificate.NumberCertificate = certificateViewModel.NumberCertificate;
+
+                    education.Close();
+                });
+                GetData();
+
+                certificateView.DataContext = certificateViewModel;
+
+                educationViewModel.TypeDocument = educationViewModel.EducationLevels[0];
+                educationViewModel.UserControl = certificateView;
+
+                education.DataContext = educationViewModel;
+                education.ShowDialog();
+
+                void GetData()
+                {
+                    certificateViewModel.TypeEducation = "Аттестат об Основном общем образовании";
+                    certificateViewModel.IsBool = certificate.IsBool;
+                    certificateViewModel.DateOfIssue = certificate.DateOfIssue;
+                    certificateViewModel.IssuedBy = certificate.IssuedBy;
+                    certificateViewModel.NumberCertificate = certificate.NumberCertificate;
+                }
+            }
+            else if(model is CertificateModel certificateAdditional && certificateAdditional.TypeEducation == "Среднее общее")
+            {
+                Certificate certificateView = new Certificate();
+                CertificateViewModel certificateViewModel = new CertificateViewModel(new GetCertificateService(), 
+                    "Аттестат о Среднем общем образовании", null, null);
+
+                certificateViewModel.TitileButton = "Изменить";
+                certificateViewModel.AddEducation = new RelayCommand(() =>
+                {
+                    certificateAdditional.TypeEducation = "Среднее общее";
+                    certificateAdditional.IsBool = certificateViewModel.IsBool;
+                    certificateAdditional.DateOfIssue = certificateViewModel.DateOfIssue;
+                    certificateAdditional.IssuedBy = certificateViewModel.IssuedBy;
+                    certificateAdditional.NumberCertificate = certificateViewModel.NumberCertificate;
+
+                    education.Close();
+                });
+                GetData();
+
+                certificateView.DataContext = certificateViewModel;
+
+                educationViewModel.TypeDocument = educationViewModel.EducationLevels[1];
+                educationViewModel.UserControl = certificateView;
+
+                education.DataContext = educationViewModel;
+                education.ShowDialog();
+
+                void GetData()
+                {
+                    certificateViewModel.TypeEducation = "Аттестат о Среднем общем образовании";
+                    certificateViewModel.IsBool = certificateAdditional.IsBool;
+                    certificateViewModel.DateOfIssue = certificateAdditional.DateOfIssue;
+                    certificateViewModel.IssuedBy = certificateAdditional.IssuedBy;
+                    certificateViewModel.NumberCertificate = certificateAdditional.NumberCertificate;
+                }
+            }
+
+            if(model is DiplomaModel diplomaSPO && diplomaSPO.TypeEducation == "Среднее профессиональное")
+            {
+                Diploma diplomaView = new Diploma();
+                DiplomaViewModel diplomaViewModel = new DiplomaViewModel(new GetCertificateService(), 
+                    "Диплом о Среднем профессиональном образовании", null, null);
+
+                diplomaViewModel.TitileButton = "Изменить";
+                diplomaViewModel.AddEducation = new RelayCommand(() => 
+                {
+                    diplomaSPO.TypeEducation = "Среднее профессиональное";
+                    diplomaSPO.IsBool = diplomaViewModel.IsBool;
+                    diplomaSPO.DateOfIssue = diplomaViewModel.DateOfIssue;
+                    diplomaSPO.IssuedBy = diplomaViewModel.IssuedBy;
+                    diplomaSPO.NumberDiploma = diplomaViewModel.NumberDiploma;
+                    diplomaSPO.RegistrationNumber = diplomaViewModel.RegistrationNumber;
+                    diplomaSPO.Qualification = diplomaViewModel.Qualification;
+                    diplomaSPO.AdditionalNumberDiploma = diplomaViewModel.AdditionalNumberDiploma;
+
+                    education.Close();
+                });
+                GetData();
+
+                diplomaView.DataContext = diplomaViewModel;
+
+                educationViewModel.TypeDocument = educationViewModel.EducationLevels[2];
+                educationViewModel.UserControl = diplomaView;
+
+                education.DataContext = educationViewModel;
+                education.ShowDialog();
+
+                void GetData()
+                {
+                    diplomaViewModel.TypeEducation = "Диплом о Среднем профессиональном образовании";
+                    diplomaViewModel.IsBool = diplomaSPO.IsBool;
+                    diplomaViewModel.DateOfIssue = diplomaSPO.DateOfIssue;
+                    diplomaViewModel.IssuedBy = diplomaSPO.IssuedBy;
+                    diplomaViewModel.NumberDiploma = diplomaSPO.NumberDiploma;
+                    diplomaViewModel.RegistrationNumber = diplomaSPO.RegistrationNumber;
+                    diplomaViewModel.Qualification = diplomaSPO.Qualification;
+                    diplomaViewModel.AdditionalNumberDiploma = diplomaSPO.AdditionalNumberDiploma;
+                }
+            }
+            else if (model is DiplomaModel diplomaBac && diplomaBac.TypeEducation == "Бакалавриат")
+            {
+                Diploma diplomaView = new Diploma();
+                DiplomaViewModel diplomaViewModel = new DiplomaViewModel(new GetCertificateService(), 
+                    "Диплом Бакалавра", null, null);
+
+                diplomaViewModel.TitileButton = "Изменить";
+                diplomaViewModel.AddEducation = new RelayCommand(() =>
+                {
+                    diplomaBac.TypeEducation = "Бакалавриат";
+                    diplomaBac.IsBool = diplomaViewModel.IsBool;
+                    diplomaBac.DateOfIssue = diplomaViewModel.DateOfIssue;
+                    diplomaBac.IssuedBy = diplomaViewModel.IssuedBy;
+                    diplomaBac.NumberDiploma = diplomaViewModel.NumberDiploma;
+                    diplomaBac.RegistrationNumber = diplomaViewModel.RegistrationNumber;
+                    diplomaBac.Qualification = diplomaViewModel.Qualification;
+                    diplomaBac.AdditionalNumberDiploma = diplomaViewModel.AdditionalNumberDiploma;
+
+                    education.Close();
+                });
+                GetData();
+
+                diplomaView.DataContext = diplomaViewModel;
+
+                educationViewModel.TypeDocument = educationViewModel.EducationLevels[3];
+                educationViewModel.UserControl = diplomaView;
+
+                education.DataContext = educationViewModel;
+                education.ShowDialog();
+
+                void GetData()
+                {
+                    diplomaViewModel.TypeEducation = "Диплом Бакалавра";
+                    diplomaViewModel.IsBool = diplomaBac.IsBool;
+                    diplomaViewModel.DateOfIssue = diplomaBac.DateOfIssue;
+                    diplomaViewModel.IssuedBy = diplomaBac.IssuedBy;
+                    diplomaViewModel.NumberDiploma = diplomaBac.NumberDiploma;
+                    diplomaViewModel.RegistrationNumber = diplomaBac.RegistrationNumber;
+                    diplomaViewModel.Qualification = diplomaBac.Qualification;
+                    diplomaViewModel.AdditionalNumberDiploma = diplomaBac.AdditionalNumberDiploma;
+                }
+            }
+            else if (model is DiplomaModel diplomaMag && diplomaMag.TypeEducation == "Магистратура")
+            {
+                Diploma diplomaView = new Diploma();
+                DiplomaViewModel diplomaViewModel = new DiplomaViewModel(new GetCertificateService(), 
+                    "Диплом Магистра", null, null);
+
+                diplomaViewModel.TitileButton = "Изменить";
+                diplomaViewModel.AddEducation = new RelayCommand(() =>
+                {
+                    diplomaMag.TypeEducation = "Магистратура";
+                    diplomaMag.IsBool = diplomaViewModel.IsBool;
+                    diplomaMag.DateOfIssue = diplomaViewModel.DateOfIssue;
+                    diplomaMag.IssuedBy = diplomaViewModel.IssuedBy;
+                    diplomaMag.NumberDiploma = diplomaViewModel.NumberDiploma;
+                    diplomaMag.RegistrationNumber = diplomaViewModel.RegistrationNumber;
+                    diplomaMag.Qualification = diplomaViewModel.Qualification;
+                    diplomaMag.AdditionalNumberDiploma = diplomaViewModel.AdditionalNumberDiploma;
+
+                    education.Close();
+                });
+                GetData();
+
+                diplomaView.DataContext = diplomaViewModel;
+
+                educationViewModel.TypeDocument = educationViewModel.EducationLevels[4];
+                educationViewModel.UserControl = diplomaView;
+
+                education.DataContext = educationViewModel;
+                education.ShowDialog();
+
+                void GetData()
+                {
+                    diplomaViewModel.TypeEducation = "Диплом Магистра";
+                    diplomaViewModel.IsBool = diplomaMag.IsBool;
+                    diplomaViewModel.DateOfIssue = diplomaMag.DateOfIssue;
+                    diplomaViewModel.IssuedBy = diplomaMag.IssuedBy;
+                    diplomaViewModel.NumberDiploma = diplomaMag.NumberDiploma;
+                    diplomaViewModel.RegistrationNumber = diplomaMag.RegistrationNumber;
+                    diplomaViewModel.Qualification = diplomaMag.Qualification;
+                    diplomaViewModel.AdditionalNumberDiploma = diplomaMag.AdditionalNumberDiploma;
+                }
+            }
+            else if (model is DiplomaModel diplomaAsp && diplomaAsp.TypeEducation == "Аспирантура")
+            {
+                Diploma diplomaView = new Diploma();
+                DiplomaViewModel diplomaViewModel = new DiplomaViewModel(new GetCertificateService(), 
+                    "Диплом об окончании Аспирантуры", null, null);
+
+                diplomaViewModel.TitileButton = "Изменить";
+                diplomaViewModel.AddEducation = new RelayCommand(() =>
+                {
+                    diplomaAsp.TypeEducation = "Аспирантура";
+                    diplomaAsp.IsBool = diplomaViewModel.IsBool;
+                    diplomaAsp.DateOfIssue = diplomaViewModel.DateOfIssue;
+                    diplomaAsp.IssuedBy = diplomaViewModel.IssuedBy;
+                    diplomaAsp.NumberDiploma = diplomaViewModel.NumberDiploma;
+                    diplomaAsp.RegistrationNumber = diplomaViewModel.RegistrationNumber;
+                    diplomaAsp.Qualification = diplomaViewModel.Qualification;
+                    diplomaAsp.AdditionalNumberDiploma = diplomaViewModel.AdditionalNumberDiploma;
+
+                    education.Close();
+                });
+                GetData();
+
+                diplomaView.DataContext = diplomaViewModel;
+
+                educationViewModel.TypeDocument = educationViewModel.EducationLevels[5];
+                educationViewModel.UserControl = diplomaView;
+
+                education.DataContext = educationViewModel;
+                education.ShowDialog();
+
+                void GetData()
+                {
+                    diplomaViewModel.TypeEducation = "Диплом об окончании Аспирантуры";
+                    diplomaViewModel.IsBool = diplomaAsp.IsBool;
+                    diplomaViewModel.DateOfIssue = diplomaAsp.DateOfIssue;
+                    diplomaViewModel.IssuedBy = diplomaAsp.IssuedBy;
+                    diplomaViewModel.NumberDiploma = diplomaAsp.NumberDiploma;
+                    diplomaViewModel.RegistrationNumber = diplomaAsp.RegistrationNumber;
+                    diplomaViewModel.Qualification = diplomaAsp.Qualification;
+                    diplomaViewModel.AdditionalNumberDiploma = diplomaAsp.AdditionalNumberDiploma;
+                }
+            }
         }
     }
 }

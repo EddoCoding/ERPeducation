@@ -15,11 +15,11 @@
         <Style x:Key="MyStyleLabel" TargetType="Label">
             <Setter Property="Padding" Value="0"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="Margin" Value="15,5,0,0"/>
         </Style>
         <Style x:Key="MyStyleTextBoxSeriesNumber" TargetType="TextBox">
             <Setter Property="BorderBrush" Value="Gray"/>
-            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="Margin" Value="15,5,0,0"/>
             <Setter Property="Height" Value="25"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Template">
@@ -41,7 +41,7 @@
         </Style>
         <Style x:Key="MyStyleTextBox" TargetType="TextBox">
             <Setter Property="BorderBrush" Value="Gray"/>
-            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="Margin" Value="15,5,0,0"/>
             <Setter Property="Height" Value="25"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Template">
@@ -64,12 +64,12 @@
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Margin" Value="15,0,0,15"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Border" BorderThickness="1" BorderBrush="Black" Padding="0" Height="30" Margin="0,0,19,0">
-                            <Label x:Name="Label" Content="Добавить документ" FontWeight="DemiBold" Foreground="Black"/>
+                            <Label x:Name="Label" Content="{Binding TitileButton}" FontWeight="DemiBold" Foreground="Black"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -513,7 +513,7 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="0" Margin="0,5,0,0" Height="25" Width="70">
+                            <Border Grid.Column="0" Margin="15,5,0,0" Height="25" Width="70">
                                 <TextBox FontSize="13" BorderThickness="0" SelectionBrush="DarkGray" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
                                      Text="{Binding DateOfIssue, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
                                 <Border.Style>
@@ -566,7 +566,7 @@
             <CheckBox Content="С Отличием" IsChecked="{Binding IsBool}" VerticalAlignment="Center" Margin="10,6,0,0" FontSize="13"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Background="White" Orientation="Horizontal" Margin="0,10,0,0">
+        <StackPanel Grid.Row="2" Background="WhiteSmoke" Orientation="Horizontal" Margin="0,10,0,0">
 
             <StackPanel>
 
@@ -589,7 +589,7 @@
                 <Label Content="Квалификация" Style="{StaticResource MyStyleLabel}"/>
 
                 <TextBox Text="{Binding Qualification}" Style="{StaticResource MyStyleTextBox}" Width="300"/>
-                
+
             </StackPanel>
 
             <StackPanel>
@@ -602,15 +602,15 @@
                          Style="{StaticResource MyStyleTextBoxSeriesNumber}" Width="107"/>
 
             </StackPanel>
-                
+
         </StackPanel>
 
         <Label Grid.Row="3" Content="Где выдан" Style="{StaticResource MyStyleLabel}"/>
 
-        <TextBox Grid.Row="4" Text="{Binding IssuedBy}" Style="{StaticResource MyStyleTextBox}" Width="600"/>
+        <TextBox Grid.Row="4" Text="{Binding IssuedBy}" Style="{StaticResource MyStyleTextBox}" Width="585"/>
 
         <Button Grid.Row="5" Style="{StaticResource MyStyleButton}" Command="{Binding AddEducation}"/>
 
     </Grid>
-    
+
 </UserControl>
