@@ -1,5 +1,5 @@
 ﻿using ERPeducation.Command;
-using ERPeducation.Common.Interface;
+using ERPeducation.Common.Interface.DialogModel;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -11,7 +11,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
     {
         #region Свойства контролов
         public string TitileButton { get; set; } = "Добавить образование";
+
         public string TypeEducation { get; set; }
+        public string TypeEducationDocument { get; set; }
         public bool IsBool { get; set; }
         public long NumberCertificate { get; set; }
         [Reactive] public DateTime DateOfIssue { get; set; }
@@ -31,6 +33,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
             _modelService = modelService;
 
             TypeEducation = typeEducation;
+            TypeEducationDocument = typeEducation;
 
             OpenClosePoPup = new RelayCommand(() => 
             {

@@ -1,8 +1,8 @@
-﻿using ERPeducation.Common.Interface;
+﻿using ERPeducation.Common.Interface.DialogModel;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
 
-namespace ERPeducation.Common.Services
+namespace ERPeducation.Common.Services.ServicesForPersonalContact
 {
     public class GetForeignPassportService : IConnectionModelService
     {

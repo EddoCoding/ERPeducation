@@ -65,7 +65,7 @@
                                             <GridViewColumn Header="Тип образования" Width="220">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <Label Content="{Binding TypeEducation}" 
+                                                        <Label Content="{Binding TypeEducation}"
                                                                Style="{StaticResource MyStyleLabelForItemsListViewColumn}"
                                                                FontSize="14"/>
                                                     </DataTemplate>
@@ -93,7 +93,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
@@ -107,15 +106,13 @@
 
         <ListView Grid.Row="2" Margin="15,10" Style="{StaticResource MystyleListView}"/>
 
-        <Label Grid.Row="3" Content="Дополнительное образование/курсы" Margin="15,10,0,0" Padding="0" FontSize="18"/>
+        <Label Grid.Row="3" Content="Сведения" Margin="15,10,0,0" Padding="0" FontSize="18"/>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="15,20,0,0">
-            <Button Content="+ Добавить" Style="{StaticResource MyStyleButton}" Command="{Binding AddAdditionalEducatinCommand}"/>
-            <Button Content="- Удалить" Style="{StaticResource MyStyleButton}" Command="{Binding DeleteAdditionalEducatinCommand}"/>
-            <Button Content="Изменить" Style="{StaticResource MyStyleButton}" Command="{Binding EditAdditionalEducatinCommand}"/>
-        </StackPanel>
+        <Border Grid.Row="4" BorderThickness="1" BorderBrush="Gray" Margin="15,10,15,15">
+            <Grid>
+                <UserControl Grid.Row="1" Content="{Binding UserControl}"/>
+            </Grid>
+        </Border>
 
-        <ListView Grid.Row="5" Margin="15,10" ItemsSource="{Binding AdditionalEducation}"/>
-        
     </Grid>
 </UserControl>

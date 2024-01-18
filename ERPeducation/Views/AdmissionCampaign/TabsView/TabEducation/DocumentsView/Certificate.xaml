@@ -561,7 +561,7 @@
         <Label Grid.Row="0" Content="Документ об образовании" Style="{StaticResource MyStyleLabel}"/>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <TextBox Style="{StaticResource MyStyleTextBox}" Width="330" Text="{Binding TypeEducation}"/>
+            <TextBox Style="{StaticResource MyStyleTextBox}" Width="330" Text="{Binding TypeEducationDocument}"/>
 
             <CheckBox Content="С Отличием" IsChecked="{Binding IsBool}" VerticalAlignment="Center" Margin="10,6,0,0" FontSize="13"/>
         </StackPanel>

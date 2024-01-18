@@ -1,4 +1,4 @@
-﻿using ERPeducation.Common.Interface;
+﻿using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Common.Services;
 using ERPeducation.ViewModels;
 using Microsoft.Extensions.DependencyInjection;

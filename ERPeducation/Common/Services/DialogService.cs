@@ -1,5 +1,7 @@
 ﻿using ERPeducation.Command;
-using ERPeducation.Common.Interface;
+using ERPeducation.Common.Interface.DialogPersonal;
+using ERPeducation.Common.Services.ServiceForEducation;
+using ERPeducation.Common.Services.ServicesForPersonalContact;
 using ERPeducation.Common.Windows;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
@@ -84,7 +86,7 @@ namespace ERPeducation.Common.Services
                     return enrolleeContactInformationView;
                 case "Образование":
                     EnrolleeEducationView enrolleeEducationView = new EnrolleeEducationView();
-                    enrolleeEducationView.DataContext = new EnrolleeEducationViewModel(this);
+                    enrolleeEducationView.DataContext = new EnrolleeEducationViewModel(this, new EducationInformationService());
                     return enrolleeEducationView;
                 case "Направление подготовки":
                     break;
@@ -347,6 +349,7 @@ namespace ERPeducation.Common.Services
                 certificateViewModel.AddEducation = new RelayCommand(() => 
                 {
                     certificate.TypeEducation = "Основное общее";
+                    certificate.TypeEducationDocument = certificateViewModel.TypeEducationDocument;
                     certificate.IsBool = certificateViewModel.IsBool;
                     certificate.DateOfIssue = certificateViewModel.DateOfIssue;
                     certificate.IssuedBy = certificateViewModel.IssuedBy;
@@ -366,7 +369,8 @@ namespace ERPeducation.Common.Services
 
                 void GetData()
                 {
-                    certificateViewModel.TypeEducation = "Аттестат об Основном общем образовании";
+                    certificateViewModel.TypeEducation = certificate.TypeEducation;
+                    certificateViewModel.TypeEducationDocument = certificate.TypeEducationDocument;
                     certificateViewModel.IsBool = certificate.IsBool;
                     certificateViewModel.DateOfIssue = certificate.DateOfIssue;
                     certificateViewModel.IssuedBy = certificate.IssuedBy;
@@ -383,6 +387,7 @@ namespace ERPeducation.Common.Services
                 certificateViewModel.AddEducation = new RelayCommand(() =>
                 {
                     certificateAdditional.TypeEducation = "Среднее общее";
+                    certificateAdditional.TypeEducationDocument = certificateViewModel.TypeEducationDocument;
                     certificateAdditional.IsBool = certificateViewModel.IsBool;
                     certificateAdditional.DateOfIssue = certificateViewModel.DateOfIssue;
                     certificateAdditional.IssuedBy = certificateViewModel.IssuedBy;
@@ -403,6 +408,7 @@ namespace ERPeducation.Common.Services
                 void GetData()
                 {
                     certificateViewModel.TypeEducation = "Аттестат о Среднем общем образовании";
+                    certificateViewModel.TypeEducationDocument = certificateAdditional.TypeEducationDocument;
                     certificateViewModel.IsBool = certificateAdditional.IsBool;
                     certificateViewModel.DateOfIssue = certificateAdditional.DateOfIssue;
                     certificateViewModel.IssuedBy = certificateAdditional.IssuedBy;
@@ -420,6 +426,7 @@ namespace ERPeducation.Common.Services
                 diplomaViewModel.AddEducation = new RelayCommand(() => 
                 {
                     diplomaSPO.TypeEducation = "Среднее профессиональное";
+                    diplomaSPO.TypeEducationDocument = diplomaViewModel.TypeEducationDocument;
                     diplomaSPO.IsBool = diplomaViewModel.IsBool;
                     diplomaSPO.DateOfIssue = diplomaViewModel.DateOfIssue;
                     diplomaSPO.IssuedBy = diplomaViewModel.IssuedBy;
@@ -443,6 +450,7 @@ namespace ERPeducation.Common.Services
                 void GetData()
                 {
                     diplomaViewModel.TypeEducation = "Диплом о Среднем профессиональном образовании";
+                    diplomaViewModel.TypeEducationDocument = diplomaSPO.TypeEducationDocument;
                     diplomaViewModel.IsBool = diplomaSPO.IsBool;
                     diplomaViewModel.DateOfIssue = diplomaSPO.DateOfIssue;
                     diplomaViewModel.IssuedBy = diplomaSPO.IssuedBy;
@@ -462,6 +470,7 @@ namespace ERPeducation.Common.Services
                 diplomaViewModel.AddEducation = new RelayCommand(() =>
                 {
                     diplomaBac.TypeEducation = "Бакалавриат";
+                    diplomaBac.TypeEducationDocument = diplomaViewModel.TypeEducationDocument;
                     diplomaBac.IsBool = diplomaViewModel.IsBool;
                     diplomaBac.DateOfIssue = diplomaViewModel.DateOfIssue;
                     diplomaBac.IssuedBy = diplomaViewModel.IssuedBy;
@@ -485,6 +494,7 @@ namespace ERPeducation.Common.Services
                 void GetData()
                 {
                     diplomaViewModel.TypeEducation = "Диплом Бакалавра";
+                    diplomaViewModel.TypeEducation = diplomaBac.TypeEducationDocument;
                     diplomaViewModel.IsBool = diplomaBac.IsBool;
                     diplomaViewModel.DateOfIssue = diplomaBac.DateOfIssue;
                     diplomaViewModel.IssuedBy = diplomaBac.IssuedBy;
@@ -504,6 +514,7 @@ namespace ERPeducation.Common.Services
                 diplomaViewModel.AddEducation = new RelayCommand(() =>
                 {
                     diplomaMag.TypeEducation = "Магистратура";
+                    diplomaMag.TypeEducationDocument = diplomaViewModel.TypeEducationDocument;
                     diplomaMag.IsBool = diplomaViewModel.IsBool;
                     diplomaMag.DateOfIssue = diplomaViewModel.DateOfIssue;
                     diplomaMag.IssuedBy = diplomaViewModel.IssuedBy;
@@ -527,6 +538,7 @@ namespace ERPeducation.Common.Services
                 void GetData()
                 {
                     diplomaViewModel.TypeEducation = "Диплом Магистра";
+                    diplomaViewModel.TypeEducationDocument = diplomaMag.TypeEducationDocument;
                     diplomaViewModel.IsBool = diplomaMag.IsBool;
                     diplomaViewModel.DateOfIssue = diplomaMag.DateOfIssue;
                     diplomaViewModel.IssuedBy = diplomaMag.IssuedBy;
@@ -546,6 +558,7 @@ namespace ERPeducation.Common.Services
                 diplomaViewModel.AddEducation = new RelayCommand(() =>
                 {
                     diplomaAsp.TypeEducation = "Аспирантура";
+                    diplomaAsp.TypeEducationDocument = diplomaViewModel.TypeEducationDocument;
                     diplomaAsp.IsBool = diplomaViewModel.IsBool;
                     diplomaAsp.DateOfIssue = diplomaViewModel.DateOfIssue;
                     diplomaAsp.IssuedBy = diplomaViewModel.IssuedBy;
@@ -569,6 +582,7 @@ namespace ERPeducation.Common.Services
                 void GetData()
                 {
                     diplomaViewModel.TypeEducation = "Диплом об окончании Аспирантуры";
+                    diplomaViewModel.TypeEducationDocument = diplomaAsp.TypeEducationDocument;
                     diplomaViewModel.IsBool = diplomaAsp.IsBool;
                     diplomaViewModel.DateOfIssue = diplomaAsp.DateOfIssue;
                     diplomaViewModel.IssuedBy = diplomaAsp.IssuedBy;

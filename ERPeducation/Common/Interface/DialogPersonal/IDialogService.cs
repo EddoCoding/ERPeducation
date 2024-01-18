@@ -5,7 +5,7 @@ using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalIn
 using System;
 using System.Windows.Controls;
 
-namespace ERPeducation.Common.Interface
+namespace ERPeducation.Common.Interface.DialogPersonal
 {
     public interface IDialogService
     {

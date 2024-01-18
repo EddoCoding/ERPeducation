@@ -1,11 +1,8 @@
 ﻿using ERPeducation.Command;
-using ERPeducation.Common.Interface;
-using ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView;
+using ERPeducation.Common.Interface.DialogPersonal;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
-using System.Reactive;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -66,6 +63,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
 
         [Reactive] public string ValueComboBox { get; set; }
         [Reactive] public UserControl UserControl { get; set; }
+
         Action closeWindow;
         #endregion
         #region Команды

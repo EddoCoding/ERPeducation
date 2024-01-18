@@ -1,5 +1,5 @@
 ﻿using ERPeducation.Command;
-using ERPeducation.Common.Interface;
+using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Models.AdmissionCampaign;
 using ERPeducation.Views;
 using System.Collections.ObjectModel;

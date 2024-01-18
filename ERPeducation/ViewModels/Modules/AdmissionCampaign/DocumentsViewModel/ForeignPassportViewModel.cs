@@ -1,5 +1,5 @@
 ﻿using ERPeducation.Command;
-using ERPeducation.Common.Interface;
+using ERPeducation.Common.Interface.DialogModel;
 using ERPeducation.Interface;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation;
 using System;

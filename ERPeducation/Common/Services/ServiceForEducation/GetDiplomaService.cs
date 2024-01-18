@@ -1,8 +1,8 @@
-﻿using ERPeducation.Common.Interface;
+﻿using ERPeducation.Common.Interface.DialogModel;
 using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel;
 
-namespace ERPeducation.Common.Services
+namespace ERPeducation.Common.Services.ServiceForEducation
 {
     public class GetDiplomaService : IEducationModelService
     {
@@ -21,7 +21,7 @@ namespace ERPeducation.Common.Services
                     break;
                 case "Диплом Магистра":
                     typeDocument = "Магистратура";
-                    break; 
+                    break;
                 case "Диплом об окончании Аспирантуры":
                     typeDocument = "Аспирантура";
                     break;
@@ -30,6 +30,7 @@ namespace ERPeducation.Common.Services
             DiplomaModel diploma = new DiplomaModel()
             {
                 TypeEducation = typeDocument,
+                TypeEducationDocument = diplomaData.TypeEducationDocument,
                 IsBool = diplomaData.IsBool,
                 DateOfIssue = diplomaData.DateOfIssue,
                 IsPopup = diplomaData.IsPopup,

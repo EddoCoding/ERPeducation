@@ -1,5 +1,5 @@
 ﻿using ERPeducation.Common;
-using ERPeducation.Common.Interface;
+using ERPeducation.Common.Interface.DialogPersonal;
 using System.Collections.ObjectModel;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign

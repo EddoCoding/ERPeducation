@@ -1,7 +1,7 @@
 ﻿using ERPeducation.Command;
 using ERPeducation.Common;
 using ERPeducation.Common.Command;
-using ERPeducation.Common.Interface;
+using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Common.Services;
 using ERPeducation.Interface;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;

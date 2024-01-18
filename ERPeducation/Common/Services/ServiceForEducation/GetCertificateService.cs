@@ -1,9 +1,8 @@
-﻿using ERPeducation.Common.Interface;
-using ERPeducation.Models.AdmissionCampaign.Documents;
+﻿using ERPeducation.Common.Interface.DialogModel;
 using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel;
 
-namespace ERPeducation.Common.Services
+namespace ERPeducation.Common.Services.ServiceForEducation
 {
     public class GetCertificateService : IEducationModelService
     {
@@ -18,6 +17,7 @@ namespace ERPeducation.Common.Services
             CertificateModel certificate = new CertificateModel()
             {
                 TypeEducation = typeDocument,
+                TypeEducationDocument = certificateData.TypeEducationDocument,
                 IsBool = certificateData.IsBool,
                 NumberCertificate = certificateData.NumberCertificate,
                 DateOfIssue = certificateData.DateOfIssue,

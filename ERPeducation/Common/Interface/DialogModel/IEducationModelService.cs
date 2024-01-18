@@ -1,6 +1,6 @@
 ﻿using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 
-namespace ERPeducation.Common.Interface
+namespace ERPeducation.Common.Interface.DialogModel
 {
     public interface IEducationModelService
     {
