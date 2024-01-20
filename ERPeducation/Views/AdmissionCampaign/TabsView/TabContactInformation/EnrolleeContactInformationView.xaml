@@ -8,18 +8,38 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="MyStyleLabel" TargetType="Label">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
         </Style>
         <Style x:Key="MyStyleTextBox" TargetType="TextBox">
             <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Margin="5,0,0,0">
-                            <TextBox BorderThickness="0" Padding="3" FontSize="13" SelectionBrush="DarkGray" Width="340" TextWrapping="Wrap"
-                                     AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Margin="5,5,0,0" Height="25">
+                            <TextBox BorderThickness="0" FontSize="13" SelectionBrush="DarkGray" Width="340" TextWrapping="Wrap"
+                                     AcceptsReturn="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center"
                                 Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="DarkCyan"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="MyStyleTextBoxInfo" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Margin="5,5,0,0">
+                            <TextBox BorderThickness="0" FontSize="13" SelectionBrush="DarkGray" Width="340" TextWrapping="Wrap"
+                                     AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                                     Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -33,7 +53,7 @@
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-        
+
         <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -46,9 +66,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Content="Контактная информация" Margin="15,10,0,0" Padding="0" FontSize="18"/>
+            <Label Grid.Row="0" Content="Контактная информация" Margin="15,10,0,0" Padding="0" FontSize="15" FontWeight="DemiBold"/>
 
-            <StackPanel Grid.Row="1" Margin="10,20,0,0">
+            <StackPanel Grid.Row="1" Margin="10,15,0,0">
                 <Label Content="Адрес места проживания" Style="{StaticResource MyStyleLabel}"/>
 
                 <StackPanel Orientation="Horizontal">
@@ -88,7 +108,7 @@
 
             <StackPanel Grid.Row="6" Margin="10,5,0,0">
                 <Label Content="Дополнительная информация" Style="{StaticResource MyStyleLabel}"/>
-                <TextBox Style="{StaticResource MyStyleTextBox}" Text="{Binding AdditionalInformation}" Width="350" Height="80" HorizontalAlignment="Left"/>
+                <TextBox Style="{StaticResource MyStyleTextBoxInfo}" Text="{Binding AdditionalInformation}" Width="350" Height="100" HorizontalAlignment="Left"/>
             </StackPanel>
             <!--Дополнительная информация-->
 

@@ -3,6 +3,7 @@ using ERPeducation.Common.Interface.DialogModel;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
+using System.Reactive;
 using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel
@@ -21,8 +22,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
         public string IssuedBy { get; set; }
         #endregion
         #region Команды
-        public ICommand OpenClosePoPup { get; set; }
-        public ICommand AddEducation { get; set; }
+        public ReactiveCommand<Unit, Unit> OpenClosePoPup { get; set; }
+        public ReactiveCommand<Unit, Unit> AddEducation { get; set; }
         #endregion
 
         IEducationModelService _modelService;
@@ -35,13 +36,13 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
             TypeEducation = typeEducation;
             TypeEducationDocument = typeEducation;
 
-            OpenClosePoPup = new RelayCommand(() => 
+            OpenClosePoPup = ReactiveCommand.Create(() => 
             {
                 if (IsPopup == false) IsPopup = true;
                 else IsPopup = false;
             });
 
-            AddEducation = new RelayCommand(() => 
+            AddEducation = ReactiveCommand.Create(() =>
             {
                 enrolleEducationViewModel.Education.Add(_modelService.GetModel(this));
                 closeWindow();

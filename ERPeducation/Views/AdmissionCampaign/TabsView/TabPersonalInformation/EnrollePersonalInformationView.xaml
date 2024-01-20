@@ -11,16 +11,19 @@
         <Convert:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
 
         <Style x:Key="MyStyleLabel" TargetType="Label">
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
         </Style>
         <Style x:Key="MyStyleTextBox" TargetType="TextBox">
             <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Margin="100,0,50,0">
-                            <TextBox BorderThickness="0" Padding="3" FontSize="14" SelectionBrush="DarkGray" 
+                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" 
+                                Margin="100,0,50,0" VerticalAlignment="Center" Height="25">
+                            <TextBox BorderThickness="0" FontSize="15" SelectionBrush="DarkGray" 
                              Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"/>
                         </Border>
                     </ControlTemplate>
@@ -33,22 +36,20 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="MyStyleComboBox" TargetType="ComboBox">
-            <Setter Property="Margin" Value="137,0,200,0"/>
+            <Setter Property="Margin" Value="131,0,200,0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <Grid>
                             <ToggleButton x:Name="togglebutton" Content="{Binding ValueComboBox}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
-                                RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
+                                          RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press">
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="ToggleButton">
                                         <Grid>
                                             <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
                                                 <ContentPresenter VerticalAlignment="Center" Margin="10,0,0,0"/>
                                             </Border>
-                                            <!-- ComboBox -->
                                             <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
-                                            <!-- Стрелка -->
                                         </Grid>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
@@ -56,7 +57,6 @@
                                                 <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
-                                        <!-- ComboBox наведение -->
                                     </ControlTemplate>
                                 </ToggleButton.Template>
                             </ToggleButton>
@@ -95,7 +95,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Padding="0" Background="Transparent" Width="26" Margin="5,0,0,0">
+                        <Border Padding="0" Background="Transparent" Width="22" Height="22" Margin="5,0,0,0">
                             <Image Source="/Common/Image/calendar.png"/>
                         </Border>
                     </ControlTemplate>
@@ -510,7 +510,7 @@
             </Setter>
         </Style>
         <Style x:Key="MyStyleDatePicker" TargetType="DatePicker">
-            <Setter Property="Margin" Value="58,0,91,0"/>
+            <Setter Property="Margin" Value="63,0,91,0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -521,9 +521,9 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="0">
-                                <TextBox Padding="5" FontSize="14" BorderThickness="0" SelectionBrush="DarkGray" Text="{Binding DateOfBirth, 
-                                         StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
+                            <Border Grid.Column="0" Height="25">
+                                <TextBox FontSize="15" BorderThickness="0" SelectionBrush="DarkGray" VerticalAlignment="Center"
+                                         Text="{Binding DateOfBirth, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="BorderBrush" Value="Gray"/>
@@ -590,14 +590,14 @@
             <Setter Property="BorderThickness" Value="0"/>
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="DarkGray"/>
+                    <Setter Property="Background" Value="LightGray"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="DarkGray"/>
+                    <Setter Property="Background" Value="WhiteSmoke"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="MystyleListView" TargetType="ListView">
+        <Style x:Key="MyStyleListView" TargetType="ListView">
             <Setter Property="Margin" Value="0,10,0,30"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="Gray"/>
@@ -610,11 +610,12 @@
                                 <ListView.View>
                                     <GridView ColumnHeaderContainerStyle="{StaticResource MyStyleColumnHeaderContainerStyle}">
                                         <GridView.Columns>
-                                            <GridViewColumn Header="Тип документов" Width="150">
+                                            <GridViewColumn Header="Тип образования" Width="220">
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <Label Content="{Binding TypeDocument}" Style="{StaticResource MyStyleLabelForItemsListViewColumn}"
-                                                               FontSize="14"/>
+                                                        <Label Content="{Binding TypeDocument}"
+                                                               Style="{StaticResource MyStyleLabelForItemsListViewColumn}"
+                                                               FontSize="13"/>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>
@@ -646,9 +647,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Личная информация" Margin="15,10,0,0" Padding="0" FontSize="18"/>
+        <Label Grid.Row="0" Content="Личная информация" Margin="15,10,0,0" Padding="0" FontSize="15" FontWeight="DemiBold"/>
 
-        <Grid Grid.Row="1" Margin="10,40,0,0">
+        <Grid Grid.Row="1" Margin="10,15,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="400"/>
@@ -695,28 +696,28 @@
             </Grid>
 
         <Grid Grid.Row="4" Margin="10,40,0,0">
-                <Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
+            <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Grid.Row="0" Margin="3,0,0,0">
+                <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <RadioButton Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding RadioButtonСitizenship}"/>
-                    <Label Grid.Column="1" Content="Гражданство" Style="{StaticResource MyStyleLabel}" Margin="8,0,0,0"/>
-                    <TextBox Grid.Column="2" Text="{Binding Citizenship}" IsEnabled="{Binding RadioButtonСitizenship}">
+                <RadioButton Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding RadioButtonСitizenship}"/>
+                <Label Grid.Column="1" Content="Гражданство" Style="{StaticResource MyStyleLabel}" Margin="8,0,0,0"/>
+                <TextBox Grid.Column="2" Text="{Binding Citizenship}" IsEnabled="{Binding RadioButtonСitizenship}">
                         <TextBox.Style>
                             <Style TargetType="TextBox">
-                                <Setter Property="Margin" Value="50,0,0,0"/>
+                                <Setter Property="Margin" Value="56,0,0,0"/>
                                 <Setter Property="BorderBrush" Value="Gray"/>
                                 <Setter Property="Template">
                                     <Setter.Value>
@@ -735,9 +736,9 @@
                             </Style>
                         </TextBox.Style>
                     </TextBox>
-                </Grid>
+            </Grid>
 
-                <Grid Grid.Column="1" Grid.Row="0">
+            <Grid Grid.Column="1" Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -769,7 +770,7 @@
                     </TextBox>
                 </Grid>
 
-                <Grid Grid.Column="0" Grid.Row="1">
+            <Grid Grid.Column="0" Grid.Row="1" Margin="3,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -779,11 +780,11 @@
                     <Label Grid.Column="1" Content="Без гражданства" Style="{StaticResource MyStyleLabel}" Margin="8,0,0,0"/>
                 </Grid>
 
-            </Grid>
+        </Grid>
 
-        <Label Grid.Row="5" Content="Документы" Margin="10,40,0,0" Style="{StaticResource MyStyleLabel}"/>
+        <Label Grid.Row="5" Content="Документы" Margin="15,25,0,0" Padding="0" FontSize="15" FontWeight="DemiBold"/>
 
-        <Grid Grid.Row="6" Margin="10,10,10,0">
+        <Grid Grid.Row="6" Margin="15,10,10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -801,7 +802,7 @@
                 <Button Grid.Column="2" Content="Изменить" Style="{StaticResource MyStyleButton}" Command="{Binding EditDocumentCommand}"/>
             </Grid>
 
-            <ListView Grid.Row="1" Style="{StaticResource MystyleListView}"/>
+            <ListView Grid.Row="1" Style="{StaticResource MyStyleListView}"/>
 
         </Grid>
 

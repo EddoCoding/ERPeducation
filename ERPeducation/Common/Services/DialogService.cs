@@ -6,134 +6,42 @@ using ERPeducation.Common.Windows;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.ContactInformation;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation;
-using ERPeducation.Views;
-using ERPeducation.Views.AdmissionCampaign;
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
-using ERPeducation.Views.AdmissionCampaign.Tabs;
-using ERPeducation.Views.AdmissionCampaign.TabsView;
 using ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView;
-using ERPeducation.Views.ModuleEnrolle;
-using System;
-using System.Windows.Controls;
+using ReactiveUI;
 
 namespace ERPeducation.Common.Services
 {
-    public class DialogService : IDialogService
+    public class DialogService : ReactiveObject, IDialogService
     {
         public void OpenMainWindow()
         {
             MainWindow mainWindow = new MainWindow();
-            mainWindow.DataContext = new MainWindowViewModel(this, mainWindow.Close, "Admin", "Администратор");
+            mainWindow.DataContext = new MainWindowViewModel(new UserControlService(), mainWindow.Close, "Admin", "Администратор");
             mainWindow.Show();
         }
-
         public void OpenWindow(object viewModel)
         {
             if(viewModel is EnrollePersonalInformationViewModel)
             {
                 Documents windowDocuments = new();
-                windowDocuments.DataContext = new DocumentsViewModel(this, (EnrollePersonalInformationViewModel)viewModel, windowDocuments.Close);
+                windowDocuments.DataContext = new DocumentsViewModel(new UserControlService(), (EnrollePersonalInformationViewModel)viewModel, windowDocuments.Close);
                 windowDocuments.ShowDialog();
             }
             if(viewModel is EnrolleeEducationViewModel)
             {
                 Educations educations = new Educations();
-                educations.DataContext = new EducationViewModel(this, (EnrolleeEducationViewModel)viewModel, educations.Close);
+                educations.DataContext = new EducationViewModel(new UserControlService(), (EnrolleeEducationViewModel)viewModel, educations.Close);
                 educations.ShowDialog();
             }
         }
-
-        public UserControl GetUserControl(string? titleButton, object viewModel)
-        {
-            switch (titleButton)
-            {
-                case "Приёмная кампания":
-                    AdmissionCampaign admissionCampaign = new AdmissionCampaign();
-                    admissionCampaign.DataContext = new AdmissionCampaignViewModel(this, (MainWindowViewModel)viewModel);
-                    return admissionCampaign;
-            }
-            return null;
-        }
-
-        public UserControl GetUserControlForAdmissionCampaign(string TitleTab)
-        {
-            if(TitleTab == "Абитуриент")
-            {
-                ModuleEnrollee moduleEnrollee = new ModuleEnrollee();
-                moduleEnrollee.DataContext = new EnrolleeViewModel(this);
-                return moduleEnrollee;
-            }
-
-            return null;
-        }
-
-        public UserControl GetUserControlForModuleEnrollee(string moduleEnrolle)
-        {
-            switch (moduleEnrolle)
-            {
-                case "Личная информация":
-                    EnrollePersonalInformationView enrollePersonalInformationView = new EnrollePersonalInformationView();
-                    enrollePersonalInformationView.DataContext = new EnrollePersonalInformationViewModel(this);
-                    return enrollePersonalInformationView;
-                case "Контактная информация":
-                    EnrolleeContactInformationView enrolleeContactInformationView = new EnrolleeContactInformationView();
-                    enrolleeContactInformationView.DataContext = new EnrolleeContactInforamationViewModel();
-                    return enrolleeContactInformationView;
-                case "Образование":
-                    EnrolleeEducationView enrolleeEducationView = new EnrolleeEducationView();
-                    enrolleeEducationView.DataContext = new EnrolleeEducationViewModel(this, new EducationInformationService());
-                    return enrolleeEducationView;
-                case "Направление подготовки":
-                    break;
-                case "Поданные документы":
-                    break;
-                case "Результаты испытаний":
-                    break;
-                case "Заключить договор":
-                    break;
-                case "Дело":
-                    break;
-                case "Печать":
-                    break;
-            }
-
-            return null;
-        }
-
-        public UserControl GetUserControlForDocuments(string? documents, EnrollePersonalInformationViewModel viewModel, Action closeWindow)
-        {
-            switch (documents)
-            {
-                case "Паспорт":
-                    PassportView passportView = new PassportView();
-                    passportView.DataContext = new PassportViewModel(viewModel, new GetPassportService(), closeWindow);
-                    return passportView;
-                case "СНИЛС":
-                    SnilsView snilsView = new SnilsView();
-                    snilsView.DataContext = new SnilsViewModel(viewModel, new GetSnilsService(), closeWindow);
-                    return snilsView;
-                case "ИНН":
-                    InnView innView = new InnView();
-                    innView.DataContext = new InnViewModel(viewModel, new GetInnService(), closeWindow);
-                    return innView;
-                case "Иностранный паспорт":
-                    ForeignPassportView foreignPassportView = new ForeignPassportView();
-                    foreignPassportView.DataContext = new ForeignPassportViewModel(viewModel, new GetForeignPassportService(), closeWindow);
-                    return foreignPassportView;
-            }
-            
-            return null;
-        }
-
-        public void ShowUserControlDocumentsForEdit(DocsBase model, EnrollePersonalInformationViewModel viewModel)
+        public void OpenWindowEditPersonalDocument(DocsBase model, EnrollePersonalInformationViewModel viewModel)
         {
             WindowDocument document = new WindowDocument();
-            DocumentsViewModel documentsViewModel = new DocumentsViewModel(this, viewModel, document.Close);
+            DocumentsViewModel documentsViewModel = new DocumentsViewModel(new UserControlService(), viewModel, document.Close);
             if (model is Passport passport)
             {
                 PassportView passportView = new PassportView();
@@ -302,51 +210,18 @@ namespace ERPeducation.Common.Services
                 }
             }
         }
-
-        public UserControl GetUserControlForTypeEducationDocument(string typeEducation, EnrolleeEducationViewModel viewModel, Action closeWindow)
-        {
-            switch (typeEducation)
-            {
-                case "Основное общее": 
-                    return new Certificate() { DataContext = new CertificateViewModel(new GetCertificateService(), 
-                        "Аттестат об Основном общем образовании", viewModel, closeWindow)
-                    };
-                case "Среднее общее":
-                    return new Certificate() { DataContext = new CertificateViewModel(new GetCertificateService(), 
-                        "Аттестат о Среднем общем образовании", viewModel, closeWindow)
-                    };
-                case "Среднее профессиональное":
-                    return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), 
-                        "Диплом о Среднем профессиональном образовании", viewModel, closeWindow)};
-                case "Бакалавриат":
-                    return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), 
-                        "Диплом Бакалавра", viewModel, closeWindow)
-                    };
-                case "Магистратура":
-                    return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), 
-                        "Диплом Магистра", viewModel, closeWindow)
-                    };
-                case "Аспирантура":
-                    return new Diploma() { DataContext = new DiplomaViewModel(new GetDiplomaService(), 
-                        "Диплом об окончании Аспирантуры", viewModel, closeWindow)
-                    };
-            }
-
-            return null;
-        }
-
-        public void ShowUserControlEducationDocumentsForEdit(TypeEducationBaseModel model, EnrolleeEducationViewModel viewModel)
+        public void OpenWindowEditEducationDocument(TypeEducationBaseModel model, EnrolleeEducationViewModel viewModel, int selectedItemInt)
         {
             WindowEducation education = new WindowEducation();
-            EducationViewModel educationViewModel = new EducationViewModel(this, viewModel, education.Close);
+            EducationViewModel educationViewModel = new EducationViewModel(new UserControlService(), viewModel, education.Close);
             if(model is CertificateModel certificate && certificate.TypeEducation == "Основное общее")
             {
                 Certificate certificateView = new Certificate();
-                CertificateViewModel certificateViewModel = new CertificateViewModel(new GetCertificateService(), 
-                    "Аттестат об Основном общем образовании", null, null);
+                CertificateViewModel certificateViewModel = new CertificateViewModel(null, null, null, null);
 
                 certificateViewModel.TitileButton = "Изменить";
-                certificateViewModel.AddEducation = new RelayCommand(() => 
+                viewModel.SelectedEducation = null;
+                certificateViewModel.AddEducation = ReactiveCommand.Create(() => 
                 {
                     certificate.TypeEducation = "Основное общее";
                     certificate.TypeEducationDocument = certificateViewModel.TypeEducationDocument;
@@ -355,8 +230,11 @@ namespace ERPeducation.Common.Services
                     certificate.IssuedBy = certificateViewModel.IssuedBy;
                     certificate.NumberCertificate = certificateViewModel.NumberCertificate;
 
+                    viewModel.SelectedEducation = viewModel.Education[selectedItemInt];
+
                     education.Close();
                 });
+
                 GetData();
 
                 certificateView.DataContext = certificateViewModel;
@@ -384,7 +262,8 @@ namespace ERPeducation.Common.Services
                     "Аттестат о Среднем общем образовании", null, null);
 
                 certificateViewModel.TitileButton = "Изменить";
-                certificateViewModel.AddEducation = new RelayCommand(() =>
+                viewModel.SelectedEducation = null;
+                certificateViewModel.AddEducation = ReactiveCommand.Create(() =>
                 {
                     certificateAdditional.TypeEducation = "Среднее общее";
                     certificateAdditional.TypeEducationDocument = certificateViewModel.TypeEducationDocument;
@@ -392,6 +271,8 @@ namespace ERPeducation.Common.Services
                     certificateAdditional.DateOfIssue = certificateViewModel.DateOfIssue;
                     certificateAdditional.IssuedBy = certificateViewModel.IssuedBy;
                     certificateAdditional.NumberCertificate = certificateViewModel.NumberCertificate;
+
+                    viewModel.SelectedEducation = viewModel.Education[selectedItemInt];
 
                     education.Close();
                 });
@@ -423,6 +304,7 @@ namespace ERPeducation.Common.Services
                     "Диплом о Среднем профессиональном образовании", null, null);
 
                 diplomaViewModel.TitileButton = "Изменить";
+                viewModel.SelectedEducation = null;
                 diplomaViewModel.AddEducation = new RelayCommand(() => 
                 {
                     diplomaSPO.TypeEducation = "Среднее профессиональное";
@@ -434,6 +316,8 @@ namespace ERPeducation.Common.Services
                     diplomaSPO.RegistrationNumber = diplomaViewModel.RegistrationNumber;
                     diplomaSPO.Qualification = diplomaViewModel.Qualification;
                     diplomaSPO.AdditionalNumberDiploma = diplomaViewModel.AdditionalNumberDiploma;
+
+                    viewModel.SelectedEducation = viewModel.Education[selectedItemInt];
 
                     education.Close();
                 });
@@ -467,6 +351,7 @@ namespace ERPeducation.Common.Services
                     "Диплом Бакалавра", null, null);
 
                 diplomaViewModel.TitileButton = "Изменить";
+                viewModel.SelectedEducation = null;
                 diplomaViewModel.AddEducation = new RelayCommand(() =>
                 {
                     diplomaBac.TypeEducation = "Бакалавриат";
@@ -478,6 +363,8 @@ namespace ERPeducation.Common.Services
                     diplomaBac.RegistrationNumber = diplomaViewModel.RegistrationNumber;
                     diplomaBac.Qualification = diplomaViewModel.Qualification;
                     diplomaBac.AdditionalNumberDiploma = diplomaViewModel.AdditionalNumberDiploma;
+
+                    viewModel.SelectedEducation = viewModel.Education[selectedItemInt];
 
                     education.Close();
                 });
@@ -511,6 +398,7 @@ namespace ERPeducation.Common.Services
                     "Диплом Магистра", null, null);
 
                 diplomaViewModel.TitileButton = "Изменить";
+                viewModel.SelectedEducation = null;
                 diplomaViewModel.AddEducation = new RelayCommand(() =>
                 {
                     diplomaMag.TypeEducation = "Магистратура";
@@ -522,6 +410,8 @@ namespace ERPeducation.Common.Services
                     diplomaMag.RegistrationNumber = diplomaViewModel.RegistrationNumber;
                     diplomaMag.Qualification = diplomaViewModel.Qualification;
                     diplomaMag.AdditionalNumberDiploma = diplomaViewModel.AdditionalNumberDiploma;
+
+                    viewModel.SelectedEducation = viewModel.Education[selectedItemInt];
 
                     education.Close();
                 });
@@ -555,6 +445,7 @@ namespace ERPeducation.Common.Services
                     "Диплом об окончании Аспирантуры", null, null);
 
                 diplomaViewModel.TitileButton = "Изменить";
+                viewModel.SelectedEducation = null;
                 diplomaViewModel.AddEducation = new RelayCommand(() =>
                 {
                     diplomaAsp.TypeEducation = "Аспирантура";
@@ -566,6 +457,8 @@ namespace ERPeducation.Common.Services
                     diplomaAsp.RegistrationNumber = diplomaViewModel.RegistrationNumber;
                     diplomaAsp.Qualification = diplomaViewModel.Qualification;
                     diplomaAsp.AdditionalNumberDiploma = diplomaViewModel.AdditionalNumberDiploma;
+
+                    viewModel.SelectedEducation = viewModel.Education[selectedItemInt];
 
                     education.Close();
                 });
@@ -592,6 +485,6 @@ namespace ERPeducation.Common.Services
                     diplomaViewModel.AdditionalNumberDiploma = diplomaAsp.AdditionalNumberDiploma;
                 }
             }
-        }
+        } 
     }
 }

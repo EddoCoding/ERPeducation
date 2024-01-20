@@ -1,11 +1,11 @@
-﻿using ERPeducation.Command;
+﻿using ReactiveUI;
+using System.Reactive;
 using System.Windows;
-using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.ContactInformation
 {
-    public class EnrolleeContactInforamationViewModel
-    {
+    public class EnrolleeContactInforamationViewModel : ReactiveObject
+    { 
         public string ResidenceAddress { get; set; }
         public string RegistrationAddress { get; set; }
         public long HomePhone { get; set; }
@@ -13,11 +13,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Contac
         public string Mail { get; set; }
         public string AdditionalInformation { get; set; }
 
-        public ICommand command { get; set; }
-
+        public ReactiveCommand<Unit, Unit> command { get; set; }
+        
         public EnrolleeContactInforamationViewModel()
         {
-            command = new RelayCommand(() =>
+            command = ReactiveCommand.Create(() => 
             {
                 MessageBox.Show($"Место проживания: {ResidenceAddress}\n" +
                                 $"Адрес по прописке: {RegistrationAddress}\n" +

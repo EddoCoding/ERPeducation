@@ -1,19 +1,13 @@
-﻿using ERPeducation.Command;
-using ERPeducation.Common;
-using ERPeducation.Common.Command;
-using ERPeducation.Common.Interface.DialogPersonal;
-using ERPeducation.Common.Services;
+﻿using ERPeducation.Common;
+using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign;
-using ERPeducation.Views.AdmissionCampaign;
-using Microsoft.Extensions.DependencyInjection;
+using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reactive;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace ERPeducation.ViewModels
 {
@@ -51,17 +45,17 @@ namespace ERPeducation.ViewModels
         }
         #endregion
         #region Команды
-        public ICommand CloseCommand {  get; set; }
-        public ICommand CommandBurger { get; private set; }
-        public ICommand CommandAddTabItem { get; private set; }
-        public ICommand CommandNewTabItem { get; private set; }
-        public ICommand CommandWindowClose {  get; private set; }
+        public ReactiveCommand<Unit, Unit> CloseCommand {  get; set; }
+        public ReactiveCommand<object, Unit> CommandBurger { get; private set; }
+        public ReactiveCommand<object, Unit> CommandAddTabItem { get; private set; }
+        public ReactiveCommand<object, Unit> CommandNewTabItem { get; private set; }
+        public ReactiveCommand<Unit, Unit> CommandWindowClose {  get; private set; }
         #endregion
 
-        IDialogService _dialogService;
-        public MainWindowViewModel(IDialogService dialogService, Action close, string role, string fullName)
+        IUserControlService _userControlService;
+        public MainWindowViewModel(IUserControlService userControlService, Action close, string role, string fullName)
         {
-            _dialogService = dialogService;
+            _userControlService = userControlService;
 
             FullName = fullName;
             Role = role;
@@ -107,10 +101,10 @@ namespace ERPeducation.ViewModels
                 if (e.NewItems != null) foreach (TabItemMainWindowViewModel item in e.NewItems) item.OnClose += CloseTab;
             };
 
-            CommandBurger = new MyCommand(WidthStackPanel);
-            CommandAddTabItem = new MyCommand(AddTabItem);
-            CommandNewTabItem = new MyCommand(NewTabItem);
-            CloseCommand = new RelayCommand(() => close());
+            CommandBurger = ReactiveCommand.Create<object>(WidthStackPanel);
+            CommandAddTabItem = ReactiveCommand.Create<object>(AddTabItem);
+            CommandNewTabItem = ReactiveCommand.Create<object>(NewTabItem);
+            CloseCommand = ReactiveCommand.Create(close);
         }
 
         #region Обработчики
@@ -144,8 +138,8 @@ namespace ERPeducation.ViewModels
             //}
             if (!ExistsTabItem && contentButton.ToString() == "Приёмная кампания")
             {
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), 
-                    _dialogService.GetUserControl(contentButton.ToString(), this)));
+                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
+                    _userControlService.GetUserControl(contentButton.ToString(), this)));
                 return;
             }
             //if (!ExistsTabItem && contentButton.ToString() == "Администрирование")
@@ -172,7 +166,7 @@ namespace ERPeducation.ViewModels
                 //    break;
                 case "Приёмная кампания":
                     Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-                    _dialogService.GetUserControl(contentButton.ToString(), this)));
+                    _userControlService.GetUserControl(contentButton.ToString(), this)));
                     break;
                 //case "Администрирование":
                 //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleAdministration(new AdministrationViewModel())));

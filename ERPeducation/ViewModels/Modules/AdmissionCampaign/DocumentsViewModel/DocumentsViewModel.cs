@@ -1,5 +1,5 @@
 ﻿using ERPeducation.Command;
-using ERPeducation.Common.Interface.DialogPersonal;
+using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation;
 using System;
@@ -45,10 +45,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         public ICommand CloseWindowCommand { get; set; }
         #endregion
 
-        IDialogService _dialogService;
-        public DocumentsViewModel(IDialogService dialogService, EnrollePersonalInformationViewModel enrolleeViewModel, Action closeWindow)
+        IUserControlService _userControlService;
+        public DocumentsViewModel(IUserControlService userControlService, EnrollePersonalInformationViewModel enrolleeViewModel, Action closeWindow)
         {
-            _dialogService = dialogService;
+            _userControlService = userControlService;
 
             this.closeWindow = closeWindow;
             this.enrolleeViewModel = enrolleeViewModel;
@@ -60,16 +60,16 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
             switch (ValueComboBox)
             {
                 case "Паспорт":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
                     break;
                 case "СНИЛС":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
                     break;
                 case "ИНН":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
                     break;
                 case "Иностранный паспорт":
-                    UserControl = _dialogService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForDocuments(ValueComboBox, enrolleeViewModel, closeWindow);
                     break;
             }
         }

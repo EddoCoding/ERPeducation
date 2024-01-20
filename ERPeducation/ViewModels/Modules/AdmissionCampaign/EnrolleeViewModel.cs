@@ -1,17 +1,18 @@
 ﻿using ERPeducation.Common;
-using ERPeducation.Common.Interface.DialogPersonal;
+using ERPeducation.Common.Interface;
 using System.Collections.ObjectModel;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class EnrolleeViewModel
     {   
-        IDialogService _dialogService;
-
         public BaseDataForModules<TabItemEnrollee> Data { get; set; }
-        public EnrolleeViewModel(IDialogService dialogService)
+
+        IUserControlService _userControlService;
+
+        public EnrolleeViewModel(IUserControlService userControlService)
         {
-            _dialogService = dialogService;
+            _userControlService = userControlService;
 
             Data = new BaseDataForModules<TabItemEnrollee>()
             {
@@ -23,7 +24,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             for (int i = 0; i < Data.DataForTabs.Length; i++)
             {
                 Data.TabItem.Add(new TabItemEnrollee(Data.DataForTabs[i],
-                    _dialogService.GetUserControlForModuleEnrollee(Data.DataForTabs[i])));
+                    _userControlService.GetUserControlForModuleEnrollee(Data.DataForTabs[i])));
             }
             //Перебор, добавление вкладок с наименованием из массива строк и контентом для вкладок из Сервиса
         }

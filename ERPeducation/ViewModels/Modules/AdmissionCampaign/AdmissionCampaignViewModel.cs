@@ -1,41 +1,37 @@
-﻿using ERPeducation.Command;
-using ERPeducation.Common.Interface.DialogPersonal;
+﻿using ERPeducation.Common.Interface;
 using ERPeducation.Models.AdmissionCampaign;
-using ERPeducation.Views;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Windows;
-using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
-    public class AdmissionCampaignViewModel
+    public class AdmissionCampaignViewModel : ReactiveObject
     {
         #region Свойства
         MainWindowViewModel mainWindowViewModel {  get; set; }
         public ObservableCollection<Enrollee> Enrollees { get; set; }
-        Enrollee selectedEnrollee;
-        public Enrollee SelectedEnrollee
-        {
-            get => selectedEnrollee;
-            set => selectedEnrollee = value;
-        }
+        [Reactive] public Enrollee SelectedEnrollee {  get; set; }
         #endregion
         #region Команды
-        public ICommand AddEnrolleeCommand { get; set; }
-        public ICommand WithdrawStatementCommand { get; set; }
-        public ICommand FilterCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> AddEnrolleeCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> WithdrawStatementCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> FilterCommand { get; set; }
         #endregion
 
-        IDialogService _dialogService;
-        public AdmissionCampaignViewModel(IDialogService dialogService, MainWindowViewModel mainWindowViewModel)
+        IUserControlService _userControlService;
+
+        public AdmissionCampaignViewModel(IUserControlService userControlService, MainWindowViewModel mainWindowViewModel)
         {
-            _dialogService = dialogService;
+            _userControlService = userControlService;
 
             this.mainWindowViewModel = mainWindowViewModel;
 
-            AddEnrolleeCommand = new RelayCommand(AddEnrollee);
-            WithdrawStatementCommand = new RelayCommand(() => MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK));
-            FilterCommand = new RelayCommand(() => MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK));
+            AddEnrolleeCommand = ReactiveCommand.Create(AddEnrollee);
+            WithdrawStatementCommand = ReactiveCommand.Create(() => { MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK); });
+            FilterCommand = ReactiveCommand.Create(() => { MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK); });
 
             Enrollees = new ObservableCollection<Enrollee>()
             {
@@ -47,8 +43,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         }
 
         void AddEnrollee() =>
-            mainWindowViewModel.Data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент", 
-                _dialogService.GetUserControlForAdmissionCampaign("Абитуриент")));
+            mainWindowViewModel.Data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент",
+                _userControlService.GetUserControlForAdmissionCampaign("Абитуриент")));
         
     }
 }

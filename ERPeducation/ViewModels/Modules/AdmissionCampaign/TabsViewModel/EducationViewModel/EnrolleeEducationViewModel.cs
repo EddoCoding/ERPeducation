@@ -1,16 +1,15 @@
 ﻿using ERPeducation.Command;
 using ERPeducation.Common.Interface.DialogEducation;
 using ERPeducation.Common.Interface.DialogPersonal;
+using ERPeducation.Interface;
 using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel
 {
-    public class EnrolleeEducationViewModel : ReactiveObject
+    public class EnrolleeEducationViewModel : INPC
     {
         #region Свойства контролов
         public ObservableCollection<TypeEducationBaseModel> Education { get; set; }
@@ -23,10 +22,23 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
             {
                 selectedEducation = value;
                 UserControl = _dialogServiceEducation.GetUserControl(selectedEducation);
+                OnPropertyChanged(nameof(SelectedEducation));
             }
         }
 
-        [Reactive] public UserControl UserControl { get; set; }
+        public int SelectedItemInt { get; set; }
+
+        UserControl userControl;
+        public UserControl UserControl
+        {
+            get => userControl;
+            set
+            {
+                userControl = value;
+                OnPropertyChanged(nameof(UserControl));
+            }
+        }
+
         #endregion
         #region Команды
         public ICommand AddEducatinCommand { get; set; }
@@ -53,6 +65,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
 
         void OpenWindowEducationDocument() => _dialogService.OpenWindow(this);
         void DeleteEducationDocument() => Education.Remove(SelectedEducation);
-        void EditEducationDocument() => _dialogService.ShowUserControlEducationDocumentsForEdit(SelectedEducation, this);
+        void EditEducationDocument() => _dialogService.OpenWindowEditEducationDocument(SelectedEducation, this, SelectedItemInt);
     }
 }

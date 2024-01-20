@@ -14,7 +14,6 @@ namespace ERPeducation
         {
             IDialogService dialogService = new DialogService();
             dialogService.OpenMainWindow();
-            //потом перенести в метод входа из окна логинапароля
         }
     }
 }

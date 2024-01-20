@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.Interface;
 using ERPeducation.Common.Interface.DialogPersonal;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -27,36 +28,37 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
             set
             {
                 selectedEducation = value;
+
                 if (SelectedEducation == "Основное общее")
                 {
                     ValueComboBox = SelectedEducation;
-                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
                 }
                 if (SelectedEducation == "Среднее общее")
                 {
                     ValueComboBox = SelectedEducation;
-                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
                 }
                 if (SelectedEducation == "Среднее профессиональное")
                 {
                     ValueComboBox = SelectedEducation;
-                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
                 }
                 if (SelectedEducation == "Бакалавриат")
                 {
 
                     ValueComboBox = SelectedEducation;
-                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
                 }
                 if (SelectedEducation == "Магистратура")
                 {
                     ValueComboBox = SelectedEducation;
-                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
                 }
                 if (SelectedEducation == "Аспирантура")
                 {
                     ValueComboBox = SelectedEducation;
-                    UserControl = _dialogService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
+                    UserControl = _userControlService.GetUserControlForTypeEducationDocument(SelectedEducation, ViewModel, closeWindow);
                 }
             }
         }
@@ -70,11 +72,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Educat
         public ICommand CloseWindow {  get; set; }
         #endregion
 
-        IDialogService _dialogService;
+        IUserControlService _userControlService;
 
-        public EducationViewModel(IDialogService dialogService, EnrolleeEducationViewModel viewModel, Action closeWindow) 
+        public EducationViewModel(IUserControlService userControlService, EnrolleeEducationViewModel viewModel, Action closeWindow) 
         {
-            _dialogService = dialogService;
+            _userControlService = userControlService;
 
             ViewModel = viewModel;
 

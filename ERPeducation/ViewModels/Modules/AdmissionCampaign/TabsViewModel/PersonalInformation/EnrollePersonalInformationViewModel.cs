@@ -1,10 +1,10 @@
-﻿using ERPeducation.Command;
-using ERPeducation.Common.Interface.DialogPersonal;
+﻿using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Interface;
 using ERPeducation.Models.AdmissionCampaign.Documents;
+using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.Reactive;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation
 {
@@ -154,10 +154,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Person
         }
         #endregion
         #region Команды
-        public ICommand OpenPopupCommand { get; set; }
-        public ICommand AddDocumentCommand { get; set; }
-        public ICommand DeleteDocumentCommand { get; set; }
-        public ICommand EditDocumentCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> OpenPopupCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> AddDocumentCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> DeleteDocumentCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> EditDocumentCommand { get; set; }
         #endregion
 
         IDialogService _dialogService;
@@ -165,18 +165,18 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.Person
         {
             _dialogService = dialogService;
 
-            OpenPopupCommand = new RelayCommand(() => 
+            OpenPopupCommand = ReactiveCommand.Create(() => 
             {
                 if (OpenPopup == false) OpenPopup = true;
                 else OpenPopup = false;
             });
-            AddDocumentCommand = new RelayCommand(OpenWindowDocuments);
-            DeleteDocumentCommand = new RelayCommand(DeleteDocument);
-            EditDocumentCommand = new RelayCommand(EditDocument);
+            AddDocumentCommand = ReactiveCommand.Create(OpenWindowDocuments);
+            DeleteDocumentCommand = ReactiveCommand.Create(DeleteDocument);
+            EditDocumentCommand = ReactiveCommand.Create(EditDocument);
         }
 
         void OpenWindowDocuments() => _dialogService.OpenWindow(this);
         void DeleteDocument() => Documents.Remove(SelectedDocument);
-        void EditDocument() => _dialogService.ShowUserControlDocumentsForEdit(SelectedDocument, this);
+        void EditDocument() => _dialogService.OpenWindowEditPersonalDocument(SelectedDocument, this);
     }
 }
