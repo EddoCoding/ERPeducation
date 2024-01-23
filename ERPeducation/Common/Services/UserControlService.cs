@@ -16,6 +16,9 @@ using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.Views;
 using ERPeducation.ViewModels;
 using ERPeducation.Views.AdmissionCampaign;
+using ERPeducation.Views.AdmissionCampaign.TabsView.FieldOfStudy;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.FieldOfStudy;
+using ERPeducation.ViewModels.Modules.Administration;
 
 namespace ERPeducation.Common.Services
 {
@@ -29,6 +32,10 @@ namespace ERPeducation.Common.Services
                     AdmissionCampaign admissionCampaign = new AdmissionCampaign();
                     admissionCampaign.DataContext = new AdmissionCampaignViewModel(this, (MainWindowViewModel)viewModel);
                     return admissionCampaign;
+                case "Администрирование":
+                    ModuleAdministration moduleAdministration = new ModuleAdministration();
+                    moduleAdministration.DataContext = new AdministrationViewModel(this, (MainWindowViewModel)viewModel);
+                    return moduleAdministration;
             }
             return null;
         }
@@ -62,7 +69,9 @@ namespace ERPeducation.Common.Services
                     enrolleeEducationView.DataContext = new EnrolleeEducationViewModel(new DialogService(), new EducationInformationService());
                     return enrolleeEducationView;
                 case "Направление подготовки":
-                    break;
+                    FieldOfStudyView fieldOfStudyView = new FieldOfStudyView();
+                    fieldOfStudyView.DataContext = new FieldOfStudyViewModel(new DialogService());
+                    return fieldOfStudyView;
                 case "Поданные документы":
                     break;
                 case "Результаты испытаний":

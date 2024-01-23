@@ -1,20 +1,13 @@
 ﻿using ERPeducation.Interface;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
 
 namespace ERPeducation.Common
 {
-    public class BaseDataForModules<T> : INPC
+    public class BaseDataForModules<T> : ReactiveObject
     {
         public string[] DataForTabs { get; set; }
-        private ObservableCollection<T>? tabItem;
-        public ObservableCollection<T> TabItem
-        {
-            get => tabItem;
-            set
-            {
-                tabItem = value;
-                OnPropertyChanged(nameof(TabItem));
-            }
-        }
+        [Reactive] public ObservableCollection<T> TabItem { get; set; }
     }
 }

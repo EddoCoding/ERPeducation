@@ -4,10 +4,9 @@ namespace ERPeducation.Views
 {
     public partial class ModuleAdministration : UserControl
     {
-        public ModuleAdministration(object viewModel)
+        public ModuleAdministration()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
     }
 }

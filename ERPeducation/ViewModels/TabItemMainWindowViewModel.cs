@@ -1,5 +1,4 @@
-﻿using ERPeducation.Common.Command;
-using ReactiveUI;
+﻿using ReactiveUI;
 using System;
 using System.Reactive;
 

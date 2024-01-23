@@ -8,6 +8,7 @@ using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.FieldOfStudy;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation;
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
 using ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView;
@@ -30,12 +31,21 @@ namespace ERPeducation.Common.Services
                 Documents windowDocuments = new();
                 windowDocuments.DataContext = new DocumentsViewModel(new UserControlService(), (EnrollePersonalInformationViewModel)viewModel, windowDocuments.Close);
                 windowDocuments.ShowDialog();
+                return;
             }
             if(viewModel is EnrolleeEducationViewModel)
             {
                 Educations educations = new Educations();
                 educations.DataContext = new EducationViewModel(new UserControlService(), (EnrolleeEducationViewModel)viewModel, educations.Close);
                 educations.ShowDialog();
+                return;
+            }
+            if (viewModel is FieldOfStudyViewModel)
+            {
+                Fields fields = new Fields();
+                fields.DataContext = new FieldsViewModel(fields.Close);
+                fields.ShowDialog();
+                return;
             }
         }
         public void OpenWindowEditPersonalDocument(DocsBase model, EnrollePersonalInformationViewModel viewModel)
@@ -80,6 +90,7 @@ namespace ERPeducation.Common.Services
 
                 document.DataContext = documentsViewModel;
                 document.ShowDialog();
+                return;
 
                 void GetData()
                 {
@@ -123,6 +134,7 @@ namespace ERPeducation.Common.Services
                 documentsViewModel.UserControl = snilsView;
                 document.DataContext = documentsViewModel;
                 document.ShowDialog();
+                return;
 
                 void GetData()
                 {
@@ -151,6 +163,7 @@ namespace ERPeducation.Common.Services
                 documentsViewModel.UserControl = innView;
                 document.DataContext = documentsViewModel;
                 document.ShowDialog();
+                return;
 
                 void GetData()
                 {
@@ -191,6 +204,7 @@ namespace ERPeducation.Common.Services
                 documentsViewModel.UserControl = foreignPassportView;
                 document.DataContext = documentsViewModel;
                 document.ShowDialog();
+                return;
 
                 void GetData()
                 {
@@ -244,6 +258,7 @@ namespace ERPeducation.Common.Services
 
                 education.DataContext = educationViewModel;
                 education.ShowDialog();
+                return;
 
                 void GetData()
                 {
@@ -285,6 +300,7 @@ namespace ERPeducation.Common.Services
 
                 education.DataContext = educationViewModel;
                 education.ShowDialog();
+                return;
 
                 void GetData()
                 {
@@ -330,6 +346,7 @@ namespace ERPeducation.Common.Services
 
                 education.DataContext = educationViewModel;
                 education.ShowDialog();
+                return;
 
                 void GetData()
                 {
@@ -377,6 +394,7 @@ namespace ERPeducation.Common.Services
 
                 education.DataContext = educationViewModel;
                 education.ShowDialog();
+                return;
 
                 void GetData()
                 {
@@ -424,6 +442,7 @@ namespace ERPeducation.Common.Services
 
                 education.DataContext = educationViewModel;
                 education.ShowDialog();
+                return;
 
                 void GetData()
                 {
@@ -471,6 +490,7 @@ namespace ERPeducation.Common.Services
 
                 education.DataContext = educationViewModel;
                 education.ShowDialog();
+                return;
 
                 void GetData()
                 {

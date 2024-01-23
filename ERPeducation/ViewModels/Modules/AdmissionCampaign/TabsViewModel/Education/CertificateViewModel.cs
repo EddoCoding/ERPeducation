@@ -1,10 +1,8 @@
-﻿using ERPeducation.Command;
-using ERPeducation.Common.Interface.DialogModel;
+﻿using ERPeducation.Common.Interface.DialogModel;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Reactive;
-using System.Windows.Input;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel
 {

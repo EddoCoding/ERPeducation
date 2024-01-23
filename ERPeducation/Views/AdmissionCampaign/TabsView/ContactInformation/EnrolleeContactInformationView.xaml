@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.Tabs"
+             xmlns:Converter="clr-namespace:ERPeducation.Common.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <Converter:NumberToStringEmptyConvert x:Key="NumberToStringEmptyConvert"/>
+
         <Style x:Key="MyStyleLabel" TargetType="Label">
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Padding" Value="0"/>
@@ -90,13 +93,15 @@
 
             <StackPanel Grid.Row="3" Margin="10,5,0,0">
                 <Label Content="Домашний телефон" Style="{StaticResource MyStyleLabel}"/>
-                <TextBox Style="{StaticResource MyStyleTextBox}" Text="{Binding HomePhone}" Width="200" HorizontalAlignment="Left"/>
+                <TextBox Style="{StaticResource MyStyleTextBox}" Text="{Binding HomePhone, Converter={StaticResource NumberToStringEmptyConvert}}" 
+                         Width="200" HorizontalAlignment="Left"/>
             </StackPanel>
             <!--Домашний телефон-->
 
             <StackPanel Grid.Row="4" Margin="10,5,0,0">
                 <Label Content="Мобильный телефон" Style="{StaticResource MyStyleLabel}"/>
-                <TextBox Style="{StaticResource MyStyleTextBox}" Text="{Binding MobilePhone}" Width="200" HorizontalAlignment="Left"/>
+                <TextBox Style="{StaticResource MyStyleTextBox}" Text="{Binding MobilePhone, Converter={StaticResource NumberToStringEmptyConvert}}" 
+                         Width="200" HorizontalAlignment="Left"/>
             </StackPanel>
             <!--Мобильный телефон-->
 

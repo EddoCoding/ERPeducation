@@ -132,11 +132,23 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="MyStyleLabel" TargetType="Label">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="StyleButtonClose" TargetType="{x:Type Button}">
             <Setter Property="Padding" Value="0"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Template">
@@ -147,7 +159,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -162,7 +174,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Background="White" Margin="5">
+        <Grid Grid.Row="0" Background="DarkCyan" Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
@@ -180,22 +192,21 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                    <Label Content="ERP" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" 
-                        VerticalContentAlignment="Center" Padding="0" Margin="10,0"/>
-                    <Label Content="Образование" FontSize="16" VerticalAlignment="Center" 
-                        VerticalContentAlignment="Center" Margin="0,0,0,0"/>
+                    <Label Content="ERP" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" VerticalContentAlignment="Center" 
+                           Padding="0" Margin="10,0" Foreground="White"/>
+                    <Label Content="Образование" FontSize="16" VerticalAlignment="Center" VerticalContentAlignment="Center" 
+                           Margin="0,0,0,0" Foreground="White"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Grid.Column="0">
-                    <Label Content="Enterprise Resource Planning" Padding="0" Margin="10,0,0,5"/>
+                    <Label Content="Enterprise Resource Planning" Padding="0" Margin="10,0,0,5" Foreground="White" FontSize="13"/>
                 </StackPanel>
 
             </Grid>
 
             <Image Source="/Image/profile.png" Width="25" Height="25" HorizontalAlignment="Right" Margin="10,0"/>
 
-            <Label Grid.Column="1" Content="{Binding FullName}" VerticalContentAlignment="Center" VerticalAlignment="Center"
-                   HorizontalAlignment="Right" FontSize="14"/>
+            <Label Grid.Column="1" Content="{Binding FullName}" Style="{StaticResource MyStyleLabel}"/>
             <!-- ФИО пользователя -->
 
             <Button Grid.Column="2" VerticalContentAlignment="Center" Style="{StaticResource StyleButtonClose}" Command="{Binding CloseCommand}"/> <!-- Кнопкка выхода -->

@@ -598,7 +598,7 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="MyStyleListView" TargetType="ListView">
-            <Setter Property="Margin" Value="0,10,0,30"/>
+            <Setter Property="Margin" Value="0,10,5,15"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="Template">
@@ -650,11 +650,11 @@
         <Label Grid.Row="0" Content="Личная информация" Margin="15,10,0,0" Padding="0" FontSize="15" FontWeight="DemiBold"/>
 
         <Grid Grid.Row="1" Margin="10,15,0,0">
-                <Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="400"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
+            <Grid.RowDefinitions>
                     <RowDefinition Height="27"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="27"/>
@@ -662,38 +662,38 @@
                     <RowDefinition Height="27"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Content="Фамилия" Style="{StaticResource MyStyleLabel}"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SurName}" Style="{StaticResource MyStyleTextBox}"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Фамилия" Style="{StaticResource MyStyleLabel}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SurName}" Style="{StaticResource MyStyleTextBox}"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Content="Имя" Style="{StaticResource MyStyleLabel}"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource MyStyleTextBox}"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Имя" Style="{StaticResource MyStyleLabel}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource MyStyleTextBox}"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Content="Отчество" Style="{StaticResource MyStyleLabel}"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding MiddleName}" Style="{StaticResource MyStyleTextBox}"/>
-            </Grid>
+            <Label Grid.Row="4" Grid.Column="0" Content="Отчество" Style="{StaticResource MyStyleLabel}"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding MiddleName}" Style="{StaticResource MyStyleTextBox}"/>
+        </Grid>
 
         <Grid Grid.Row="2" Margin="10,40,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="400"/>
-                </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="400"/>
+            </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="Пол" Style="{StaticResource MyStyleLabel}"/>
-                <ComboBox Grid.Column="1" Style="{StaticResource MyStyleComboBox}" ItemsSource="{Binding Gender}"
-                      ItemContainerStyle="{StaticResource MyStyleComboBoxItem}" SelectedItem="{Binding ValueComboBox}"/>
-            </Grid>
+            <Label Grid.Column="0" Content="Пол" Style="{StaticResource MyStyleLabel}"/>
+            <ComboBox Grid.Column="1" Style="{StaticResource MyStyleComboBox}" ItemsSource="{Binding Gender}"
+                  ItemContainerStyle="{StaticResource MyStyleComboBoxItem}" SelectedItem="{Binding ValueComboBox}"/>
+        </Grid>
 
         <Grid Grid.Row="3" Margin="10,10,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="400"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="Дата рождения" Style="{StaticResource MyStyleLabel}"/>
-                <DatePicker Grid.Column="1" Style="{StaticResource MyStyleDatePicker}" 
-                        SelectedDate="{Binding DateOfBirth}"/>
-            </Grid>
+            <Label Grid.Column="0" Content="Дата рождения" Style="{StaticResource MyStyleLabel}"/>
+            <DatePicker Grid.Column="1" Style="{StaticResource MyStyleDatePicker}" 
+                    SelectedDate="{Binding DateOfBirth}"/>
+        </Grid>
 
         <Grid Grid.Row="4" Margin="10,40,0,0">
             <Grid.ColumnDefinitions>
@@ -715,27 +715,27 @@
                 <RadioButton Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding RadioButtonСitizenship}"/>
                 <Label Grid.Column="1" Content="Гражданство" Style="{StaticResource MyStyleLabel}" Margin="8,0,0,0"/>
                 <TextBox Grid.Column="2" Text="{Binding Citizenship}" IsEnabled="{Binding RadioButtonСitizenship}">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Margin" Value="56,0,0,0"/>
-                                <Setter Property="BorderBrush" Value="Gray"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate>
-                                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Width="253">
-                                                <TextBox BorderThickness="0" Padding="3" FontSize="14" SelectionBrush="Gray" Text="{Binding Citizenship}"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="BorderBrush" Value="DarkCyan"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Margin" Value="56,0,0,0"/>
+                            <Setter Property="BorderBrush" Value="Gray"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Width="253">
+                                            <TextBox BorderThickness="0" Padding="3" FontSize="14" SelectionBrush="Gray" Text="{Binding Citizenship}"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
             </Grid>
 
             <Grid Grid.Column="1" Grid.Row="0">

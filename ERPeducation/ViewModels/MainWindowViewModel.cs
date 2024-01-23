@@ -13,12 +13,6 @@ namespace ERPeducation.ViewModels
 {
     public class MainWindowViewModel : INPC
     {
-
-        #region Свойства
-        public string FullName { get; set; }
-        public string Role { get; set; }
-        public BaseDataForModules<TabItemMainWindowViewModel> Data { get; set; }
-        #endregion
         #region Визуальные свойства
         public bool[] IsEnabled { get; set; } = new bool[6] { false, false, false, false, false, false };
         private int width = 195;
@@ -44,12 +38,16 @@ namespace ERPeducation.ViewModels
             }
         }
         #endregion
+        #region Свойства
+        public string FullName { get; set; }
+        public string Role { get; set; }
+        public BaseDataForModules<TabItemMainWindowViewModel> Data { get; set; }
+        #endregion
         #region Команды
-        public ReactiveCommand<Unit, Unit> CloseCommand {  get; set; }
+        public ReactiveCommand<Unit, Unit> CloseCommand {  get; private set; }
         public ReactiveCommand<object, Unit> CommandBurger { get; private set; }
         public ReactiveCommand<object, Unit> CommandAddTabItem { get; private set; }
         public ReactiveCommand<object, Unit> CommandNewTabItem { get; private set; }
-        public ReactiveCommand<Unit, Unit> CommandWindowClose {  get; private set; }
         #endregion
 
         IUserControlService _userControlService;
@@ -142,11 +140,12 @@ namespace ERPeducation.ViewModels
                     _userControlService.GetUserControl(contentButton.ToString(), this)));
                 return;
             }
-            //if (!ExistsTabItem && contentButton.ToString() == "Администрирование")
-            //{
-            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleAdministration(new AdministrationViewModel())));
-            //    return;
-            //}
+            if (!ExistsTabItem && contentButton.ToString() == "Администрирование")
+            {
+                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
+                   _userControlService.GetUserControl(contentButton.ToString(), this)));
+                return;
+            }
         }
         void NewTabItem(object contentButton)
         {
@@ -166,11 +165,12 @@ namespace ERPeducation.ViewModels
                 //    break;
                 case "Приёмная кампания":
                     Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-                    _userControlService.GetUserControl(contentButton.ToString(), this)));
+                        _userControlService.GetUserControl(contentButton.ToString(), this)));
                     break;
-                //case "Администрирование":
-                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleAdministration(new AdministrationViewModel())));
-                //    break;
+                case "Администрирование":
+                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
+                        _userControlService.GetUserControl(contentButton.ToString(), this)));
+                    break;
             }
         }
         #endregion
