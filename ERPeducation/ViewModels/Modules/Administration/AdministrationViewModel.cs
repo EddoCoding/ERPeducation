@@ -1,5 +1,4 @@
 ﻿using ERPeducation.Common.Interface;
-using ERPeducation.Views.Administration;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Windows.Controls;
@@ -45,18 +44,14 @@ namespace ERPeducation.ViewModels.Modules.Administration
         [Reactive] public Brush BrushStruct { get; set; }
         #endregion
 
-
-        MainWindowViewModel _mainWindowViewModel;
-
         IUserControlService _userControlService;
 
-        public AdministrationViewModel(IUserControlService userControlService, MainWindowViewModel mainWindowViewModel)
+        public AdministrationViewModel(IUserControlService userControlService)
         {
             _userControlService = userControlService;
-            _mainWindowViewModel = mainWindowViewModel;
 
-            UserControlView = new AdministrationUsersView();
-            UserStructView = new AdministrationStructView();
+            UserControlView = _userControlService.GetUserControlForAdministrationView();
+            UserStructView = _userControlService.GetUserControlForAdministrationStruct();
 
             BrushUsers = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             BrushStruct = new SolidColorBrush(Color.FromRgb(255, 255, 255));

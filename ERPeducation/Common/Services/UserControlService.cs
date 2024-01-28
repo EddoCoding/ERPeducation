@@ -19,6 +19,7 @@ using ERPeducation.Views.AdmissionCampaign;
 using ERPeducation.Views.AdmissionCampaign.TabsView.FieldOfStudy;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.FieldOfStudy;
 using ERPeducation.ViewModels.Modules.Administration;
+using ERPeducation.Views.Administration;
 
 namespace ERPeducation.Common.Services
 {
@@ -34,11 +35,11 @@ namespace ERPeducation.Common.Services
                     return admissionCampaign;
                 case "Администрирование":
                     ModuleAdministration moduleAdministration = new ModuleAdministration();
-                    moduleAdministration.DataContext = new AdministrationViewModel(this, (MainWindowViewModel)viewModel);
+                    moduleAdministration.DataContext = new AdministrationViewModel(this);
                     return moduleAdministration;
             }
             return null;
-        }
+        } //Для главных модулей
 
         public UserControl GetUserControlForAdmissionCampaign(string TitleTab)
         {
@@ -50,7 +51,7 @@ namespace ERPeducation.Common.Services
             }
 
             return null;
-        }
+        } //Модуль Абитуриент
 
         public UserControl GetUserControlForModuleEnrollee(string moduleEnrolle)
         {
@@ -85,7 +86,7 @@ namespace ERPeducation.Common.Services
             }
 
             return null;
-        }
+        } //Вкладки модуля Абитуриент
 
         public UserControl GetUserControlForDocuments(string? documents, EnrollePersonalInformationViewModel viewModel, Action closeWindow)
         {
@@ -110,7 +111,7 @@ namespace ERPeducation.Common.Services
             }
 
             return null;
-        }
+        } //Личные документы Абитуриента
 
         public UserControl GetUserControlForTypeEducationDocument(string typeEducation, EnrolleeEducationViewModel viewModel, Action closeWindow)
         {
@@ -155,6 +156,12 @@ namespace ERPeducation.Common.Services
             }
 
             return null;
-        }
+        } //Документы об образовании Абитуриента
+
+
+
+        public UserControl GetUserControlForAdministrationView() => new AdministrationUsersView();
+        public UserControl GetUserControlForAdministrationStruct() => 
+            new AdministrationStructView() { DataContext = new AdministrationStructViewModel(new DialogService(), new DialogError(), new FileService()) };
     }
 }

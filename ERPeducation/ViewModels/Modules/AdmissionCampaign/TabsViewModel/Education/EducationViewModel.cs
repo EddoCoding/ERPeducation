@@ -1,6 +1,5 @@
 ﻿using ERPeducation.Command;
 using ERPeducation.Common.Interface;
-using ERPeducation.Common.Interface.DialogPersonal;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;

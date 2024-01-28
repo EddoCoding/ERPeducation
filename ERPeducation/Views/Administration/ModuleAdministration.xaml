@@ -243,50 +243,62 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Администрирование ERP системы" Style="{StaticResource MyStyleLabel}" FontWeight="DemiBold"/>
+            <Label Grid.Row="0" Content="Администрирование ERP системы" Style="{StaticResource MyStyleLabel}" FontWeight="DemiBold"/>
 
-        <Expander Grid.Row="1" Header="Управлление пользователями" Template="{DynamicResource MyStyleExpander}" FontSize="15"
-                  IsExpanded="{Binding IsBoolUsers}" Background="{Binding BrushUsers}" Style="{StaticResource MyStyleExpanderEffect}">
+            <ScrollViewer Grid.Row="1">
 
-            <UserControl Content="{Binding UserControlView}" Height="200" Width="500"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-            <!--Добавление пользователей-->
-            <!--Управление их доступом-->
-            <!--Управление их доступом-->
+                    <Expander Grid.Row="0" Header="Управлление пользователями" Template="{DynamicResource MyStyleExpander}" FontSize="15"
+                              IsExpanded="{Binding IsBoolUsers}" Background="{Binding BrushUsers}" Style="{StaticResource MyStyleExpanderEffect}">
 
-        </Expander>
+                        <UserControl Content="{Binding UserControlView}" Height="200" Width="500"/>
 
-        <Expander Grid.Row="2" Header="Управление структурами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
-                  IsExpanded="{Binding IsBoolStruct}" Style="{StaticResource MyStyleExpanderEffect}">
+                        <!--Добавление пользователей-->
+                        <!--Управление их доступом-->
+                        <!--Управление их доступом-->
 
-            <UserControl Content="{Binding UserStructView}" Background="#f6f6f6"/>
+                    </Expander>
 
-        </Expander>
+                    <Expander Grid.Row="1" Header="Управление структурами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
+                          IsExpanded="{Binding IsBoolStruct}" Style="{StaticResource MyStyleExpanderEffect}">
 
-        <Expander Grid.Row="3" Header="Управлление пространствами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
+                        <UserControl Content="{Binding UserStructView}" Background="#f6f6f6"/>
+
+                    </Expander>
+
+                    <Expander Grid.Row="2" Header="Управлление пространствами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
+                          Style="{StaticResource MyStyleExpanderEffect}">
+
+                    </Expander>
+
+                    <Expander Grid.Row="3" Header="Управлление документами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
+                          Style="{StaticResource MyStyleExpanderEffect}">
+
+                    </Expander>
+
+                    <Expander Grid.Row="4" Header="Управлление приёмной кампанией" Template="{DynamicResource MyStyleExpander}" FontSize="15"
                   Style="{StaticResource MyStyleExpanderEffect}">
-            
-        </Expander>
 
-        <Expander Grid.Row="4" Header="Управлление документами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
-                  Style="{StaticResource MyStyleExpanderEffect}">
-            
-        </Expander>
+                    </Expander>
 
-        <Expander Grid.Row="5" Header="Управлление приёмной кампанией" Template="{DynamicResource MyStyleExpander}" FontSize="15"
-                  Style="{StaticResource MyStyleExpanderEffect}">
-            
-        </Expander>
+                </Grid>
 
-    </Grid>
+            </ScrollViewer>
+
+        </Grid>
+            
 </UserControl>

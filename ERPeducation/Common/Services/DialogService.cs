@@ -6,6 +6,7 @@ using ERPeducation.Common.Windows;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels;
+using ERPeducation.ViewModels.Modules.Administration.StructEducationViewModel;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.FieldOfStudy;
@@ -13,6 +14,7 @@ using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalIn
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
 using ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView;
 using ReactiveUI;
+using System.Collections.ObjectModel;
 
 namespace ERPeducation.Common.Services
 {
@@ -505,6 +507,38 @@ namespace ERPeducation.Common.Services
                     diplomaViewModel.AdditionalNumberDiploma = diplomaAsp.AdditionalNumberDiploma;
                 }
             }
-        } 
+        }
+        public void OpenWindowStructEducation(ObservableCollection<string> structEducation, string educationStruct)
+        {
+            StructEducationView structEducationView = new();
+
+            switch (educationStruct)
+            {
+                case "Level":
+                    structEducationView.DataContext = new StructEducationViewModel(structEducation, structEducationView.Close)
+                    {
+                        Title = "Введите уровень подготовки",
+                        AdditionalText = "СПО/Бакалавриат/Магистратура/Аспирантура"
+                    };
+                    structEducationView.ShowDialog();
+                    break;
+                case "Direction":
+                    structEducationView.DataContext = new StructEducationViewModel(structEducation, structEducationView.Close)
+                    {
+                        Title = "Введите направление подготовки"
+                    };
+                    structEducationView.ShowDialog();
+                    break;
+                case "Form":
+                    structEducationView.DataContext = new StructEducationViewModel(structEducation, structEducationView.Close) 
+                    {
+                        Title = "Введите форму обучения",
+                        AdditionalText = "Очная/Очно-заочная/Заочная"
+                    };
+                    structEducationView.ShowDialog();
+                    break;
+            }
+
+        }
     }
 }

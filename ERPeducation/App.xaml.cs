@@ -1,8 +1,5 @@
 ﻿using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Common.Services;
-using ERPeducation.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Windows;
 
 namespace ERPeducation
