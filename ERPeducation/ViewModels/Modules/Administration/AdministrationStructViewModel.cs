@@ -1,12 +1,16 @@
-﻿using ERPeducation.Common.Interface;
+﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Interface;
 using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Common.Services;
 using ERPeducation.Models.Administration;
+using ERPeducation.ViewModels.Modules.Administration.Struct;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using System.Reactive;
+using System.Text.Json;
 
 namespace ERPeducation.ViewModels.Modules.Administration
 {
@@ -20,31 +24,27 @@ namespace ERPeducation.ViewModels.Modules.Administration
         StructTreeViewItem treeViewItem;
         [Reactive] public string Faculty { get; set; } //Строка для названия факультета
 
-        public ObservableCollection<string> Level { get; set; }
-        public ObservableCollection<string> Form { get; set; }
-        public ObservableCollection<string> Direction { get; set; }
+        public ObservableCollection<TreeViewLvlOne> TreeViewEducationCollection { get; set; } //Дерево образования
+
         #endregion
         #region Команды
         public ReactiveCommand<Unit, Unit> AddFacultyCommand { get; private set; }
         public ReactiveCommand<Unit, Unit> ConfigureFacultyCommand { get; private set; }
-
-        public ReactiveCommand<Unit, Unit> AddLevel { get; private set; }
-        public ReactiveCommand<Unit, Unit> DelLevel { get; private set; }
-        public ReactiveCommand<Unit, Unit> AddForm { get; private set; }
-        public ReactiveCommand<Unit, Unit> DelForm { get; private set; }
-        public ReactiveCommand<Unit, Unit> AddDirection { get; private set; }
-        public ReactiveCommand<Unit, Unit> DelDirection { get; private set; }
         public ReactiveCommand<Unit, Unit> ConfigureEducationCommand { get; private set; }
         #endregion
 
         IDialogService _dialogService;
         IDialogError _dialogError;
         IFileService _fileService;
-        public AdministrationStructViewModel(IDialogService _dialogService, IDialogError dialogError, IFileService fileService)
+        IJSONService _jsonService;
+        public AdministrationStructViewModel(IDialogService dialogService, IDialogError dialogError, IFileService fileService, IJSONService jsonService)
         {
+            _dialogService = dialogService;
             _dialogError = dialogError;
             _fileService = fileService;
+            _jsonService = jsonService;
 
+            #region Структура Факультетов
             TreeViewItems = new ObservableCollection<StructTreeViewItem>();
             TreeViewItems.CollectionChanged += (object? sender, NotifyCollectionChangedEventArgs e) =>
             {
@@ -59,30 +59,18 @@ namespace ERPeducation.ViewModels.Modules.Administration
             });
             fileService.GetFaculties(TreeViewItems);
             FacultyWidth = 0;
+            #endregion
+            #region Структура Образования
+            TreeViewEducationCollection = new ObservableCollection<TreeViewLvlOne>();
 
-            Level = new ObservableCollection<string>();
-            Form = new ObservableCollection<string>();
-            Direction = new ObservableCollection<string>();
+            _jsonService.GetTreeViewLvlItem(TreeViewEducationCollection);
 
-            AddLevel = ReactiveCommand.Create(() =>
+            ConfigureEducationCommand = ReactiveCommand.Create(() =>
             {
-                _dialogService.OpenWindowStructEducation(Level, "Level");
+                File.WriteAllText(StaticBD.structPathEducation, JsonSerializer.Serialize(TreeViewEducationCollection));
             });
-            DelLevel = ReactiveCommand.Create(() => { });
-
-            AddForm = ReactiveCommand.Create(() => 
-            {
-                _dialogService.OpenWindowStructEducation(Form, "Form");
-            });
-            DelForm = ReactiveCommand.Create(() => { });
-            
-            AddDirection = ReactiveCommand.Create(() => 
-            {
-                _dialogService.OpenWindowStructEducation(Direction, "Direction");
-            });
-            DelDirection = ReactiveCommand.Create(() => { });
+            #endregion
         }
-
         #region Методы
         void AddFaculty()
         {

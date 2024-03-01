@@ -8,7 +8,7 @@ using System.Reactive;
 
 namespace ERPeducation.Models.Administration
 {
-    public class StructTreeViewItem : ReactiveObject
+    public class StructTreeViewItem : ReactiveObject //УДАЛИТЬ И ПЕРЕДЕЛАТЬ КЛАСС ДЕРЕВА КАК STRUCT EDUCATION
     {
         public string? Header { get; set; }
         [Reactive] public string Department { get; set; }
@@ -28,8 +28,8 @@ namespace ERPeducation.Models.Administration
 
             Items = new ObservableCollection<DepartmentTreeViewItem>();
             DepartmentWidth = 0;
-            DeleteTreeViewItemCommand = ReactiveCommand.Create(Delete);
             AddTreeViewItemCommand = ReactiveCommand.Create(addItem);
+            DeleteTreeViewItemCommand = ReactiveCommand.Create(Delete);
 
             Items.CollectionChanged += (object? sender, NotifyCollectionChangedEventArgs e) =>
             {

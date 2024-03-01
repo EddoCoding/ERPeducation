@@ -100,7 +100,7 @@
         </Style>
         <Style x:Key="MyStyleButtonConfigure" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Margin" Value="0,20,0,10"/>
+            <Setter Property="Margin" Value="0,15,0,10"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="Gray"/>
             <Setter Property="Template">
@@ -121,12 +121,44 @@
         <Style x:Key="MyStyleListView" TargetType="ListView">
             <Setter Property="MinHeight" Value="100"/>
         </Style>
+        <Style x:Key="MyStyleListViewitem" TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <TextBlock Text="{Binding Header}" Margin="10,3,0,0"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleListViewitem2" TargetType="ListViewItem">
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <TextBlock Text="{Binding Header}" Foreground="{TemplateBinding Foreground}" Margin="10,3,0,0"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="MyStyleButtonAdd" TargetType="Button">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="Transparent" BorderThickness="0" Margin="10,5,0,5">
+                        <Border Background="Transparent" BorderThickness="0" Margin="10,5,0,0">
                             <ContentPresenter/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -141,20 +173,217 @@
         <Style x:Key="MyStyleButtonDel" TargetType="Button">
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontSize" Value="14"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="Transparent" BorderThickness="0" Margin="10,5,0,5">
-                                <ContentPresenter/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent" BorderThickness="0" Margin="10,0,0,5">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Foreground" Value="White"/>
                             </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleBorder" TargetType="Border">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="Gray"/>
+                    <Setter Property="Background" Value="#e9e7e7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ButtonAddLvl" TargetType="Button">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="BorderThickness" Value="1,0,0,0"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}">
+                            <Image Source="/Common/image/addLvl.png" Height="20" Width="20"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#e9e7e7"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="#e9e7e7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
+        <Style x:Key="ExpandCollapseToggleStyle" TargetType="ToggleButton">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="Transparent" Height="16" Padding="5,5,5,5" Width="16">
+                            <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="#FFFFFFFF" Stroke="#FF818181">
+                                <Path.RenderTransform>
+                                    <RotateTransform Angle="135" CenterY="3" CenterX="3"/>
+                                </Path.RenderTransform>
+                            </Path>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="RenderTransform" TargetName="ExpandPath">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="180" CenterY="3" CenterX="3"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Fill" TargetName="ExpandPath" Value="#FF595959"/>
+                                <Setter Property="Stroke" TargetName="ExpandPath" Value="#FF262626"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Stroke" TargetName="ExpandPath" Value="#FF595959"/>
+                                <Setter Property="Fill" TargetName="ExpandPath" Value="#FF262626"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Stroke" TargetName="ExpandPath" Value="#FF818181"/>
+                                <Setter Property="Fill" TargetName="ExpandPath" Value="#FFFFFFFF"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TreeViewItemFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TreeView" TargetType="{x:Type TreeViewItem}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Padding" Value="1,0,0,0"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}"/>
+            <Setter Property="IsExpanded" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="19" Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource Mode=TemplatedParent}}" 
+                                          Style="{StaticResource ExpandCollapseToggleStyle}"/>
+                            <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                    Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="false">
+                                <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
+                    <Setter Property="ItemsPanel">
+                        <Setter.Value>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ButtonAddDirection" TargetType="Button">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="BorderThickness" Value="1,0,0,0"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}">
+                            <Image Source="/Common/image/addLvl.png" Height="20" Width="20"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#e9e7e7"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="#e9e7e7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonDelDirection" TargetType="Button">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="BorderThickness" Value="1,0,0,0"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}">
+                            <Image Source="/Common/image/delDirection.png" Height="20" Width="20"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#e9e7e7"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="#e9e7e7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBoxItem" TargetType="TextBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="SelectionBrush" Value="Gray"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#e9e7e7"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -221,7 +450,7 @@
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
-                            
+
                         </StackPanel>
 
                     </HierarchicalDataTemplate>
@@ -234,51 +463,77 @@
 
         <Label Content="Образование:" Style="{StaticResource MyStyleLabel}"/>
 
-        <Grid Margin="0,10,0,20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Border Grid.Column="0" Grid.Row="0" BorderThickness="0,0,2,0" BorderBrush="Gray" Margin="0,0,-1,0">
-                <StackPanel Background="DarkCyan">
-                    <Label Content="Уровни подготовки" Foreground="White" FontSize="14" FontWeight="DemiBold" Padding="0" Margin="10,5,0,0"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="+ Добавить уровень" Style="{StaticResource MyStyleButtonAdd}" Command="{Binding AddLevel}"/>
-                        <Button Content="- Удалить уровень" Style="{StaticResource MyStyleButtonDel}" Command="{Binding DelLevel}"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-
-            <Border Grid.Column="1" Grid.Row="0" Margin="1,0,0,0">
-                <StackPanel Background="DarkCyan">
-                    <Label Content="Направления подготовки" Foreground="White" FontSize="14" FontWeight="DemiBold" Padding="0" Margin="10,5,0,0"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="+ Добавить направление" Style="{StaticResource MyStyleButtonAdd}" Command="{Binding AddDirection}"/>
-                        <Button Content="- Удалить направление" Style="{StaticResource MyStyleButtonDel}" Command="{Binding DelDirection}"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-            
-            <Border Grid.Column="2" Grid.Row="0" BorderThickness="0,0,2,0" BorderBrush="Gray" Margin="0,0,-1,0">
-                <StackPanel Background="DarkCyan">
-                    <Label Content="Формы обучения" Foreground="White" FontSize="14" FontWeight="DemiBold" Padding="0" Margin="10,5,0,0"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="+ Добавить форму" Style="{StaticResource MyStyleButtonAdd}" Command="{Binding AddForm}"/>
-                        <Button Content="- Удалить форму" Style="{StaticResource MyStyleButtonDel}" Command="{Binding DelForm}"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-
-            <ListView Grid.Column="0" Grid.Row="1" Style="{StaticResource MyStyleListView}" ItemsSource="{Binding Level}"/>
-            <ListView Grid.Column="1" Grid.Row="1" Style="{StaticResource MyStyleListView}" ItemsSource="{Binding Direction}"/>
-            <ListView Grid.Column="2" Grid.Row="1" Style="{StaticResource MyStyleListView}" ItemsSource="{Binding Form}"/>
-        </Grid>
+        <TreeView ItemsSource="{Binding TreeViewEducationCollection}" BorderThickness="0" Background="Transparent"
+                  ItemContainerStyle="{StaticResource TreeView}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                    <Border Style="{StaticResource MyStyleBorder}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/lvl.png"/>
+                            <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="0,2,5,2" FontSize="16" FontFamily="Calibri"/>
+                            <Button Name="Button" Style="{StaticResource ButtonAddLvl}" Command="{Binding Add}"/>
+                        </StackPanel>
+                    </Border>
+                    <HierarchicalDataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Button" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </HierarchicalDataTemplate.Triggers>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                            <Border Style="{StaticResource MyStyleBorder}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/lvlEducation.png"/>
+                                    <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
+                                    <Button x:Name="ButtonAdd" Command="{Binding Add}" Style="{StaticResource ButtonAddDirection}"/>
+                                    <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                                </StackPanel>
+                            </Border>
+                            <HierarchicalDataTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ButtonAdd" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="ButtonDel" Property="Visibility" Value="Visible"/>
+                                </Trigger>
+                            </HierarchicalDataTemplate.Triggers>
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                                    <Border Style="{StaticResource MyStyleBorder}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/academicSubject.png"/>
+                                            <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
+                                            <Button x:Name="ButtonAdd" Command="{Binding Add}" Style="{StaticResource ButtonAddDirection}"/>
+                                            <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <HierarchicalDataTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ButtonAdd" Property="Visibility" Value="Visible"/>
+                                            <Setter TargetName="ButtonDel" Property="Visibility" Value="Visible"/>
+                                        </Trigger>
+                                    </HierarchicalDataTemplate.Triggers>
+                                    <HierarchicalDataTemplate.ItemTemplate>
+                                        <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                                            <Border Style="{StaticResource MyStyleBorder}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/diploma.png"/>
+                                                    <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
+                                                    <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                                                </StackPanel>
+                                            </Border>
+                                            <HierarchicalDataTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="ButtonDel" Property="Visibility" Value="Visible"/>
+                                                </Trigger>
+                                            </HierarchicalDataTemplate.Triggers>
+                                        </HierarchicalDataTemplate>
+                                    </HierarchicalDataTemplate.ItemTemplate>
+                                </HierarchicalDataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
 
         <Button Content="Конфигурация образования" Style="{StaticResource MyStyleButtonConfigure}" Command="{Binding ConfigureEducationCommand}"/>
 

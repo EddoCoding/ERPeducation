@@ -4,7 +4,7 @@ using System.Reactive;
 
 namespace ERPeducation.Models.Administration
 {
-    public class DepartmentTreeViewItem : ReactiveObject
+    public class DepartmentTreeViewItem : ReactiveObject //УДАЛИТЬ И ПЕРЕДЕЛАТЬ КЛАСС ДЕРЕВА КАК STRUCT EDUCATION
     {
         public string? Header { get; set; }
 

@@ -8,11 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Common\Image\AcademicSubject.png" />
+    <None Remove="Common\Image\addLvl.png" />
     <None Remove="Common\Image\administration.png" />
     <None Remove="Common\Image\burger.png" />
     <None Remove="Common\Image\Calendar.png" />
     <None Remove="Common\Image\deanRoom.png" />
+    <None Remove="Common\Image\delDirection.png" />
+    <None Remove="Common\Image\diploma.png" />
     <None Remove="Common\Image\enrollee.png" />
+    <None Remove="Common\Image\lvl.png" />
+    <None Remove="Common\Image\lvlEducation.png" />
     <None Remove="Common\Image\profile.png" />
     <None Remove="Common\Image\rector.png" />
     <None Remove="Common\Image\teacher.png" />
@@ -26,6 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Common\Image\academicSubject.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\addLvl.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Common\Image\administration.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -38,7 +50,19 @@
     <Resource Include="Common\Image\deanRoom.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Common\Image\delDirection.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\diploma.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Common\Image\enrollee.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\lvl.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\lvlEducation.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\profile.png">
@@ -53,6 +77,13 @@
     <Resource Include="Common\Image\trainingDivision.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ViewModels\Modules\Administration\Users\" />
+    <Folder Include="ViewModels\Modules\Administration\Spaces\" />
+    <Folder Include="ViewModels\Modules\Administration\Documents\" />
+    <Folder Include="ViewModels\Modules\Administration\AdmissionCampaign\" />
   </ItemGroup>
 
 </Project>

@@ -61,7 +61,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                        Margin="0" Padding="0">
+                                Margin="0" Padding="0">
                             <TextBlock Text="Новая вкладка" Margin="10,2" Padding="0" FontSize="13"/>
                         </Border>
                         <ControlTemplate.Triggers>
