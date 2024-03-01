@@ -2,7 +2,7 @@
 {
     public static class StaticBD
     {
-        public static string structPathFaculty = string.Empty;
-        public static string structPathEducation = "C:\\Users\\79613\\Desktop\\БД\\file.json";
+        public static string structPathFaculty = "C:\\Users\\79613\\Desktop\\БД\\fileFaculty.json";
+        public static string structPathEducation = "C:\\Users\\79613\\Desktop\\БД\\fileEducation.json";
     }
 }

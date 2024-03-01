@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
-namespace ERPeducation.ViewModels.Modules.Administration.Struct
+namespace ERPeducation.ViewModels.Modules.Administration.Struct.Education
 {
     public class TreeViewLvlOne : TreeViewBaseClass
     {
@@ -13,7 +13,7 @@ namespace ERPeducation.ViewModels.Modules.Administration.Struct
             Title = title;
             Items = new ObservableCollection<TreeViewLvlTwo>();
 
-            Items.CollectionChanged += (object? sender, NotifyCollectionChangedEventArgs e) =>
+            Items.CollectionChanged += (sender, e) =>
             {
                 if (e.OldItems != null) foreach (TreeViewLvlTwo item in e.OldItems) item.OnDelete -= deleteTreeViewItem;
                 if (e.NewItems != null) foreach (TreeViewLvlTwo item in e.NewItems) item.OnDelete += deleteTreeViewItem;

@@ -4,7 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
-namespace ERPeducation.ViewModels.Modules.Administration.Struct
+namespace ERPeducation.ViewModels.Modules.Administration.Struct.Education
 {
     public class TreeViewLvlThree : TreeViewBaseClass
     {
@@ -18,7 +18,7 @@ namespace ERPeducation.ViewModels.Modules.Administration.Struct
 
             Items = new ObservableCollection<TreeViewLvlFour>();
 
-            Items.CollectionChanged += (object? sender, NotifyCollectionChangedEventArgs e) =>
+            Items.CollectionChanged += (sender, e) =>
             {
                 if (e.OldItems != null) foreach (TreeViewLvlFour item in e.OldItems) item.OnDelete -= deleteTreeViewItem;
                 if (e.NewItems != null) foreach (TreeViewLvlFour item in e.NewItems) item.OnDelete += deleteTreeViewItem;
@@ -28,9 +28,9 @@ namespace ERPeducation.ViewModels.Modules.Administration.Struct
             {
                 Items.Add(new TreeViewLvlFour("Форма обучения"));
             });
-            Del = ReactiveCommand.Create(() => 
-            { 
-                OnDelete?.Invoke(this); 
+            Del = ReactiveCommand.Create(() =>
+            {
+                OnDelete?.Invoke(this);
             });
         }
 

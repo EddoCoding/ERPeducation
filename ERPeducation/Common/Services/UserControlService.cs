@@ -160,6 +160,6 @@ namespace ERPeducation.Common.Services
 
         public UserControl GetUserControlForAdministrationView() => new AdministrationUsersView();
         public UserControl GetUserControlForAdministrationStruct() => 
-            new AdministrationStructView() { DataContext = new AdministrationStructViewModel(new DialogService(), new DialogError(), new FileService(), new JSONService()) };
+            new AdministrationStructView() { DataContext = new AdministrationStructViewModel(new JSONService()) };
     }
 }

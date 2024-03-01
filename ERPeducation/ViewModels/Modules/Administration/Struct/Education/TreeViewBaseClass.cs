@@ -3,7 +3,7 @@ using System;
 using System.Reactive;
 using System.Text.Json.Serialization;
 
-namespace ERPeducation.ViewModels.Modules.Administration.Struct
+namespace ERPeducation.ViewModels.Modules.Administration.Struct.Education
 {
     public class TreeViewBaseClass : ReactiveObject
     {

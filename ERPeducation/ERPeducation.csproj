@@ -15,12 +15,15 @@
     <None Remove="Common\Image\Calendar.png" />
     <None Remove="Common\Image\deanRoom.png" />
     <None Remove="Common\Image\delDirection.png" />
+    <None Remove="Common\Image\department.png" />
     <None Remove="Common\Image\diploma.png" />
     <None Remove="Common\Image\enrollee.png" />
+    <None Remove="Common\Image\faculty.png" />
     <None Remove="Common\Image\lvl.png" />
     <None Remove="Common\Image\lvlEducation.png" />
     <None Remove="Common\Image\profile.png" />
     <None Remove="Common\Image\rector.png" />
+    <None Remove="Common\Image\structEducation.png" />
     <None Remove="Common\Image\teacher.png" />
     <None Remove="Common\Image\trainingDivision.png" />
   </ItemGroup>
@@ -53,10 +56,16 @@
     <Resource Include="Common\Image\delDirection.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Common\Image\department.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Common\Image\diploma.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\enrollee.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\faculty.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\lvl.png">
@@ -69,6 +78,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\rector.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\structEducation.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\teacher.png">

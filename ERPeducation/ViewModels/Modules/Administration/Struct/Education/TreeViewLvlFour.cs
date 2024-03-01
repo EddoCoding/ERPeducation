@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using System;
 
-namespace ERPeducation.ViewModels.Modules.Administration.Struct
+namespace ERPeducation.ViewModels.Modules.Administration.Struct.Education
 {
     public class TreeViewLvlFour : TreeViewBaseClass
     {

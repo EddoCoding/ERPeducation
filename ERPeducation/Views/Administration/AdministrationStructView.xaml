@@ -10,12 +10,15 @@
         <Style x:Key="MyStyleLabel" TargetType="Label">
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="17"/>
         </Style>
         <Style x:Key="MyStyleTextBox" TargetType="TextBox">
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Height" Value="25"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
@@ -103,6 +106,8 @@
             <Setter Property="Margin" Value="0,15,0,10"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="16.5"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -407,59 +412,63 @@
             <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource MyStyleTextBox}" Margin="50,0,0,0"/>
         </Grid>
 
-        <Grid Margin="0,20,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <Label Content="Образовательная структура:" Style="{StaticResource MyStyleLabel}" Margin="0,15,0,0"/>
 
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Label Content="Факультеты:" FontSize="15" Padding="0"/>
-                <TextBox Text="{Binding Faculty}" Style="{StaticResource MyStyleTextBox}" Width="{Binding FacultyWidth}" Margin="10,0,0,0"/>
-                <Button Content="+ Добавить факультет" Style="{StaticResource MyStyleButton}" VerticalAlignment="Center" 
-                        Command="{Binding AddFacultyCommand}" Margin="10,0,0,3"/>
-            </StackPanel>
-
-            <TreeView Grid.Row="1" MaxHeight="400" Background="WhiteSmoke" BorderThickness="0" ItemsSource="{Binding TreeViewItems}">
-                <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type struct:StructTreeViewItem}">
-
-                        <StackPanel Background="WhiteSmoke" Margin="-1,0,-1,-1" VerticalAlignment="Center">
-
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                                <Border BorderBrush="Gray" BorderThickness="1" Padding="3" Background="White">
-                                    <TextBlock Text="{Binding Header}" FontSize="14" VerticalAlignment="Center" Foreground="Black"/>
-                                </Border>
-                                <TextBox Text="{Binding Department}" Style="{StaticResource MyStyleTextBox}" Width="{Binding DepartmentWidth}" Margin="10,0,0,0"/>
-                                <Button Content="+ Добавить кафедру" Style="{StaticResource MyStyleButton}" Margin="5,0,0,0" VerticalAlignment="Center"
-                                        Command="{Binding AddTreeViewItemCommand}"/>
-                                <Button Style="{StaticResource MyStyleButtonDeleteFaculty}" VerticalAlignment="Center" Margin="0,2,0,0" 
-                                        Command="{Binding DeleteTreeViewItemCommand}"/>
-                            </StackPanel>
-
-                            <Label Content="Кафедры:" Style="{StaticResource MyStyleLabel}" Margin="20,0,0,0"/>
-
-                            <ItemsControl ItemsSource="{Binding Items}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                                            <Label Content="{Binding Header}" FontSize="13" Margin="16,0,0,0"/>
-                                            <Button Style="{StaticResource MyStyleButtonDeleteDepartment}" Background="Transparent" BorderThickness="0" 
-                                                    Command="{Binding DeleteTreeViewItemCommand}" Margin="0,2,0,0"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-
+        <TreeView ItemsSource="{Binding TreeViewFacultyCollection}" BorderThickness="0" Background="Transparent"
+              ItemContainerStyle="{StaticResource TreeView}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                    <Border Style="{StaticResource MyStyleBorder}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/structEducation.png"/>
+                            <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="0,2,5,2" FontSize="16" FontFamily="Calibri"/>
+                            <Button Name="Button" Style="{StaticResource ButtonAddLvl}" Command="{Binding Add}"/>
                         </StackPanel>
+                    </Border>
+                    <HierarchicalDataTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Button" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </HierarchicalDataTemplate.Triggers>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                       <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                           <Border Style="{StaticResource MyStyleBorder}">
+                               <StackPanel Orientation="Horizontal">
+                                   <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/faculty.png"/>
+                                   <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
+                                   <Button x:Name="ButtonAdd" Command="{Binding Add}" Style="{StaticResource ButtonAddDirection}"/>
+                                   <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                               </StackPanel>
+                           </Border>
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                                    <Border Style="{StaticResource MyStyleBorder}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/department.png"/>
+                                            <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
+                                            <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <HierarchicalDataTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ButtonDel" Property="Visibility" Value="Visible"/>
+                                        </Trigger>
+                                    </HierarchicalDataTemplate.Triggers>
+                                </HierarchicalDataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                            <HierarchicalDataTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ButtonAdd" Property="Visibility" Value="Visible"/>
+                                        <Setter TargetName="ButtonDel" Property="Visibility" Value="Visible"/>
+                                    </Trigger>
+                                </HierarchicalDataTemplate.Triggers>
+                       </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
 
-                    </HierarchicalDataTemplate>
-                </TreeView.Resources>
-            </TreeView>
-
-        </Grid>
-
-        <Button Content="Конфигурация факультетов" Style="{StaticResource MyStyleButtonConfigure}" Command="{Binding ConfigureFacultyCommand}"/>
+        <Button Content="Конфигурация структуры" Style="{StaticResource MyStyleButtonConfigure}" Command="{Binding ConfigureFacultyCommand}"/>
 
         <Label Content="Образование:" Style="{StaticResource MyStyleLabel}"/>
 
