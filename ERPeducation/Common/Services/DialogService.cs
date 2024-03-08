@@ -1,8 +1,11 @@
 ﻿using ERPeducation.Command;
+using ERPeducation.Common.BD;
+using ERPeducation.Common.Interface;
 using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Common.Services.ServiceForEducation;
 using ERPeducation.Common.Services.ServicesForPersonalContact;
 using ERPeducation.Common.Windows;
+using ERPeducation.Models;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels;
@@ -13,17 +16,74 @@ using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalIn
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
 using ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView;
 using ReactiveUI;
+using System.IO;
+using System.Windows.Forms;
 
 namespace ERPeducation.Common.Services
 {
     public class DialogService : ReactiveObject, IDialogService
     {
-        public void OpenMainWindow()
+        public string OpenPathDialog()
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.ShowDialog();
+            FileServer.PathIS = dialog.SelectedPath;
+            return FileServer.PathIS;
+        }
+
+        public string CreateBase()
+        {
+            IJSONService jsonService = new JSONService();
+
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.ShowDialog();
+
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems"));
+
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration"));
+            
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Users"));
+            
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures"));
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures", "About"));
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures", "EducationalStructure"));
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures", "Education"));
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures", "SpaceManagement"));
+            
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "DocumentManagement"));
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "AdmissionsCampaignManagement"));
+            
+            FileServer.PathIS = dialog.SelectedPath;
+
+            jsonService.CreateFileJson(FileServer.Users, "Admin.json", "Администратор", "Admin", true, true, true, true, true, true);
+
+            return FileServer.PathIS;
+        }
+
+        //ОКНО АВТОРИЗАЦИИ
+        public void OpenAuthorizationWindow()
+        {
+            Authorization authorization = new Authorization();
+            authorization.DataContext = new AuthorizationViewModel(this, new Validator.UserValidation(), new JSONService());
+            authorization.Show();
+        }
+
+        //ОКНО ОСНОВНОЙ ПРОГРАММЫ
+        public void OpenMainWindow(UserModel user)
         {
             MainWindow mainWindow = new MainWindow();
-            mainWindow.DataContext = new MainWindowViewModel(new UserControlService(), mainWindow.Close, "Admin", "Администратор");
+            mainWindow.DataContext = new MainWindowViewModel(new UserControlService(), mainWindow.Close, user)
+            {
+                RectorIsEnabled = user.RectorAccess,
+                DeanRoomIsEnabled = user.DeanRoomAccess,
+                TrainingDivisionIsEnabled = user.TrainingDivisionAccess,
+                TeacherIsEnabled = user.TeacherAccess,
+                AdmissionCampaignIsEnabled = user.AdmissionCampaignAccess,
+                AdministrationIsEnabled = user.AdministrationAccess
+            };
             mainWindow.Show();
         }
+
         public void OpenWindow(object viewModel)
         {
             if(viewModel is EnrollePersonalInformationViewModel)

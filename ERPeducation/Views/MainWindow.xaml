@@ -237,7 +237,7 @@
                         Command="{Binding CommandBurger}" HorizontalAlignment="{Binding HorizontalAlignment}"/>
                 <!-- Бургер -->
 
-                <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="ButtonRector" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/rector.png" IsEnabled="{Binding IsEnabled[0]}"
+                <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="ButtonRector" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/rector.png" IsEnabled="{Binding RectorIsEnabled}"
                         Content="{Binding Data.DataForTabs[0]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonRector}">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
@@ -247,7 +247,7 @@
                 </Button>
                 <!-- Ректор -->
 
-                <Button Grid.Row="2" Grid.ColumnSpan="2" x:Name="ButtonDeanRoom" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/deanRoom.png" IsEnabled="{Binding IsEnabled[1]}"
+                <Button Grid.Row="2" Grid.ColumnSpan="2" x:Name="ButtonDeanRoom" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/deanRoom.png" IsEnabled="{Binding DeanRoomIsEnabled}"
                         Content="{Binding Data.DataForTabs[1]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonDeanRoom}">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
@@ -257,7 +257,7 @@
                 </Button>
                 <!-- Деканат -->
 
-                <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="ButtonTrainingDivision" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/trainingDivision.png" IsEnabled="{Binding IsEnabled[2]}"
+                <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="ButtonTrainingDivision" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/trainingDivision.png" IsEnabled="{Binding TrainingDivisionIsEnabled}"
                         Content="{Binding Data.DataForTabs[2]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonTrainingDivision}">
                     <Button.ContextMenu>
                         <ContextMenu>
@@ -267,7 +267,7 @@
                 </Button>
                 <!-- Учебный отдел -->
 
-                <Button Grid.Row="4" Grid.ColumnSpan="2" x:Name="ButtonTeacher" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/teacher.png" IsEnabled="{Binding IsEnabled[3]}"
+                <Button Grid.Row="4" Grid.ColumnSpan="2" x:Name="ButtonTeacher" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/teacher.png" IsEnabled="{Binding TeacherIsEnabled}"
                         Content="{Binding Data.DataForTabs[3]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonTeacher}">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
@@ -277,7 +277,7 @@
                 </Button>
                 <!-- Преподаватель -->
 
-                <Button Grid.Row="5" Grid.ColumnSpan="2" x:Name="ButtonEnrollee" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/enrollee.png" IsEnabled="{Binding IsEnabled[4]}"
+                <Button Grid.Row="5" Grid.ColumnSpan="2" x:Name="ButtonEnrollee" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/enrollee.png" IsEnabled="{Binding AdmissionCampaignIsEnabled}"
                         Content="{Binding Data.DataForTabs[4]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonEnrollee}">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
@@ -285,10 +285,10 @@
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button> 
-                <!-- Абитуриент -->
+                <!-- Приёмная кампания -->
 
-                <Button Grid.Row="6" Grid.ColumnSpan="2" x:Name="ButtonAdministration" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/administration.png" IsEnabled="{Binding IsEnabled[5]}"
-                Content="{Binding Data.DataForTabs[5]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonAdministration}" VerticalAlignment="Bottom">
+                <Button Grid.Row="6" Grid.ColumnSpan="2" x:Name="ButtonAdministration" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/administration.png" IsEnabled="{Binding AdministrationIsEnabled}"
+                        Content="{Binding Data.DataForTabs[5]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonAdministration}" VerticalAlignment="Bottom">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
                             <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding Data.DataForTabs[5]}" Style="{StaticResource MyMenuButtonStyle}"/>

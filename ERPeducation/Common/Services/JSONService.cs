@@ -1,5 +1,6 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Common.Interface;
+using ERPeducation.Models;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using System.Collections.ObjectModel;
@@ -12,7 +13,7 @@ namespace ERPeducation.Common.Services
     {
         public void GetTreeViewEducationItem(ObservableCollection<TreeViewLvlOne> treeViewCollection)
         {
-            string path = StaticBD.structPathEducation;
+            string path = FileServer.structPathEducation;
 
             if (!File.Exists(path))
             {
@@ -54,7 +55,7 @@ namespace ERPeducation.Common.Services
 
         public void GetTreeViewFacultyItem(ObservableCollection<TreeViewFacultyItemOne> treeViewCollection)
         {
-            string path = StaticBD.structPathFaculty;
+            string path = FileServer.structPathFaculty;
 
             if (!File.Exists(path))
             {
@@ -86,5 +87,13 @@ namespace ERPeducation.Common.Services
                 }
             }
         }
+
+        public void CreateFileJson(string fileJson, string fileName, string fullName, string identifier, bool rectorAccess, 
+            bool deanRoom, bool trainingDivision, bool teacher, bool admissionCampaign, bool administration) => 
+            File.WriteAllText(Path.Combine(fileJson, fileName), 
+                JsonSerializer.Serialize(new UserModel($"{fullName}", $"{identifier}", rectorAccess, 
+                    deanRoom, trainingDivision, teacher, admissionCampaign, administration)));
+
+        public UserModel GetFileJson(string filePath) => JsonSerializer.Deserialize<UserModel>(File.OpenRead(filePath));
     }
 }

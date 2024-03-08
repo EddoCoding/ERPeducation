@@ -1,10 +1,13 @@
 ﻿using ERPeducation.Common;
+using ERPeducation.Common.BD;
 using ERPeducation.Common.Interface;
 using ERPeducation.Interface;
+using ERPeducation.Models;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Windows;
@@ -14,7 +17,6 @@ namespace ERPeducation.ViewModels
     public class MainWindowViewModel : INPC
     {
         #region Визуальные свойства
-        public bool[] IsEnabled { get; set; } = new bool[6] { false, false, false, false, false, false };
         private int width = 195;
         public int Width
         {
@@ -27,6 +29,7 @@ namespace ERPeducation.ViewModels
                 OnPropertyChanged(nameof(Width));
             }
         }
+
         private HorizontalAlignment horizontalAlignment = HorizontalAlignment.Right;
         public HorizontalAlignment HorizontalAlignment
         {
@@ -37,10 +40,18 @@ namespace ERPeducation.ViewModels
                 OnPropertyChanged(nameof(HorizontalAlignment));
             }
         }
-        #endregion
+        #endregion 
+
         #region Свойства
         public string FullName { get; set; }
-        public string Role { get; set; }
+
+        public bool RectorIsEnabled { get; set; }
+        public bool DeanRoomIsEnabled { get; set; }
+        public bool TrainingDivisionIsEnabled { get; set; }
+        public bool TeacherIsEnabled { get; set; }
+        public bool AdmissionCampaignIsEnabled { get; set; }
+        public bool AdministrationIsEnabled { get; set; }
+
         public BaseDataForModules<TabItemMainWindowViewModel> Data { get; set; }
         #endregion
         #region Команды
@@ -50,13 +61,14 @@ namespace ERPeducation.ViewModels
         public ReactiveCommand<object, Unit> CommandNewTabItem { get; private set; }
         #endregion
 
+
         IUserControlService _userControlService;
-        public MainWindowViewModel(IUserControlService userControlService, Action close, string role, string fullName)
+
+        public MainWindowViewModel(IUserControlService userControlService, Action close, UserModel user)
         {
             _userControlService = userControlService;
 
-            FullName = fullName;
-            Role = role;
+            FullName = user.FullName;
 
             Data = new BaseDataForModules<TabItemMainWindowViewModel>()
             {
@@ -66,32 +78,6 @@ namespace ERPeducation.ViewModels
                 //МОДУЛЬ - ДОП. ОБРАЗОВАНИЕ +ДОБАВИТЬ ПОТОМ!!!!!!
                 //МОДУЛЬ - ДОПОЛНИТЕЛЬНЫЙ(БУХГАЛТЕРИЯ, КАДРЫ, ФАКУЛЬТЕТ) +ДОБАВИТЬ ПОТОМ!!!!!!
             };
-
-            switch (role)
-            {
-                case "Admin":
-                    for (int i = 0; i < IsEnabled.Length; i++) { IsEnabled[i] = true; }
-                    break;
-                case "Rector":
-                    for (int i = 0; i < IsEnabled.Length; i++) { IsEnabled[i] = true; }
-                    break;
-                case "DeanRoom":
-                    IsEnabled[1] = true;
-                    break;
-                case "TrainingDivision":
-                    IsEnabled[2] = true;
-                    break;
-                case "Teacher":
-                    IsEnabled[3] = true;
-                    break;
-                case "Enrollee":
-                    IsEnabled[4] = true;
-                    break;
-                default:
-                    MessageBox.Show("Ошибка доступа", "Сообщение");
-                    //СДЕЛАТЬ ВЫХОД ИЗ ПРОГРАММЫ
-                    break;
-            } //ЧТО-ТО ДОБАВИТЬ НАДО БЫЛО !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             Data.TabItem.CollectionChanged += (object? sender, NotifyCollectionChangedEventArgs e) =>
             {
