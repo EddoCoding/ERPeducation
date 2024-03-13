@@ -4,9 +4,181 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.Views.Administration"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="MyStyleButton" TargetType="Button">
+            <Setter Property="Margin" Value="10,10,0,10"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1" Padding="3" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleButtonSearch" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="1,0,0,0" BorderBrush="Gray" Height="24" Width="24" Background="{TemplateBinding Background}">
+                            <Image Source="/Common/Image/search.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleTextBox" TargetType="TextBox">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="{Binding TextSearch}" BorderThickness="0" FontFamily="Calibri" FontSize="16" 
+                                         Padding="2" SelectionBrush="Gray" VerticalAlignment="Center"/>
+                                <Button Grid.Column="1" Style="{StaticResource MyStyleButtonSearch}" Command="{Binding SearchCommand}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleLabel" TargetType="Label">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="MyStyleTextBlock" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <Style x:Key="ButtonChangeItem" TargetType="Button">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" ToolTip="Изменить данные пользователя">
+                            <Image Width="24" Height="22" Source="/Common/Image/change.png" Margin="3" Opacity="0.5"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonDeleteItem" TargetType="Button">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}" ToolTip="Удалить пользователя">
+                            <Image Width="20" Height="20" Source="/Common/Image/delDirection.png" Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleListBoxItem" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="0,1,0,1" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="280"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,3,0,3">
+                                    <Label Content="ФИО" Style="{StaticResource MyStyleLabel}"/>
+                                    <TextBlock Text="{Binding FullName}" Style="{StaticResource MyStyleTextBlock}"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,3,0,3">
+                                    <Label Content="Идентификатор" Style="{StaticResource MyStyleLabel}"/>
+                                    <TextBlock Text="{Binding Identifier}" Style="{StaticResource MyStyleTextBlock}"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,3,20,3">
+                                    <Label Content="Управление: " Style="{StaticResource MyStyleLabel}" Margin="0,5,0,0"/>
+                                    <Button Style="{StaticResource ButtonChangeItem}" Margin="5,0,0,0"/>
+                                    <Button Style="{StaticResource ButtonDeleteItem}" Margin="5,0,0,0"/>
+                                </StackPanel>
+                                
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
-        <Label Content="ПОЛЬЗОВАТЕЛИ" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="0" Content="+ Добавить пользователя" Style="{StaticResource MyStyleButton}" Command="{Binding AddUser}"/>
+
+        <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource MyStyleTextBox}"/>
+
+        <ListBox Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Users}" Height="150" Margin="10,0,10,10" 
+                 ItemContainerStyle="{StaticResource MyStyleListBoxItem}"/>
     </Grid>
 </UserControl>

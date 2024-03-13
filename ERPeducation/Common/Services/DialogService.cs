@@ -4,7 +4,9 @@ using ERPeducation.Common.Interface;
 using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Common.Services.ServiceForEducation;
 using ERPeducation.Common.Services.ServicesForPersonalContact;
+using ERPeducation.Common.Validator;
 using ERPeducation.Common.Windows;
+using ERPeducation.Common.Windows.AddUser;
 using ERPeducation.Models;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
@@ -16,6 +18,8 @@ using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalIn
 using ERPeducation.Views.AdmissionCampaign.DocumentsView;
 using ERPeducation.Views.AdmissionCampaign.TabsView.TabEducation.DocumentsView;
 using ReactiveUI;
+using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Forms;
 
@@ -31,45 +35,17 @@ namespace ERPeducation.Common.Services
             return FileServer.PathIS;
         }
 
-        public string CreateBase()
-        {
-            IJSONService jsonService = new JSONService();
-
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.ShowDialog();
-
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems"));
-
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration"));
-            
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Users"));
-            
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures"));
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures", "About"));
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures", "EducationalStructure"));
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures", "Education"));
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Structures", "SpaceManagement"));
-            
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "DocumentManagement"));
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "AdmissionsCampaignManagement"));
-            
-            FileServer.PathIS = dialog.SelectedPath;
-
-            jsonService.CreateFileJson(FileServer.Users, "Admin.json", "Администратор", "Admin", true, true, true, true, true, true);
-
-            return FileServer.PathIS;
-        }
-
         //ОКНО АВТОРИЗАЦИИ
         public void OpenAuthorizationWindow()
         {
             Authorization authorization = new Authorization();
-            authorization.DataContext = new AuthorizationViewModel(this, new Validator.UserValidation(), new JSONService());
+            authorization.DataContext = new AuthorizationViewModel(this, new Validator.UserValidation(), new JSONService(), 
+                new DirectoryFile(), authorization.Close);
             authorization.Show();
         }
 
         //ОКНО ОСНОВНОЙ ПРОГРАММЫ
-        public void OpenMainWindow(UserModel user)
+        public void OpenMainWindow(UserModel user, Action closeWindow)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.DataContext = new MainWindowViewModel(new UserControlService(), mainWindow.Close, user)
@@ -82,6 +58,7 @@ namespace ERPeducation.Common.Services
                 AdministrationIsEnabled = user.AdministrationAccess
             };
             mainWindow.Show();
+            closeWindow();
         }
 
         public void OpenWindow(object viewModel)
@@ -565,6 +542,14 @@ namespace ERPeducation.Common.Services
                     diplomaViewModel.AdditionalNumberDiploma = diplomaAsp.AdditionalNumberDiploma;
                 }
             }
+        }
+
+        //ОКНО ДОБАВЛЕНИЯ ПОЛЬЗОВАТЕЛЯ ERPСИСТЕМЫ
+        public void OpenWindowAddUser(ObservableCollection<UserModel> users)
+        {
+            WindowAddUser windowAddUser = new WindowAddUser();
+            windowAddUser.DataContext = new AddUserViewModel(new ValidationString(), new GetModelService(), users, windowAddUser.Close);
+            windowAddUser.ShowDialog();
         }
     }
 }

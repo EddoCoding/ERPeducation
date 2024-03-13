@@ -37,12 +37,17 @@ namespace ERPeducation.ViewModels.Modules.Administration
                 else BrushStruct = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             }
         }
-        [Reactive] public UserControl UserControlView { get; set; } 
-        [Reactive] public UserControl UserStructView { get; set; } 
+
+
+        //Раскрываюющие списки в Администрировании
+        [Reactive] public UserControl UserControlUserView { get; set; } 
+        [Reactive] public UserControl UserControlStructView { get; set; } 
+
 
         [Reactive] public Brush BrushUsers { get; set; }
         [Reactive] public Brush BrushStruct { get; set; }
         #endregion
+
 
         IUserControlService _userControlService;
 
@@ -50,8 +55,8 @@ namespace ERPeducation.ViewModels.Modules.Administration
         {
             _userControlService = userControlService;
 
-            UserControlView = _userControlService.GetUserControlForAdministrationView();
-            UserStructView = _userControlService.GetUserControlForAdministrationStruct();
+            UserControlUserView = _userControlService.GetUserControlForAdministrationView();
+            UserControlStructView = _userControlService.GetUserControlForAdministrationStruct();
 
             BrushUsers = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             BrushStruct = new SolidColorBrush(Color.FromRgb(255, 255, 255));

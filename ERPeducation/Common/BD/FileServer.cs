@@ -22,8 +22,7 @@ namespace ERPeducation.Common.BD
         public static string AdmissionsCampaignManagement => Path.Combine(Administration, "AdmissionsCampaignManagement");
 
 
-
-        public static string structPathFaculty = "C:\\Users\\79613\\Desktop\\БД\\fileFaculty.json";
-        public static string structPathEducation = "C:\\Users\\79613\\Desktop\\БД\\fileEducation.json";
+        public static string structPathFaculty => Path.Combine(EducationalStructure, "fileFaculty.json");
+        public static string structPathEducation => Path.Combine(Education, "fileEducation.json");
     }
 }

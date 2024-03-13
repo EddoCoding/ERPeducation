@@ -158,7 +158,8 @@ namespace ERPeducation.Common.Services
             return null;
         } //Документы об образовании Абитуриента
 
-        public UserControl GetUserControlForAdministrationView() => new AdministrationUsersView();
+        public UserControl GetUserControlForAdministrationView() =>
+            new AdministrationUsersView() { DataContext = new AdministrationUserViewModel(new DialogService(), new JSONService()) };
         public UserControl GetUserControlForAdministrationStruct() => 
             new AdministrationStructView() { DataContext = new AdministrationStructViewModel(new JSONService()) };
     }

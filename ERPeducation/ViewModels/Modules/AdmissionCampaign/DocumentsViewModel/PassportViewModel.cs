@@ -223,7 +223,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
 
         IConnectionModelService _connectModel;
 
-        public PassportViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel, Action closeWindow) 
+        public PassportViewModel(EnrollePersonalInformationViewModel Main, IConnectionModelService connectModel, Action closeWindow)
         {
             _connectModel = connectModel;
 
@@ -238,7 +238,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
                 else OpenPopupDateOfBirth = false;
             });
 
-            AddPassportCommand = new RelayCommand(() => 
+            AddPassportCommand = new RelayCommand(() =>
             {
                 Main.Documents.Add(_connectModel.GetModel(this));
                 closeWindow();

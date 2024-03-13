@@ -1,6 +1,7 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Common.Interface;
 using ERPeducation.Common.Services;
+using ERPeducation.Common.Windows.WindowError;
 using System;
 using System.IO;
 using System.Windows;
@@ -31,5 +32,8 @@ namespace ERPeducation.Common.Validator
 
             return false;
         }
+
+        public bool Validation(string stringValidation1, string stringValidation2) => throw new NotImplementedException();
+        public bool Validation(string stringValidation1, string stringValidation2, int stringLength) => throw new NotImplementedException();
     }
 }

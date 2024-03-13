@@ -7,14 +7,14 @@ namespace ERPeducation.Common.Interface
 {
     public interface IUserControlService
     {
-        public UserControl GetUserControl(string? titleButton, object viewModel);
-        public UserControl GetUserControlForAdmissionCampaign(string TitleTab);
-        public UserControl GetUserControlForModuleEnrollee(string moduleEnrolle);
-        public UserControl GetUserControlForDocuments(string? documents, EnrollePersonalInformationViewModel viewModel, Action closeWindow);
-        public UserControl GetUserControlForTypeEducationDocument(string typeEducation, EnrolleeEducationViewModel viewModel, Action closeWindow);
+        UserControl GetUserControl(string? titleButton, object viewModel);
+        UserControl GetUserControlForAdmissionCampaign(string TitleTab);
+        UserControl GetUserControlForModuleEnrollee(string moduleEnrolle);
+        UserControl GetUserControlForDocuments(string? documents, EnrollePersonalInformationViewModel viewModel, Action closeWindow);
+        UserControl GetUserControlForTypeEducationDocument(string typeEducation, EnrolleeEducationViewModel viewModel, Action closeWindow);
 
 
-        public UserControl GetUserControlForAdministrationView();
-        public UserControl GetUserControlForAdministrationStruct();
+        UserControl GetUserControlForAdministrationView();
+        UserControl GetUserControlForAdministrationStruct();
     }
 }

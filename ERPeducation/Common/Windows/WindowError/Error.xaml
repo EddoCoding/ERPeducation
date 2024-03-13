@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows.WindowError"
-        mc:Ignorable="d" Title="Ошибка" Height="120" Width="350" WindowStartupLocation="CenterScreen"
-        WindowStyle="None" ResizeMode="NoResize">
+        mc:Ignorable="d" Title="Ошибка" Height="125" Width="350" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" ResizeMode="NoResize" BorderThickness="1" BorderBrush="LightGray">
     <Window.Resources>
         <Style x:Key="MyStyleTextBlock" TargetType="TextBlock">
             <Setter Property="Margin" Value="15,10,0,0"/>
@@ -38,7 +38,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -49,5 +49,5 @@
         <Button Grid.Row="1" Content="Закрыть" Command="{Binding CloseWindow}" Style="{StaticResource MyStyleButton}"/>
 
     </Grid>
-    
+
 </Window>

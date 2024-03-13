@@ -4,9 +4,7 @@ using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ReactiveUI;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Reactive;
-using System.Text.Json;
 
 namespace ERPeducation.ViewModels.Modules.Administration
 {
@@ -24,26 +22,15 @@ namespace ERPeducation.ViewModels.Modules.Administration
         {
             _jsonService = jsonService;
 
+            InitializingCommands();
+
             #region Структура Факультетов
             TreeViewFacultyCollection = new ObservableCollection<TreeViewFacultyItemOne>();
-
             _jsonService.GetTreeViewFacultyItem(TreeViewFacultyCollection);
-
-            ConfigureFacultyCommand = ReactiveCommand.Create(() =>
-            {
-                File.WriteAllText(FileServer.structPathFaculty, JsonSerializer.Serialize(TreeViewFacultyCollection));
-            });
             #endregion
-
             #region Структура Образования
             TreeViewEducationCollection = new ObservableCollection<TreeViewLvlOne>();
-
             _jsonService.GetTreeViewEducationItem(TreeViewEducationCollection);
-
-            ConfigureEducationCommand = ReactiveCommand.Create(() =>
-            {
-                File.WriteAllText(FileServer.structPathEducation, JsonSerializer.Serialize(TreeViewEducationCollection));
-            });
             #endregion
 
             //СДЕЛАТЬ
@@ -51,6 +38,19 @@ namespace ERPeducation.ViewModels.Modules.Administration
 
             #endregion
             //СДЕЛАТЬ
+
+        }
+
+        void InitializingCommands()
+        {
+            ConfigureFacultyCommand = ReactiveCommand.Create(() =>
+            {
+                _jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, TreeViewFacultyCollection);
+            });
+            ConfigureEducationCommand = ReactiveCommand.Create(() =>
+            {
+                _jsonService.CreateEducationFileJson(FileServer.structPathEducation, TreeViewEducationCollection);
+            });
         }
     }
 }

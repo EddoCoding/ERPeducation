@@ -50,7 +50,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         {
             _connectModel = connectModel;
 
-            OpenPopupForDateOfAssignment = new RelayCommand(() => 
+            OpenPopupForDateOfAssignment = new RelayCommand(() =>
             {
                 if (OpenPopupDateOfAssignment == false) OpenPopupDateOfAssignment = true;
                 else OpenPopupDateOfAssignment = false;

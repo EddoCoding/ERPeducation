@@ -1,9 +1,20 @@
-﻿namespace ERPeducation.Models
+﻿using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
+using ReactiveUI;
+using System;
+using System.Reactive;
+using System.Text.Json.Serialization;
+using System.Windows;
+
+namespace ERPeducation.Models
 {
-    public class UserModel
+    public class UserModel : ReactiveObject
     {
         public string FullName { get; set; } = string.Empty;
         public string Identifier { get; set; } = string.Empty;
+
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> Delete { get; set; }
+
+        public event Action<UserModel>? OnDelete;
 
         //ДОСТУПЫ К МОДУЛЯМ
         public bool RectorAccess { get; set; }
@@ -25,6 +36,11 @@
             TeacherAccess = teacherAccess;
             AdmissionCampaignAccess = admissionCampaignAccess;
             AdministrationAccess = administrationAccess;
+
+            Delete = ReactiveCommand.Create(() =>
+            {
+                OnDelete?.Invoke(this);
+            });
         }
     }
 }

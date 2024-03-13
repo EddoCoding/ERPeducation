@@ -1,0 +1,377 @@
+﻿<Window x:Class="ERPeducation.Common.Windows.AddUser.WindowAddUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation.Common.Windows.AddUser"
+        mc:Ignorable="d" Title="Добавление пользователя" Height="430" Width="500"
+        BorderBrush="WhiteSmoke" BorderThickness="1"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+    <Window.Resources>
+        <Style x:Key="MyStyleLabel" TargetType="Label">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="15,10,0,5"/>
+            <Setter Property="Foreground" Value="Gray"/>
+        </Style>
+        <Style x:Key="TextBoxFullname" TargetType="TextBox">
+            <Setter Property="Margin" Value="20,0,20,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <TextBox BorderThickness="0" Text="{Binding FullName}" Background="Transparent" VerticalAlignment="Center"
+                                     FontFamily="Calibri" FontSize="15" SelectionBrush="Gray"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBoxIdentifier" TargetType="TextBox">
+            <Setter Property="Margin" Value="20,0,20,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <TextBox BorderThickness="0" Text="{Binding Identifier}" Background="Transparent" VerticalAlignment="Center"
+                             FontFamily="Calibri" FontSize="15" SelectionBrush="Gray"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonGeneration" TargetType="Button">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="Gray" BorderThickness="1" Height="20" CornerRadius="5" 
+                                VerticalAlignment="Center" Margin="0,0,10,0" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" Margin="2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LabelModule" TargetType="Label">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style x:Key="MyStyleToggleButtonRector" TargetType="ToggleButton">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="3" Height="20" Margin="5,5,10,5">
+                            <TextBlock Text="{Binding TextRectorAccess}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       FontFamily="Calibri"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleToggleButtonDeanRoom" TargetType="ToggleButton">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="3" Margin="5,5,10,5" Height="20">
+                            <TextBlock Text="{Binding TextDeanRoomAccess}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       FontFamily="Calibri"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleToggleButtonTrainingDivision" TargetType="ToggleButton">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="3" Margin="5,5,10,5" Height="20">
+                            <TextBlock Text="{Binding TextTrainingDivisionAccess}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       FontFamily="Calibri"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleToggleButtonTeacher" TargetType="ToggleButton">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="3" Margin="5,5,10,5" Height="20">
+                            <TextBlock Text="{Binding TextTeacherAccess}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       FontFamily="Calibri"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleToggleButtonAdmissionCampaign" TargetType="ToggleButton">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="3" Margin="5,5,10,5" Height="20">
+                            <TextBlock Text="{Binding TextAdmissionCampaignAccess}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       FontFamily="Calibri"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="MyStyleToggleButtonAdministration" TargetType="ToggleButton">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" CornerRadius="3" Margin="5,5,10,5" Height="20">
+                            <TextBlock Text="{Binding TextAdministrationAccess}" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       FontFamily="Calibri"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="LightGray"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" Value="Gray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonCancel" TargetType="Button">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="Gray" BorderThickness="1" Margin="0,0,10,0" Padding="0" 
+                                CornerRadius="3" Background="{TemplateBinding Background}">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonAddChange" TargetType="Button">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1" Padding="0" 
+                        CornerRadius="3" Background="{TemplateBinding Background}">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+
+        <Label Content="{Binding TextAddlabbel}" Style="{StaticResource MyStyleLabel}"/>
+
+        <Border CornerRadius="5" Background="WhiteSmoke" Margin="15,5" Height="35">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="105"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="User FullName:" VerticalAlignment="Center" Padding="0" Margin="10,0,0,0" 
+                       FontFamily="Calibri" FontSize="15"/>
+                <TextBox Grid.Column="1" Style="{StaticResource TextBoxFullname}"/>
+
+            </Grid>
+        </Border>
+
+        <Border CornerRadius="5" Background="WhiteSmoke" Margin="15,0" Height="35">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="105"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Content="Identifier:" VerticalAlignment="Center" Padding="0" Margin="10,0,0,0" 
+                       FontFamily="Calibri" FontSize="15"/>
+                <TextBox Grid.Column="1" Style="{StaticResource TextBoxIdentifier}"/>
+                <Button Grid.Column="2" Content="Generation" Style="{StaticResource ButtonGeneration}" Command="{Binding GenerationIdentifierCommand}"/>
+
+            </Grid>
+        </Border>
+
+        <Label Content="Доступы" Style="{StaticResource MyStyleLabel}"/>
+
+        <Border Margin="15,0" CornerRadius="5" Background="WhiteSmoke">
+            <StackPanel>
+
+                <Grid>
+                    <Label Content="Модуль Ректор" Style="{StaticResource LabelModule}"/>
+                    <ToggleButton Width="100" IsChecked="{Binding RectorAccess}" Style="{StaticResource MyStyleToggleButtonRector}"
+                                  Command="{Binding RectorAccessCommand}"/>
+                </Grid>
+
+                <Line Stroke="LightGray" StrokeThickness="1" X1="0" Y1="0" 
+                      X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                      Y2="0" Margin="10,0,10,0"/>
+
+                <Grid>
+                    <Label Content="Модуль Деканат" Style="{StaticResource LabelModule}"/>
+                    <ToggleButton Width="100" IsChecked="{Binding DeanRoomAccess}" Style="{StaticResource MyStyleToggleButtonDeanRoom}"
+                                  Command="{Binding DeanRoomAccessCommand}"/>
+                </Grid>
+
+                <Line Stroke="LightGray" StrokeThickness="1" X1="0" Y1="0" 
+                      X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                      Y2="0" Margin="10,0,10,0"/>
+
+                <Grid>
+                    <Label Content="Модуль Учебный отдел" Style="{StaticResource LabelModule}"/>
+                    <ToggleButton Width="100" IsChecked="{Binding TrainingDivisionAccess}" Style="{StaticResource MyStyleToggleButtonTrainingDivision}"
+                                  Command="{Binding TrainingDivisionAccessCommand}"/>
+                </Grid>
+
+                <Line Stroke="LightGray" StrokeThickness="1" X1="0" Y1="0" 
+                      X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                      Y2="0" Margin="10,0,10,0"/>
+
+                <Grid>
+                    <Label Content="Модуль Преподаватель" Style="{StaticResource LabelModule}"/>
+                    <ToggleButton Width="100" IsChecked="{Binding TeacherAccess}" Style="{StaticResource MyStyleToggleButtonTeacher}"
+                                  Command="{Binding TeacherAccessCommand}"/>
+                </Grid>
+
+                <Line Stroke="LightGray" StrokeThickness="1" X1="0" Y1="0" 
+                      X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                      Y2="0" Margin="10,0,10,0"/>
+
+                <Grid>
+                    <Label Content="Модуль Приёмная кампания" Style="{StaticResource LabelModule}"/>
+                    <ToggleButton Width="100" IsChecked="{Binding AdmissionCampaignAccess}" Style="{StaticResource MyStyleToggleButtonAdmissionCampaign}"
+                                  Command="{Binding AdmissionCampaignCommand}"/>
+                </Grid>
+
+                <Line Stroke="LightGray" StrokeThickness="1" X1="0" Y1="0" 
+                      X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                      Y2="0" Margin="10,0,10,0"/>
+
+                <Grid>
+                    <Label Content="Модуль Администирование" Style="{StaticResource LabelModule}"/>
+                    <ToggleButton Width="100" IsChecked="{Binding AdministrationAccess}" Style="{StaticResource MyStyleToggleButtonAdministration}"
+                                  Command="{Binding AdministrationCommand}"/>
+                </Grid>
+
+            </StackPanel>
+        </Border>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,15,0">
+            <Button Content="Отменить" Style="{StaticResource ButtonCancel}" Command="{Binding CloseWindowCommand}"/>
+            <Button Content="Добавить" Style="{StaticResource ButtonAddChange}" Command="{Binding AddChangeUserCommand}"/>
+        </StackPanel>
+
+    </StackPanel>
+
+</Window>

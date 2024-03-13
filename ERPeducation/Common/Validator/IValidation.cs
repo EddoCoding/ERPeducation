@@ -2,6 +2,8 @@
 {
     public interface IValidation
     {
-        bool Validation(string valid);
+        bool Validation(string stringValidation);
+        bool Validation(string stringValidation1, string stringValidation2);
+        bool Validation(string stringValidation1, string stringValidation2, int stringLength);
     }
 }

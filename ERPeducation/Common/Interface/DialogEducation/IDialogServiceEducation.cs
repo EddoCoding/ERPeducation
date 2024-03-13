@@ -5,6 +5,6 @@ namespace ERPeducation.Common.Interface.DialogEducation
 {
     public interface IDialogServiceEducation
     {
-        public UserControl GetUserControl(TypeEducationBaseModel selectedItem);
+        UserControl GetUserControl(TypeEducationBaseModel selectedItem);
     }
 }

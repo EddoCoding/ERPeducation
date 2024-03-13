@@ -5,47 +5,58 @@ using ERPeducation.Common.Validator;
 using ERPeducation.Models;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using System;
 using System.Reactive;
-using System.Text.Json;
-using System.Windows;
 
 namespace ERPeducation.ViewModels
 {
     public class AuthorizationViewModel : ReactiveObject
     {
-        [Reactive] public string Path { get; set; } = string.Empty;
+        [Reactive] public string Path { get; set; }
         public string Identifier { get; set; } = string.Empty;
 
         public ReactiveCommand<Unit, Unit> GetFodlerPath { get; set; }
         public ReactiveCommand<Unit, Unit> CreateBase { get; set; }
         public ReactiveCommand<Unit, Unit> EnterBase { get; set; }
 
+        Action closeWindow;
+
+
         IDialogService _dialogService;
         IValidation _validation;
         IJSONService _jsonService;
-
-        public AuthorizationViewModel(IDialogService dialogService, IValidation validation, IJSONService jsonService)
+        IDirectoryFile _directoryFile;
+        public AuthorizationViewModel(IDialogService dialogService, IValidation validation, 
+            IJSONService jsonService, IDirectoryFile directoryFile, Action closeWindow)
         {
             _dialogService = dialogService;
             _validation = validation;
             _jsonService = jsonService;
+            _directoryFile = directoryFile;
 
-            GetFodlerPath = ReactiveCommand.Create(() => 
-            { 
-                Path = dialogService.OpenPathDialog(); 
-            });
+            InitializingCommands();
 
-            CreateBase = ReactiveCommand.Create(() => 
-            { 
-                Path = dialogService.CreateBase(); 
-            });
+            this.closeWindow = closeWindow;
+        }
 
-            EnterBase = ReactiveCommand.Create(() => 
+        void InitializingCommands()
+        {
+            GetFodlerPath = ReactiveCommand.Create(() =>
             {
-                if (validation.Validation(Identifier))
+                Path = _dialogService.OpenPathDialog();
+            });
+
+            CreateBase = ReactiveCommand.Create(() =>
+            {
+                Path = _directoryFile.CreateBase();
+            });
+
+            EnterBase = ReactiveCommand.Create(() =>
+            {
+                if (_validation.Validation(Identifier))
                 {
                     UserModel user = _jsonService.GetFileJson(System.IO.Path.Combine(FileServer.Users, $"{Identifier}.json"));
-                    _dialogService.OpenMainWindow(user);
+                    _dialogService.OpenMainWindow(user, closeWindow);
                 }
             });
         }

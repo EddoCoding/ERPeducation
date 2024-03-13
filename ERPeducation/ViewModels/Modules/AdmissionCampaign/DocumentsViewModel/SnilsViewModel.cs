@@ -48,7 +48,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel
         {
             _connectModel = connectModel;
 
-            OpenPopupForRegistrationDateCommand = new RelayCommand(() => 
+            OpenPopupForRegistrationDateCommand = new RelayCommand(() =>
             {
                 if (OpenPopupRegistrationDate == false) OpenPopupRegistrationDate = true;
                 else OpenPopupRegistrationDate = false;

@@ -10,12 +10,12 @@ namespace ERPeducation
         protected override void OnStartup(StartupEventArgs e)
         {
             //ОКНО АВТОРИЗАЦИИ
-            //IDialogService dialogService = new DialogService();
-            //dialogService.OpenAuthorizationWindow();
+            IDialogService dialogService = new DialogService();
+            dialogService.OpenAuthorizationWindow();
 
             //ГЛАВНОЕ ОКНО БЕЗ АВТОРИЗАЦИИ
-            IDialogService dialogService = new DialogService(); 
-            dialogService.OpenMainWindow(new Models.UserModel("Без авторизации", "Admin", false, false, false, false, true, true));
+            //IDialogService dialogService = new DialogService(); 
+            //dialogService.OpenMainWindow(new Models.UserModel("Без авторизации", "Admin", false, false, false, false, true, true));
         }
     }
 }

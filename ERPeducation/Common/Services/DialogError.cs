@@ -1,4 +1,5 @@
-﻿using ERPeducation.Common.Interface;
+﻿using DynamicData.Kernel;
+using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows.WindowError;
 
 namespace ERPeducation.Common.Services

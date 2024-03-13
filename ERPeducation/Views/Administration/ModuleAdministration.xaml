@@ -265,18 +265,14 @@
                     <Expander Grid.Row="0" Header="Управлление пользователями" Template="{DynamicResource MyStyleExpander}" FontSize="15"
                               IsExpanded="{Binding IsBoolUsers}" Background="{Binding BrushUsers}" Style="{StaticResource MyStyleExpanderEffect}">
 
-                        <UserControl Content="{Binding UserControlView}" Height="200" Width="500"/>
-
-                        <!--Добавление пользователей-->
-                        <!--Управление их доступом-->
-                        <!--Управление их доступом-->
+                        <UserControl Content="{Binding UserControlUserView}"/>
 
                     </Expander>
 
                     <Expander Grid.Row="1" Header="Управление структурами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
                           IsExpanded="{Binding IsBoolStruct}" Style="{StaticResource MyStyleExpanderEffect}">
 
-                        <UserControl Content="{Binding UserStructView}" Background="#f6f6f6"/>
+                        <UserControl Content="{Binding UserControlStructView}" Background="#f6f6f6"/>
 
                     </Expander>
 
