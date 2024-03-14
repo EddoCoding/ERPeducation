@@ -1,20 +1,25 @@
-﻿using ERPeducation.Common.Validator;
-using ERPeducation.Models;
+﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Interface;
+using ERPeducation.Common.Validator;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Reactive;
 using System.Text;
+using System.Text.Json;
+using System.Windows;
 
 namespace ERPeducation.Common.Windows.AddUser
 {
     public class AddUserViewModel : ReactiveObject
     {
-        ObservableCollection<UserModel> users;
+        ObservableCollection<UserViewModel> users;
 
         public string TextAddlabbel { get; set; } = "Данные пользователя";
-        public string FullName { get; set; }
+        public string TextButonAddChange { get; set; } = "Добавить";
+        [Reactive] public string FullName { get; set; }
         [Reactive] public string Identifier { get; set; }
 
         #region Свойства доступа
@@ -52,7 +57,7 @@ namespace ERPeducation.Common.Windows.AddUser
 
         IValidation _validation;
         IGetModel _getModel;
-        public AddUserViewModel(IValidation validation, IGetModel getModel, ObservableCollection<UserModel> users, Action closeWindow) 
+        public AddUserViewModel(IValidation validation, IGetModel getModel, ObservableCollection<UserViewModel> users, Action closeWindow) 
         {
             _validation = validation;
             _getModel = getModel;
@@ -61,10 +66,49 @@ namespace ERPeducation.Common.Windows.AddUser
 
             Identifier = Generation(8);
 
-            InitializingCommands();
+            InitializingCommandsAddUser();
         }
 
-        void InitializingCommands()
+        public AddUserViewModel(IValidation validation, IJSONService jsonService, ObservableCollection<UserViewModel> users, UserViewModel userModel, Action closeWindow)
+        {
+            _validation = validation;
+            this.users = users;
+            CloseWindowCommand = ReactiveCommand.Create(closeWindow);
+
+            GenerationIdentifierCommand = ReactiveCommand.Create(() =>
+            {
+                Identifier = Generation(8);
+            });
+
+            AddChangeUserCommand = ReactiveCommand.Create(() =>
+            {
+                if (!_validation.Validation(FullName, Identifier, 8)) return;
+
+                UserViewModel user = jsonService.GetFileJson(Path.Combine(FileServer.Users, $"{userModel.Identifier}.json"));
+
+                user.FullName = FullName;
+                user.Identifier = Identifier;
+
+                user.RectorAccess = RectorAccess;
+                user.DeanRoomAccess = DeanRoomAccess;
+                user.TrainingDivisionAccess = TrainingDivisionAccess;
+                user.TeacherAccess = TeacherAccess;
+                user.AdmissionCampaignAccess = AdmissionCampaignAccess;
+                user.AdministrationAccess = AdministrationAccess;
+
+                jsonService.CreateFileJson(FileServer.Users, $"{user.Identifier}.json", FullName, Identifier,
+                    RectorAccess, DeanRoomAccess, TrainingDivisionAccess, TeacherAccess, 
+                    AdmissionCampaignAccess, AdministrationAccess);
+
+                users.Add(user);
+                users.Remove(userModel);
+                File.Delete(Path.Combine(FileServer.Users, $"{userModel.Identifier}.json"));
+
+                CloseWindowCommand.Execute().Subscribe();
+            });
+        }
+
+        void InitializingCommandsAddUser()
         {
             GenerationIdentifierCommand = ReactiveCommand.Create(() =>
             {
@@ -158,6 +202,7 @@ namespace ERPeducation.Common.Windows.AddUser
                 }
             });
         }
+
         string Generation(int count)
         {
             string chatacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

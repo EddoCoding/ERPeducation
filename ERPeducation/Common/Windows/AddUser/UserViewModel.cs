@@ -1,20 +1,21 @@
-﻿using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ReactiveUI;
+﻿using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Reactive;
 using System.Text.Json.Serialization;
-using System.Windows;
 
-namespace ERPeducation.Models
+namespace ERPeducation.Common.Windows.AddUser
 {
-    public class UserModel : ReactiveObject
+    public class UserViewModel : ReactiveObject
     {
-        public string FullName { get; set; } = string.Empty;
-        public string Identifier { get; set; } = string.Empty;
+        [Reactive] public string FullName { get; set; } = string.Empty;
+        [Reactive] public string Identifier { get; set; } = string.Empty;
 
-        [JsonIgnore] public ReactiveCommand<Unit,Unit> Delete { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit, Unit> ChangeDataUserCommand { get; set; }
 
-        public event Action<UserModel>? OnDelete;
+        public event Action<UserViewModel>? OnDelete;
+        public event Action<UserViewModel>? OnChange;
 
         //ДОСТУПЫ К МОДУЛЯМ
         public bool RectorAccess { get; set; }
@@ -24,7 +25,7 @@ namespace ERPeducation.Models
         public bool AdmissionCampaignAccess { get; set; }
         public bool AdministrationAccess { get; set; }
 
-        public UserModel(string fullname, string identifier, bool rectorAccess, bool deanRoomAccess, 
+        public UserViewModel(string fullname, string identifier, bool rectorAccess, bool deanRoomAccess,
             bool trainingDivisionAccess, bool teacherAccess, bool admissionCampaignAccess, bool administrationAccess)
         {
             FullName = fullname;
@@ -37,9 +38,19 @@ namespace ERPeducation.Models
             AdmissionCampaignAccess = admissionCampaignAccess;
             AdministrationAccess = administrationAccess;
 
-            Delete = ReactiveCommand.Create(() =>
+            InitializingCommands();
+        }
+
+        void InitializingCommands()
+        {
+            DeleteUserCommand = ReactiveCommand.Create(() =>
             {
                 OnDelete?.Invoke(this);
+            });
+
+            ChangeDataUserCommand = ReactiveCommand.Create(() =>
+            {
+                OnChange?.Invoke(this);
             });
         }
     }

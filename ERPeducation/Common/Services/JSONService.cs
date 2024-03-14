@@ -1,22 +1,24 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Common.Interface;
-using ERPeducation.Models;
+using ERPeducation.Common.Windows.AddUser;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
-using System.Windows;
 
 namespace ERPeducation.Common.Services
 {
     public class JSONService : IJSONService
     {
-        public void CreateFacultyFileJson(string filePath, ObservableCollection<TreeViewFacultyItemOne> collection) =>
-            File.WriteAllText(filePath, JsonSerializer.Serialize(collection));
-
-        public void CreateEducationFileJson(string filePath, ObservableCollection<TreeViewLvlOne> collection) =>
-            File.WriteAllText(filePath, JsonSerializer.Serialize(collection));
+        public void CreateFacultyFileJson(string filePath, ObservableCollection<TreeViewFacultyItemOne> collection)
+        {
+            using (StreamWriter sw = new StreamWriter(filePath)) sw.Write(JsonSerializer.Serialize(collection));
+        }
+        public void CreateEducationFileJson(string filePath, ObservableCollection<TreeViewLvlOne> collection)
+        {
+            using (StreamWriter sw = new StreamWriter(filePath)) sw.Write(JsonSerializer.Serialize(collection));
+        }
 
         public void GetTreeViewFacultyItem(ObservableCollection<TreeViewFacultyItemOne> treeViewCollection)
         {
@@ -24,31 +26,43 @@ namespace ERPeducation.Common.Services
 
             if (!File.Exists(path))
             {
-                File.WriteAllText(path, JsonSerializer.Serialize(new ObservableCollection<TreeViewFacultyItemOne>()
+                using (FileStream fs = new FileStream(path, FileMode.Create))
                 {
-                    new TreeViewFacultyItemOne("Факультеты")
-                }));
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.Write(JsonSerializer.Serialize(new ObservableCollection<TreeViewFacultyItemOne>()
+                        {
+                            new TreeViewFacultyItemOne("Факультеты")
+                        }));
+                    }
+                }
             }
             if (File.Exists(path))
             {
-                foreach (var levelOneItem in JsonSerializer.Deserialize<ObservableCollection<TreeViewFacultyItemOne>>(File.ReadAllText(path)))
+                using (var fs = new FileStream(path, FileMode.Open))
                 {
-                    var treeViewItemOne = new TreeViewFacultyItemOne(levelOneItem.Title);
-
-                    foreach (var levelTwoItem in levelOneItem.Items)
+                    using (var sr = new StreamReader(fs))
                     {
-                        var treeViewItemTwo = new TreeViewFacultyItemTwo(levelTwoItem.Title);
-
-                        foreach (var levelThreeItem in levelTwoItem.Items)
+                        foreach (var levelOneItem in JsonSerializer.Deserialize<ObservableCollection<TreeViewFacultyItemOne>>(sr.ReadToEnd()))
                         {
-                            var treeViewItemThree = new TreeViewFacultyItemThree(levelThreeItem.Title);
-                            treeViewItemTwo.Items.Add(treeViewItemThree);
+                            var treeViewItemOne = new TreeViewFacultyItemOne(levelOneItem.Title);
+
+                            foreach (var levelTwoItem in levelOneItem.Items)
+                            {
+                                var treeViewItemTwo = new TreeViewFacultyItemTwo(levelTwoItem.Title);
+
+                                foreach (var levelThreeItem in levelTwoItem.Items)
+                                {
+                                    var treeViewItemThree = new TreeViewFacultyItemThree(levelThreeItem.Title);
+                                    treeViewItemTwo.Items.Add(treeViewItemThree);
+                                }
+
+                                treeViewItemOne.Items.Add(treeViewItemTwo);
+                            }
+
+                            treeViewCollection.Add(treeViewItemOne);
                         }
-
-                        treeViewItemOne.Items.Add(treeViewItemTwo);
                     }
-
-                    treeViewCollection.Add(treeViewItemOne);
                 }
             }
         }
@@ -58,67 +72,81 @@ namespace ERPeducation.Common.Services
 
             if (!File.Exists(path))
             {
-                File.WriteAllText(path, JsonSerializer.Serialize(new ObservableCollection<TreeViewLvlOne>()
+                using (FileStream fs = new FileStream(path, FileMode.Create))
                 {
-                    new TreeViewLvlOne("Уровни подготовки")
-                }));
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.Write(JsonSerializer.Serialize(new ObservableCollection<TreeViewLvlOne>()
+                        {
+                            new TreeViewLvlOne("Уровни подготовки")
+                        }));
+                    }
+                }
             }
             if (File.Exists(path))
             {
-                foreach (var levelOneItem in JsonSerializer.Deserialize<ObservableCollection<TreeViewLvlOne>>(File.ReadAllText(path)))
+                using (var fs = new FileStream(path, FileMode.Open))
                 {
-                    var treeViewItemOne = new TreeViewLvlOne(levelOneItem.Title);
-            
-                    foreach (var levelTwoItem in levelOneItem.Items)
+                    using (StreamReader sr = new StreamReader(fs))
                     {
-                        var treeViewItemTwo = new TreeViewLvlTwo(levelTwoItem.Title);
-            
-                        foreach (var levelThreeItem in levelTwoItem.Items)
+                        foreach (var levelOneItem in JsonSerializer.Deserialize<ObservableCollection<TreeViewLvlOne>>(sr.ReadToEnd()))
                         {
-                            var treeViewItemThree = new TreeViewLvlThree(levelThreeItem.Title);
-            
-                            foreach (var levelFourItem in levelThreeItem.Items)
+                            var treeViewItemOne = new TreeViewLvlOne(levelOneItem.Title);
+
+                            foreach (var levelTwoItem in levelOneItem.Items)
                             {
-                                var treeViewItemFour = new TreeViewLvlFour(levelFourItem.Title);
-                                treeViewItemThree.Items.Add(treeViewItemFour);
+                                var treeViewItemTwo = new TreeViewLvlTwo(levelTwoItem.Title);
+
+                                foreach (var levelThreeItem in levelTwoItem.Items)
+                                {
+                                    var treeViewItemThree = new TreeViewLvlThree(levelThreeItem.Title);
+
+                                    foreach (var levelFourItem in levelThreeItem.Items)
+                                    {
+                                        var treeViewItemFour = new TreeViewLvlFour(levelFourItem.Title);
+                                        treeViewItemThree.Items.Add(treeViewItemFour);
+                                    }
+                                    treeViewItemTwo.Items.Add(treeViewItemThree);
+                                }
+                                treeViewItemOne.Items.Add(treeViewItemTwo);
                             }
-            
-                            treeViewItemTwo.Items.Add(treeViewItemThree);
+                            treeViewCollection.Add(treeViewItemOne);
                         }
-            
-                        treeViewItemOne.Items.Add(treeViewItemTwo);
                     }
-            
-                    treeViewCollection.Add(treeViewItemOne);
                 }
             }
         }
 
 
-        public void CreateFileJson(string fileJson, string fileName, string fullName, string identifier, bool rectorAccess, 
-            bool deanRoom, bool trainingDivision, bool teacher, bool admissionCampaign, bool administration) => 
-            File.WriteAllText(Path.Combine(fileJson, fileName), 
-                JsonSerializer.Serialize(new UserModel($"{fullName}", $"{identifier}", rectorAccess, 
-                    deanRoom, trainingDivision, teacher, admissionCampaign, administration)));
+        public void CreateFileJson(string fileJson, string fileName, string fullName, string identifier, bool rectorAccess,
+            bool deanRoom, bool trainingDivision, bool teacher, bool admissionCampaign, bool administration)
+        {
+            using(StreamWriter sw = new StreamWriter(Path.Combine(fileJson, fileName))) 
+            {
+                sw.Write(JsonSerializer.Serialize(new UserViewModel($"{fullName}", $"{identifier}", rectorAccess,
+                 deanRoom, trainingDivision, teacher, admissionCampaign, administration)));
+                sw.Close();
+            }
+        }
 
-        public UserModel GetFileJson(string filePath) => JsonSerializer.Deserialize<UserModel>(File.OpenRead(filePath));
+        public UserViewModel GetFileJson(string filePath)
+        {
+            UserViewModel userModel;
+            using(FileStream fs = File.OpenRead(filePath)) userModel = JsonSerializer.Deserialize<UserViewModel>(fs);
+            return userModel;
+        }
 
-        public void GetUserFileJson(ObservableCollection<UserModel> users)
+        public void GetUserFileJson(ObservableCollection<UserViewModel> users)
         {
             foreach (var filePath in Directory.GetFiles(FileServer.Users))
             {
-                try
+                using (FileStream fs = new FileStream(filePath, FileMode.Open))
                 {
-                    using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+                    using (StreamReader sr = new StreamReader(fs))
                     {
-                        UserModel userModel = JsonSerializer.Deserialize<UserModel>(fileStream);
+                        UserViewModel userModel = JsonSerializer.Deserialize<UserViewModel>(sr.ReadToEnd());
                         users.Add(userModel);
                     }
-                }
-                catch
-                {
-                    MessageBox.Show("К документу нет доступа, занят процессом.\n" +
-                        "Вызвал метод GetUserFileJson в классе JSONService", "Что то не то"); //ЗАНЯТ ФАЙЛ ПРОЦЕССОМ
                 }
             }
         }

@@ -7,7 +7,6 @@ using ERPeducation.Common.Services.ServicesForPersonalContact;
 using ERPeducation.Common.Validator;
 using ERPeducation.Common.Windows;
 using ERPeducation.Common.Windows.AddUser;
-using ERPeducation.Models;
 using ERPeducation.Models.AdmissionCampaign.Documents;
 using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels;
@@ -21,6 +20,7 @@ using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace ERPeducation.Common.Services
@@ -45,7 +45,7 @@ namespace ERPeducation.Common.Services
         }
 
         //ОКНО ОСНОВНОЙ ПРОГРАММЫ
-        public void OpenMainWindow(UserModel user, Action closeWindow)
+        public void OpenMainWindow(UserViewModel user, Action closeWindow)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.DataContext = new MainWindowViewModel(new UserControlService(), mainWindow.Close, user)
@@ -544,11 +544,34 @@ namespace ERPeducation.Common.Services
             }
         }
 
-        //ОКНО ДОБАВЛЕНИЯ ПОЛЬЗОВАТЕЛЯ ERPСИСТЕМЫ
-        public void OpenWindowAddUser(ObservableCollection<UserModel> users)
+        //ОКНО ДОБАВЛЕНИЯ ПОЛЬЗОВАТЕЛЯ ERP_СИСТЕМЫ
+        public void OpenWindowAddUser(ObservableCollection<UserViewModel> users)
         {
             WindowAddUser windowAddUser = new WindowAddUser();
             windowAddUser.DataContext = new AddUserViewModel(new ValidationString(), new GetModelService(), users, windowAddUser.Close);
+            windowAddUser.ShowDialog();
+        }
+
+        //ОКНО ИЗМЕНЕНИЯ ПОЛЬЗОВАТЕЛЯ ERP_СИСТЕМЫ
+        public void OpenWindowChangeUser(ObservableCollection<UserViewModel> users, UserViewModel userModel)
+        {
+            if (userModel.FullName == "Администратор") return;
+            WindowAddUser windowAddUser = new WindowAddUser();
+            windowAddUser.DataContext = new AddUserViewModel(new ValidationString(), new JSONService(), users, userModel, windowAddUser.Close)
+            {
+                TextAddlabbel = "Изменение данных пользователя",
+                TextButonAddChange = "Изменить",
+
+                FullName = userModel.FullName,
+                Identifier = userModel.Identifier,
+
+                RectorAccess = userModel.RectorAccess,
+                DeanRoomAccess = userModel.DeanRoomAccess,
+                TrainingDivisionAccess = userModel.TrainingDivisionAccess,
+                TeacherAccess = userModel.TeacherAccess,
+                AdmissionCampaignAccess = userModel.AdmissionCampaignAccess,
+                AdministrationAccess = userModel.AdministrationAccess
+            };
             windowAddUser.ShowDialog();
         }
     }

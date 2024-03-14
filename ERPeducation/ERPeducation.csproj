@@ -109,7 +109,7 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\Modules\Administration\Users\" />
-    <Folder Include="ViewModels\Modules\Administration\Spaces\" />
+    <Folder Include="ViewModels\Modules\Administration\Struct\Spaces\" />
     <Folder Include="ViewModels\Modules\Administration\Documents\" />
     <Folder Include="ViewModels\Modules\Administration\AdmissionCampaign\" />
   </ItemGroup>

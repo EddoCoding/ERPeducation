@@ -1,8 +1,10 @@
-﻿using ERPeducation.Common.Interface;
+﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Interface;
 using ERPeducation.Common.Interface.DialogPersonal;
-using ERPeducation.Models;
+using ERPeducation.Common.Windows.AddUser;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Reactive;
 using System.Windows;
 
@@ -12,7 +14,7 @@ namespace ERPeducation.ViewModels.Modules.Administration
     {
         public string TextSearch { get; set; }
 
-        public ObservableCollection<UserModel> Users { get; set; }
+        public ObservableCollection<UserViewModel> Users { get; set; }
 
         public ReactiveCommand<Unit, Unit> AddUser { get; set; }
         public ReactiveCommand<Unit, Unit> SearchCommand { get; set; }
@@ -23,7 +25,21 @@ namespace ERPeducation.ViewModels.Modules.Administration
         {
             _dialogService = dialogService;
 
-            Users = new ObservableCollection<UserModel>();
+            Users = new ObservableCollection<UserViewModel>();
+
+            Users.CollectionChanged += (sender, e) =>
+            {
+                if (e.OldItems != null) foreach (UserViewModel item in e.OldItems)
+                {
+                    item.OnDelete -= deleteUserModel;
+                    item.OnChange -= changeUserModel;
+                }
+                if (e.NewItems != null) foreach (UserViewModel item in e.NewItems)
+                {
+                    item.OnDelete += deleteUserModel;
+                    item.OnChange += changeUserModel;
+                }
+            };
 
             jsonService.GetUserFileJson(Users);
 
@@ -41,6 +57,21 @@ namespace ERPeducation.ViewModels.Modules.Administration
             {
                 MessageBox.Show("Команда не реализована", "Заголовок");
             });
+        }
+
+        void deleteUserModel(UserViewModel userModel)
+        {
+            string filePath = Path.Combine(FileServer.Users, $"{userModel.Identifier}.json");
+
+            if (userModel.FullName != "Администратор" && File.Exists(filePath))
+            {
+                File.Delete(filePath);
+                Users.Remove(userModel);
+            }
+        }
+        void changeUserModel(UserViewModel userModel)
+        {
+            _dialogService.OpenWindowChangeUser(Users, userModel);
         }
     }
 }

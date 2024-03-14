@@ -369,7 +369,7 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,15,0">
             <Button Content="Отменить" Style="{StaticResource ButtonCancel}" Command="{Binding CloseWindowCommand}"/>
-            <Button Content="Добавить" Style="{StaticResource ButtonAddChange}" Command="{Binding AddChangeUserCommand}"/>
+            <Button Content="{Binding TextButonAddChange}" Style="{StaticResource ButtonAddChange}" Command="{Binding AddChangeUserCommand}"/>
         </StackPanel>
 
     </StackPanel>

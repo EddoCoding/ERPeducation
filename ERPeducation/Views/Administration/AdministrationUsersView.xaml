@@ -82,15 +82,34 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="0"/>
         </Style>
+        <Style x:Key="MyStyleToolTip" TargetType="ToolTip">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Placement" Value="Bottom"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Border BorderBrush="Gray" BorderThickness="1" Background="White">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="ButtonChangeItem" TargetType="Button">
             <Setter Property="FontFamily" Value="Calibri"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="5" Background="{TemplateBinding Background}" ToolTip="Изменить данные пользователя">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}">
                             <Image Width="24" Height="22" Source="/Common/Image/change.png" Margin="3" Opacity="0.5"/>
+                            <Border.ToolTip>
+                                <ToolTip Content="Изменить данные пользователя" Style="{StaticResource MyStyleToolTip}"/>
+                            </Border.ToolTip>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -108,8 +127,11 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="5" Background="{TemplateBinding Background}" ToolTip="Удалить пользователя">
+                        <Border CornerRadius="5" Background="{TemplateBinding Background}">
                             <Image Width="20" Height="20" Source="/Common/Image/delDirection.png" Margin="3"/>
+                            <Border.ToolTip>
+                                <ToolTip Content="Удалить пользователя" Style="{StaticResource MyStyleToolTip}"/>
+                            </Border.ToolTip>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -144,8 +166,8 @@
 
                                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,3,20,3">
                                     <Label Content="Управление: " Style="{StaticResource MyStyleLabel}" Margin="0,5,0,0"/>
-                                    <Button Style="{StaticResource ButtonChangeItem}" Margin="5,0,0,0"/>
-                                    <Button Style="{StaticResource ButtonDeleteItem}" Margin="5,0,0,0"/>
+                                    <Button Style="{StaticResource ButtonChangeItem}" Command="{Binding ChangeDataUserCommand}"/>
+                                    <Button Style="{StaticResource ButtonDeleteItem}" Command="{Binding DeleteUserCommand}"/>
                                 </StackPanel>
                                 
                             </Grid>

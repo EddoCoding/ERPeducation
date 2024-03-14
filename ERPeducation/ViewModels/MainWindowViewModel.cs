@@ -1,13 +1,11 @@
 ﻿using ERPeducation.Common;
-using ERPeducation.Common.BD;
 using ERPeducation.Common.Interface;
+using ERPeducation.Common.Windows.AddUser;
 using ERPeducation.Interface;
-using ERPeducation.Models;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Windows;
@@ -64,7 +62,7 @@ namespace ERPeducation.ViewModels
 
         IUserControlService _userControlService;
 
-        public MainWindowViewModel(IUserControlService userControlService, Action close, UserModel user)
+        public MainWindowViewModel(IUserControlService userControlService, Action close, UserViewModel user)
         {
             _userControlService = userControlService;
 

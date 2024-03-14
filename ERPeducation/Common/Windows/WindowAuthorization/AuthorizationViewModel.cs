@@ -2,7 +2,7 @@
 using ERPeducation.Common.Interface;
 using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Common.Validator;
-using ERPeducation.Models;
+using ERPeducation.Common.Windows.AddUser;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -55,7 +55,7 @@ namespace ERPeducation.ViewModels
             {
                 if (_validation.Validation(Identifier))
                 {
-                    UserModel user = _jsonService.GetFileJson(System.IO.Path.Combine(FileServer.Users, $"{Identifier}.json"));
+                    UserViewModel user = _jsonService.GetFileJson(System.IO.Path.Combine(FileServer.Users, $"{Identifier}.json"));
                     _dialogService.OpenMainWindow(user, closeWindow);
                 }
             });
