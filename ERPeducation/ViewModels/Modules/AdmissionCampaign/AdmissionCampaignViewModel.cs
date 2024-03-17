@@ -11,10 +11,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class AdmissionCampaignViewModel : ReactiveObject
     {
-        #region Свойства
         public ObservableCollection<AddEnrolleeViewModel> Enrollees { get; set; }
         [Reactive] public Enrollee SelectedEnrollee { get; set; }
-        #endregion
+
         #region Команды
         public ReactiveCommand<Unit, Unit> AddEnrolleeCommand { get; set; }
         public ReactiveCommand<Unit, Unit> WithdrawStatementCommand { get; set; }

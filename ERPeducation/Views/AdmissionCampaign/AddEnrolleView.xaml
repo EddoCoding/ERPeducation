@@ -587,7 +587,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            
+
             <Label Content="Личная информация" Style="{StaticResource MyStyleLabel}"/>
 
             <Grid>

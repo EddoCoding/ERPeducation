@@ -1,18 +1,9 @@
-﻿using ERPeducation.Command;
-using ERPeducation.Common.BD;
+﻿using ERPeducation.Common.BD;
 using ERPeducation.Common.Interface.DialogPersonal;
-using ERPeducation.Common.Services.ServiceForEducation;
-using ERPeducation.Common.Services.ServicesForPersonalContact;
 using ERPeducation.Common.Validator;
 using ERPeducation.Common.Windows;
 using ERPeducation.Common.Windows.AddUser;
-using ERPeducation.Models.AdmissionCampaign.Documents;
-using ERPeducation.Models.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.DocumentsViewModel;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.EducationViewModel;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.FieldOfStudy;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.TabsViewModel.PersonalInformation;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
@@ -85,21 +76,6 @@ namespace ERPeducation.Common.Services
                 AdministrationAccess = userModel.AdministrationAccess
             };
             windowAddUser.ShowDialog();
-        }
-
-        public void OpenWindow(object viewModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OpenWindowEditPersonalDocument(DocsBase userControl, EnrollePersonalInformationViewModel viewModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OpenWindowEditEducationDocument(TypeEducationBaseModel userControl, EnrolleeEducationViewModel viewModel, int selectedItemInt)
-        {
-            throw new NotImplementedException();
         }
     }
 }
