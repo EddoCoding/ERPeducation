@@ -114,4 +114,16 @@
     <Folder Include="ViewModels\Modules\Administration\AdmissionCampaign\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\79613\source\repos\ERPeducation\ERPeducation\Views\AdmissionCampaign\NewView\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\79613\source\repos\ERPeducation\ERPeducation\Views\AdmissionCampaign\NewView\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\79613\source\repos\ERPeducation\ERPeducation\Views\AdmissionCampaign\NewView\.editorconfig" />
+  </ItemGroup>
+
 </Project>

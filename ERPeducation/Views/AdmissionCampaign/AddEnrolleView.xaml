@@ -1,59 +1,91 @@
-﻿<UserControl x:Class="ERPeducation.Views.AdmissionCampaign.DocumentsView.SnilsView"
+﻿<UserControl x:Class="ERPeducation.Views.AdmissionCampaign.NewView.AddEnrolleView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.DocumentsView"
-             xmlns:Converter="clr-namespace:ERPeducation.Common.Converters"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.NewView"
+             xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Converter:StringToSnilsNumberConvert x:Key="StringToSnilsNumberConvert"/>
-        <Converter:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
+        <converters:ComboBoxItemToStringConvert x:Key="ComboBoxItemToStringConvert"/>
+        <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
+        
 
-        <Style x:Key="LabelStyle" TargetType="Label">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="10,5,0,0"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+        <Style x:Key="MyStyleLabel" TargetType="Label">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
-        <Style x:Key="TextBoxStyle" TargetType="TextBox">
-            <Setter Property="BorderBrush" Value="Gray"/>
+        <Style x:Key="LabelPersonalInfo" TargetType="Label">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="10,0,50,0"/>
+        </Style>
+        <Style x:Key="TextBoxPersonalInfo" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Height="30" VerticalAlignment="Bottom"
-                                Margin="81,0,0,0" Width="120">
-                            <TextBox BorderThickness="0" Padding="4" FontSize="14" SelectionBrush="Gray"
-                             Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
-                                     MaxLength="14"/>
+                        <Border BorderBrush="Gray" BorderThickness="1" Width="350" HorizontalAlignment="Left">
+                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" BorderThickness="0" VerticalAlignment="Center" Margin="3,0,3,0" FontFamily="Calibri" 
+                                     FontSize="14" SelectionBrush="Gray" CaretBrush="Gray"/>
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="DarkCyan"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Margin" Value="14,0,0,13"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Style x:Key="ComboBoxPersonalInfo" TargetType="ComboBox">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="White" Width="140">
-                            <Label x:Name="Label" Content="{Binding TitleButton}" FontSize="13" HorizontalAlignment="Center" FontWeight="DemiBold"/>
+                    <ControlTemplate TargetType="ComboBox">
+                        <StackPanel>
+                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectValueComboBox}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                              RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Width="70" HorizontalAlignment="Left">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                            </Border>
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide" Width="70">
+                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxItemPersonalInfo" TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="White">
+                            <ContentPresenter Margin="3"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="DarkCyan"/>
-                                <Setter TargetName="Label" Property="Foreground" Value="White"/>
-                                <Setter Property="BorderBrush" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="DarkCyan"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -61,12 +93,11 @@
             </Setter>
         </Style>
             
-        <!--Стиль для календаря "Дата регистрации"-->
         <Style x:Key="StyleForImageCalendar" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Padding="0" Background="Transparent" Width="22" Margin="5,0,0,0">
+                        <Border Padding="0" Background="Transparent" Width="24" Height="24" Margin="5,0,0,0">
                             <Image Source="/Common/Image/calendar.png"/>
                         </Border>
                     </ControlTemplate>
@@ -162,7 +193,7 @@
                             <Rectangle x:Name="SelectedBackground" Fill="{TemplateBinding Background}" Opacity="0" RadiusX="8" RadiusY="8"/>
                             <Rectangle x:Name="Background" Fill="Gray" Opacity="0" RadiusX="8" RadiusY="8"/>
                             <ContentPresenter x:Name="NormalText" TextElement.Foreground="Black" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                      Margin="1,0,1,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                              Margin="1,0,1,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             <Rectangle x:Name="CalendarButtonFocusVisual" IsHitTestVisible="false" RadiusX="10" RadiusY="10" Stroke="Black" Visibility="Collapsed"/>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -285,10 +316,9 @@
                             <Rectangle x:Name="SelectedBackground" Fill="Gray" Opacity="0" RadiusX="3" RadiusY="3"/>
                             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
                             <Rectangle x:Name="HighlightBackground" Fill="Gray" Opacity="0" RadiusX="1" RadiusY="1"/>
-                            <ContentPresenter x:Name="NormalText" TextElement.Foreground="Black" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                      Margin="5,1,5,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ContentPresenter x:Name="NormalText" TextElement.Foreground="Black" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="5,1,5,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             <Path x:Name="Blackout" Data="M8.1772461,11.029181 L10.433105,11.029181 L11.700684,12.801641 L12.973633,11.029181 L15.191895,11.029181 L12.844727,13.999395 L15.21875,17.060919 L12.962891,17.060919 L11.673828,15.256231 L10.352539,17.060919 L8.1396484,17.060919 L10.519043,14.042364 z" 
-                          Fill="#FF000000" HorizontalAlignment="Stretch" Margin="8" Opacity="0" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Stretch"/>
+                    Fill="#FF000000" HorizontalAlignment="Stretch" Margin="8" Opacity="0" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Stretch"/>
                             <Rectangle x:Name="DayButtonFocusVisual" IsHitTestVisible="false" RadiusX="1" RadiusY="1" Stroke="Black" Visibility="Collapsed"/>
                         </Grid>
                     </ControlTemplate>
@@ -303,7 +333,7 @@
                         <ControlTemplate.Resources>
                             <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
                                 <TextBlock Foreground="#FF333333" FontFamily="Arial" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" 
-                                   Margin="0,6,0,6" Text="{Binding}" VerticalAlignment="Center"/>
+                           Margin="0,6,0,6" Text="{Binding}" VerticalAlignment="Center"/>
                             </DataTemplate>
                         </ControlTemplate.Resources>
                         <Grid x:Name="PART_Root">
@@ -321,7 +351,7 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0">
+                     BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0">
                                 <Border BorderBrush="Gray" BorderThickness="0">
                                     <Grid>
                                         <Grid.Resources>
@@ -345,7 +375,7 @@
                                                     <Rectangle Fill="#11E5EBF1" Opacity="1" Stretch="Fill"/>
                                                     <Grid>
                                                         <Path x:Name="path" Data="M288.75,232.25 L288.75,240.625 L283,236.625 z" Fill="Gray" HorizontalAlignment="Left" 
-                                                      Height="11" Margin="14,-6,0,0" Stretch="Fill" VerticalAlignment="Center" Width="10"/>
+                                              Height="11" Margin="14,-6,0,0" Stretch="Fill" VerticalAlignment="Center" Width="10"/>
                                                     </Grid>
                                                 </Grid>
                                             </ControlTemplate>
@@ -369,7 +399,7 @@
                                                     <Rectangle Fill="#11E5EBF1" Opacity="1" Stretch="Fill"/>
                                                     <Grid>
                                                         <Path x:Name="path" Data="M282.875,231.875 L282.875,240.375 L288.625,236 z" Fill="Gray" HorizontalAlignment="Right" 
-                                                      Height="11" Margin="0,-6,14,0" Stretch="Fill" VerticalAlignment="Center" Width="10"/>
+                                              Height="11" Margin="0,-6,14,0" Stretch="Fill" VerticalAlignment="Center" Width="10"/>
                                                     </Grid>
                                                 </Grid>
                                             </ControlTemplate>
@@ -406,11 +436,11 @@
                                         </Grid.RowDefinitions>
 
                                         <Button x:Name="PART_PreviousButton" Grid.Column="0" Focusable="False" HorizontalAlignment="Left" Height="20" Grid.Row="0" 
-                                        Template="{StaticResource PreviousButtonTemplate}" Width="28"/>
+                                Template="{StaticResource PreviousButtonTemplate}" Width="28"/>
                                         <Button x:Name="PART_HeaderButton" Grid.Column="1" Focusable="False" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center"
-                                        Grid.Row="0" Template="{StaticResource HeaderButtonTemplate}" VerticalAlignment="Center"/>
+                                Grid.Row="0" Template="{StaticResource HeaderButtonTemplate}" VerticalAlignment="Center"/>
                                         <Button x:Name="PART_NextButton" Grid.Column="2" Focusable="False" HorizontalAlignment="Right" Height="20" Grid.Row="0" 
-                                        Template="{StaticResource NextButtonTemplate}" Width="28"/>
+                                Template="{StaticResource NextButtonTemplate}" Width="28"/>
 
                                         <Grid x:Name="PART_MonthView" Grid.ColumnSpan="3" Margin="2,2" Grid.Row="1" Visibility="Visible">
                                             <Grid.ColumnDefinitions>
@@ -449,7 +479,7 @@
                                 </Border>
                             </Border>
                             <Rectangle x:Name="PART_DisabledVisual" Fill="{StaticResource DisabledColor}" Opacity="0" RadiusX="2" RadiusY="2" Stroke="{StaticResource DisabledColor}" 
-                               Stretch="Fill" StrokeThickness="1" Visibility="Collapsed"/>
+                       Stretch="Fill" StrokeThickness="1" Visibility="Collapsed"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="False">
@@ -475,14 +505,15 @@
                     <ControlTemplate TargetType="{x:Type Calendar}">
                         <StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
                             <CalendarItem x:Name="PART_CalendarItem" Background="{TemplateBinding Background}" 
-                                  Foreground="{TemplateBinding Foreground}" Style="{DynamicResource MyStyleCalendarItem}"/>
+                          Foreground="{TemplateBinding Foreground}" Style="{DynamicResource MyStyleCalendarItem}"/>
                         </StackPanel>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="MyStyleDatePickerForRegistrationDate" TargetType="DatePicker">
-            <Setter Property="Height" Value="30"/>
+        <Style x:Key="MyStyleDatePicker" TargetType="DatePicker">
+            <Setter Property="Width" Value="98"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -493,27 +524,23 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="0" Width="93" Margin="10,0,0,0">
-                                <TextBox FontSize="14" BorderThickness="0" SelectionBrush="DarkGray" Text="{Binding RegistrationDate, 
-                                         StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
-                                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                            <Border Grid.Column="0" Height="25">
+                                <TextBox FontSize="14" BorderThickness="0" SelectionBrush="DarkGray" VerticalAlignment="Center" FontFamily="Calibri"
+                                         Text="{Binding DateOfBirth, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="BorderBrush" Value="Gray"/>
                                         <Setter Property="BorderThickness" Value="1"/>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="BorderBrush" Value="DarkCyan"/>
-                                            </Trigger>
-                                        </Style.Triggers>
                                     </Style>
                                 </Border.Style>
                             </Border>
-                            <Button Grid.Column="1" Style="{StaticResource StyleForImageCalendar}" Command="{Binding OpenPopupForRegistrationDateCommand }"/>
-                            <Popup Grid.Column="2" Style="{StaticResource MyStylePopup}" IsOpen="{Binding OpenPopupRegistrationDate}">
+                            <Button Grid.Column="1" Style="{StaticResource StyleForImageCalendar}" Command="{Binding OpenPopupCommand}"/>
+                            <Popup Grid.Column="2" Style="{StaticResource MyStylePopup}" IsOpen="{Binding Popup}">
                                 <Grid Background="Transparent">
-                                    <Calendar Style="{StaticResource MyStyleCalendar}" CalendarDayButtonStyle="{StaticResource MyStyleCalendarDayButton}" 
-                                      CalendarButtonStyle="{StaticResource MyStyleCalendarButton}" SelectedDate="{Binding RegistrationDate}">
+                                    <Calendar Style="{StaticResource MyStyleCalendar}"
+                                      CalendarDayButtonStyle="{StaticResource MyStyleCalendarDayButton}" 
+                                      CalendarButtonStyle="{StaticResource MyStyleCalendarButton}"
+                                      SelectedDate="{Binding DateOfBirth}">
                                         <Calendar.Effect>
                                             <DropShadowEffect ShadowDepth="1" Color="Black" BlurRadius="10" Opacity="0.7"/>
                                         </Calendar.Effect>
@@ -525,32 +552,135 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="RadioButtonPersonalInfo" TargetType="RadioButton">
+            <Setter Property="Margin" Value="15,0,0,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="LabelCitizenship" TargetType="Label">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="10,0,12,0"/>
+        </Style>
+        <Style x:Key="TextBoxDoCitizenship" TargetType="TextBox">
+            <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border BorderBrush="Gray" BorderThickness="1" Width="76" HorizontalAlignment="Left">
+                                <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" BorderThickness="0" VerticalAlignment="Center" 
+                                         Margin="3,0,3,0" FontFamily="Calibri" FontSize="14" SelectionBrush="Gray" CaretBrush="Gray"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Style="{StaticResource LabelStyle}" Content="Данные снилса" 
-               FontWeight="DemiBold" VerticalAlignment="Top"/>
-
-        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
-            <Label Content="Номер" Style="{StaticResource LabelStyle}"/>
-            <TextBox Text="{Binding Number, Converter={StaticResource StringToSnilsNumberConvert}, UpdateSourceTrigger=PropertyChanged}"
-                     Style="{StaticResource TextBoxStyle}"/>
-        </StackPanel>
-
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,1,0,0">
-            <Label Content="Дата регистрации" Style="{StaticResource LabelStyle}"/>
-            <DatePicker Style="{StaticResource MyStyleDatePickerForRegistrationDate}"/>
-        </StackPanel>
-
-        <Button Grid.Row="3" Style="{StaticResource ButtonStyle}" Command="{Binding AddSnilsCommand}"/>
+        <StackPanel Grid.Row="0">
             
+            <Label Content="Личная информация" Style="{StaticResource MyStyleLabel}"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" Content="Фамилия" Style="{StaticResource LabelPersonalInfo}"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBoxPersonalInfo}" Text="{Binding SurName}"/>
+
+                <Label Grid.Column="0" Grid.Row="2" Content="Имя" Style="{StaticResource LabelPersonalInfo}"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBoxPersonalInfo}" Text="{Binding Name}"/>
+
+                <Label Grid.Column="0" Grid.Row="4" Content="Отчество" Style="{StaticResource LabelPersonalInfo}"/>
+                <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBoxPersonalInfo}" Text="{Binding MiddleName}"/>
+
+                <Label Grid.Column="0" Grid.Row="6" Content="Пол" Style="{StaticResource LabelPersonalInfo}"/>
+                <ComboBox Grid.Column="1" Grid.Row="6" Style="{StaticResource ComboBoxPersonalInfo}" SelectedItem="{Binding SelectValueComboBox, 
+                    Converter={StaticResource ComboBoxItemToStringConvert}}" ItemContainerStyle="{StaticResource ComboBoxItemPersonalInfo}">
+                    <ComboBox.Items>
+                        <ComboBoxItem Content="Муж"/>
+                        <ComboBoxItem Content="Жен"/>
+                    </ComboBox.Items>
+                </ComboBox>
+
+                <Label Grid.Column="0" Grid.Row="8" Content="Дата рождения" Style="{StaticResource LabelPersonalInfo}"/>
+                <DatePicker Grid.Column="1" Grid.Row="8" Style="{StaticResource MyStyleDatePicker}"/>
+
+                <Grid Grid.ColumnSpan="2" Grid.Row="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton Grid.Column="0" Grid.Row="0" Style="{StaticResource RadioButtonPersonalInfo}" Command="{Binding OpenValueCommand}" IsChecked="True"/>
+                    <Label Grid.Column="1" Grid.Row="0" Content="Гражданство" Style="{StaticResource LabelCitizenship}"/>
+                    <TextBox Grid.Column="2" Grid.Row="0" Style="{StaticResource TextBoxPersonalInfo}" Text="{Binding Citizenship}" IsEnabled="{Binding IsEnabled}"/>
+                    <Label Grid.Column="3" Grid.Row="0" Content="Действует с:" Style="{StaticResource LabelCitizenship}"/>
+                    <TextBox Grid.Column="4" Grid.Row="0" Style="{StaticResource TextBoxDoCitizenship}" Text="{Binding DoCitizenship, 
+                        StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" IsEnabled="{Binding IsEnabled}"/>
+
+                    <RadioButton Grid.Column="0" Grid.Row="1" Style="{StaticResource RadioButtonPersonalInfo}" Command="{Binding DelValueCommand}"/>
+                    <Label Grid.Column="1" Grid.Row="1" Content="Без гражданства" Style="{StaticResource LabelCitizenship}"/>
+
+                </Grid>
+                
+            </Grid>
+
+            <Label Content="Документы" Style="{StaticResource LabelPersonalInfo}"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <Label Content="Персональная информация" Style="{StaticResource MyStyleLabel}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2">
+            <Label Content="Образование" Style="{StaticResource MyStyleLabel}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3">
+            <Label Content="Направление подготовки" Style="{StaticResource MyStyleLabel}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4">
+            <Label Content="Документы" Style="{StaticResource MyStyleLabel}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5">
+            <Label Content="Результаты испытаний" Style="{StaticResource MyStyleLabel}"/>
+        </StackPanel>
+
     </Grid>
-        
+
 </UserControl>

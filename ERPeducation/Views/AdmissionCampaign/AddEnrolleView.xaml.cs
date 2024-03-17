@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ERPeducation.Views.AdmissionCampaign.TabsView
+namespace ERPeducation.Views.AdmissionCampaign.NewView
 {
     /// <summary>
-    /// Логика взаимодействия для EnrolleeEducationView.xaml
+    /// Логика взаимодействия для AddEnrolleView.xaml
     /// </summary>
-    public partial class EnrolleeEducationView : UserControl
+    public partial class AddEnrolleView : UserControl
     {
-        public EnrolleeEducationView()
+        public AddEnrolleView()
         {
             InitializeComponent();
         }

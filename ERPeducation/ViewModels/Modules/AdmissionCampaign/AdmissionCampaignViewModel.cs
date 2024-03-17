@@ -1,4 +1,5 @@
-﻿using ERPeducation.Common.Interface;
+﻿using ERPeducation.Common;
+using ERPeducation.Common.Interface;
 using ERPeducation.Models.AdmissionCampaign;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -11,9 +12,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
     public class AdmissionCampaignViewModel : ReactiveObject
     {
         #region Свойства
-        MainWindowViewModel mainWindowViewModel {  get; set; }
-        public ObservableCollection<Enrollee> Enrollees { get; set; }
-        [Reactive] public Enrollee SelectedEnrollee {  get; set; }
+        public ObservableCollection<AddEnrolleeViewModel> Enrollees { get; set; }
+        [Reactive] public Enrollee SelectedEnrollee { get; set; }
         #endregion
         #region Команды
         public ReactiveCommand<Unit, Unit> AddEnrolleeCommand { get; set; }
@@ -21,30 +21,16 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ReactiveCommand<Unit, Unit> FilterCommand { get; set; }
         #endregion
 
-        IUserControlService _userControlService;
-
-        public AdmissionCampaignViewModel(IUserControlService userControlService, MainWindowViewModel mainWindowViewModel)
+        public AdmissionCampaignViewModel(IUserControlService userControlService, BaseDataForModules<TabItemMainWindowViewModel> data)
         {
-            _userControlService = userControlService;
+            Enrollees = new ObservableCollection<AddEnrolleeViewModel>();
 
-            this.mainWindowViewModel = mainWindowViewModel;
-
-            AddEnrolleeCommand = ReactiveCommand.Create(AddEnrollee);
+            AddEnrolleeCommand = ReactiveCommand.Create(() =>
+            {
+                data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент", userControlService.GetUserControlEnrollee(Enrollees)));
+            });
             WithdrawStatementCommand = ReactiveCommand.Create(() => { MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK); });
             FilterCommand = ReactiveCommand.Create(() => { MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK); });
-
-            Enrollees = new ObservableCollection<Enrollee>()
-            {
-                new Enrollee("Викторова1", "Виктория1", "Викторовна1"),
-                new Enrollee("Викторова2", "Виктория2", "Викторовна2"),
-                new Enrollee("Викторова3", "Виктория3", "Викторовна3"),
-                new Enrollee("Викторова4", "Виктория4", "Викторовна4")
-            };
         }
-
-        void AddEnrollee() =>
-            mainWindowViewModel.Data.TabItem.Add(new TabItemMainWindowViewModel("Абитуриент",
-                _userControlService.GetUserControlForAdmissionCampaign("Абитуриент")));
-        
     }
 }

@@ -72,9 +72,6 @@ namespace ERPeducation.ViewModels
             {
                 TabItem = new ObservableCollection<TabItemMainWindowViewModel>(),
                 DataForTabs = new string[] { "Ректор", "Деканат", "Учебный отдел", "Преподаватель", "Приёмная кампания", "Администрирование" }
-                //МОДУЛЬ - БИБЛИОТЕКА +ДОБАВИТЬ ПОТОМ!!!!!!
-                //МОДУЛЬ - ДОП. ОБРАЗОВАНИЕ +ДОБАВИТЬ ПОТОМ!!!!!!
-                //МОДУЛЬ - ДОПОЛНИТЕЛЬНЫЙ(БУХГАЛТЕРИЯ, КАДРЫ, ФАКУЛЬТЕТ) +ДОБАВИТЬ ПОТОМ!!!!!!
             };
 
             Data.TabItem.CollectionChanged += (object? sender, NotifyCollectionChangedEventArgs e) =>
@@ -85,7 +82,7 @@ namespace ERPeducation.ViewModels
 
             CommandBurger = ReactiveCommand.Create<object>(WidthStackPanel);
             CommandAddTabItem = ReactiveCommand.Create<object>(AddTabItem);
-            CommandNewTabItem = ReactiveCommand.Create<object>(NewTabItem);
+            //CommandNewTabItem = ReactiveCommand.Create<object>(NewTabItem);
             CloseCommand = ReactiveCommand.Create(close);
         }
 
@@ -98,65 +95,33 @@ namespace ERPeducation.ViewModels
         void AddTabItem(object contentButton)
         {
             bool ExistsTabItem = Data.TabItem.Any(MyTabItem => MyTabItem.Title == contentButton.ToString());
-            //if (!ExistsTabItem && contentButton.ToString() == "Ректор")
-            //{
-            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleRector(new RectorViewModel())));
-            //    return;
-            //}
-            //if (!ExistsTabItem && contentButton.ToString() == "Деканат")
-            //{
-            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleDeanRoom(new DeanRoomViewModel())));
-            //    return;
-            //}
-            //if (!ExistsTabItem && contentButton.ToString() == "Учебный отдел")
-            //{
-            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTrainingDivision(new TrainingDivisionViewModel())));
-            //    return;
-            //}
-            //if (!ExistsTabItem && contentButton.ToString() == "Преподаватель")
-            //{
-            //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTeacher(new TeacherViewModel())));
-            //    return;
-            //}
             if (!ExistsTabItem && contentButton.ToString() == "Приёмная кампания")
             {
                 Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-                    _userControlService.GetUserControl(contentButton.ToString(), this)));
+                   _userControlService.GetModuleAdmissionCampaign(Data)));
                 return;
-            }
+            }//ОТКРЫВАЕМ МОДУЛЬ ПРИЕМНАЯ КАМПАНИЯ
             if (!ExistsTabItem && contentButton.ToString() == "Администрирование")
             {
                 Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-                   _userControlService.GetUserControl(contentButton.ToString(), this)));
+                   _userControlService.GetModuleAdministration()));
                 return;
-            }
+            }//ОТКРЫВАЕМ МОДУЛЬ АДМИНИСТРИРОВАНИЕ
         }
-        void NewTabItem(object contentButton)
-        {
-            switch (contentButton.ToString())
-            {
-                //case "Ректор":
-                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleRector(new RectorViewModel())));
-                //    break;
-                //case "Деканат":
-                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleDeanRoom(new DeanRoomViewModel())));
-                //    break;
-                //case "Учебный отдел":
-                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTrainingDivision(new TrainingDivisionViewModel())));
-                //    break;
-                //case "Преподаватель":
-                //    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(), new ModuleTeacher(new TeacherViewModel())));
-                //    break;
-                case "Приёмная кампания":
-                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-                        _userControlService.GetUserControl(contentButton.ToString(), this)));
-                    break;
-                case "Администрирование":
-                    Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-                        _userControlService.GetUserControl(contentButton.ToString(), this)));
-                    break;
-            }
-        }
+        //void NewTabItem(object contentButton)
+        //{
+        //    switch (contentButton.ToString())
+        //    {
+        //        case "Приёмная кампания":
+        //            Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
+        //                _userControlService.GetUserControl(contentButton.ToString(), this)));
+        //            break;
+        //        case "Администрирование":
+        //            Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
+        //                _userControlService.GetUserControl(contentButton.ToString(), this)));
+        //            break;
+        //    }
+        //}
         #endregion
         #region Методы
         void CloseTab(TabItemMainWindowViewModel tab) => Data.TabItem.Remove(tab);

@@ -1,5 +1,4 @@
-﻿using ERPeducation.Interface;
-using ReactiveUI;
+﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
 

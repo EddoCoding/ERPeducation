@@ -117,7 +117,6 @@ namespace ERPeducation.Common.Services
             }
         }
 
-
         public void CreateFileJson(string fileJson, string fileName, string fullName, string identifier, bool rectorAccess,
             bool deanRoom, bool trainingDivision, bool teacher, bool admissionCampaign, bool administration)
         {
