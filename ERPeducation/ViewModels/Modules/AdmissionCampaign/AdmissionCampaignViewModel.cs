@@ -10,13 +10,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
     public class AdmissionCampaignViewModel : ReactiveObject
     {
         public ObservableCollection<EnrolleeViewModel> Enrollees { get; set; }
-
         MainTabControl<MainTabItem> data;
 
-
-        public ReactiveCommand<Unit, Unit> AddEnrolleeCommand { get; set; }
-        public ReactiveCommand<Unit, Unit> WithdrawStatementCommand { get; set; }
-        public ReactiveCommand<Unit, Unit> FilterCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> AddChangeEnrolleeCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> SearchCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> SearchSettingCommand { get; set; }
 
         IUserControlService _userControlService;
         public AdmissionCampaignViewModel(IUserControlService userControlService, MainTabControl<MainTabItem> data)
@@ -30,17 +28,19 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         void InitializingCommands()
         {
-            AddEnrolleeCommand = ReactiveCommand.Create(() =>
+            AddChangeEnrolleeCommand = ReactiveCommand.Create(() =>
             {
                 data.TabItem.Add(new MainTabItem("Абитуриент", _userControlService.GetUserControlEnrollee(Enrollees)));
             });
-            WithdrawStatementCommand = ReactiveCommand.Create(() => 
-            { 
-                MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK); 
+
+            SearchCommand = ReactiveCommand.Create(() =>
+            {
+                MessageBox.Show("Метод не реализован", "Заголовок");
             });
-            FilterCommand = ReactiveCommand.Create(() => 
-            { 
-                MessageBox.Show("Метод не реализован", "Сообщение", MessageBoxButton.OK); 
+
+            SearchSettingCommand = ReactiveCommand.Create(() =>
+            {
+                MessageBox.Show("Метод не реализован", "Заголовок");
             });
         }
     }

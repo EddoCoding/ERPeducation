@@ -10,27 +10,27 @@
         <converters:ComboBoxItemToStringConvert x:Key="ComboBoxItemToStringConvert"/>
         <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
         
-
+        <!--Персональная информация-->
         <Style x:Key="MyStyleLabel" TargetType="Label">
             <Setter Property="FontFamily" Value="Calibri"/>
             <Setter Property="Padding" Value="0"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Foreground" Value="Gray"/>
-            <Setter Property="Margin" Value="10"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
-        <Style x:Key="LabelPersonalInfo" TargetType="Label">
+        <Style x:Key="Label" TargetType="Label">
             <Setter Property="FontFamily" Value="Calibri"/>
             <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Margin" Value="10,0,50,0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="20,0,50,0"/>
         </Style>
-        <Style x:Key="TextBoxPersonalInfo" TargetType="TextBox">
+        <Style x:Key="TextBox" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border BorderBrush="Gray" BorderThickness="1" Width="350" HorizontalAlignment="Left">
-                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" BorderThickness="0" VerticalAlignment="Center" Margin="3,0,3,0" FontFamily="Calibri" 
-                                     FontSize="14" SelectionBrush="Gray" CaretBrush="Gray"/>
+                        <Border BorderBrush="Gray" BorderThickness="1" Width="350" HorizontalAlignment="Left" Height="25">
+                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" BorderThickness="0" VerticalAlignment="Center" 
+                                     Margin="3,0,3,0" FontFamily="Calibri" FontSize="14" SelectionBrush="Gray" CaretBrush="Gray"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -574,51 +574,145 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+        <Style x:Key="ButtonAddDocument" TargetType="Button">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Width="150" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListBoxItemDocument" TargetType="ListBoxItem">
+            
+        </Style> <!--Добавить стиль для айтемов ListBox-->
+        
+        <!--Контактная информация-->
+        <Style x:Key="TextBoxContact" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="Gray" BorderThickness="1" Width="400" HorizontalAlignment="Left" Height="25" Margin="20,3,0,0">
+                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" BorderThickness="0" VerticalAlignment="Center" 
+                                     Margin="3,0,3,0" FontFamily="Calibri" FontSize="14" SelectionBrush="Gray" CaretBrush="Gray"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LabelContact" TargetType="Label">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="20,10,50,0"/>
+        </Style>
+        
+        <!--Образование-->
+        <Style x:Key="ListBoxItemEducation" TargetType="ListBoxItem">
+
+        </Style> <!--Добавить стиль для айтемов ListBox-->
+        
+        <!--Направление подготовки-->
+        <Style x:Key="ComboBoxDirectionOfTraining" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <StackPanel>
+                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectValueComboBox}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                      RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Width="70" HorizontalAlignment="Left">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                            </Border>
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide" Width="70">
+                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <ScrollViewer>
+        
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+    
+            <StackPanel Grid.Row="0">
 
-        <StackPanel Grid.Row="0">
+                <Label Content="Личная информация" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,10"/>
 
-            <Label Content="Личная информация" Style="{StaticResource MyStyleLabel}"/>
-
-            <Grid>
+                <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="10"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="10"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="10"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="10"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="10"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Column="0" Grid.Row="0" Content="Фамилия" Style="{StaticResource LabelPersonalInfo}"/>
-                <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBoxPersonalInfo}" Text="{Binding SurName}"/>
+                <Label Grid.Column="0" Grid.Row="0" Content="Фамилия" Style="{StaticResource Label}"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBox}" Text="{Binding SurName}"/>
 
-                <Label Grid.Column="0" Grid.Row="2" Content="Имя" Style="{StaticResource LabelPersonalInfo}"/>
-                <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBoxPersonalInfo}" Text="{Binding Name}"/>
+                <Label Grid.Column="0" Grid.Row="2" Content="Имя" Style="{StaticResource Label}"/>
+                <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBox}" Text="{Binding Name}"/>
 
-                <Label Grid.Column="0" Grid.Row="4" Content="Отчество" Style="{StaticResource LabelPersonalInfo}"/>
-                <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBoxPersonalInfo}" Text="{Binding MiddleName}"/>
+                <Label Grid.Column="0" Grid.Row="4" Content="Отчество" Style="{StaticResource Label}"/>
+                <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBox}" Text="{Binding MiddleName}"/>
 
-                <Label Grid.Column="0" Grid.Row="6" Content="Пол" Style="{StaticResource LabelPersonalInfo}"/>
+                <Label Grid.Column="0" Grid.Row="6" Content="Пол" Style="{StaticResource Label}"/>
                 <ComboBox Grid.Column="1" Grid.Row="6" Style="{StaticResource ComboBoxPersonalInfo}" SelectedItem="{Binding SelectValueComboBox, 
                     Converter={StaticResource ComboBoxItemToStringConvert}}" ItemContainerStyle="{StaticResource ComboBoxItemPersonalInfo}">
                     <ComboBox.Items>
@@ -627,7 +721,7 @@
                     </ComboBox.Items>
                 </ComboBox>
 
-                <Label Grid.Column="0" Grid.Row="8" Content="Дата рождения" Style="{StaticResource LabelPersonalInfo}"/>
+                <Label Grid.Column="0" Grid.Row="8" Content="Дата рождения" Style="{StaticResource Label}"/>
                 <DatePicker Grid.Column="1" Grid.Row="8" Style="{StaticResource MyStyleDatePicker}"/>
 
                 <Grid Grid.ColumnSpan="2" Grid.Row="10">
@@ -645,7 +739,7 @@
 
                     <RadioButton Grid.Column="0" Grid.Row="0" Style="{StaticResource RadioButtonPersonalInfo}" Command="{Binding OpenValueCommand}" IsChecked="True"/>
                     <Label Grid.Column="1" Grid.Row="0" Content="Гражданство" Style="{StaticResource LabelCitizenship}"/>
-                    <TextBox Grid.Column="2" Grid.Row="0" Style="{StaticResource TextBoxPersonalInfo}" Text="{Binding Citizenship}" IsEnabled="{Binding IsEnabled}"/>
+                    <TextBox Grid.Column="2" Grid.Row="0" Style="{StaticResource TextBox}" Text="{Binding Citizenship}" IsEnabled="{Binding IsEnabled}"/>
                     <Label Grid.Column="3" Grid.Row="0" Content="Действует с:" Style="{StaticResource LabelCitizenship}"/>
                     <TextBox Grid.Column="4" Grid.Row="0" Style="{StaticResource TextBoxDoCitizenship}" Text="{Binding DoCitizenship, 
                         StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" IsEnabled="{Binding IsEnabled}"/>
@@ -657,30 +751,103 @@
                 
             </Grid>
 
-            <Label Content="Документы" Style="{StaticResource LabelPersonalInfo}"/>
+                <Label Content="Документы" Style="{StaticResource Label}" Margin="15,10,0,0" FontWeight="Bold"/>
 
-        </StackPanel>
+                <Button Content="+ Добавить документ" Style="{StaticResource ButtonAddDocument}" Command="{Binding AddDocument}"/>
 
-        <StackPanel Grid.Row="1">
-            <Label Content="Персональная информация" Style="{StaticResource MyStyleLabel}"/>
-        </StackPanel>
+                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}"/>
 
-        <StackPanel Grid.Row="2">
-            <Label Content="Образование" Style="{StaticResource MyStyleLabel}"/>
-        </StackPanel>
+            </StackPanel>
 
-        <StackPanel Grid.Row="3">
-            <Label Content="Направление подготовки" Style="{StaticResource MyStyleLabel}"/>
-        </StackPanel>
+            <Line Grid.Row="1" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"
+                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
 
-        <StackPanel Grid.Row="4">
-            <Label Content="Документы" Style="{StaticResource MyStyleLabel}"/>
-        </StackPanel>
+            <StackPanel Grid.Row="2">
+                
+                <Label Content="Контактная информация" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
 
-        <StackPanel Grid.Row="5">
-            <Label Content="Результаты испытаний" Style="{StaticResource MyStyleLabel}"/>
-        </StackPanel>
+                <Label Content="Адрес места проживания" Style="{StaticResource LabelContact}"/>
+                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
 
-    </Grid>
+                <Label Content="Адрес места по прописке" Style="{StaticResource LabelContact}"/>
+                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
+
+                <Label Content="Домашний телефон" Style="{StaticResource LabelContact}"/>
+                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
+
+                <Label Content="Мобильный телефон" Style="{StaticResource LabelContact}"/>
+                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
+
+                <Label Content="Почта" Style="{StaticResource LabelContact}"/>
+                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
+
+            </StackPanel>
+
+            <Line Grid.Row="3" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"
+                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+            <StackPanel Grid.Row="4">
+
+                <Label Content="Образование" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
+
+                <Button Content="+ Добавить образование" Style="{StaticResource ButtonAddDocument}" Command="{Binding .}"/>
+
+                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding .}" ItemContainerStyle="{StaticResource ListBoxItemEducation}"/>
+
+                <Label Content="Сведения" Style="{StaticResource Label}" Margin="15,10,0,0" FontWeight="Bold"/>
+
+                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding .}" ItemContainerStyle="{StaticResource ListBoxItemEducation}"/> <!--Возможно UserControl-->
+
+            </StackPanel>
+
+            <Line Grid.Row="5" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"
+                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+            <StackPanel Grid.Row="6">
+                
+                <Label Content="Поступление" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,10"/>
+
+                <StackPanel Orientation="Horizontal">
+                    
+                    <StackPanel>
+                        <Label Content="Уровень подготовки" Style="{StaticResource Label}"/>
+                        <ComboBox Style="{StaticResource ComboBoxDirectionOfTraining}" Margin="20,0,0,0"/>
+                    </StackPanel>
+                    
+                    <StackPanel>
+                        <Label Content="Направление подготовки" Style="{StaticResource Label}"/>
+                        <ComboBox Style="{StaticResource ComboBoxDirectionOfTraining}" Margin="20,0,0,0"/>
+                    </StackPanel>
+                    
+                    <StackPanel>
+                        <Label Content="Форма подготовки" Style="{StaticResource Label}"/>
+                        <ComboBox Style="{StaticResource ComboBoxDirectionOfTraining}" Margin="20,0,0,0"/>
+                    </StackPanel>
+
+                </StackPanel>
+
+            </StackPanel>
+
+            <Line Grid.Row="7" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"
+                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+            <StackPanel Grid.Row="8">
+
+                <Label Content="Документы на печать" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
+
+            </StackPanel>
+
+            <Line Grid.Row="9" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"
+                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+            <StackPanel Grid.Row="10">
+
+                <Label Content="Результаты испытаний" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,10"/>
+
+            </StackPanel>
+
+        </Grid>
+        
+    </ScrollViewer>
 
 </UserControl>

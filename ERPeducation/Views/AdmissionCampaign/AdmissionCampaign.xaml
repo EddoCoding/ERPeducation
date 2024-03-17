@@ -25,21 +25,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="MyStyleGridViewColumnHeader" TargetType="GridViewColumnHeader">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="GridViewColumnHeader">
-                        <ContentPresenter>
-                            <ContentPresenter.ContentTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="Абитуриент" FontSize="16" Margin="5"/>
-                                </DataTemplate>
-                            </ContentPresenter.ContentTemplate>
-                        </ContentPresenter>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="MyStyleTextBlock" TargetType="TextBlock">
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Margin" Value="5,1,0,0"/>
@@ -47,30 +32,72 @@
             <Setter Property="Height" Value="30"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
-        <Style x:Key="MyStyleGrid" TargetType="Grid">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="WhiteSmoke"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="MyStyleListViewItem" TargetType="ListViewItem">
+        <Style x:Key="MyStyleTextBox" TargetType="TextBox">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="ListViewItem">
-                        <Grid Style="{StaticResource MyStyleGrid}">
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="{Binding SurName}" Style="{StaticResource MyStyleTextBlock}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{StaticResource MyStyleTextBlock}"/>
-                            <TextBlock Grid.Column="2" Text="{Binding MiddleName}" Style="{StaticResource MyStyleTextBlock}"/>
+
+                            <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Margin="10,0,0,0">
+                                <TextBox BorderThickness="0" FontFamily="Calibri" FontSize="15" VerticalAlignment="Center" SelectionBrush="Gray" Margin="3,0,3,0"/>
+                            </Border>
+
+                            <Button Grid.Column="1" Command="{Binding SearchCommand}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border BorderBrush="Gray" BorderThickness="0,1,1,1" Background="{TemplateBinding Background}">
+                                                        <Image Width="20" Height="20" Source="/Common/Image/search.png"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="WhiteSmoke"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
+                            <Button Grid.Column="2" Command="{Binding SearchSettingCommand}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border BorderBrush="Gray" BorderThickness="0,1,1,1" Background="{TemplateBinding Background}">
+                                                        <Image Width="20" Height="20" Source="/Common/Image/search.png"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="WhiteSmoke"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style x:Key="ListBoxItem" TargetType="ListBoxItem">
+            
         </Style>
     </UserControl.Resources>
     
@@ -80,7 +107,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Content="Приёмная кампания" Margin="10,5,0,0" Padding="0" FontSize="20" FontWeight="DemiBold"/>
+        <Label Grid.Row="0" Content="Приёмная кампания" FontFamily="Calibri" Foreground="Gray" Margin="10,5,0,0" 
+               Padding="0" FontSize="20" FontWeight="Bold"/>
 
         <Grid Grid.Row="1" Margin="0,10,0,30">
             <Grid.ColumnDefinitions>
@@ -97,24 +125,16 @@
                 <Grid Grid.Row="0" Margin="0,30,0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Style="{StaticResource MyStyleButton}" Content="+ Добавить абитуриента" Margin="10,0,0,0" Command="{Binding AddEnrolleeCommand}"/>
-                    <Button Grid.Column="1" Style="{StaticResource MyStyleButton}" Content="- Отозвать заявление" Margin="15,0,5,0" Command="{Binding WithdrawStatementCommand}"/>
-                    <Button Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource MyStyleButton}" Content="Фильтр" Margin="15,0,5,0" Command="{Binding FilterCommand}"/>
+
+                    <Button Grid.Column="0" Style="{StaticResource MyStyleButton}" Content="+ Добавить абитуриента" Margin="10,0,0,0" Command="{Binding AddChangeEnrolleeCommand}"/>
+                    <TextBox Grid.Column="1" Style="{StaticResource MyStyleTextBox}"/>
+
                 </Grid>
 
-                <ListView Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" ItemsSource="{Binding Enrollees}" SelectedItem="{Binding SelectedEnrollee}"
-                          BorderThickness="1" BorderBrush="Gray" ItemContainerStyle="{StaticResource MyStyleListViewItem}">
-                    <ListView.View>
-                        <GridView>
-                            <GridView.ColumnHeaderContainerStyle>
-                                <StaticResource ResourceKey="MyStyleGridViewColumnHeader"/>
-                            </GridView.ColumnHeaderContainerStyle>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <ListBox Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" BorderThickness="1" BorderBrush="Gray"
+                         ItemsSource="{Binding Enrollees}" ItemContainerStyle="{StaticResource ListBoxItem}" />
 
             </Grid>
 

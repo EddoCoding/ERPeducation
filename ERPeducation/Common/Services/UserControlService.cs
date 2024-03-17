@@ -25,7 +25,7 @@ namespace ERPeducation.Common.Services
 
         //ВКЛАДКА ДОБАВЛЕНИЯ АБИТУРИЕНТА
         public UserControl GetUserControlEnrollee(ObservableCollection<EnrolleeViewModel> enrollees) =>
-            new AddEnrolleView() { DataContext = new EnrolleeViewModel(enrollees) };
+            new AddEnrolleView() { DataContext = new AddChangeEnrolleeViewModel(enrollees) };
 
 
 
