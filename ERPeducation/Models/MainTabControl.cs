@@ -2,11 +2,10 @@
 using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
 
-namespace ERPeducation.Common
+namespace ERPeducation.Models
 {
-    public class BaseDataForModules<T> : ReactiveObject
+    public class MainTabControl<T> : ReactiveObject
     {
-        public string[] DataForTabs { get; set; }
         [Reactive] public ObservableCollection<T> TabItem { get; set; }
     }
 }

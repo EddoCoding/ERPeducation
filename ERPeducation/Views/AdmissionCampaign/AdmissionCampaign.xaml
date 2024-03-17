@@ -104,7 +104,6 @@
                     <Button Grid.Column="1" Style="{StaticResource MyStyleButton}" Content="- Отозвать заявление" Margin="15,0,5,0" Command="{Binding WithdrawStatementCommand}"/>
                     <Button Grid.Column="2" HorizontalAlignment="Right" Style="{StaticResource MyStyleButton}" Content="Фильтр" Margin="15,0,5,0" Command="{Binding FilterCommand}"/>
                 </Grid>
-                <!--ДОБАВИТЬ БИНДИНГИ КОМАНД-->
 
                 <ListView Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" ItemsSource="{Binding Enrollees}" SelectedItem="{Binding SelectedEnrollee}"
                           BorderThickness="1" BorderBrush="Gray" ItemContainerStyle="{StaticResource MyStyleListViewItem}">

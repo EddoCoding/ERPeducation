@@ -6,7 +6,7 @@ using System.Reactive;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
-    public class AddEnrolleeViewModel : ReactiveObject
+    public class EnrolleeViewModel : ReactiveObject
     {
         public string SurName { get; set; } = "Фамилия";
         public string Name { get; set; } = "Имя";
@@ -27,7 +27,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ReactiveCommand<Unit,Unit> DelValueCommand { get; set; }
 
 
-        public AddEnrolleeViewModel(ObservableCollection<AddEnrolleeViewModel> enrollees)
+        public EnrolleeViewModel(ObservableCollection<EnrolleeViewModel> enrollees)
         {
             InitializingCommands();
         }

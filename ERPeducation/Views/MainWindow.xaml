@@ -238,60 +238,60 @@
                 <!-- Бургер -->
 
                 <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="ButtonRector" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/rector.png" IsEnabled="{Binding RectorIsEnabled}"
-                        Content="{Binding Data.DataForTabs[0]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonRector}">
+                        Content="Ректор" Command="{Binding CommandAddTabItem}" CommandParameter="Ректор">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
-                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding Data.DataForTabs[0]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="Ректор" Style="{StaticResource MyMenuButtonStyle}"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
                 <!-- Ректор -->
 
                 <Button Grid.Row="2" Grid.ColumnSpan="2" x:Name="ButtonDeanRoom" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/deanRoom.png" IsEnabled="{Binding DeanRoomIsEnabled}"
-                        Content="{Binding Data.DataForTabs[1]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonDeanRoom}">
+                        Content="Деканат" Command="{Binding CommandAddTabItem}" CommandParameter="Деканат">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
-                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding Data.DataForTabs[1]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="Деканат" Style="{StaticResource MyMenuButtonStyle}"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
                 <!-- Деканат -->
 
                 <Button Grid.Row="3" Grid.ColumnSpan="2" x:Name="ButtonTrainingDivision" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/trainingDivision.png" IsEnabled="{Binding TrainingDivisionIsEnabled}"
-                        Content="{Binding Data.DataForTabs[2]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonTrainingDivision}">
+                        Content="Учебный отдел" Command="{Binding CommandAddTabItem}" CommandParameter="Учебный отдел">
                     <Button.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding Data.DataForTabs[2]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="Учебный отдел" Style="{StaticResource MyMenuButtonStyle}"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
                 <!-- Учебный отдел -->
 
                 <Button Grid.Row="4" Grid.ColumnSpan="2" x:Name="ButtonTeacher" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/teacher.png" IsEnabled="{Binding TeacherIsEnabled}"
-                        Content="{Binding Data.DataForTabs[3]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonTeacher}">
+                        Content="Преподаватель" Command="{Binding CommandAddTabItem}" CommandParameter="Преподаватель">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
-                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding Data.DataForTabs[3]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="Преподаватель" Style="{StaticResource MyMenuButtonStyle}"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>
                 <!-- Преподаватель -->
 
                 <Button Grid.Row="5" Grid.ColumnSpan="2" x:Name="ButtonEnrollee" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/enrollee.png" IsEnabled="{Binding AdmissionCampaignIsEnabled}"
-                        Content="{Binding Data.DataForTabs[4]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonEnrollee}">
+                        Content="Приёмная кампания" Command="{Binding CommandAddTabItem}" CommandParameter="Приёмная кампания">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
-                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding Data.DataForTabs[4]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="Приёмная кампания" Style="{StaticResource MyMenuButtonStyle}"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button> 
                 <!-- Приёмная кампания -->
 
                 <Button Grid.Row="6" Grid.ColumnSpan="2" x:Name="ButtonAdministration" Style="{StaticResource ButtonStyle}" Tag="/Common/Image/administration.png" IsEnabled="{Binding AdministrationIsEnabled}"
-                        Content="{Binding Data.DataForTabs[5]}" Command="{Binding CommandAddTabItem}" CommandParameter="{Binding Content, ElementName=ButtonAdministration}" VerticalAlignment="Bottom">
+                        Content="Администрирование" Command="{Binding CommandAddTabItem}" CommandParameter="Администрирование" VerticalAlignment="Bottom">
                     <Button.ContextMenu>
                         <ContextMenu Background="WhiteSmoke">
-                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="{Binding Data.DataForTabs[5]}" Style="{StaticResource MyMenuButtonStyle}"/>
+                            <MenuItem Header="Новая вкладка" Command="{Binding CommandNewTabItem}" CommandParameter="Администрирование" Style="{StaticResource MyMenuButtonStyle}"/>
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>

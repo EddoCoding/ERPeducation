@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Common.Interface;
+using ERPeducation.Models;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.Administration;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
@@ -14,16 +15,17 @@ namespace ERPeducation.Common.Services
     public class UserControlService : IUserControlService
     {
         //ВКЛАДКА МОДУЛЯ ПРИЕМНАЯ КАМПАНИЯ
-        public UserControl GetModuleAdmissionCampaign(BaseDataForModules<TabItemMainWindowViewModel> data) => 
+        public UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> data) => 
             new AdmissionCampaign() { DataContext = new AdmissionCampaignViewModel(this, data) };
 
         //ВКЛАДКА МОДУЛЯ АДМИНИСТРИРОВАНИЕ
         public UserControl GetModuleAdministration() => 
             new ModuleAdministration() { DataContext = new AdministrationViewModel(this) };
 
+
         //ВКЛАДКА ДОБАВЛЕНИЯ АБИТУРИЕНТА
-        public UserControl GetUserControlEnrollee(ObservableCollection<AddEnrolleeViewModel> enrollees) =>
-            new AddEnrolleView() { DataContext = new AddEnrolleeViewModel(enrollees) };
+        public UserControl GetUserControlEnrollee(ObservableCollection<EnrolleeViewModel> enrollees) =>
+            new AddEnrolleView() { DataContext = new EnrolleeViewModel(enrollees) };
 
 
 

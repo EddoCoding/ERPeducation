@@ -1,7 +1,7 @@
-﻿using ERPeducation.Common;
-using ERPeducation.Common.Interface;
+﻿using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows.AddUser;
 using ERPeducation.Interface;
+using ERPeducation.Models;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
@@ -40,7 +40,6 @@ namespace ERPeducation.ViewModels
         }
         #endregion 
 
-        #region Свойства
         public string FullName { get; set; }
 
         public bool RectorIsEnabled { get; set; }
@@ -49,15 +48,13 @@ namespace ERPeducation.ViewModels
         public bool TeacherIsEnabled { get; set; }
         public bool AdmissionCampaignIsEnabled { get; set; }
         public bool AdministrationIsEnabled { get; set; }
+        public MainTabControl<MainTabItem> Data { get; set; }
 
-        public BaseDataForModules<TabItemMainWindowViewModel> Data { get; set; }
-        #endregion
-        #region Команды
+
         public ReactiveCommand<Unit, Unit> CloseCommand {  get; private set; }
-        public ReactiveCommand<object, Unit> CommandBurger { get; private set; }
-        public ReactiveCommand<object, Unit> CommandAddTabItem { get; private set; }
-        public ReactiveCommand<object, Unit> CommandNewTabItem { get; private set; }
-        #endregion
+        public ReactiveCommand<Unit, Unit> CommandBurger { get; private set; }
+        public ReactiveCommand<string, Unit> CommandAddTabItem { get; private set; }
+        public ReactiveCommand<string, Unit> CommandNewTabItem { get; private set; }
 
 
         IUserControlService _userControlService;
@@ -65,66 +62,57 @@ namespace ERPeducation.ViewModels
         public MainWindowViewModel(IUserControlService userControlService, Action close, UserViewModel user)
         {
             _userControlService = userControlService;
-
             FullName = user.FullName;
 
-            Data = new BaseDataForModules<TabItemMainWindowViewModel>()
+            Data = new MainTabControl<MainTabItem>()
             {
-                TabItem = new ObservableCollection<TabItemMainWindowViewModel>(),
-                DataForTabs = new string[] { "Ректор", "Деканат", "Учебный отдел", "Преподаватель", "Приёмная кампания", "Администрирование" }
+                TabItem = new ObservableCollection<MainTabItem>()
             };
 
             Data.TabItem.CollectionChanged += (object? sender, NotifyCollectionChangedEventArgs e) =>
             {
-                if (e.OldItems != null) foreach (TabItemMainWindowViewModel item in e.OldItems) item.OnClose -= CloseTab;
-                if (e.NewItems != null) foreach (TabItemMainWindowViewModel item in e.NewItems) item.OnClose += CloseTab;
+                if (e.OldItems != null) foreach (MainTabItem item in e.OldItems) item.OnClose -= CloseTab;
+                if (e.NewItems != null) foreach (MainTabItem item in e.NewItems) item.OnClose += CloseTab;
             };
 
-            CommandBurger = ReactiveCommand.Create<object>(WidthStackPanel);
-            CommandAddTabItem = ReactiveCommand.Create<object>(AddTabItem);
-            //CommandNewTabItem = ReactiveCommand.Create<object>(NewTabItem);
             CloseCommand = ReactiveCommand.Create(close);
+            InitializingCommands();
         }
 
-        #region Обработчики
-        void WidthStackPanel(object contentButton)
+        void InitializingCommands()
         {
-            if (Width >= 195) { Width = 55; }
-            else Width = 195;
-        }
-        void AddTabItem(object contentButton)
-        {
-            bool ExistsTabItem = Data.TabItem.Any(MyTabItem => MyTabItem.Title == contentButton.ToString());
-            if (!ExistsTabItem && contentButton.ToString() == "Приёмная кампания")
+            CommandBurger = ReactiveCommand.Create(() =>
             {
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-                   _userControlService.GetModuleAdmissionCampaign(Data)));
-                return;
-            }//ОТКРЫВАЕМ МОДУЛЬ ПРИЕМНАЯ КАМПАНИЯ
-            if (!ExistsTabItem && contentButton.ToString() == "Администрирование")
+                if (Width >= 195) { Width = 55; }
+                else Width = 195;
+            });
+            CommandAddTabItem = ReactiveCommand.Create<string>(parameter =>
             {
-                Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-                   _userControlService.GetModuleAdministration()));
-                return;
-            }//ОТКРЫВАЕМ МОДУЛЬ АДМИНИСТРИРОВАНИЕ
+                bool ExistsTabItem = Data.TabItem.Any(MyTabItem => MyTabItem.Title == parameter);
+                if (!ExistsTabItem && parameter == "Приёмная кампания")
+                {
+                    Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleAdmissionCampaign(Data)));
+                    return;
+                }
+                if (!ExistsTabItem && parameter == "Администрирование")
+                {
+                    Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleAdministration()));
+                    return;
+                }
+            });
+            CommandNewTabItem = ReactiveCommand.Create<string>(parameter =>
+            {
+                switch (parameter)
+                {
+                    case "Приёмная кампания":
+                        Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleAdmissionCampaign(Data)));
+                        break;
+                    case "Администрирование":
+                        Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleAdministration()));
+                        break;
+                }
+            });
         }
-        //void NewTabItem(object contentButton)
-        //{
-        //    switch (contentButton.ToString())
-        //    {
-        //        case "Приёмная кампания":
-        //            Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-        //                _userControlService.GetUserControl(contentButton.ToString(), this)));
-        //            break;
-        //        case "Администрирование":
-        //            Data.TabItem.Add(new TabItemMainWindowViewModel(contentButton.ToString(),
-        //                _userControlService.GetUserControl(contentButton.ToString(), this)));
-        //            break;
-        //    }
-        //}
-        #endregion
-        #region Методы
-        void CloseTab(TabItemMainWindowViewModel tab) => Data.TabItem.Remove(tab);
-        #endregion
+        void CloseTab(MainTabItem tab) => Data.TabItem.Remove(tab);
     }
 }

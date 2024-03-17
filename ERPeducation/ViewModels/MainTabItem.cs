@@ -4,16 +4,16 @@ using System.Reactive;
 
 namespace ERPeducation.ViewModels
 {
-    public class TabItemMainWindowViewModel : ReactiveObject
+    public class MainTabItem : ReactiveObject
     {
         public string? Title { get; set; }
         public object? Content { get; set; }
 
-        public event Action<TabItemMainWindowViewModel>? OnClose;
+        public event Action<MainTabItem>? OnClose;
         public ReactiveCommand<Unit, Unit> CloseCommand { get; set; }
         void Close() => OnClose?.Invoke(this);
 
-        public TabItemMainWindowViewModel(string? title, object? content = default)
+        public MainTabItem(string? title, object? content = default)
         {
             (Title, Content) = (title, content);
             CloseCommand = ReactiveCommand.Create(Close);
