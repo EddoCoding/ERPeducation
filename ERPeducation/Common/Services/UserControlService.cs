@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Common.Interface;
+using ERPeducation.Common.Windows.WindowDocuments;
 using ERPeducation.Models;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.Administration;
@@ -25,7 +26,7 @@ namespace ERPeducation.Common.Services
 
         //ВКЛАДКА ДОБАВЛЕНИЯ АБИТУРИЕНТА
         public UserControl GetUserControlEnrollee(ObservableCollection<EnrolleeViewModel> enrollees) =>
-            new AddEnrolleView() { DataContext = new AddChangeEnrolleeViewModel(enrollees) };
+            new AddEnrolleView() { DataContext = new AddChangeEnrolleeViewModel(new DialogDocument(), enrollees) };
 
 
 

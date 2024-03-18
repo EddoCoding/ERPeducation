@@ -622,7 +622,7 @@
 
         </Style> <!--Добавить стиль для айтемов ListBox-->
         
-        <!--Направление подготовки-->
+        <!--Поступление-->
         <Style x:Key="ComboBoxDirectionOfTraining" TargetType="ComboBox">
             <Setter Property="Template">
                 <Setter.Value>
@@ -685,11 +685,11 @@
                 <Label Content="Личная информация" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,10"/>
 
                 <Grid>
-                <Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="10"/>
                     <RowDefinition Height="Auto"/>
@@ -703,17 +703,17 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Column="0" Grid.Row="0" Content="Фамилия" Style="{StaticResource Label}"/>
-                <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBox}" Text="{Binding SurName}"/>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Фамилия" Style="{StaticResource Label}"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBox}" Text="{Binding SurName}"/>
 
-                <Label Grid.Column="0" Grid.Row="2" Content="Имя" Style="{StaticResource Label}"/>
-                <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBox}" Text="{Binding Name}"/>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Имя" Style="{StaticResource Label}"/>
+                    <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBox}" Text="{Binding Name}"/>
 
-                <Label Grid.Column="0" Grid.Row="4" Content="Отчество" Style="{StaticResource Label}"/>
-                <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBox}" Text="{Binding MiddleName}"/>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Отчество" Style="{StaticResource Label}"/>
+                    <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBox}" Text="{Binding MiddleName}"/>
 
-                <Label Grid.Column="0" Grid.Row="6" Content="Пол" Style="{StaticResource Label}"/>
-                <ComboBox Grid.Column="1" Grid.Row="6" Style="{StaticResource ComboBoxPersonalInfo}" SelectedItem="{Binding SelectValueComboBox, 
+                    <Label Grid.Column="0" Grid.Row="6" Content="Пол" Style="{StaticResource Label}"/>
+                    <ComboBox Grid.Column="1" Grid.Row="6" Style="{StaticResource ComboBoxPersonalInfo}" SelectedItem="{Binding SelectValueComboBox, 
                     Converter={StaticResource ComboBoxItemToStringConvert}}" ItemContainerStyle="{StaticResource ComboBoxItemPersonalInfo}">
                     <ComboBox.Items>
                         <ComboBoxItem Content="Муж"/>
@@ -721,10 +721,10 @@
                     </ComboBox.Items>
                 </ComboBox>
 
-                <Label Grid.Column="0" Grid.Row="8" Content="Дата рождения" Style="{StaticResource Label}"/>
-                <DatePicker Grid.Column="1" Grid.Row="8" Style="{StaticResource MyStyleDatePicker}"/>
+                    <Label Grid.Column="0" Grid.Row="8" Content="Дата рождения" Style="{StaticResource Label}"/>
+                    <DatePicker Grid.Column="1" Grid.Row="8" Style="{StaticResource MyStyleDatePicker}"/>
 
-                <Grid Grid.ColumnSpan="2" Grid.Row="10">
+                    <Grid Grid.ColumnSpan="2" Grid.Row="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -749,14 +749,47 @@
 
                 </Grid>
                 
-            </Grid>
+                </Grid>
 
                 <Label Content="Документы" Style="{StaticResource Label}" Margin="15,10,0,0" FontWeight="Bold"/>
 
-                <Button Content="+ Добавить документ" Style="{StaticResource ButtonAddDocument}" Command="{Binding AddDocument}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="FontFamily" Value="Calibri"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Margin" Value="0,0,15,0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <ContentPresenter Margin="2,0,2,0" VerticalAlignment="Center"/>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Foreground" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Resources>
 
-                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}"/>
+                    <Label Grid.Column="0" Content="Добавить документ:" Style="{StaticResource LabelCitizenship}"/>
+                    <Button Grid.Column="1" Content="Паспорт" Command="{Binding AddDocument}" CommandParameter="Passport"/>
+                    <Button Grid.Column="2" Content="Снилс" Command="{Binding AddDocument}" CommandParameter="Snils"/>
+                    <Button Grid.Column="3" Content="ИНН" Command="{Binding AddDocument}" CommandParameter="Inn"/>
+                    <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Command="{Binding AddDocument}" CommandParameter="ForeignPassport"/>
+                </Grid>
 
+                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Documents}"/>
+                
             </StackPanel>
 
             <Line Grid.Row="1" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"

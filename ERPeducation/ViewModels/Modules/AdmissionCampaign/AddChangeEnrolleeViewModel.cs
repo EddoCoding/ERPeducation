@@ -1,10 +1,11 @@
 ﻿using ERPeducation.Common.Command;
+using ERPeducation.Common.Windows.WindowDocuments;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
@@ -22,7 +23,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         [Reactive] public string Citizenship { get; set; }
         [Reactive] public bool IsEnabled{ get; set; } = true;
         [Reactive] public DateTime DoCitizenship { get; set; }
-        public ObservableCollection<string> Documents { get; set; }
+        public ObservableCollection<PersonalDocumentBase> Documents { get; set; }
         #endregion
         #region Контактная Информация
         #endregion
@@ -39,7 +40,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ReactiveCommand<Unit,Unit> OpenPopupCommand { get; set; }
         public ReactiveCommand<Unit,Unit> OpenValueCommand { get; set; }
         public ReactiveCommand<Unit,Unit> DelValueCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> AddDocument { get; set; }
+        public ReactiveCommand<string,Unit> AddDocument { get; set; }
         #endregion
         #region Команды Персональная Информация
         #endregion
@@ -52,14 +53,14 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         #region Команды Результаты испытаний
         #endregion
 
-        public AddChangeEnrolleeViewModel(ObservableCollection<EnrolleeViewModel> enrollees)
+        IDialogDocument _dialogDocument;
+        public AddChangeEnrolleeViewModel(IDialogDocument dialogDocument, ObservableCollection<EnrolleeViewModel> enrollees)
         {
+            _dialogDocument = dialogDocument;
+
+            Documents = new ObservableCollection<PersonalDocumentBase>();
+
             InitializingCommandsPersonalInfo();
-            InitializingCommandsContactInfo();
-            InitializingCommandsEducation();
-            InitializingCommandsAdmission();
-            InitializingCommandsDocuments();
-            InitializingCommandsResult();
         }
 
         void InitializingCommandsPersonalInfo()
@@ -82,27 +83,13 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 IsEnabled = false;
             });
 
-            AddDocument = ReactiveCommand.Create(NotReady.Message);
-        }
-        void InitializingCommandsContactInfo()
-        {
-
-        }
-        void InitializingCommandsEducation()
-        {
-
-        }
-        void InitializingCommandsAdmission()
-        {
-
-        }
-        void InitializingCommandsDocuments()
-        {
-
-        }
-        void InitializingCommandsResult()
-        {
-
+            AddDocument = ReactiveCommand.Create<string>(parameter =>
+            {
+                if(parameter == "Passport") _dialogDocument.GetPassport(Documents);
+                if(parameter == "Snils") _dialogDocument.GetSnils(Documents);
+                if(parameter == "Inn") _dialogDocument.GetInn(Documents);
+                if(parameter == "ForeignPassport") _dialogDocument.GetForeignPassport(Documents);
+            });
         }
     }
 }

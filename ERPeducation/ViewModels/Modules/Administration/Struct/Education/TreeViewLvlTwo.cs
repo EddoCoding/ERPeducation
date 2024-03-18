@@ -1,7 +1,6 @@
 ﻿using ReactiveUI;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System;
+using System.Collections.ObjectModel;
 
 namespace ERPeducation.ViewModels.Modules.Administration.Struct.Education
 {

@@ -1,0 +1,115 @@
+﻿<Window x:Class="ERPeducation.Common.Windows.WindowDocuments.PassportView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation.Common.Windows.WindowDocuments"
+        mc:Ignorable="d" Title="PassportView" Height="450" Width="800" 
+        FontFamily="Calibri" FontSize="16" WindowStyle="None" ResizeMode="NoResize"
+        BorderThickness="1" BorderBrush="LightGray">
+    <Window.Resources>
+        <Style x:Key="MainLabel" TargetType="Label">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="10,5,0,5"/>
+        </Style>
+        <Style x:Key="TextBox" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="Gray" BorderThickness="1">
+                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" 
+                                     BorderThickness="0" VerticalContentAlignment="Center" Padding="0" Margin="3,0,3,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="Тип документа:" Style="{StaticResource MainLabel}"/>
+            <TextBlock Text="{Binding TypeDocument}" Margin="10,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <Line Grid.Row="1" Stroke="Gray" StrokeThickness="0.5" X1="0" Y1="0" Y2="0" Margin="10,5,10,5"
+              X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+        
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Фамилия" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SurName}" Style="{StaticResource TextBox}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Имя" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource TextBox}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Отчество" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding MiddleName}" Style="{StaticResource TextBox}"/>
+
+            <Label Grid.Row="0" Grid.Column="2" Content="Пол" Style="{StaticResource MainLabel}"/>
+            <ComboBox Grid.Row="0" Grid.Column="3" SelectedItem="{Binding Gender}"/>
+
+            <Label Grid.Row="1" Grid.Column="2" Content="Дата рождения" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding DateOfBirth}"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Место рождения" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding PlaceOfBirth}" Style="{StaticResource TextBox}"/>
+
+        </Grid>
+
+        <Line Grid.Row="3" Stroke="Gray" StrokeThickness="0.5" X1="0" Y1="0" Y2="0" Margin="10"
+              X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Label Grid.Row="0" Grid.Column="0" Content="Кем выдан" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding IssuedBy}" Style="{StaticResource TextBox}"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Дата выдачи" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DateOfIssue}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Код подразделения" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DepartmentCode}" Style="{StaticResource TextBox}"/>
+
+            <Label Grid.Row="0" Grid.Column="2" Content="Серия" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Series}" Style="{StaticResource TextBox}"/>
+
+            <Label Grid.Row="1" Grid.Column="2" Content="Номер" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Number}" Style="{StaticResource TextBox}"/>
+
+        </Grid>
+    
+    </Grid>
+    
+</Window>
