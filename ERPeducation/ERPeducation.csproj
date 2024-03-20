@@ -15,7 +15,7 @@
     <None Remove="Common\Image\Calendar.png" />
     <None Remove="Common\Image\change.png" />
     <None Remove="Common\Image\deanRoom.png" />
-    <None Remove="Common\Image\delDirection.png" />
+    <None Remove="Common\Image\delete.png" />
     <None Remove="Common\Image\department.png" />
     <None Remove="Common\Image\diploma.png" />
     <None Remove="Common\Image\enrollee.png" />
@@ -63,7 +63,7 @@
     <Resource Include="Common\Image\deanRoom.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Common\Image\delDirection.png">
+    <Resource Include="Common\Image\delete.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\department.png">

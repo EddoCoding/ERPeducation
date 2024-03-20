@@ -7,7 +7,7 @@
         xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
         mc:Ignorable="d" Title="PassportView" Height="320" Width="675" 
         FontFamily="Calibri" FontSize="16" WindowStyle="None" ResizeMode="NoResize"
-        BorderThickness="1" BorderBrush="LightGray">
+        BorderThickness="1" BorderBrush="LightGray" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:ComboBoxItemToStringConvert x:Key="ComboBoxItemToStringConvert"/>
         <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>

@@ -361,7 +361,7 @@
                     <ControlTemplate TargetType="Button">
                         <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
                                 Background="{TemplateBinding Background}">
-                            <Image Source="/Common/image/delDirection.png" Height="20" Width="20"/>
+                            <Image Source="/Common/image/delete.png" Height="20" Width="20"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">

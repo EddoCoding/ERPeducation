@@ -1,5 +1,4 @@
-﻿using ERPeducation.Common.Command;
-using ReactiveUI;
+﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
@@ -14,17 +13,59 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
         public string Series { get; set; } = string.Empty;
         public string Number { get; set; } = string.Empty;
 
-        public PassportViewModel(ObservableCollection<PersonalDocumentBase> documents, Action closeWindow) 
-        {
-            TypeDocument = "Паспорт";
 
-            ChangeCommand = ReactiveCommand.Create(NotReady.Message);
-            DeleteCommand = ReactiveCommand.Create(NotReady.Message);
+        //КОНСТРУКТОР ДЛЯ ИЗМЕНЕНИЯ ОБЪЕКТА
+        public PassportViewModel(PassportViewModel document, Action closeWindow)
+        {
+            TextAddChange = "Изменить";
+
+            TypeDocument = document.TypeDocument;
+            SurName = document.SurName;
+            Name = document.Name;
+            MiddleName = document.MiddleName;
+            SelectedGender = document.SelectedGender;
+            DateOfBirth = document.DateOfBirth;
+            PlaceOfBirth = document.PlaceOfBirth;
+            IssuedBy = document.IssuedBy;
+            DateOfIssue = document.DateOfIssue;
+            DepartmentCode = document.DepartmentCode;
+            Series = document.Series;
+            Number = document.Number;
+
             CloseWindowCommand = ReactiveCommand.Create(closeWindow);
             AddDocumentCommand = ReactiveCommand.Create(() =>
             {
-                documents.Add(this);
-                CloseWindowCommand.Execute().Subscribe();
+                document.SurName = SurName;
+                document.Name = Name;
+                document.MiddleName = MiddleName;
+                document.SelectedGender = SelectedGender;
+                document.DateOfBirth = DateOfBirth;
+                document.PlaceOfBirth = PlaceOfBirth;
+                document.IssuedBy = IssuedBy;
+                document.DateOfIssue = DateOfIssue;
+                document.DepartmentCode = DepartmentCode;
+                document.Series = Series;
+                document.Number = Number;
+
+                closeWindow();
+            });
+        }
+
+        //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО ДОКУМЕНТА
+        public PassportViewModel(ObservableCollection<PersonalDocumentBase> document, Action closeWindow) 
+        {
+            TypeDocument = "Паспорт";
+
+            OnChange += document => _dialogDocument.GetPassport(this);
+
+            ChangeCommand = ReactiveCommand.Create(Change);
+            DeleteCommand = ReactiveCommand.Create(Delete);
+
+            CloseWindowCommand = ReactiveCommand.Create(closeWindow);
+            AddDocumentCommand = ReactiveCommand.Create(() =>
+            {
+                document.Add(this);
+                closeWindow();
             });
         }
     }

@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.NewView"
              xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
-             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+             FontFamily="Calibri">
     <UserControl.Resources>
         <converters:ComboBoxItemToStringConvert x:Key="ComboBoxItemToStringConvert"/>
         <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
@@ -575,6 +576,40 @@
                 </Setter>
             </Style>
 
+        <Style x:Key="ButtonChange" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0" Background="{TemplateBinding Background}" Margin="10,0,0,0">
+                            <Image Height="20" Width="20" Source="/Common/Image/change.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonDelete" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0" Background="{TemplateBinding Background}" Margin="10,0,0,0">
+                            <Image Height="20" Width="20" Source="/Common/Image/delete.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="ButtonAddDocument" TargetType="Button">
             <Setter Property="FontFamily" Value="Calibri"/>
             <Setter Property="FontSize" Value="14"/>
@@ -594,21 +629,30 @@
             </Setter>
         </Style>
         <Style x:Key="ListBoxItemDocument" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border BorderBrush="Gray" BorderThickness="1">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding TypeDocument}" Margin="5"/>
-                                <Button Content="Изменить" Margin="5" Command="{Binding ChangeCommand}"/>
-                                <Button Content="Удалить" Margin="5" Command="{Binding DeleteCommand}"/>
+                                <TextBlock Text="{Binding TypeDocument}" Margin="5" Width="300" FontSize="14"/>
+                                <Button Style="{StaticResource ButtonChange}" Command="{Binding ChangeCommand}"/>
+                                <Button Style="{StaticResource ButtonDelete}" Command="{Binding DeleteCommand}"/>
                             </StackPanel>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style> <!--Добавить стиль для айтемов ListBox-->
-        
+        </Style>
+
         <!--Контактная информация-->
         <Style x:Key="TextBoxContact" TargetType="TextBox">
             <Setter Property="Template">
@@ -800,7 +844,8 @@
                     <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Command="{Binding AddDocument}" CommandParameter="ForeignPassport"/>
                 </Grid>
 
-                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}"/>
+                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}"
+                         SelectedItem="{Binding SelectedDocument}"/>
                 
             </StackPanel>
 

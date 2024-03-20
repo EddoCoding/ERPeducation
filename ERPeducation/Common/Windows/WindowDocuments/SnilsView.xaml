@@ -7,7 +7,7 @@
         xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
         mc:Ignorable="d" Title="PassportView" Height="320" Width="675" 
         FontFamily="Calibri" FontSize="16" WindowStyle="None" ResizeMode="NoResize"
-        BorderThickness="1" BorderBrush="LightGray">
+        BorderThickness="1" BorderBrush="LightGray" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:ComboBoxItemToStringConvert x:Key="ComboBoxItemToStringConvert"/>
         <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
@@ -110,7 +110,7 @@
                     <ControlTemplate TargetType="TextBox">
                         <Border BorderBrush="Gray" BorderThickness="1" Width="85">
                             <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" SelectionBrush="Gray" 
-                             BorderThickness="0" VerticalContentAlignment="Center" Padding="0" Margin="3,0,3,0"/>
+                             BorderThickness="0" VerticalContentAlignment="Center" Padding="0" Margin="3,2,3,2"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -155,7 +155,6 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
     
     <Grid>
         <Grid.RowDefinitions>

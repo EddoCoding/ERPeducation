@@ -7,6 +7,7 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
@@ -25,6 +26,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         [Reactive] public bool IsEnabled{ get; set; } = true;
         [Reactive] public DateTime DoCitizenship { get; set; }
         public ObservableCollection<PersonalDocumentBase> Documents { get; set; }
+        public PersonalDocumentBase SelectedDocument { get; set; }
         #endregion
         #region Контактная Информация
         #endregion
@@ -60,7 +62,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             _dialogDocument = dialogDocument;
 
             Documents = new ObservableCollection<PersonalDocumentBase>();
-
+            Documents.CollectionChanged += (sender, e) =>
+            {
+                if (e.OldItems != null) foreach (PersonalDocumentBase item in e.OldItems) item.OnDelete -= deleteDocument;
+                if (e.NewItems != null) foreach (PersonalDocumentBase item in e.NewItems) item.OnDelete += deleteDocument;
+            };
             InitializingCommandsPersonalInfo();
         }
 
@@ -92,5 +98,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 if(parameter == "ForeignPassport") _dialogDocument.GetForeignPassport(Documents);
             });
         }
+        void deleteDocument(PersonalDocumentBase document) => Documents.Remove(document);
     }
 }
