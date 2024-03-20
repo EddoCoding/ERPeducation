@@ -594,7 +594,19 @@
             </Setter>
         </Style>
         <Style x:Key="ListBoxItemDocument" TargetType="ListBoxItem">
-            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding TypeDocument}" Margin="5"/>
+                                <Button Content="Изменить" Margin="5" Command="{Binding ChangeCommand}"/>
+                                <Button Content="Удалить" Margin="5" Command="{Binding DeleteCommand}"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style> <!--Добавить стиль для айтемов ListBox-->
         
         <!--Контактная информация-->
@@ -714,12 +726,12 @@
 
                     <Label Grid.Column="0" Grid.Row="6" Content="Пол" Style="{StaticResource Label}"/>
                     <ComboBox Grid.Column="1" Grid.Row="6" Style="{StaticResource ComboBoxPersonalInfo}" SelectedItem="{Binding SelectValueComboBox, 
-                    Converter={StaticResource ComboBoxItemToStringConvert}}" ItemContainerStyle="{StaticResource ComboBoxItemPersonalInfo}">
-                    <ComboBox.Items>
-                        <ComboBoxItem Content="Муж"/>
-                        <ComboBoxItem Content="Жен"/>
-                    </ComboBox.Items>
-                </ComboBox>
+                        Converter={StaticResource ComboBoxItemToStringConvert}}" ItemContainerStyle="{StaticResource ComboBoxItemPersonalInfo}">
+                        <ComboBox.Items>
+                            <ComboBoxItem Content="Муж"/>
+                            <ComboBoxItem Content="Жен"/>
+                        </ComboBox.Items>
+                    </ComboBox>
 
                     <Label Grid.Column="0" Grid.Row="8" Content="Дата рождения" Style="{StaticResource Label}"/>
                     <DatePicker Grid.Column="1" Grid.Row="8" Style="{StaticResource MyStyleDatePicker}"/>
@@ -788,7 +800,7 @@
                     <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Command="{Binding AddDocument}" CommandParameter="ForeignPassport"/>
                 </Grid>
 
-                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Documents}"/>
+                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}"/>
                 
             </StackPanel>
 

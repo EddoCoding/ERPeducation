@@ -1,5 +1,6 @@
 ﻿using ERPeducation.Common.Command;
 using ERPeducation.Common.Windows.WindowDocuments;
+using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
