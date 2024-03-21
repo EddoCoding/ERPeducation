@@ -1,5 +1,6 @@
 ﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace ERPeducation.Common.Windows.WindowDocuments
 {
@@ -13,5 +14,7 @@ namespace ERPeducation.Common.Windows.WindowDocuments
         void GetInn(InnViewModel document);
         void GetForeignPassport(ObservableCollection<PersonalDocumentBase> documents);
         void GetForeignPassport(ForeignPassportViewModel document);
+
+        void GetUserControlDocument(UserControl userControl, PersonalDocumentBase document);
     }
 }

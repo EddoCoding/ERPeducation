@@ -1,5 +1,7 @@
 ﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
+using ERPeducation.Views.AdmissionCampaign;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace ERPeducation.Common.Windows.WindowDocuments
 {
@@ -55,6 +57,30 @@ namespace ERPeducation.Common.Windows.WindowDocuments
             ForeignPassportView view = new ForeignPassportView();
             view.DataContext = new ForeignPassportViewModel(document, view.Close);
             view.ShowDialog();
+        }
+
+        public void GetUserControlDocument(UserControl userControl, PersonalDocumentBase document)
+        {
+            if(document is PassportViewModel)
+            {
+                userControl.Content = new PassportUserControl() { DataContext = document };
+                return;
+            }
+            if (document is SnilsViewModel)
+            {
+                userControl.Content = new SnilsUserControl() { DataContext = document };
+                return;
+            }
+            if (document is InnViewModel)
+            {
+                userControl.Content = new InnUserControl() { DataContext = document };
+                return;
+            }
+            if (document is ForeignPassportViewModel)
+            {
+                userControl.Content = new ForeignPassportUserControl() { DataContext = document };
+                return;
+            }
         }
     }
 }

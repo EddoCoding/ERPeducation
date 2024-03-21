@@ -49,7 +49,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <StackPanel>
-                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectValueComboBox}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectedGender}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
                                   RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Width="85" HorizontalAlignment="Left">
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="ToggleButton">
@@ -184,7 +184,7 @@
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding MiddleName}" Style="{StaticResource TextBox}" Width="250"/>
 
             <Label Grid.Row="0" Grid.Column="2" Content="Пол" Style="{StaticResource MainLabel}"/>
-            <ComboBox Grid.Row="0" Grid.Column="3" SelectedItem="{Binding SelectValueComboBox, Converter={StaticResource ComboBoxItemToStringConvert}}" 
+            <ComboBox Grid.Row="0" Grid.Column="3" SelectedItem="{Binding SelectedGender, Converter={StaticResource ComboBoxItemToStringConvert}}" 
                       Style="{StaticResource ComboBox}" ItemContainerStyle="{StaticResource ComboBoxItem}" Margin="10,2,0,2">
                 <ComboBox.Items>
                     <ComboBoxItem Content="Муж"/>

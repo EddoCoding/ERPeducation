@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 
@@ -6,10 +7,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
 {
     public class ForeignPassportViewModel : PersonalDocumentBase
     {
-        public string IssuedBy { get; set; } = string.Empty;
-        public DateTime DateOfIssue { get; set; }
-        public string Code { get; set; } = string.Empty;
-        public string Number { get; set; } = string.Empty;
+        [Reactive] public string IssuedBy { get; set; } = string.Empty;
+        [Reactive] public DateTime DateOfIssue { get; set; }
+        [Reactive] public string Code { get; set; } = string.Empty;
+        [Reactive] public string Number { get; set; } = string.Empty;
 
 
         //КОНСТРУКТОР ДЛЯ ИЗМЕНЕНИЯ ОБЪЕКТА

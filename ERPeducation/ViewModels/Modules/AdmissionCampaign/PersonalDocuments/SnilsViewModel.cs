@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 
@@ -6,8 +7,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
 {
     public class SnilsViewModel : PersonalDocumentBase
     {
-        public string Number { get; set; } = string.Empty;
-        public DateTime DateRegistration { get; set; }
+        [Reactive] public string Number { get; set; } = string.Empty;
+        [Reactive] public DateTime DateRegistration { get; set; }
 
 
         //КОНСТРУКТОР ДЛЯ ИЗМЕНЕНИЯ ОБЪЕКТА

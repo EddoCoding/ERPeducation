@@ -7,11 +7,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
 {
     public class PassportViewModel : PersonalDocumentBase
     {
-        public string IssuedBy { get; set; } = string.Empty;
-        public DateTime DateOfIssue { get; set; }
+        [Reactive] public string IssuedBy { get; set; } = string.Empty;
+        [Reactive] public DateTime DateOfIssue { get; set; }
         [Reactive] public string DepartmentCode { get; set; } = string.Empty;
-        public string Series { get; set; } = string.Empty;
-        public string Number { get; set; } = string.Empty;
+        [Reactive] public string Series { get; set; } = string.Empty;
+        [Reactive] public string Number { get; set; } = string.Empty;
 
 
         //КОНСТРУКТОР ДЛЯ ИЗМЕНЕНИЯ ОБЪЕКТА

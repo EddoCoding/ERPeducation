@@ -108,6 +108,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Common\Patterns\" />
     <Folder Include="ViewModels\Modules\Administration\Users\" />
     <Folder Include="ViewModels\Modules\Administration\Struct\Spaces\" />
     <Folder Include="ViewModels\Modules\Administration\Documents\" />

@@ -11,14 +11,13 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
         [Reactive] public string TextAddChange { get; set; } = "Добавить";
         public string TypeDocument { get; set; } = string.Empty;
 
-        public string SurName { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public string MiddleName { get; set; } = string.Empty;
-        public string Fullname { get; set; } = string.Empty;
+        [Reactive] public string SurName { get; set; } = string.Empty;
+        [Reactive] public string Name { get; set; } = string.Empty;
+        [Reactive] public string MiddleName { get; set; } = string.Empty;
         [Reactive] public string SelectedGender { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
-        public string PlaceOfBirth { get; set; } = string.Empty;
+        [Reactive] public DateTime DateOfBirth { get; set; }
+        [Reactive] public string PlaceOfBirth { get; set; } = string.Empty;
 
         public ReactiveCommand<Unit,Unit> ChangeCommand { get; set; }
         public ReactiveCommand<Unit,Unit> DeleteCommand { get; set; }

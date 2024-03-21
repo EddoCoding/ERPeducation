@@ -42,7 +42,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <StackPanel>
-                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectValueComboBox}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectedGender}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
                                               RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Width="70" HorizontalAlignment="Left">
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="ToggleButton">
@@ -586,7 +586,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="WhiteSmoke"/>
+                                <Setter Property="Background" Value="DarkGray"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -603,7 +603,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="WhiteSmoke"/>
+                                <Setter Property="Background" Value="DarkGray"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -769,7 +769,7 @@
                     <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBox}" Text="{Binding MiddleName}"/>
 
                     <Label Grid.Column="0" Grid.Row="6" Content="Пол" Style="{StaticResource Label}"/>
-                    <ComboBox Grid.Column="1" Grid.Row="6" Style="{StaticResource ComboBoxPersonalInfo}" SelectedItem="{Binding SelectValueComboBox, 
+                    <ComboBox Grid.Column="1" Grid.Row="6" Style="{StaticResource ComboBoxPersonalInfo}" SelectedItem="{Binding SelectedGender, 
                         Converter={StaticResource ComboBoxItemToStringConvert}}" ItemContainerStyle="{StaticResource ComboBoxItemPersonalInfo}">
                         <ComboBox.Items>
                             <ComboBoxItem Content="Муж"/>
@@ -844,9 +844,20 @@
                     <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Command="{Binding AddDocument}" CommandParameter="ForeignPassport"/>
                 </Grid>
 
-                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}"
-                         SelectedItem="{Binding SelectedDocument}"/>
-                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Grid.Column="0" Margin="15,5,15,0" Height="175" ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}"
+                         SelectedItem="{Binding SelectedDocument}" Width="380" HorizontalAlignment="Left"/>
+
+                    <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0,5,15,0" Height="175">
+                        <UserControl Content="{Binding UserControlDocument}"/>
+                    </Border>
+                </Grid>
+
             </StackPanel>
 
             <Line Grid.Row="1" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"

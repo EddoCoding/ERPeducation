@@ -1,13 +1,12 @@
-﻿using ERPeducation.Common.Command;
-using ERPeducation.Common.Windows.WindowDocuments;
-using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
+﻿using ERPeducation.Common.Windows.WindowDocuments;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
+using ERPeducation.Views.AdmissionCampaign;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Windows;
+using System.Windows.Controls;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
@@ -18,7 +17,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public string Name { get; set; }
         public string MiddleName { get; set; }
 
-        [Reactive] public string SelectValueComboBox { get; set; }
+        [Reactive] public string SelectedGender { get; set; }
         [Reactive] public bool Popup { get; set; }
         [Reactive] public DateTime DateOfBirth { get; set; }
 
@@ -26,7 +25,21 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         [Reactive] public bool IsEnabled{ get; set; } = true;
         [Reactive] public DateTime DoCitizenship { get; set; }
         public ObservableCollection<PersonalDocumentBase> Documents { get; set; }
-        public PersonalDocumentBase SelectedDocument { get; set; }
+
+
+        PersonalDocumentBase selectedDocument;
+        public PersonalDocumentBase SelectedDocument
+        {
+            get => selectedDocument;
+            set
+            {
+                selectedDocument = value;
+                _dialogDocument.GetUserControlDocument(UserControlDocument, SelectedDocument);
+            }
+        }
+
+        [Reactive] public UserControl UserControlDocument { get; set; }
+
         #endregion
         #region Контактная Информация
         #endregion
@@ -61,6 +74,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         {
             _dialogDocument = dialogDocument;
 
+            UserControlDocument = new UserControl();
+
             Documents = new ObservableCollection<PersonalDocumentBase>();
             Documents.CollectionChanged += (sender, e) =>
             {
@@ -77,19 +92,16 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 if (!Popup) Popup = true;
                 else Popup = false;
             });
-
             OpenValueCommand = ReactiveCommand.Create(() =>
             {
                 IsEnabled = true;
             });
-
             DelValueCommand = ReactiveCommand.Create(() =>
             {
                 Citizenship = string.Empty;
                 DoCitizenship = DateTime.MinValue;
                 IsEnabled = false;
             });
-
             AddDocument = ReactiveCommand.Create<string>(parameter =>
             {
                 if(parameter == "Passport") _dialogDocument.GetPassport(Documents);
