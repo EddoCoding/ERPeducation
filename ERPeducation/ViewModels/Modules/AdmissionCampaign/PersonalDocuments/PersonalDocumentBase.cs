@@ -26,8 +26,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
 
         public event Action<PersonalDocumentBase>? OnChange;
         public event Action<PersonalDocumentBase>? OnDelete;
-        public void Delete() => OnDelete?.Invoke(this);
+
         public void Change() => OnChange?.Invoke(this);
+        public void Delete() => OnDelete?.Invoke(this);
 
 
         protected IDialogDocument _dialogDocument;

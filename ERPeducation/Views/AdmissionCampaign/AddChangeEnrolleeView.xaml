@@ -654,13 +654,27 @@
         </Style>
 
         <!--Контактная информация-->
-        <Style x:Key="TextBoxContact" TargetType="TextBox">
+        <Style x:Key="TextBoxContact1" TargetType="TextBox">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border BorderBrush="Gray" BorderThickness="1" Width="400" HorizontalAlignment="Left" Height="25" Margin="20,3,0,0">
+                        <Border BorderBrush="Gray" BorderThickness="1" Width="700" HorizontalAlignment="Left" Height="25" Margin="20,3,0,0">
                             <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" BorderThickness="0" VerticalAlignment="Center" 
                                      Margin="3,0,3,0" FontFamily="Calibri" FontSize="14" SelectionBrush="Gray" CaretBrush="Gray"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBoxContact2" TargetType="TextBox">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="Gray" BorderThickness="1" Width="250" HorizontalAlignment="Left" Height="25" Margin="20,3,0,0">
+                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" BorderThickness="0" VerticalAlignment="Center" 
+                             Margin="3,0,3,0" FontFamily="Calibri" FontSize="14" SelectionBrush="Gray" CaretBrush="Gray"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -868,19 +882,19 @@
                 <Label Content="Контактная информация" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
 
                 <Label Content="Адрес места проживания" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
+                <TextBox Text="{Binding ResidenceAddress}" Style="{StaticResource TextBoxContact1}"/>
 
                 <Label Content="Адрес места по прописке" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
+                <TextBox Text="{Binding RegistrationAddress}" Style="{StaticResource TextBoxContact1}"/>
 
                 <Label Content="Домашний телефон" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
+                <TextBox Text="{Binding HomePhone}" Style="{StaticResource TextBoxContact2}"/>
 
                 <Label Content="Мобильный телефон" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
+                <TextBox Text="{Binding MobilePhone}" Style="{StaticResource TextBoxContact2}"/>
 
                 <Label Content="Почта" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding .}" Style="{StaticResource TextBoxContact}"/>
+                <TextBox Text="{Binding Mail}" Style="{StaticResource TextBoxContact2}"/>
 
             </StackPanel>
 
@@ -891,9 +905,46 @@
 
                 <Label Content="Образование" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
 
-                <Button Content="+ Добавить образование" Style="{StaticResource ButtonAddDocument}" Command="{Binding .}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="FontFamily" Value="Calibri"/>
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Margin" Value="0,0,15,0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <ContentPresenter Margin="2,0,2,0" VerticalAlignment="Center"/>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Foreground" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Resources>
 
-                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding .}" ItemContainerStyle="{StaticResource ListBoxItemEducation}"/>
+                    <Label  Grid.Column="0" Content="Добавить образование:" Style="{StaticResource LabelCitizenship}"/>
+                    <Button Grid.Column="1" Content="9 класс" Command="{Binding AddEducationCommand}" CommandParameter="9th grade"/>
+                    <Button Grid.Column="2" Content="11 класс" Command="{Binding AddEducationCommand}" CommandParameter="11th grade"/>
+                    <Button Grid.Column="3" Content="СПО" Command="{Binding AddEducationCommand}" CommandParameter="SPO"/>
+                    <Button Grid.Column="4" Content="Бакалавриат" Command="{Binding AddEducationCommand}" CommandParameter="Undergraduate"/>
+                    <Button Grid.Column="5" Content="Магистратура" Command="{Binding AddEducationCommand}" CommandParameter="Master"/>
+                    <Button Grid.Column="6" Content="Специалитет" Command="{Binding AddEducationCommand}" CommandParameter="Specialty"/>
+                </Grid>
+
+                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Educations}" ItemContainerStyle="{StaticResource ListBoxItemEducation}"/>
 
                 <Label Content="Сведения" Style="{StaticResource Label}" Margin="15,10,0,0" FontWeight="Bold"/>
 
