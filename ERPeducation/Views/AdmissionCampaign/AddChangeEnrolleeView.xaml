@@ -885,8 +885,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Grid.Column="0" Margin="15,5,15,0" Height="175" ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}"
-                         SelectedItem="{Binding SelectedDocument}" Width="380" HorizontalAlignment="Left"/>
+                    <ListBox Grid.Column="0" Margin="15,5,15,0" Height="175" Width="380" HorizontalAlignment="Left" 
+                             ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}" SelectedItem="{Binding SelectedDocument}" />
 
                     <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0,5,15,0" Height="175">
                         <UserControl Content="{Binding UserControlDocument}"/>
@@ -965,7 +965,19 @@
                     <Button Grid.Column="6" Content="Специалитет" Command="{Binding AddEducationCommand}" CommandParameter="Specialty"/>
                 </Grid>
 
-                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Educations}" ItemContainerStyle="{StaticResource ListBoxItemEducation}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Grid.Column="0" Margin="15,5,15,0" Height="175" Width="380" HorizontalAlignment="Left"
+                             ItemsSource="{Binding Educations}" ItemContainerStyle="{StaticResource ListBoxItemEducation}" SelectedItem="{Binding SelectedEducation}"/>
+
+                    <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0,5,15,0" Height="175">
+                        <UserControl Content="{Binding UserControlEducation}"/>
+                    </Border>
+                </Grid>
 
             </StackPanel>
 

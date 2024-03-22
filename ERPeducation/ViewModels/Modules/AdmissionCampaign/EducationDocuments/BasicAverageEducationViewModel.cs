@@ -1,12 +1,15 @@
 ﻿using ReactiveUI;
 using System.Collections.ObjectModel;
 using System;
+using ReactiveUI.Fody.Helpers;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
 {
     public class BasicAverageEducationViewModel : EducationDocumentBase
     {
-        public string CodeSeriesNumber { get; set; } = string.Empty;
+        [Reactive] public string CodeSeriesNumber { get; set; } = string.Empty;
+
+
 
         //КОНСТРУКТОР ДЛЯ ИЗМЕНЕНИЯ ОБЪЕКТА
         public BasicAverageEducationViewModel(BasicAverageEducationViewModel education, Action closeWindow)

@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="ERPeducation.Views.AdmissionCampaign.UserControlEducations.SpecialtyUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.UserControlEducations"
+             xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" FontFamily="Calibri">
+    <UserControl.Resources>
+        <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="Удостоверяющий документ:" FontWeight="Bold"/>
+            <TextBlock Text="{Binding TypeDocument}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Кем выдан:" FontWeight="Bold" Width="100"/>
+            <TextBlock Text="{Binding IssuedBy}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Label Content="Дата выдачи:" FontWeight="Bold" Width="100"/>
+            <TextBlock Text="{Binding DateOfIssue, StringFormat='dd.MM.yyyy', 
+                Converter={StaticResource DateTimeToStringFormatConvert}}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Label Content="С отличием:" FontWeight="Bold" Width="100"/>
+            <CheckBox IsChecked="{Binding WithHonours}" IsEnabled="False" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        </StackPanel>
+
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Форма обучения:" FontWeight="Bold"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SelectedFormOfStudy}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Серия диплома:" FontWeight="Bold"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Series}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Номер диплома:" FontWeight="Bold"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Number}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+            <Label Grid.Row="0" Grid.Column="2" Content="Регистрационной номер:" FontWeight="Bold"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding RegistrationNumber}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+            <Label Grid.Row="1" Grid.Column="2" Content="Серия приложения:" FontWeight="Bold"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding SeriesSupplement}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+            <Label Grid.Row="2" Grid.Column="2" Content="Номер приложения:" FontWeight="Bold"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding NumberSupplement}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+        </Grid>
+
+    </Grid>
+
+</UserControl>

@@ -9,10 +9,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
     {
         [Reactive] public string SelectedFormOfStudy { get; set; } = string.Empty;
         [Reactive] public string RegistrationNumber { get; set; } = string.Empty;
-        [Reactive] public string Series {  get; set; } = string.Empty;
-        [Reactive] public string Number {  get; set; } = string.Empty;
-        [Reactive] public string SeriesSupplement {  get; set; } = string.Empty;
-        [Reactive] public string NumberSupplement {  get; set; } = string.Empty;
+        [Reactive] public string Series { get; set; } = string.Empty;
+        [Reactive] public string Number { get; set; } = string.Empty;
+        [Reactive] public string SeriesSupplement { get; set; } = string.Empty;
+        [Reactive] public string NumberSupplement { get; set; } = string.Empty;
 
 
 

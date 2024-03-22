@@ -1,5 +1,7 @@
 ﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace ERPeducation.Common.Windows.WindowEducation
 {
@@ -22,5 +24,7 @@ namespace ERPeducation.Common.Windows.WindowEducation
 
         void GetSpecialty(ObservableCollection<EducationDocumentBase> education);
         void GetSpecialty(EducationSpecialtyViewModel education);
+
+        void GetUserControlEducation(UserControl userControl, EducationDocumentBase document);
     }
 }

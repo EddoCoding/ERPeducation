@@ -1,5 +1,9 @@
 ﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
+using ERPeducation.Views.AdmissionCampaign;
+using ERPeducation.Views.AdmissionCampaign.UserControlEducations;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace ERPeducation.Common.Windows.WindowEducation
 {
@@ -50,36 +54,77 @@ namespace ERPeducation.Common.Windows.WindowEducation
         public void GetUndergraduate(ObservableCollection<EducationDocumentBase> education)
         {
             UndergraduateView view = new UndergraduateView();
-            //view.DataContext = new EducationUndergraduateViewModel(education, view.Close);
+            view.DataContext = new EducationUndergraduateViewModel(education, view.Close);
             view.ShowDialog();
         }
         public void GetUndergraduate(EducationUndergraduateViewModel education)
         {
-            throw new System.NotImplementedException();
+            UndergraduateView view = new UndergraduateView();
+            view.DataContext = new EducationUndergraduateViewModel(education, view.Close);
+            view.ShowDialog();
         }
 
 
         public void GetMaster(ObservableCollection<EducationDocumentBase> education)
         {
             MasterView view = new MasterView();
-            //view.DataContext = new EducationMasterViewModel(education, view.Close);
+            view.DataContext = new EducationMasterViewModel(education, view.Close);
             view.ShowDialog();
         }
         public void GetMaster(EducationMasterViewModel education)
         {
-            throw new System.NotImplementedException();
+            MasterView view = new MasterView();
+            view.DataContext = new EducationMasterViewModel(education, view.Close);
+            view.ShowDialog();
         }
 
 
         public void GetSpecialty(ObservableCollection<EducationDocumentBase> education)
         {
             SpecialtyView view = new SpecialtyView();
-            //view.DataContext = new EducationSpecialtyViewModel(education, view.Close);
+            view.DataContext = new EducationSpecialtyViewModel(education, view.Close);
             view.ShowDialog();
         }
         public void GetSpecialty(EducationSpecialtyViewModel education)
         {
-            throw new System.NotImplementedException();
+            SpecialtyView view = new SpecialtyView();
+            view.DataContext = new EducationSpecialtyViewModel(education, view.Close);
+            view.ShowDialog();
+        }
+
+
+        public void GetUserControlEducation(UserControl userControl, EducationDocumentBase education)
+        {
+            if (education is BasicGeneralEducationViewModel)
+            {
+                userControl.Content = new BasicGeneralUserControl() { DataContext = education };
+                return;
+            }
+            if (education is BasicAverageEducationViewModel)
+            {
+                userControl.Content = new BasicAverageUserControl() { DataContext = education };
+                return;
+            }
+            if (education is EducationSpoViewModel)
+            {
+                userControl.Content = new SpoUserControl() { DataContext = education };
+                return;
+            }
+            if (education is EducationUndergraduateViewModel)
+            {
+                userControl.Content = new UndergraduateUserControl() { DataContext = education };
+                return;
+            }
+            if (education is EducationMasterViewModel)
+            {
+                userControl.Content = new MasterUserControl() { DataContext = education };
+                return;
+            }
+            if (education is EducationSpecialtyViewModel)
+            {
+                userControl.Content = new SpecialtyUserControl() { DataContext = education };
+                return;
+            }
         }
     }
 }

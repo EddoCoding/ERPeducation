@@ -13,7 +13,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class AddChangeEnrolleeViewModel : ReactiveObject
     {   
-        //Закончено
         #region Личная Информация
         public string SurName { get; set; }
         public string Name { get; set; }
@@ -28,7 +27,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         [Reactive] public DateTime DoCitizenship { get; set; }
         public ObservableCollection<PersonalDocumentBase> Documents { get; set; }
 
-
         PersonalDocumentBase selectedDocument;
         public PersonalDocumentBase SelectedDocument
         {
@@ -40,10 +38,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             }
         }
 
-        [Reactive] public UserControl UserControlDocument { get; set; }
+        public UserControl UserControlDocument { get; set; }
 
         #endregion
-        //Закончено
         #region Контактная Информация
         public string ResidenceAddress { get; set; }
         public string RegistrationAddress { get; set; }
@@ -52,23 +49,33 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public string Mail { get; set; }
         #endregion
 
-
         //Делаю
         #region Образование
         public ObservableCollection<EducationDocumentBase> Educations { get; set; }
+
+        EducationDocumentBase selectedEducation;
+        public EducationDocumentBase SelectedEducation
+        {
+            get => selectedEducation;
+            set
+            {
+                selectedEducation = value;
+                _dialogEducation.GetUserControlEducation(UserControlEducation, SelectedEducation);
+            }
+        }
+
         public UserControl UserControlEducation { get; set; }
         #endregion
-
 
         //Сделать
         #region Поступление
         #endregion
-        //Сделать
         #region Документы на печать
         #endregion
-        //Сделать
         #region Результаты испытаний
         #endregion
+
+
 
         #region Команды Личная Информация
         public ReactiveCommand<Unit,Unit> OpenPopupCommand { get; set; }
@@ -79,6 +86,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         #region Команды Образование
         public ReactiveCommand<string,Unit> AddEducationCommand { get; set; }
         #endregion
+
+        //Делаю
         #region Команды Поступление
         #endregion
         #region Команды Документы на печать
@@ -111,6 +120,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 if (e.OldItems != null) foreach (EducationDocumentBase item in e.OldItems) item.OnDelete -= education => Educations.Remove(education);
                 if (e.NewItems != null) foreach (EducationDocumentBase item in e.NewItems) item.OnDelete += education => Educations.Remove(education);
             };
+            UserControlEducation = new UserControl();
             AddEducationCommand = ReactiveCommand.Create<string>(parameter =>
             {
                 if (parameter == "9th grade")
