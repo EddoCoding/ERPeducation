@@ -10,6 +10,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
         public string TextAddChange { get; set; } = "Добавить";
 
         public string TypeEducation { get; set; } = string.Empty;
+        public string TypeDocument{ get; set; } = string.Empty;
         public string IssuedBy { get; set; } = string.Empty;
         public DateTime DateOfIssue { get; set; }
         public bool WithHonours { get; set; }

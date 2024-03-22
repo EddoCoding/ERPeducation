@@ -689,9 +689,30 @@
         
         <!--Образование-->
         <Style x:Key="ListBoxItemEducation" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding TypeEducation}" Margin="5" Width="300" FontSize="14"/>
+                                <Button Style="{StaticResource ButtonChange}" Command="{Binding ChangeCommand}"/>
+                                <Button Style="{StaticResource ButtonDelete}" Command="{Binding DeleteCommand}"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        </Style> <!--Добавить стиль для айтемов ListBox-->
-        
         <!--Поступление-->
         <Style x:Key="ComboBoxDirectionOfTraining" TargetType="ComboBox">
             <Setter Property="Template">
@@ -852,10 +873,10 @@
                     </Grid.Resources>
 
                     <Label Grid.Column="0" Content="Добавить документ:" Style="{StaticResource LabelCitizenship}"/>
-                    <Button Grid.Column="1" Content="Паспорт" Command="{Binding AddDocument}" CommandParameter="Passport"/>
-                    <Button Grid.Column="2" Content="Снилс" Command="{Binding AddDocument}" CommandParameter="Snils"/>
-                    <Button Grid.Column="3" Content="ИНН" Command="{Binding AddDocument}" CommandParameter="Inn"/>
-                    <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Command="{Binding AddDocument}" CommandParameter="ForeignPassport"/>
+                    <Button Grid.Column="1" Content="Паспорт" Command="{Binding AddDocumentCommand}" CommandParameter="Passport"/>
+                    <Button Grid.Column="2" Content="Снилс" Command="{Binding AddDocumentCommand}" CommandParameter="Snils"/>
+                    <Button Grid.Column="3" Content="ИНН" Command="{Binding AddDocumentCommand}" CommandParameter="Inn"/>
+                    <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Command="{Binding AddDocumentCommand}" CommandParameter="ForeignPassport"/>
                 </Grid>
 
                 <Grid>
@@ -945,10 +966,6 @@
                 </Grid>
 
                 <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding Educations}" ItemContainerStyle="{StaticResource ListBoxItemEducation}"/>
-
-                <Label Content="Сведения" Style="{StaticResource Label}" Margin="15,10,0,0" FontWeight="Bold"/>
-
-                <ListBox Margin="15,5,15,0" Height="150" ItemsSource="{Binding .}" ItemContainerStyle="{StaticResource ListBoxItemEducation}"/> <!--Возможно UserControl-->
 
             </StackPanel>
 

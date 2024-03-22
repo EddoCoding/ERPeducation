@@ -11,20 +11,41 @@ namespace ERPeducation.Common.Windows.WindowEducation
             view.DataContext = new BasicGeneralEducationViewModel(education, view.Close);
             view.ShowDialog();
         }
+        public void GetBasicGeneral(BasicGeneralEducationViewModel education)
+        {
+            BasicGeneralView view = new BasicGeneralView();
+            view.DataContext = new BasicGeneralEducationViewModel(education, view.Close);
+            view.ShowDialog();
+        }
+
 
         public void GetBasicAverage(ObservableCollection<EducationDocumentBase> education)
         {
             BasicAverageView view = new BasicAverageView();
-            //view.DataContext = new BasicAverageEducationViewModel(education, view.Close);
+            view.DataContext = new BasicAverageEducationViewModel(education, view.Close);
             view.ShowDialog();
         }
+        public void GetBasicAverage(BasicAverageEducationViewModel education)
+        {
+            BasicAverageView view = new BasicAverageView();
+            view.DataContext = new BasicAverageEducationViewModel(education, view.Close);
+            view.ShowDialog();
+        }
+
 
         public void GetSpo(ObservableCollection<EducationDocumentBase> education)
         {
             SpoView view = new SpoView();
-            //view.DataContext = new EducationSpoViewModel(education, view.Close);
+            view.DataContext = new EducationSpoViewModel(education, view.Close);
             view.ShowDialog();
         }
+        public void GetSpo(EducationSpoViewModel education)
+        {
+            SpoView view = new SpoView();
+            view.DataContext = new EducationSpoViewModel(education, view.Close);
+            view.ShowDialog();
+        }
+
 
         public void GetUndergraduate(ObservableCollection<EducationDocumentBase> education)
         {
@@ -32,6 +53,11 @@ namespace ERPeducation.Common.Windows.WindowEducation
             //view.DataContext = new EducationUndergraduateViewModel(education, view.Close);
             view.ShowDialog();
         }
+        public void GetUndergraduate(EducationUndergraduateViewModel education)
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         public void GetMaster(ObservableCollection<EducationDocumentBase> education)
         {
@@ -39,12 +65,21 @@ namespace ERPeducation.Common.Windows.WindowEducation
             //view.DataContext = new EducationMasterViewModel(education, view.Close);
             view.ShowDialog();
         }
+        public void GetMaster(EducationMasterViewModel education)
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         public void GetSpecialty(ObservableCollection<EducationDocumentBase> education)
         {
             SpecialtyView view = new SpecialtyView();
             //view.DataContext = new EducationSpecialtyViewModel(education, view.Close);
             view.ShowDialog();
+        }
+        public void GetSpecialty(EducationSpecialtyViewModel education)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

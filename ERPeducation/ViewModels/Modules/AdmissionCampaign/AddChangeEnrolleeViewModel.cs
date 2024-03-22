@@ -56,8 +56,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         //Делаю
         #region Образование
         public ObservableCollection<EducationDocumentBase> Educations { get; set; }
-
-
+        public UserControl UserControlEducation { get; set; }
         #endregion
 
 
@@ -75,7 +74,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ReactiveCommand<Unit,Unit> OpenPopupCommand { get; set; }
         public ReactiveCommand<Unit,Unit> OpenValueCommand { get; set; }
         public ReactiveCommand<Unit,Unit> DelValueCommand { get; set; }
-        public ReactiveCommand<string,Unit> AddDocument { get; set; }
+        public ReactiveCommand<string,Unit> AddDocumentCommand { get; set; }
         #endregion
         #region Команды Образование
         public ReactiveCommand<string,Unit> AddEducationCommand { get; set; }
@@ -107,6 +106,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             #endregion
             #region Образование
             Educations = new ObservableCollection<EducationDocumentBase>();
+            Educations.CollectionChanged += (sender, e) =>
+            {
+                if (e.OldItems != null) foreach (EducationDocumentBase item in e.OldItems) item.OnDelete -= education => Educations.Remove(education);
+                if (e.NewItems != null) foreach (EducationDocumentBase item in e.NewItems) item.OnDelete += education => Educations.Remove(education);
+            };
             AddEducationCommand = ReactiveCommand.Create<string>(parameter =>
             {
                 if (parameter == "9th grade")
@@ -160,7 +164,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 DoCitizenship = DateTime.MinValue;
                 IsEnabled = false;
             });
-            AddDocument = ReactiveCommand.Create<string>(parameter =>
+            AddDocumentCommand = ReactiveCommand.Create<string>(parameter =>
             {
                 if(parameter == "Passport") 
                 {

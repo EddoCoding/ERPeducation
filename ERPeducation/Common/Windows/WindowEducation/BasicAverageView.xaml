@@ -4,10 +4,144 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows.WindowEducation"
-        mc:Ignorable="d" Title="BasicAverageView" Height="450" Width="800">
-    
+        xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
+        mc:Ignorable="d" Title="PassportView" Height="320" Width="675" 
+        FontFamily="Calibri" FontSize="16" WindowStyle="None" ResizeMode="NoResize"
+        BorderThickness="1" BorderBrush="LightGray" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
+
+        <Style x:Key="MainLabel" TargetType="Label">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="10,5,0,5"/>
+        </Style>
+        <Style x:Key="TextBox" TargetType="TextBox">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="Gray" BorderThickness="1">
+                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" SelectionBrush="Gray" 
+                             BorderThickness="0" VerticalContentAlignment="Center" Padding="0" Margin="2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="TextBoxData" TargetType="TextBox">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0,2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderBrush="Gray" BorderThickness="1" Width="85">
+                            <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" SelectionBrush="Gray" 
+                             BorderThickness="0" VerticalContentAlignment="Center" Padding="0" Margin="3,2,3,2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonCancel" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1" Background="{TemplateBinding Background}" Margin="0,10,10,10">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="LightGray"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonAdd" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border" BorderBrush="Gray" BorderThickness="1" Background="{TemplateBinding Background}" Margin="0,10,10,10">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="Тип образования:" Style="{StaticResource MainLabel}"/>
+            <TextBlock Text="{Binding TypeEducation}" Margin="10,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <Line Grid.Row="1" Stroke="Gray" StrokeThickness="0.5" X1="0" Y1="0" Y2="0" Margin="10,5,10,5"
+          X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Label Content="Удостоверяющий документ:" Style="{StaticResource MainLabel}"/>
+            <TextBlock Text="{Binding TypeDocument}" Margin="10,0,0,0" FontWeight="Bold" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <Line Grid.Row="3" Stroke="Gray" StrokeThickness="0.5" X1="0" Y1="0" Y2="0" Margin="10,5,10,5"
+          X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Label Content="Кем выдан" Style="{StaticResource MainLabel}"/>
+            <TextBox Text="{Binding IssuedBy}" Style="{StaticResource TextBox}" Width="490" Margin="86,2,0,2"/>
+        </StackPanel>
+
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Дата выдачи" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DateOfIssue, StringFormat='dd.MM.yyyy', 
+            Converter={StaticResource DateTimeToStringFormatConvert}}" Style="{StaticResource TextBoxData}" Margin="10,2,0,2"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Content="С отличием" Style="{StaticResource MainLabel}"/>
+            <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding WithHonours}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Код Серия Номер" Style="{StaticResource MainLabel}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CodeSeriesNumber}" Style="{StaticResource TextBox}" Width="250" Margin="10,2,0,2"/>
+
+        </Grid>
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Отменить" Style="{StaticResource ButtonCancel}" Command="{Binding CloseWindowCommand}"/>
+            <Button Content="{Binding TextAddChange}" Style="{StaticResource ButtonAdd}" Command="{Binding AddDocumentCommand}"/>
+        </StackPanel>
+
     </Grid>
-    
+
 </Window>
