@@ -1,7 +1,9 @@
 ﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Command;
 using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows.WindowDocuments;
 using ERPeducation.Common.Windows.WindowEducation;
+using ERPeducation.Common.Windows.WindowTest;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
 using ReactiveUI;
@@ -95,15 +97,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         }
 
         [Reactive] public string SeletedForms { get; set; }
-        #endregion
 
+        public ObservableCollection<TestViewModel> Tests { get; set; }
 
-
-
-
-        #region Документы на печать
-        #endregion
-        #region Результаты испытаний
         #endregion
 
 
@@ -118,6 +114,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ReactiveCommand<string,Unit> AddEducationCommand { get; set; }
         #endregion
         #region Команды Поступление
+        public ReactiveCommand<Unit,Unit> AddTest { get; set; }
+        public ReactiveCommand<Unit,Unit> SelectTemplateTest { get; set; }
         #endregion
         #region Команды Документы на печать
         #endregion
@@ -126,13 +124,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         IDialogDocument _dialogDocument;
         IDialogEducation _dialogEducation;
-        IJSONService _jsonService;
         public AddChangeEnrolleeViewModel(IDialogDocument dialogDocument, IDialogEducation dialogEducation, 
-            IJSONService jsonService, ObservableCollection<EnrolleeViewModel> enrollees)
+            IDialogTest dialogTest, ObservableCollection<EnrolleeViewModel> enrollees)
         {
             _dialogDocument = dialogDocument;
             _dialogEducation = dialogEducation;
-            _jsonService = jsonService;
 
             #region Персональная информация
             Documents = new ObservableCollection<PersonalDocumentBase>();
@@ -148,8 +144,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             Educations = new ObservableCollection<EducationDocumentBase>();
             Educations.CollectionChanged += (sender, e) =>
             {
-                if (e.OldItems != null) foreach (EducationDocumentBase item in e.OldItems) item.OnDelete -= education => Educations.Remove(education);
-                if (e.NewItems != null) foreach (EducationDocumentBase item in e.NewItems) item.OnDelete += education => Educations.Remove(education);
+                if (e.OldItems != null) foreach(EducationDocumentBase item in e.OldItems) item.OnDelete -= education => Educations.Remove(education);
+                if (e.NewItems != null) foreach(EducationDocumentBase item in e.NewItems) item.OnDelete += education => Educations.Remove(education);
             };
             UserControlEducation = new UserControl();
             AddEducationCommand = ReactiveCommand.Create<string>(parameter =>
@@ -186,11 +182,23 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 }
             });
             #endregion
-
             #region Поступление
             LevelOfTraining = StaticData.GetLvlEducation();
             DirectionOfTraining = new ObservableCollection<string>();
             PreparationForm = new ObservableCollection<string>();
+
+            Tests = new ObservableCollection<TestViewModel>();
+            Tests.CollectionChanged += (sender, e) =>
+            {
+                if (e.OldItems != null) foreach (TestViewModel item in e.OldItems) item.OnDelete -= test => Tests.Remove(test); 
+                if (e.NewItems != null) foreach (TestViewModel item in e.NewItems) item.OnDelete += test => Tests.Remove(test); 
+            };
+
+            AddTest = ReactiveCommand.Create(() => 
+            {
+                dialogTest.GetTest(Tests);
+            });
+            SelectTemplateTest = ReactiveCommand.Create(NotReady.Message);
             #endregion
         }
 

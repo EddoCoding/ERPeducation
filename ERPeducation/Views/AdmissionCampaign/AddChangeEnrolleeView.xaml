@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.NewView"
              xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
-             FontFamily="Calibri"
-    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+             FontFamily="Calibri">
     <UserControl.Resources>
         <converters:ComboBoxItemToStringConvert x:Key="ComboBoxItemToStringConvert"/>
         <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
@@ -611,7 +610,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="ButtonAddDocument" TargetType="Button">
+        <Style x:Key="ButtonAdd" TargetType="Button">
             <Setter Property="FontFamily" Value="Calibri"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -619,7 +618,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <ContentPresenter Width="150" HorizontalAlignment="Left" Margin="15,0,0,0"/>
+                        <ContentPresenter HorizontalAlignment="Left" Margin="15,0,0,0"/>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Foreground" Value="DarkCyan"/>
@@ -831,6 +830,52 @@
                                 </Border>
                             </Popup>
                         </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListBoxItemTest" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label Grid.Column="0" Content="Предмет:" Margin="5" FontSize="14" Padding="0" FontWeight="Bold"/>
+                                <TextBlock Grid.Column="1" Text="{Binding SelectedObject, StringFormat=''}" Margin="2,5,2,5" FontSize="14"/>
+
+                                <Label Grid.Column="2" Content="Дата и время:" Margin="15,5,5,5" FontSize="14" Padding="0" FontWeight="Bold"/>
+                                <TextBlock Grid.Column="3" Text="{Binding When, StringFormat='dd.MM.yyyy HH:mm'}" Margin="2,5,2,5" FontSize="14"/>
+
+                                <Label Grid.Column="4" Content="Помещение/Аудитория:" Margin="15,5,5,5" FontSize="14" Padding="0" FontWeight="Bold"/>
+                                <TextBlock Grid.Column="5" Text="{Binding Where}" Margin="2,5,2,5" FontSize="14"/>
+
+                                <Label Grid.Column="6" Content="Специальные условия:" Margin="15,5,5,5" FontSize="14" Padding="0" FontWeight="Bold"/>
+                                <CheckBox Grid.Column="7" IsChecked="{Binding SpecialConditions}" IsEnabled="False" Margin="2,5,2,5"/>
+
+                                <Button Grid.Column="8" Style="{StaticResource ButtonChange}" Command="{Binding ChangeTestCommand}" HorizontalAlignment="Right"/>
+                                <Button Grid.Column="9" Style="{StaticResource ButtonDelete}" Command="{Binding DeleteTestCommand}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                                
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -1092,6 +1137,13 @@
                     </StackPanel>
 
                 </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <Button Content="+ Добавить испытание" Style="{StaticResource ButtonAdd}" Command="{Binding AddTest}"/>
+                    <Button Content="Выбрать шаблон испытаний" Style="{StaticResource ButtonAdd}" Command="{Binding SelectTemplateTest}"/>
+                </StackPanel>
+
+                <ListBox Height="150" Margin="15,10,15,0" ItemsSource="{Binding Tests}" ItemContainerStyle="{StaticResource ListBoxItemTest}"/>
 
             </StackPanel>
 
