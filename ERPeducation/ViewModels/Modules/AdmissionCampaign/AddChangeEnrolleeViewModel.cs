@@ -1,4 +1,6 @@
-﻿using ERPeducation.Common.Windows.WindowDocuments;
+﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Interface;
+using ERPeducation.Common.Windows.WindowDocuments;
 using ERPeducation.Common.Windows.WindowEducation;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
@@ -6,13 +8,14 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Reactive;
 using System.Windows.Controls;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class AddChangeEnrolleeViewModel : ReactiveObject
-    {   
+    {
         #region Личная Информация
         public string SurName { get; set; }
         public string Name { get; set; }
@@ -23,7 +26,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         [Reactive] public DateTime DateOfBirth { get; set; }
 
         [Reactive] public string Citizenship { get; set; }
-        [Reactive] public bool IsEnabled{ get; set; } = true;
+        [Reactive] public bool IsEnabled { get; set; } = true;
         [Reactive] public DateTime DoCitizenship { get; set; }
         public ObservableCollection<PersonalDocumentBase> Documents { get; set; }
 
@@ -48,8 +51,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public string MobilePhone { get; set; }
         public string Mail { get; set; }
         #endregion
-
-        //Делаю
         #region Образование
         public ObservableCollection<EducationDocumentBase> Educations { get; set; }
 
@@ -66,10 +67,40 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         public UserControl UserControlEducation { get; set; }
         #endregion
-
-        //Сделать
         #region Поступление
+        [Reactive] public ObservableCollection<string> LevelOfTraining { get; set; }
+        [Reactive] public ObservableCollection<string> DirectionOfTraining { get; set; }
+        [Reactive] public ObservableCollection<string> PreparationForm { get; set; }
+
+        string seletedLvl;
+        public string SeletedLvl
+        {
+            get => seletedLvl;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref seletedLvl, value);
+                DirectionOfTraining = StaticData.GetDirectionEducation(SeletedLvl);
+            }
+        }
+
+        string seletedDirection;
+        public string SeletedDirection
+        {
+            get => seletedDirection;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref seletedDirection, value);
+                PreparationForm = StaticData.GetFormEducation(SeletedDirection);
+            }
+        }
+
+        [Reactive] public string SeletedForms { get; set; }
         #endregion
+
+
+
+
+
         #region Документы на печать
         #endregion
         #region Результаты испытаний
@@ -86,8 +117,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         #region Команды Образование
         public ReactiveCommand<string,Unit> AddEducationCommand { get; set; }
         #endregion
-
-        //Делаю
         #region Команды Поступление
         #endregion
         #region Команды Документы на печать
@@ -97,11 +126,13 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         IDialogDocument _dialogDocument;
         IDialogEducation _dialogEducation;
+        IJSONService _jsonService;
         public AddChangeEnrolleeViewModel(IDialogDocument dialogDocument, IDialogEducation dialogEducation, 
-            ObservableCollection<EnrolleeViewModel> enrollees)
+            IJSONService jsonService, ObservableCollection<EnrolleeViewModel> enrollees)
         {
             _dialogDocument = dialogDocument;
             _dialogEducation = dialogEducation;
+            _jsonService = jsonService;
 
             #region Персональная информация
             Documents = new ObservableCollection<PersonalDocumentBase>();
@@ -154,6 +185,12 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                     return;
                 }
             });
+            #endregion
+
+            #region Поступление
+            LevelOfTraining = StaticData.GetLvlEducation();
+            DirectionOfTraining = new ObservableCollection<string>();
+            PreparationForm = new ObservableCollection<string>();
             #endregion
         }
 

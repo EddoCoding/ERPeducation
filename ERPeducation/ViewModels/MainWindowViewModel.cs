@@ -1,4 +1,5 @@
-﻿using ERPeducation.Common.Interface;
+﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows.AddUser;
 using ERPeducation.Interface;
 using ERPeducation.Models;
@@ -39,7 +40,6 @@ namespace ERPeducation.ViewModels
             }
         }
         #endregion 
-
         public string FullName { get; set; }
 
         public bool RectorIsEnabled { get; set; }
@@ -58,9 +58,11 @@ namespace ERPeducation.ViewModels
 
 
         IUserControlService _userControlService;
-
-        public MainWindowViewModel(IUserControlService userControlService, Action close, UserViewModel user)
+        public MainWindowViewModel(IJSONService jsonService, IUserControlService userControlService, Action close, UserViewModel user)
         {
+            StaticData.LvlEducations = jsonService.TreeViewEducation();
+            StaticData.Faculties = jsonService.TreeViewFaculty();
+
             _userControlService = userControlService;
             FullName = user.FullName;
 
@@ -68,7 +70,6 @@ namespace ERPeducation.ViewModels
             {
                 TabItem = new ObservableCollection<MainTabItem>()
             };
-
             Data.TabItem.CollectionChanged += (object? sender, NotifyCollectionChangedEventArgs e) =>
             {
                 if (e.OldItems != null) foreach (MainTabItem item in e.OldItems) item.OnClose -= CloseTab;

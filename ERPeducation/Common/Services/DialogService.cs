@@ -34,7 +34,8 @@ namespace ERPeducation.Common.Services
         public void OpenMainWindow(UserViewModel user, Action closeWindow)
         {
             MainWindow mainWindow = new MainWindow();
-            mainWindow.DataContext = new MainWindowViewModel(new UserControlService(), mainWindow.Close, user)
+            mainWindow.DataContext = new MainWindowViewModel(new JSONService(), new UserControlService(), 
+                mainWindow.Close, user)
             {
                 RectorIsEnabled = user.RectorAccess,
                 DeanRoomIsEnabled = user.DeanRoomAccess,

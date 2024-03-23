@@ -149,5 +149,32 @@ namespace ERPeducation.Common.Services
                 }
             }
         }
+
+        public ObservableCollection<TreeViewLvlOne> TreeViewEducation()
+        {
+            ObservableCollection<TreeViewLvlOne> collection = new ObservableCollection<TreeViewLvlOne>();
+
+            using (var fs = new FileStream(FileServer.structPathEducation, FileMode.Open))
+            {
+                using (var sr = new StreamReader(fs))
+                {
+                    collection = JsonSerializer.Deserialize<ObservableCollection<TreeViewLvlOne>>(sr.ReadToEnd());
+                    return collection;
+                }
+            }
+        }
+        public ObservableCollection<TreeViewFacultyItemOne> TreeViewFaculty()
+        {
+            ObservableCollection<TreeViewFacultyItemOne> collection = new ObservableCollection<TreeViewFacultyItemOne>();
+
+            using (var fs = new FileStream(FileServer.structPathFaculty, FileMode.Open))
+            {
+                using (var sr = new StreamReader(fs))
+                {
+                    collection = JsonSerializer.Deserialize<ObservableCollection<TreeViewFacultyItemOne>>(sr.ReadToEnd());
+                    return collection;
+                }
+            }
+        }
     }
 }

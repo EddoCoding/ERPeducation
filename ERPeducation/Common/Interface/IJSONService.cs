@@ -15,5 +15,7 @@ namespace ERPeducation.Common.Interface
             bool rectorAccess, bool deanRoom, bool trainingDivision, bool teacher, bool admissionCampaign, bool administration);
         UserViewModel GetFileJson(string filePath);
         void GetUserFileJson(ObservableCollection<UserViewModel> users);
+        ObservableCollection<TreeViewLvlOne> TreeViewEducation();
+        ObservableCollection<TreeViewFacultyItemOne> TreeViewFaculty();
     }
 }
