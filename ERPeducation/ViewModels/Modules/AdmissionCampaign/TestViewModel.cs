@@ -11,10 +11,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
     {
         [Reactive] public string TextAddChange { get; set; } = "Добавить";
 
-        [Reactive] public string SelectedObject { get; set; } = "Математика";
-        [Reactive] public DateTime When { get; set; } = DateTime.Now;
-        [Reactive] public string Where { get; set; } = "Аудитория 228";
-        [Reactive] public bool SpecialConditions { get; set; } = true;
+        [Reactive] public string SelectedObject { get; set; }
+        [Reactive] public DateTime When { get; set; }
+        [Reactive] public string Where { get; set; }
+        [Reactive] public bool SpecialConditions { get; set; }
 
         public ReactiveCommand<Unit,Unit> ChangeTestCommand { get; set; }
         public ReactiveCommand<Unit,Unit> DeleteTestCommand { get; set; }

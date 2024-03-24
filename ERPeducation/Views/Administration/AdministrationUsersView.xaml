@@ -34,7 +34,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border BorderThickness="1,0,0,0" BorderBrush="Gray" Height="24" Width="24" Background="{TemplateBinding Background}">
-                            <Image Source="/Common/Image/search.png"/>
+                            <Image Source="/Common/Image/search.png" Margin="3"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">

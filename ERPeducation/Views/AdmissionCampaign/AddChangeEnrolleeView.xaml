@@ -581,7 +581,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border BorderThickness="0" Background="{TemplateBinding Background}" Margin="10,0,0,0">
+                        <Border CornerRadius="5" BorderThickness="0" Background="{TemplateBinding Background}" Margin="10,0,0,0">
                             <Image Height="20" Width="20" Source="/Common/Image/change.png"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -598,7 +598,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border BorderThickness="0" Background="{TemplateBinding Background}" Margin="10,0,0,0">
+                        <Border CornerRadius="5" BorderThickness="0" Background="{TemplateBinding Background}" Margin="5,0,0,0">
                             <Image Height="20" Width="20" Source="/Common/Image/delete.png"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -636,8 +636,8 @@
                         <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding TypeDocument}" Margin="5" Width="300" FontSize="14"/>
-                                <Button Style="{StaticResource ButtonChange}" Command="{Binding ChangeCommand}"/>
-                                <Button Style="{StaticResource ButtonDelete}" Command="{Binding DeleteCommand}"/>
+                                <Button Style="{StaticResource ButtonChange}" Command="{Binding ChangeCommand}" ToolTip="Изменить документ"/>
+                                <Button Style="{StaticResource ButtonDelete}" Command="{Binding DeleteCommand}" ToolTip="Удалить документ"/>
                             </StackPanel>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -696,8 +696,8 @@
                         <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding TypeEducation}" Margin="5" Width="300" FontSize="14"/>
-                                <Button Style="{StaticResource ButtonChange}" Command="{Binding ChangeCommand}"/>
-                                <Button Style="{StaticResource ButtonDelete}" Command="{Binding DeleteCommand}"/>
+                                <Button Style="{StaticResource ButtonChange}" Command="{Binding ChangeCommand}" ToolTip="Изменить образование"/>
+                                <Button Style="{StaticResource ButtonDelete}" Command="{Binding DeleteCommand}" ToolTip="Удалить образование"/>
                             </StackPanel>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -714,127 +714,7 @@
         </Style>
 
         <!--Поступление-->
-        <Style x:Key="ComboBoxLvl" TargetType="ComboBox">
-            <Setter Property="Margin" Value="20,0,0,0"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <StackPanel>
-                            <ToggleButton x:Name="togglebutton" Content="{Binding SeletedLvl}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
-                                RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" MinWidth="130" Width="Auto" HorizontalAlignment="Left">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Grid>
-                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
-                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,25,0"/>
-                                            </Border>
-                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
-                                        </Grid>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
-                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
-                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
-                                   Focusable="True" PopupAnimation="Slide" Width="Auto">
-                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
-                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
-                                    <ScrollViewer SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                    </ScrollViewer>
-                                </Border>
-                            </Popup>
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ComboBoxDirection" TargetType="ComboBox">
-            <Setter Property="Margin" Value="20,0,0,0"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <StackPanel>
-                            <ToggleButton x:Name="togglebutton" Content="{Binding SeletedDirection}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
-                                RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" MinWidth="160" Width="Auto" HorizontalAlignment="Left">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Grid>
-                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
-                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,25,0"/>
-                                            </Border>
-                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
-                                        </Grid>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
-                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
-                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
-                                   Focusable="True" PopupAnimation="Slide" Width="Auto">
-                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
-                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
-                                    <ScrollViewer SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                    </ScrollViewer>
-                                </Border>
-                            </Popup>
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ComboBoxForm" TargetType="ComboBox">
-            <Setter Property="Margin" Value="20,0,0,0"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <StackPanel>
-                            <ToggleButton x:Name="togglebutton" Content="{Binding SeletedForms}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
-                                RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" MinWidth="120" Width="Auto" HorizontalAlignment="Left">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Grid>
-                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
-                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,25,0"/>
-                                            </Border>
-                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
-                                        </Grid>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
-                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
-                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
-                                   Focusable="True" PopupAnimation="Slide" Width="Auto">
-                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
-                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
-                                    <ScrollViewer SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                    </ScrollViewer>
-                                </Border>
-                            </Popup>
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ListBoxItemTest" TargetType="ListBoxItem">
+        <Style x:Key="ListBoxItemDirection" TargetType="ListBoxItem">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -843,43 +723,28 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                
-                                <Label Grid.Column="0" Content="Предмет:" Margin="5" FontSize="14" Padding="0" FontWeight="Bold"/>
-                                <TextBlock Grid.Column="1" Text="{Binding SelectedObject, StringFormat=''}" Margin="2,5,2,5" FontSize="14"/>
-
-                                <Label Grid.Column="2" Content="Дата и время:" Margin="15,5,5,5" FontSize="14" Padding="0" FontWeight="Bold"/>
-                                <TextBlock Grid.Column="3" Text="{Binding When, StringFormat='dd.MM.yyyy HH:mm'}" Margin="2,5,2,5" FontSize="14"/>
-
-                                <Label Grid.Column="4" Content="Помещение/Аудитория:" Margin="15,5,5,5" FontSize="14" Padding="0" FontWeight="Bold"/>
-                                <TextBlock Grid.Column="5" Text="{Binding Where}" Margin="2,5,2,5" FontSize="14"/>
-
-                                <Label Grid.Column="6" Content="Специальные условия:" Margin="15,5,5,5" FontSize="14" Padding="0" FontWeight="Bold"/>
-                                <CheckBox Grid.Column="7" IsChecked="{Binding SpecialConditions}" IsEnabled="False" Margin="2,5,2,5"/>
-
-                                <Button Grid.Column="8" Style="{StaticResource ButtonChange}" Command="{Binding ChangeTestCommand}" HorizontalAlignment="Right"/>
-                                <Button Grid.Column="9" Style="{StaticResource ButtonDelete}" Command="{Binding DeleteTestCommand}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
-                                
+                                <TextBlock Grid.Column="0" Text="{Binding SelectedDirection}" Margin="5" FontSize="14"/>
+                                <Button Grid.Column="1" Style="{StaticResource ButtonChange}" Command="{Binding ChangeDirectionCommand}" 
+                                        HorizontalAlignment="Right" ToolTip="Изменить образование"/>
+                                <Button Grid.Column="2" Style="{StaticResource ButtonDelete}" Command="{Binding DeleteDirectionCommand}" ToolTip="Удалить образование"/>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="WhiteSmoke"/>
                             </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
     </UserControl.Resources>
 
     <ScrollViewer>
@@ -1105,6 +970,7 @@
                     <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0,5,15,0" Height="175">
                         <UserControl Content="{Binding UserControlEducation}"/>
                     </Border>
+                    
                 </Grid>
 
             </StackPanel>
@@ -1113,37 +979,25 @@
                   X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
 
             <StackPanel Grid.Row="6">
-                
+
                 <Label Content="Поступление" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,10"/>
 
-                <StackPanel Orientation="Horizontal">
-                    
-                    <StackPanel>
-                        <Label Content="Уровень подготовки" Style="{StaticResource Label}"/>
-                        <ComboBox ItemsSource="{Binding LevelOfTraining}" SelectedItem="{Binding SeletedLvl, Converter={StaticResource ComboBoxItemToStringConvert}}"
-                                  Style="{StaticResource ComboBoxLvl}" ItemContainerStyle="{StaticResource ComboBoxItem}"/>
-                    </StackPanel>
-                    
-                    <StackPanel>
-                        <Label Content="Направление подготовки" Style="{StaticResource Label}"/>
-                        <ComboBox  ItemsSource="{Binding DirectionOfTraining}" SelectedItem="{Binding SeletedDirection}"
-                                   Style="{StaticResource ComboBoxDirection}" ItemContainerStyle="{StaticResource ComboBoxItem}"/>
-                    </StackPanel>
-                    
-                    <StackPanel>
-                        <Label Content="Форма подготовки" Style="{StaticResource Label}"/>
-                        <ComboBox ItemsSource="{Binding PreparationForm}" SelectedItem="{Binding SeletedForms}"
-                                  Style="{StaticResource ComboBoxForm}" ItemContainerStyle="{StaticResource ComboBoxItem}"/>
-                    </StackPanel>
+                <Button Content="+ Добавить направление подготовки" Style="{StaticResource ButtonAdd}" Command="{Binding AddDirection}"/>
 
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-                    <Button Content="+ Добавить испытание" Style="{StaticResource ButtonAdd}" Command="{Binding AddTest}"/>
-                    <Button Content="Выбрать шаблон испытаний" Style="{StaticResource ButtonAdd}" Command="{Binding SelectTemplateTest}"/>
-                </StackPanel>
+                    <ListBox Margin="15,10,15,0" Height="175" ItemsSource="{Binding Directions}" MinWidth="300"
+                             ItemContainerStyle="{StaticResource ListBoxItemDirection}" SelectedItem="{Binding SelectedDirection}"/>
 
-                <ListBox Height="150" Margin="15,10,15,0" ItemsSource="{Binding Tests}" ItemContainerStyle="{StaticResource ListBoxItemTest}"/>
+                    <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0,10,15,0" Height="175">
+                        <UserControl Content="{Binding UserControlDirection}"/>
+                    </Border>
+                    
+                </Grid>
 
             </StackPanel>
 

@@ -262,7 +262,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
-                    <Expander Grid.Row="0" Header="Управлление пользователями" Template="{DynamicResource MyStyleExpander}" FontSize="15"
+                    <Expander Grid.Row="0" Header="Управление пользователями" Template="{DynamicResource MyStyleExpander}" FontSize="15"
                               IsExpanded="{Binding IsBoolUsers}" Background="{Binding BrushUsers}" Style="{StaticResource MyStyleExpanderEffect}">
 
                         <UserControl Content="{Binding UserControlUserView}"/>
@@ -276,20 +276,19 @@
 
                     </Expander>
 
-                    <Expander Grid.Row="2" Header="Управлление пространствами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
+                    <Expander Grid.Row="2" Header="Управление пространствами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
                           Style="{StaticResource MyStyleExpanderEffect}">
 
                     </Expander>
 
-                    <Expander Grid.Row="3" Header="Управлление документами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
+                    <Expander Grid.Row="3" Header="Управление документами" Template="{DynamicResource MyStyleExpander}" FontSize="15"
                           Style="{StaticResource MyStyleExpanderEffect}">
 
                     </Expander>
 
-                    <Expander Grid.Row="4" Header="Управлление приёмной кампанией" Template="{DynamicResource MyStyleExpander}" FontSize="15"
-                  Style="{StaticResource MyStyleExpanderEffect}">
-
-                    </Expander>
+                    <Expander Grid.Row="4" Header="Управление приёмной кампанией" Template="{DynamicResource MyStyleExpander}" FontSize="15"
+                              Style="{StaticResource MyStyleExpanderEffect}">
+                </Expander>
 
                 </Grid>
 

@@ -1,6 +1,6 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Common.Command;
-using ERPeducation.Common.Interface;
+using ERPeducation.Common.Windows.WindowDirection;
 using ERPeducation.Common.Windows.WindowDocuments;
 using ERPeducation.Common.Windows.WindowEducation;
 using ERPeducation.Common.Windows.WindowTest;
@@ -10,7 +10,6 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Reactive;
 using System.Windows.Controls;
 
@@ -69,40 +68,24 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         public UserControl UserControlEducation { get; set; }
         #endregion
+
+
         #region Поступление
-        [Reactive] public ObservableCollection<string> LevelOfTraining { get; set; }
-        [Reactive] public ObservableCollection<string> DirectionOfTraining { get; set; }
-        [Reactive] public ObservableCollection<string> PreparationForm { get; set; }
+        public ObservableCollection<DirectionViewModel> Directions { get; set; }
 
-        string seletedLvl;
-        public string SeletedLvl
+        DirectionViewModel selectedDirection;
+        public DirectionViewModel SelectedDirection
         {
-            get => seletedLvl;
+            get => selectedDirection;
             set
             {
-                this.RaiseAndSetIfChanged(ref seletedLvl, value);
-                DirectionOfTraining = StaticData.GetDirectionEducation(SeletedLvl);
+                selectedDirection = value;
+                _dialogDirection.GetUserControlDirection(UserControlDirection, SelectedDirection);
             }
         }
 
-        string seletedDirection;
-        public string SeletedDirection
-        {
-            get => seletedDirection;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref seletedDirection, value);
-                PreparationForm = StaticData.GetFormEducation(SeletedDirection);
-            }
-        }
-
-        [Reactive] public string SeletedForms { get; set; }
-
-        public ObservableCollection<TestViewModel> Tests { get; set; }
-
+        [Reactive] public UserControl UserControlDirection { get; set; }
         #endregion
-
-
 
         #region Команды Личная Информация
         public ReactiveCommand<Unit,Unit> OpenPopupCommand { get; set; }
@@ -114,8 +97,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ReactiveCommand<string,Unit> AddEducationCommand { get; set; }
         #endregion
         #region Команды Поступление
-        public ReactiveCommand<Unit,Unit> AddTest { get; set; }
-        public ReactiveCommand<Unit,Unit> SelectTemplateTest { get; set; }
+        public ReactiveCommand<Unit,Unit> AddDirection { get; set; }
         #endregion
         #region Команды Документы на печать
         #endregion
@@ -124,11 +106,13 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         IDialogDocument _dialogDocument;
         IDialogEducation _dialogEducation;
+        IDialogDirection _dialogDirection;
         public AddChangeEnrolleeViewModel(IDialogDocument dialogDocument, IDialogEducation dialogEducation, 
-            IDialogTest dialogTest, ObservableCollection<EnrolleeViewModel> enrollees)
+            IDialogDirection dialogDirection, ObservableCollection<EnrolleeViewModel> enrollees)
         {
             _dialogDocument = dialogDocument;
             _dialogEducation = dialogEducation;
+            _dialogDirection = dialogDirection;
 
             #region Персональная информация
             Documents = new ObservableCollection<PersonalDocumentBase>();
@@ -183,22 +167,17 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             });
             #endregion
             #region Поступление
-            LevelOfTraining = StaticData.GetLvlEducation();
-            DirectionOfTraining = new ObservableCollection<string>();
-            PreparationForm = new ObservableCollection<string>();
-
-            Tests = new ObservableCollection<TestViewModel>();
-            Tests.CollectionChanged += (sender, e) =>
-            {
-                if (e.OldItems != null) foreach (TestViewModel item in e.OldItems) item.OnDelete -= test => Tests.Remove(test); 
-                if (e.NewItems != null) foreach (TestViewModel item in e.NewItems) item.OnDelete += test => Tests.Remove(test); 
+            Directions = new ObservableCollection<DirectionViewModel>();
+            Directions.CollectionChanged += (sender, e) =>
+            { 
+                if(e.OldItems != null) foreach(DirectionViewModel item in e.OldItems) item.OnDelete -= direction => Directions.Remove(item);
+                if(e.NewItems != null) foreach(DirectionViewModel item in e.NewItems) item.OnDelete += direction => Directions.Remove(item);
             };
-
-            AddTest = ReactiveCommand.Create(() => 
+            UserControlDirection = new UserControl();
+            AddDirection = ReactiveCommand.Create(() =>
             {
-                dialogTest.GetTest(Tests);
+                dialogDirection.GetDirection(Directions);
             });
-            SelectTemplateTest = ReactiveCommand.Create(NotReady.Message);
             #endregion
         }
 

@@ -6,6 +6,21 @@
              xmlns:local="clr-namespace:ERPeducation.Views.Administration"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <Style x:Key="MyStyleToolTip" TargetType="ToolTip">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Placement" Value="Bottom"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Border BorderBrush="Gray" BorderThickness="1" Background="White">
+                            <ContentPresenter Margin="3,2,3,2"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="MyStyleLabel" TargetType="Label">
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="Padding" Value="0"/>
@@ -421,7 +436,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/structEducation.png"/>
                             <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="0,2,5,2" FontSize="16" FontFamily="Calibri"/>
-                            <Button Name="Button" Style="{StaticResource ButtonAddLvl}" Command="{Binding Add}"/>
+                            <Button Name="Button" Style="{StaticResource ButtonAddLvl}" Command="{Binding Add}" ToolTip="Добавить факультет"/>
                         </StackPanel>
                     </Border>
                     <HierarchicalDataTemplate.Triggers>
@@ -435,17 +450,23 @@
                                <StackPanel Orientation="Horizontal">
                                    <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/faculty.png"/>
                                    <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
-                                   <Button x:Name="ButtonAdd" Command="{Binding Add}" Style="{StaticResource ButtonAddDirection}"/>
-                                   <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                                   <Button x:Name="ButtonAdd" Command="{Binding Add}" Style="{StaticResource ButtonAddDirection}" ToolTip="Добавить кафедру"/>
+                                    <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}" ToolTip="Удалить факультет"/>
                                </StackPanel>
                            </Border>
+                            <HierarchicalDataTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="ButtonAdd" Property="Visibility" Value="Visible"/>
+                                        <Setter TargetName="ButtonDel" Property="Visibility" Value="Visible"/>
+                                    </Trigger>
+                                </HierarchicalDataTemplate.Triggers>
                             <HierarchicalDataTemplate.ItemTemplate>
                                 <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                                     <Border Style="{StaticResource MyStyleBorder}">
                                         <StackPanel Orientation="Horizontal">
                                             <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/department.png"/>
                                             <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
-                                            <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                                            <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}" ToolTip="Удалить кафедру"/>
                                         </StackPanel>
                                     </Border>
                                     <HierarchicalDataTemplate.Triggers>
@@ -455,12 +476,6 @@
                                     </HierarchicalDataTemplate.Triggers>
                                 </HierarchicalDataTemplate>
                             </HierarchicalDataTemplate.ItemTemplate>
-                            <HierarchicalDataTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="ButtonAdd" Property="Visibility" Value="Visible"/>
-                                        <Setter TargetName="ButtonDel" Property="Visibility" Value="Visible"/>
-                                    </Trigger>
-                                </HierarchicalDataTemplate.Triggers>
                        </HierarchicalDataTemplate>
                     </HierarchicalDataTemplate.ItemTemplate>
                 </HierarchicalDataTemplate>
@@ -479,7 +494,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/lvl.png"/>
                             <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Margin="0,2,5,2" FontSize="16" FontFamily="Calibri"/>
-                            <Button Name="Button" Style="{StaticResource ButtonAddLvl}" Command="{Binding Add}"/>
+                            <Button Name="Button" Style="{StaticResource ButtonAddLvl}" Command="{Binding Add}" ToolTip="Добавить уровень подготовки"/>
                         </StackPanel>
                     </Border>
                     <HierarchicalDataTemplate.Triggers>
@@ -493,8 +508,8 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/lvlEducation.png"/>
                                     <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
-                                    <Button x:Name="ButtonAdd" Command="{Binding Add}" Style="{StaticResource ButtonAddDirection}"/>
-                                    <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                                    <Button x:Name="ButtonAdd" Command="{Binding Add}" Style="{StaticResource ButtonAddDirection}" ToolTip="Добавить направление подготовки"/>
+                                    <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}" ToolTip="Удалить уровень подготовки"/>
                                 </StackPanel>
                             </Border>
                             <HierarchicalDataTemplate.Triggers>
@@ -509,8 +524,8 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/academicSubject.png"/>
                                             <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
-                                            <Button x:Name="ButtonAdd" Command="{Binding Add}" Style="{StaticResource ButtonAddDirection}"/>
-                                            <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                                            <Button x:Name="ButtonAdd" Command="{Binding Add}" Style="{StaticResource ButtonAddDirection}" ToolTip="Добавить форму подготовки"/>
+                                            <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}" ToolTip="Удалить направление подготовки"/>
                                         </StackPanel>
                                     </Border>
                                     <HierarchicalDataTemplate.Triggers>
@@ -525,7 +540,7 @@
                                                 <StackPanel Orientation="Horizontal">
                                                     <Image Height="20" Width="20" Margin="5,0,5,0" Source="/Common/image/diploma.png"/>
                                                     <TextBox Text="{Binding Title}" Style="{StaticResource TextBoxItem}"/>
-                                                    <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}"/>
+                                                    <Button x:Name="ButtonDel" Command="{Binding Del}" Style="{StaticResource ButtonDelDirection}" ToolTip="Удалить форму подготовки"/>
                                                 </StackPanel>
                                             </Border>
                                             <HierarchicalDataTemplate.Triggers>
@@ -546,4 +561,5 @@
         <Button Content="Конфигурация образования" Style="{StaticResource MyStyleButtonConfigure}" Command="{Binding ConfigureEducationCommand}"/>
 
     </StackPanel>
+    
 </UserControl>

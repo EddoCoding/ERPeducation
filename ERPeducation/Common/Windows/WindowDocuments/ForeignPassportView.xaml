@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows.WindowDocuments"
         xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
-        mc:Ignorable="d" Title="PassportView" Height="320" Width="675" 
+        mc:Ignorable="d" Title="Паспорт иностранного гражданина" Height="320" Width="675" 
         FontFamily="Calibri" FontSize="16" WindowStyle="None" ResizeMode="NoResize"
         BorderThickness="1" BorderBrush="LightGray" WindowStartupLocation="CenterScreen">
     <Window.Resources>

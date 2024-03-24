@@ -36,7 +36,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Grid>
+                        <Grid Height="25">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
@@ -55,7 +55,7 @@
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="Button">
                                                     <Border BorderBrush="Gray" BorderThickness="0,1,1,1" Background="{TemplateBinding Background}">
-                                                        <Image Width="20" Height="20" Source="/Common/Image/search.png"/>
+                                                        <Image Width="18" Height="18" Source="/Common/Image/search.png"  Margin="3"/>
                                                     </Border>
                                                 </ControlTemplate>
                                             </Setter.Value>
@@ -77,7 +77,7 @@
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="Button">
                                                     <Border BorderBrush="Gray" BorderThickness="0,1,1,1" Background="{TemplateBinding Background}">
-                                                        <Image Width="20" Height="20" Source="/Common/Image/search.png"/>
+                                                        <Image Width="18" Height="18" Source="/Common/Image/search.png" Margin="3"/>
                                                     </Border>
                                                 </ControlTemplate>
                                             </Setter.Value>
