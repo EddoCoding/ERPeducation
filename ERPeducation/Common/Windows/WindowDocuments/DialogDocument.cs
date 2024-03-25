@@ -1,4 +1,5 @@
-﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
+﻿using ERPeducation.Common.Interface;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
 using ERPeducation.Views.AdmissionCampaign;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
@@ -7,10 +8,10 @@ namespace ERPeducation.Common.Windows.WindowDocuments
 {
     public class DialogDocument : IDialogDocument
     {
-        public void GetPassport(ObservableCollection<PersonalDocumentBase> documents)
+        public void GetPassport(ObservableCollection<PersonalDocumentBase> documents, ObservableCollection<ISubmitted> submittedDocuments)
         {
             PassportView view = new PassportView();
-            view.DataContext = new PassportViewModel(documents, view.Close);
+            view.DataContext = new PassportViewModel(documents, submittedDocuments, view.Close);
             view.ShowDialog();
         }
         public void GetPassport(PassportViewModel document)
@@ -20,10 +21,10 @@ namespace ERPeducation.Common.Windows.WindowDocuments
             view.ShowDialog();
         }
 
-        public void GetSnils(ObservableCollection<PersonalDocumentBase> documents)
+        public void GetSnils(ObservableCollection<PersonalDocumentBase> documents, ObservableCollection<ISubmitted> submittedDocuments)
         {
             SnilsView view = new SnilsView();
-            view.DataContext = new SnilsViewModel(documents, view.Close);
+            view.DataContext = new SnilsViewModel(documents, submittedDocuments, view.Close);
             view.ShowDialog();
         }
         public void GetSnils(SnilsViewModel document)
@@ -33,10 +34,10 @@ namespace ERPeducation.Common.Windows.WindowDocuments
             view.ShowDialog();
         }
 
-        public void GetInn(ObservableCollection<PersonalDocumentBase> documents)
+        public void GetInn(ObservableCollection<PersonalDocumentBase> documents, ObservableCollection<ISubmitted> submittedDocuments)
         {
             InnView view = new InnView();
-            view.DataContext = new InnViewModel(documents, view.Close);
+            view.DataContext = new InnViewModel(documents, submittedDocuments, view.Close);
             view.ShowDialog();
         }
         public void GetInn(InnViewModel document)
@@ -46,10 +47,10 @@ namespace ERPeducation.Common.Windows.WindowDocuments
             view.ShowDialog();
         }
 
-        public void GetForeignPassport(ObservableCollection<PersonalDocumentBase> documents)
+        public void GetForeignPassport(ObservableCollection<PersonalDocumentBase> documents, ObservableCollection<ISubmitted> submittedDocuments)
         {
             ForeignPassportView view = new ForeignPassportView();
-            view.DataContext = new ForeignPassportViewModel(documents, view.Close);
+            view.DataContext = new ForeignPassportViewModel(documents, submittedDocuments, view.Close);
             view.ShowDialog();
         }
         public void GetForeignPassport(ForeignPassportViewModel document)

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System;
 using ReactiveUI.Fody.Helpers;
+using ERPeducation.Common.Interface;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
 {
@@ -51,7 +52,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
         }
 
         //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО ДОКУМЕНТА
-        public EducationSpoViewModel(ObservableCollection<EducationDocumentBase> education, Action closeWindow)
+        public EducationSpoViewModel(ObservableCollection<EducationDocumentBase> education, ObservableCollection<ISubmitted> submittedDocuments, Action closeWindow)
         {
             TypeEducation = "Среднее профессиональное образование";
             TypeDocument = "Диплом о среднем профессиональном образовании";
@@ -65,6 +66,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
             AddDocumentCommand = ReactiveCommand.Create(() =>
             {
                 education.Add(this);
+                submittedDocuments.Add(this);
                 closeWindow();
             });
         }

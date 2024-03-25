@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using ERPeducation.Common.Interface;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
@@ -52,7 +53,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
         }
 
         //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО ДОКУМЕНТА
-        public PassportViewModel(ObservableCollection<PersonalDocumentBase> document, Action closeWindow) 
+        public PassportViewModel(ObservableCollection<PersonalDocumentBase> document, ObservableCollection<ISubmitted> submittedDocuments, Action closeWindow) 
         {
             TypeDocument = "Паспорт";
 
@@ -65,6 +66,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
             AddDocumentCommand = ReactiveCommand.Create(() =>
             {
                 document.Add(this);
+                submittedDocuments.Add(this);
                 closeWindow();
             });
         }

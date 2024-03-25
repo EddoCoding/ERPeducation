@@ -9,7 +9,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class AdmissionCampaignViewModel : ReactiveObject
     {
-        public ObservableCollection<EnrolleeViewModel> Enrollees { get; set; }
+        public ObservableCollection<AddChangeEnrolleeViewModel> Enrollees { get; set; }
         MainTabControl<MainTabItem> data;
 
         public ReactiveCommand<Unit, Unit> AddChangeEnrolleeCommand { get; set; }
@@ -21,7 +21,12 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         {
             _userControlService = userControlService;
             this.data = data;
-            Enrollees = new ObservableCollection<EnrolleeViewModel>();
+            Enrollees = new ObservableCollection<AddChangeEnrolleeViewModel>();
+            Enrollees.CollectionChanged += (sender, e) =>
+            {
+                if(e.OldItems != null) foreach(AddChangeEnrolleeViewModel item in e.OldItems) item.OnDelete -= enrollee => Enrollees.Remove(enrollee);
+                if(e.NewItems != null) foreach(AddChangeEnrolleeViewModel item in e.NewItems) item.OnDelete += enrollee => Enrollees.Remove(enrollee);
+            };
 
             InitializingCommands();
         }

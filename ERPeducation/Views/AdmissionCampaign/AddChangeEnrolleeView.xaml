@@ -5,12 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.NewView"
              xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
+             xmlns:resourses="clr-namespace:ERPeducation.Common.Resourses"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
              FontFamily="Calibri">
     <UserControl.Resources>
         <converters:ComboBoxItemToStringConvert x:Key="ComboBoxItemToStringConvert"/>
         <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
-        
+
         <!--Персональная информация-->
         <Style x:Key="MyStyleLabel" TargetType="Label">
             <Setter Property="FontFamily" Value="Calibri"/>
@@ -744,6 +745,134 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <!--Поданные-->
+        <Style x:Key="ComboBoxDocument" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <StackPanel Margin="10,0,0,0">
+                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectedSee}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                      RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Width="100" HorizontalAlignment="Left">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                            </Border>
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide" Width="100">
+                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="TemplateForDocument">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{Binding TypeDocument}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <ComboBox Grid.Column="1" SelectedItem="{Binding SelectedSee, Converter={StaticResource ComboBoxItemToStringConvert}}" 
+                          Style="{StaticResource ComboBoxDocument}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
+                          VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <ComboBoxItem Content="Оригинал"/>
+                    <ComboBoxItem Content="Копия"/>
+                </ComboBox>
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Label Content="Количество: " Margin="20,0,0,0"/>
+                    <TextBox Text="{Binding Quantity}" Width="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="TemplateForEducation">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{Binding TypeDocument}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <ComboBox Grid.Column="1" SelectedItem="{Binding SelectedSee, Converter={StaticResource ComboBoxItemToStringConvert}}" 
+                          Style="{StaticResource ComboBoxDocument}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
+                          VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <ComboBoxItem Content="Оригинал"/>
+                    <ComboBoxItem Content="Копия"/>
+                </ComboBox>
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Label Content="Количество: " Margin="20,0,0,0"/>
+                    <TextBox Text="{Binding Quantity}" Width="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="TemplateForSubmitted">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="{Binding SelectedSubmitted}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <ComboBox Grid.Column="1" SelectedItem="{Binding SelectedSee, Converter={StaticResource ComboBoxItemToStringConvert}}" 
+                          Style="{StaticResource ComboBoxDocument}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
+                          VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <ComboBoxItem Content="Оригинал"/>
+                    <ComboBoxItem Content="Копия"/>
+                </ComboBox>
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Label Content="Количество: " Margin="20,0,0,0"/>
+                    <TextBox Text="{Binding Quantity}" Width="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <resourses:CustomTemplateSelector x:Key="CustomTemplateSelector" TemplateDocument="{StaticResource TemplateForDocument}"
+                          TemplateEducation="{StaticResource TemplateForEducation}" TemplateSubmitted="{StaticResource TemplateForSubmitted}"/>
+
+        <Style x:Key="ListBoxItemSubmitted" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </UserControl.Resources>
 
@@ -751,6 +880,7 @@
         
         <Grid Background="White">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -1006,7 +1136,11 @@
 
             <StackPanel Grid.Row="8">
 
-                <Label Content="Документы на печать" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
+                <Label Content="Поданные документы" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
+
+                <Button Content="+ Добавить" Style="{StaticResource ButtonAdd}" Command="{Binding AddinSubmittedDocumentCommand}"/>
+                <ListBox Margin="15,10,15,0" Height="175" ItemsSource="{Binding SubmittedDocuments}" ItemTemplateSelector="{StaticResource CustomTemplateSelector}"
+                         ItemContainerStyle="{StaticResource ListBoxItemSubmitted}"/>
 
             </StackPanel>
 
@@ -1015,9 +1149,11 @@
 
             <StackPanel Grid.Row="10">
 
-                <Label Content="Результаты испытаний" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,10"/>
+                <Label Content="Распечатка" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,10"/>
 
             </StackPanel>
+
+            <Button Grid.Row="11" Content="Нажми" Command="{Binding Final}"/>
 
         </Grid>
         

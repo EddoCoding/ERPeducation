@@ -1,9 +1,8 @@
-﻿using ERPeducation.Common.BD;
-using ERPeducation.Common.Command;
+﻿using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows.WindowDirection;
 using ERPeducation.Common.Windows.WindowDocuments;
 using ERPeducation.Common.Windows.WindowEducation;
-using ERPeducation.Common.Windows.WindowTest;
+using ERPeducation.Common.Windows.WindowSubmitted;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
 using ReactiveUI;
@@ -68,8 +67,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         public UserControl UserControlEducation { get; set; }
         #endregion
-
-
         #region Поступление
         public ObservableCollection<DirectionViewModel> Directions { get; set; }
 
@@ -86,6 +83,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         [Reactive] public UserControl UserControlDirection { get; set; }
         #endregion
+        #region Поданные
+        public ObservableCollection<ISubmitted> SubmittedDocuments { get; set; }
+        #endregion
+        #region Распечатка
+        #endregion
 
         #region Команды Личная Информация
         public ReactiveCommand<Unit,Unit> OpenPopupCommand { get; set; }
@@ -99,16 +101,30 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         #region Команды Поступление
         public ReactiveCommand<Unit,Unit> AddDirection { get; set; }
         #endregion
-        #region Команды Документы на печать
+        #region Поданные
+        public ReactiveCommand<Unit,Unit> AddinSubmittedDocumentCommand { get; set; }
         #endregion
-        #region Команды Результаты испытаний
+        #region Распечатка
         #endregion
+
+
+        public ReactiveCommand<Unit,Unit> Final { get; set; }
+        public ReactiveCommand<Unit,Unit> ChangeEnrolleeCommand { get; set; }
+        public ReactiveCommand<Unit,Unit> DelEnrolleeCommand { get; set; }
+
+
+        public event Action<AddChangeEnrolleeViewModel>? OnChange;
+        public event Action<AddChangeEnrolleeViewModel>? OnDelete;
+
+        public void Change() => OnChange?.Invoke(this);
+        public void Delete() => OnDelete?.Invoke(this);
+
 
         IDialogDocument _dialogDocument;
         IDialogEducation _dialogEducation;
         IDialogDirection _dialogDirection;
-        public AddChangeEnrolleeViewModel(IDialogDocument dialogDocument, IDialogEducation dialogEducation, 
-            IDialogDirection dialogDirection, ObservableCollection<EnrolleeViewModel> enrollees)
+        public AddChangeEnrolleeViewModel(IDialogDocument dialogDocument, IDialogEducation dialogEducation, IDialogDirection dialogDirection, 
+            IDialogSubmitted dialogSubmitted, ObservableCollection<AddChangeEnrolleeViewModel> enrollees)
         {
             _dialogDocument = dialogDocument;
             _dialogEducation = dialogEducation;
@@ -136,32 +152,32 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             {
                 if (parameter == "9th grade")
                 {
-                    _dialogEducation.GetBasicGeneral(Educations);
+                    _dialogEducation.GetBasicGeneral(Educations, SubmittedDocuments);
                     return;
                 }
                 if (parameter == "11th grade")
                 {
-                    _dialogEducation.GetBasicAverage(Educations);
+                    _dialogEducation.GetBasicAverage(Educations, SubmittedDocuments);
                     return;
                 }
                 if (parameter == "SPO")
                 {
-                    _dialogEducation.GetSpo(Educations);
+                    _dialogEducation.GetSpo(Educations, SubmittedDocuments);
                     return;
                 }
                 if (parameter == "Undergraduate")
                 {
-                    _dialogEducation.GetUndergraduate(Educations);
+                    _dialogEducation.GetUndergraduate(Educations, SubmittedDocuments);
                     return;
                 }
                 if (parameter == "Master")
                 {
-                    _dialogEducation.GetMaster(Educations);
+                    _dialogEducation.GetMaster(Educations, SubmittedDocuments);
                     return;
                 }
                 if (parameter == "Specialty")
                 {
-                    _dialogEducation.GetSpecialty(Educations);
+                    _dialogEducation.GetSpecialty(Educations, SubmittedDocuments);
                     return;
                 }
             });
@@ -179,6 +195,24 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 dialogDirection.GetDirection(Directions);
             });
             #endregion
+            #region Поданные
+            SubmittedDocuments = new ObservableCollection<ISubmitted>();
+            AddinSubmittedDocumentCommand = ReactiveCommand.Create(() =>
+            {
+                dialogSubmitted.GetSubmitted(SubmittedDocuments);
+            });
+            #endregion
+            #region Распечатка
+            Final = ReactiveCommand.Create(() =>
+            {
+                enrollees.Add(this);
+            });
+            #endregion
+
+            //OnChange ДОПИСАТЬ
+
+            ChangeEnrolleeCommand = ReactiveCommand.Create(Change);
+            DelEnrolleeCommand = ReactiveCommand.Create(Delete);
         }
 
         void InitializingCommandsPersonalInfo()
@@ -202,22 +236,22 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             {
                 if(parameter == "Passport") 
                 {
-                    _dialogDocument.GetPassport(Documents);
+                    _dialogDocument.GetPassport(Documents, SubmittedDocuments);
                     return;
                 }
                 if(parameter == "Snils")
                 {
-                    _dialogDocument.GetSnils(Documents);
+                    _dialogDocument.GetSnils(Documents, SubmittedDocuments);
                     return;
                 }
                 if(parameter == "Inn")
                 {
-                    _dialogDocument.GetInn(Documents);
+                    _dialogDocument.GetInn(Documents, SubmittedDocuments);
                     return;
                 }
                 if(parameter == "ForeignPassport")
                 {
-                    _dialogDocument.GetForeignPassport(Documents);
+                    _dialogDocument.GetForeignPassport(Documents, SubmittedDocuments);
                     return;
                 }
             });

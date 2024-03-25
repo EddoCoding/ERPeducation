@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign"
              xmlns:vm="clr-namespace:ERPeducation.ViewModels.Modules.AdmissionCampaign"
-             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" FontFamily="Calibri">
     <UserControl.Resources>
         <Style x:Key="MyStyleButton" TargetType="Button">
             <Setter Property="BorderThickness" Value="0"/>
@@ -96,8 +96,75 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="ButtonChange" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="Gray" BorderThickness="0" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <Image Height="20" Width="20" Source="/Common/Image/change.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonDelete" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="Gray" BorderThickness="0" CornerRadius="5" Background="{TemplateBinding Background}">
+                            <Image Height="20" Width="20" Source="/Common/Image/delete.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="ListBoxItem" TargetType="ListBoxItem">
-            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Background" BorderBrush="Gray" BorderThickness="0,0,0,1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" Text="{Binding SurName}" Margin="5" FontSize="14"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="5" FontSize="14"/>
+                                <TextBlock Grid.Column="2" Text="{Binding MiddleName}" Margin="5" FontSize="14"/>
+
+                                <Button Grid.Column="3" Content="Изменить" Style="{StaticResource ButtonChange}" Command="{Binding ChangeEnrolleeCommand}" 
+                                        HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                                <Button Grid.Column="4" Content="Отозвать" Style="{StaticResource ButtonDelete}" Command="{Binding DelEnrolleeCommand}" 
+                                        Margin="0,0,10,0"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Background" Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Background" Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
     
@@ -128,7 +195,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Style="{StaticResource MyStyleButton}" Content="+ Добавить абитуриента" Margin="10,0,0,0" Command="{Binding AddChangeEnrolleeCommand}"/>
+                    <Button Grid.Column="0" Style="{StaticResource MyStyleButton}" Content="+ Добавить абитуриента" Margin="10,0,0,0" 
+                            VerticalAlignment="Center" Command="{Binding AddChangeEnrolleeCommand}"/>
                     <TextBox Grid.Column="1" Style="{StaticResource MyStyleTextBox}"/>
 
                 </Grid>

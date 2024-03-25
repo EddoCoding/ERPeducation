@@ -7,7 +7,6 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {

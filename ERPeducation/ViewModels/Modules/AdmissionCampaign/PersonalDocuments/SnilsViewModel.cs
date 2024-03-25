@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using ERPeducation.Common.Interface;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
@@ -43,7 +44,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
         }
 
         //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО ДОКУМЕНТА
-        public SnilsViewModel(ObservableCollection<PersonalDocumentBase> documents, Action closeWindow)
+        public SnilsViewModel(ObservableCollection<PersonalDocumentBase> documents, ObservableCollection<ISubmitted> submittedDocuments, Action closeWindow)
         {
             TypeDocument = "Снилс";
 
@@ -56,6 +57,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
             AddDocumentCommand = ReactiveCommand.Create(() =>
             {
                 documents.Add(this);
+                submittedDocuments.Add(this);
                 closeWindow();
             });
         }

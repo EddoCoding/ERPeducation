@@ -12,7 +12,7 @@ namespace ERPeducation.Common.Interface
         UserControl GetModuleAdministration();
 
 
-        UserControl GetUserControlEnrollee(ObservableCollection<EnrolleeViewModel> enrollees);
+        UserControl GetUserControlEnrollee(ObservableCollection<AddChangeEnrolleeViewModel> enrollees);
 
 
 
