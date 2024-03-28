@@ -1,5 +1,6 @@
 ﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace ERPeducation.Common.Windows.WindowTest
 {
@@ -8,14 +9,15 @@ namespace ERPeducation.Common.Windows.WindowTest
         public void GetTest(ObservableCollection<TestViewModel> test)
         {
             TestView testView = new TestView();
-            testView.DataContext = new TestViewModel(new DialogTest(), test, testView.Close);
+            testView.DataContext = new TestViewModel(test, testView.Close);
             testView.ShowDialog();
         }
         public void GetTest(TestViewModel test)
         {
-            TestView testView = new TestView();
-            testView.DataContext = new TestViewModel(test, testView.Close);
-            testView.ShowDialog();
+            MessageBox.Show(test.When.ToString(), test.Where);
+            //TestView testView = new TestView();
+            //testView.DataContext = new TestViewModel(test, testView.Close);
+            //testView.ShowDialog();
         }
     }
 }

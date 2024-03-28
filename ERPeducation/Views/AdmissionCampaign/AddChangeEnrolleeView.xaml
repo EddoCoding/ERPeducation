@@ -43,7 +43,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
                         <StackPanel>
-                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectedGender}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                            <ToggleButton x:Name="togglebutton" Content="{Binding epivm.SelectedGender}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
                                               RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Width="70" HorizontalAlignment="Left">
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="ToggleButton">
@@ -528,7 +528,7 @@
 
                             <Border Grid.Column="0" Height="25">
                                 <TextBox FontSize="14" BorderThickness="0" SelectionBrush="DarkGray" VerticalAlignment="Center" FontFamily="Calibri"
-                                         Text="{Binding DateOfBirth, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
+                                         Text="{Binding epivm.DateOfBirth, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
                                 <Border.Style>
                                     <Style TargetType="Border">
                                         <Setter Property="BorderBrush" Value="Gray"/>
@@ -536,13 +536,13 @@
                                     </Style>
                                 </Border.Style>
                             </Border>
-                            <Button Grid.Column="1" Style="{StaticResource StyleForImageCalendar}" Command="{Binding OpenPopupCommand}"/>
-                            <Popup Grid.Column="2" Style="{StaticResource MyStylePopup}" IsOpen="{Binding Popup}">
+                            <Button Grid.Column="1" Style="{StaticResource StyleForImageCalendar}" Command="{Binding epivm.OpenPopupCommand}"/>
+                            <Popup Grid.Column="2" Style="{StaticResource MyStylePopup}" IsOpen="{Binding epivm.Popup}">
                                 <Grid Background="Transparent">
                                     <Calendar Style="{StaticResource MyStyleCalendar}"
-                                      CalendarDayButtonStyle="{StaticResource MyStyleCalendarDayButton}" 
-                                      CalendarButtonStyle="{StaticResource MyStyleCalendarButton}"
-                                      SelectedDate="{Binding DateOfBirth}">
+                                              CalendarDayButtonStyle="{StaticResource MyStyleCalendarDayButton}" 
+                                              CalendarButtonStyle="{StaticResource MyStyleCalendarButton}"
+                                              SelectedDate="{Binding epivm.DateOfBirth}">
                                         <Calendar.Effect>
                                             <DropShadowEffect ShadowDepth="1" Color="Black" BlurRadius="10" Opacity="0.7"/>
                                         </Calendar.Effect>
@@ -746,127 +746,23 @@
             </Setter>
         </Style>
         
-        <!--Поданные-->
-        <Style x:Key="ComboBoxDocument" TargetType="ComboBox">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <StackPanel Margin="10,0,0,0">
-                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectedSee}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
-                                      RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Width="100" HorizontalAlignment="Left">
-                                <ToggleButton.Template>
-                                    <ControlTemplate TargetType="ToggleButton">
-                                        <Grid>
-                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
-                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
-                                            </Border>
-                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
-                                        </Grid>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
-                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </ToggleButton.Template>
-                            </ToggleButton>
-                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
-                                   Focusable="True" PopupAnimation="Slide" Width="100">
-                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
-                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
-                                    <ScrollViewer SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                    </ScrollViewer>
-                                </Border>
-                            </Popup>
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
-        <DataTemplate x:Key="TemplateForDocument">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" Text="{Binding TypeDocument}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                <ComboBox Grid.Column="1" SelectedItem="{Binding SelectedSee, Converter={StaticResource ComboBoxItemToStringConvert}}" 
-                          Style="{StaticResource ComboBoxDocument}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
-                          VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <ComboBoxItem Content="Оригинал"/>
-                    <ComboBoxItem Content="Копия"/>
-                </ComboBox>
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <Label Content="Количество: " Margin="20,0,0,0"/>
-                    <TextBox Text="{Binding Quantity}" Width="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="TemplateForEducation">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" Text="{Binding TypeDocument}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                <ComboBox Grid.Column="1" SelectedItem="{Binding SelectedSee, Converter={StaticResource ComboBoxItemToStringConvert}}" 
-                          Style="{StaticResource ComboBoxDocument}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
-                          VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <ComboBoxItem Content="Оригинал"/>
-                    <ComboBoxItem Content="Копия"/>
-                </ComboBox>
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <Label Content="Количество: " Margin="20,0,0,0"/>
-                    <TextBox Text="{Binding Quantity}" Width="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-        <DataTemplate x:Key="TemplateForSubmitted">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0" Text="{Binding SelectedSubmitted}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                <ComboBox Grid.Column="1" SelectedItem="{Binding SelectedSee, Converter={StaticResource ComboBoxItemToStringConvert}}" 
-                          Style="{StaticResource ComboBoxDocument}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
-                          VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <ComboBoxItem Content="Оригинал"/>
-                    <ComboBoxItem Content="Копия"/>
-                </ComboBox>
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
-                    <Label Content="Количество: " Margin="20,0,0,0"/>
-                    <TextBox Text="{Binding Quantity}" Width="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,10,0"/>
-                </StackPanel>
-            </Grid>
-        </DataTemplate>
-        <resourses:CustomTemplateSelector x:Key="CustomTemplateSelector" TemplateDocument="{StaticResource TemplateForDocument}"
-                          TemplateEducation="{StaticResource TemplateForEducation}" TemplateSubmitted="{StaticResource TemplateForSubmitted}"/>
-
-        <Style x:Key="ListBoxItemSubmitted" TargetType="ListBoxItem">
+        <Style x:Key="FinalButton" TargetType="Button">
+            <Setter Property="Margin" Value="15"/>
+            <Setter Property="FontSize" Value="15"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
-                            <ContentPresenter Margin="3"/>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="WhiteSmoke"/>
-                            </Trigger>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="Background" Value="LightGray"/>
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="DarkCyan"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -918,16 +814,16 @@
                 </Grid.RowDefinitions>
 
                     <Label Grid.Column="0" Grid.Row="0" Content="Фамилия" Style="{StaticResource Label}"/>
-                    <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBox}" Text="{Binding SurName}"/>
+                    <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBox}" Text="{Binding epivm.SurName}"/>
 
                     <Label Grid.Column="0" Grid.Row="2" Content="Имя" Style="{StaticResource Label}"/>
-                    <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBox}" Text="{Binding Name}"/>
+                    <TextBox Grid.Column="1" Grid.Row="2" Style="{StaticResource TextBox}" Text="{Binding epivm.Name}"/>
 
                     <Label Grid.Column="0" Grid.Row="4" Content="Отчество" Style="{StaticResource Label}"/>
-                    <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBox}" Text="{Binding MiddleName}"/>
+                    <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource TextBox}" Text="{Binding epivm.MiddleName}"/>
 
                     <Label Grid.Column="0" Grid.Row="6" Content="Пол" Style="{StaticResource Label}"/>
-                    <ComboBox Grid.Column="1" Grid.Row="6" Style="{StaticResource ComboBoxPersonalInfo}" SelectedItem="{Binding SelectedGender, 
+                    <ComboBox Grid.Column="1" Grid.Row="6" Style="{StaticResource ComboBoxPersonalInfo}" SelectedItem="{Binding epivm.SelectedGender, 
                         Converter={StaticResource ComboBoxItemToStringConvert}}" ItemContainerStyle="{StaticResource ComboBoxItem}">
                         <ComboBox.Items>
                             <ComboBoxItem Content="Муж"/>
@@ -939,11 +835,11 @@
                     <DatePicker Grid.Column="1" Grid.Row="8" Style="{StaticResource MyStyleDatePicker}"/>
 
                     <Grid Grid.ColumnSpan="2" Grid.Row="10">
-                    <Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
@@ -951,17 +847,16 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <RadioButton Grid.Column="0" Grid.Row="0" Style="{StaticResource RadioButtonPersonalInfo}" Command="{Binding OpenValueCommand}" IsChecked="True"/>
-                    <Label Grid.Column="1" Grid.Row="0" Content="Гражданство" Style="{StaticResource LabelCitizenship}"/>
-                    <TextBox Grid.Column="2" Grid.Row="0" Style="{StaticResource TextBox}" Text="{Binding Citizenship}" IsEnabled="{Binding IsEnabled}"/>
-                    <Label Grid.Column="3" Grid.Row="0" Content="Действует с:" Style="{StaticResource LabelCitizenship}"/>
-                    <TextBox Grid.Column="4" Grid.Row="0" Style="{StaticResource TextBoxDoCitizenship}" Text="{Binding DoCitizenship, 
-                        StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" IsEnabled="{Binding IsEnabled}"/>
+                        <RadioButton Grid.Column="0" Grid.Row="0" Style="{StaticResource RadioButtonPersonalInfo}" Command="{Binding epivm.OpenValueCommand}" IsChecked="True"/>
+                        <Label Grid.Column="1" Grid.Row="0" Content="Гражданство" Style="{StaticResource LabelCitizenship}"/>
+                        <TextBox Grid.Column="2" Grid.Row="0" Style="{StaticResource TextBox}" Text="{Binding epivm.Citizenship}" IsEnabled="{Binding epivm.IsEnabled}"/>
+                        <Label Grid.Column="3" Grid.Row="0" Content="Действует с:" Style="{StaticResource LabelCitizenship}"/>
+                        <TextBox Grid.Column="4" Grid.Row="0" Style="{StaticResource TextBoxDoCitizenship}" Text="{Binding epivm.DoCitizenship, 
+                                 StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" IsEnabled="{Binding epivm.IsEnabled}"/>
 
-                    <RadioButton Grid.Column="0" Grid.Row="1" Style="{StaticResource RadioButtonPersonalInfo}" Command="{Binding DelValueCommand}"/>
-                    <Label Grid.Column="1" Grid.Row="1" Content="Без гражданства" Style="{StaticResource LabelCitizenship}"/>
-
-                </Grid>
+                        <RadioButton Grid.Column="0" Grid.Row="1" Style="{StaticResource RadioButtonPersonalInfo}" Command="{Binding epivm.DelValueCommand}"/>
+                        <Label Grid.Column="1" Grid.Row="1" Content="Без гражданства" Style="{StaticResource LabelCitizenship}"/>
+                    </Grid>
                 
                 </Grid>
 
@@ -996,10 +891,10 @@
                     </Grid.Resources>
 
                     <Label Grid.Column="0" Content="Добавить документ:" Style="{StaticResource LabelCitizenship}"/>
-                    <Button Grid.Column="1" Content="Паспорт" Command="{Binding AddDocumentCommand}" CommandParameter="Passport"/>
-                    <Button Grid.Column="2" Content="Снилс" Command="{Binding AddDocumentCommand}" CommandParameter="Snils"/>
-                    <Button Grid.Column="3" Content="ИНН" Command="{Binding AddDocumentCommand}" CommandParameter="Inn"/>
-                    <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Command="{Binding AddDocumentCommand}" CommandParameter="ForeignPassport"/>
+                    <Button Grid.Column="1" Content="Паспорт" Command="{Binding epivm.AddDocumentCommand}" CommandParameter="Passport"/>
+                    <Button Grid.Column="2" Content="Снилс" Command="{Binding epivm.AddDocumentCommand}" CommandParameter="Snils"/>
+                    <Button Grid.Column="3" Content="ИНН" Command="{Binding epivm.AddDocumentCommand}" CommandParameter="Inn"/>
+                    <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Command="{Binding epivm.AddDocumentCommand}" CommandParameter="ForeignPassport"/>
                 </Grid>
 
                 <Grid>
@@ -1009,10 +904,10 @@
                     </Grid.ColumnDefinitions>
 
                     <ListBox Grid.Column="0" Margin="15,5,15,0" Height="175" Width="380" HorizontalAlignment="Left" 
-                             ItemsSource="{Binding Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}" SelectedItem="{Binding SelectedDocument}" />
+                             ItemsSource="{Binding epivm.Documents}" ItemContainerStyle="{StaticResource ListBoxItemDocument}" SelectedItem="{Binding epivm.SelectedDocument}" />
 
                     <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0,5,15,0" Height="175">
-                        <UserControl Content="{Binding UserControlDocument}"/>
+                        <UserControl Content="{Binding epivm.UserControlDocument}"/>
                     </Border>
                 </Grid>
 
@@ -1026,19 +921,19 @@
                 <Label Content="Контактная информация" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
 
                 <Label Content="Адрес места проживания" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding ResidenceAddress}" Style="{StaticResource TextBoxContact1}"/>
+                <TextBox Text="{Binding ecivm.ResidenceAddress}" Style="{StaticResource TextBoxContact1}"/>
 
                 <Label Content="Адрес места по прописке" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding RegistrationAddress}" Style="{StaticResource TextBoxContact1}"/>
+                <TextBox Text="{Binding ecivm.RegistrationAddress}" Style="{StaticResource TextBoxContact1}"/>
 
                 <Label Content="Домашний телефон" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding HomePhone}" Style="{StaticResource TextBoxContact2}"/>
+                <TextBox Text="{Binding ecivm.HomePhone}" Style="{StaticResource TextBoxContact2}"/>
 
                 <Label Content="Мобильный телефон" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding MobilePhone}" Style="{StaticResource TextBoxContact2}"/>
+                <TextBox Text="{Binding ecivm.MobilePhone}" Style="{StaticResource TextBoxContact2}"/>
 
                 <Label Content="Почта" Style="{StaticResource LabelContact}"/>
-                <TextBox Text="{Binding Mail}" Style="{StaticResource TextBoxContact2}"/>
+                <TextBox Text="{Binding ecivm.Mail}" Style="{StaticResource TextBoxContact2}"/>
 
             </StackPanel>
 
@@ -1080,12 +975,12 @@
                     </Grid.Resources>
 
                     <Label  Grid.Column="0" Content="Добавить образование:" Style="{StaticResource LabelCitizenship}"/>
-                    <Button Grid.Column="1" Content="9 класс" Command="{Binding AddEducationCommand}" CommandParameter="9th grade"/>
-                    <Button Grid.Column="2" Content="11 класс" Command="{Binding AddEducationCommand}" CommandParameter="11th grade"/>
-                    <Button Grid.Column="3" Content="СПО" Command="{Binding AddEducationCommand}" CommandParameter="SPO"/>
-                    <Button Grid.Column="4" Content="Бакалавриат" Command="{Binding AddEducationCommand}" CommandParameter="Undergraduate"/>
-                    <Button Grid.Column="5" Content="Магистратура" Command="{Binding AddEducationCommand}" CommandParameter="Master"/>
-                    <Button Grid.Column="6" Content="Специалитет" Command="{Binding AddEducationCommand}" CommandParameter="Specialty"/>
+                    <Button Grid.Column="1" Content="9 класс" Command="{Binding eevm.AddEducationCommand}" CommandParameter="9"/>
+                    <Button Grid.Column="2" Content="11 класс" Command="{Binding eevm.AddEducationCommand}" CommandParameter="11"/>
+                    <Button Grid.Column="3" Content="СПО" Command="{Binding eevm.AddEducationCommand}" CommandParameter="SPO"/>
+                    <Button Grid.Column="4" Content="Бакалавриат" Command="{Binding eevm.AddEducationCommand}" CommandParameter="Undergraduate"/>
+                    <Button Grid.Column="5" Content="Магистратура" Command="{Binding eevm.AddEducationCommand}" CommandParameter="Master"/>
+                    <Button Grid.Column="6" Content="Специалитет" Command="{Binding eevm.AddEducationCommand}" CommandParameter="Specialty"/>
                 </Grid>
 
                 <Grid>
@@ -1095,10 +990,10 @@
                     </Grid.ColumnDefinitions>
 
                     <ListBox Grid.Column="0" Margin="15,5,15,0" Height="175" Width="380" HorizontalAlignment="Left"
-                             ItemsSource="{Binding Educations}" ItemContainerStyle="{StaticResource ListBoxItemEducation}" SelectedItem="{Binding SelectedEducation}"/>
+                             ItemsSource="{Binding eevm.Educations}" ItemContainerStyle="{StaticResource ListBoxItemEducation}" SelectedItem="{Binding eevm.SelectedEducation}"/>
 
                     <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0,5,15,0" Height="175">
-                        <UserControl Content="{Binding UserControlEducation}"/>
+                        <UserControl Content="{Binding eevm.UserControlEducation}"/>
                     </Border>
                     
                 </Grid>
@@ -1112,7 +1007,7 @@
 
                 <Label Content="Поступление" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,10"/>
 
-                <Button Content="+ Добавить направление подготовки" Style="{StaticResource ButtonAdd}" Command="{Binding AddDirection}"/>
+                <Button Content="+ Добавить направление подготовки" Style="{StaticResource ButtonAdd}" Command="{Binding eavm.AddDirection}"/>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -1120,11 +1015,11 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox Margin="15,10,15,0" Height="175" ItemsSource="{Binding Directions}" MinWidth="300"
-                             ItemContainerStyle="{StaticResource ListBoxItemDirection}" SelectedItem="{Binding SelectedDirection}"/>
+                    <ListBox Margin="15,10,15,0" Height="175" ItemsSource="{Binding eavm.Directions}" MinWidth="300"
+                             ItemContainerStyle="{StaticResource ListBoxItemDirection}" SelectedItem="{Binding eavm.SelectedDirection}"/>
 
                     <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="0,10,15,0" Height="175">
-                        <UserControl Content="{Binding UserControlDirection}"/>
+                        <UserControl Content="{Binding eavm.UserControlDirection}"/>
                     </Border>
                     
                 </Grid>
@@ -1136,24 +1031,11 @@
 
             <StackPanel Grid.Row="8">
 
-                <Label Content="Поданные документы" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
-
-                <Button Content="+ Добавить" Style="{StaticResource ButtonAdd}" Command="{Binding AddinSubmittedDocumentCommand}"/>
-                <ListBox Margin="15,10,15,0" Height="175" ItemsSource="{Binding SubmittedDocuments}" ItemTemplateSelector="{StaticResource CustomTemplateSelector}"
-                         ItemContainerStyle="{StaticResource ListBoxItemSubmitted}"/>
-
-            </StackPanel>
-
-            <Line Grid.Row="9" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"
-                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
-
-            <StackPanel Grid.Row="10">
-
                 <Label Content="Распечатка" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,10"/>
 
             </StackPanel>
 
-            <Button Grid.Row="11" Content="Нажми" Command="{Binding Final}"/>
+            <Button Grid.Row="9" Content="Добавить абитуриента" Style="{StaticResource FinalButton}" Command="{Binding AddEnrolleeCommand}" HorizontalAlignment="Center"/>
 
         </Grid>
         

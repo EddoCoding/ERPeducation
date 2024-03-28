@@ -40,6 +40,7 @@ namespace ERPeducation.ViewModels
             }
         }
         #endregion 
+
         public string FullName { get; set; }
 
         public bool RectorIsEnabled { get; set; }

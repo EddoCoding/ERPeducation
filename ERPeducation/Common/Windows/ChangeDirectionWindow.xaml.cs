@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ERPeducation.Common.Windows.WindowSubmitted
+namespace ERPeducation.Common.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для SubmittedView.xaml
+    /// Логика взаимодействия для ChangeDirectionWindow.xaml
     /// </summary>
-    public partial class SubmittedView : Window
+    public partial class ChangeDirectionWindow : Window
     {
-        public SubmittedView()
+        public ChangeDirectionWindow()
         {
             InitializeComponent();
         }

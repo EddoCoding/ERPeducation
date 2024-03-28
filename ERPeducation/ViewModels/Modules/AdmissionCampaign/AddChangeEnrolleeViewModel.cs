@@ -1,260 +1,67 @@
 ﻿using ERPeducation.Common.Interface;
-using ERPeducation.Common.Windows.WindowDirection;
+using ERPeducation.Common.Services;
 using ERPeducation.Common.Windows.WindowDocuments;
-using ERPeducation.Common.Windows.WindowEducation;
-using ERPeducation.Common.Windows.WindowSubmitted;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
+using ERPeducation.Models;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Enrollee;
+using Newtonsoft.Json;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Windows.Controls;
+using System.Windows;
+using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
+    [JsonObject]
     public class AddChangeEnrolleeViewModel : ReactiveObject
     {
-        #region Личная Информация
-        public string SurName { get; set; }
-        public string Name { get; set; }
-        public string MiddleName { get; set; }
-
-        [Reactive] public string SelectedGender { get; set; }
-        [Reactive] public bool Popup { get; set; }
-        [Reactive] public DateTime DateOfBirth { get; set; }
-
-        [Reactive] public string Citizenship { get; set; }
-        [Reactive] public bool IsEnabled { get; set; } = true;
-        [Reactive] public DateTime DoCitizenship { get; set; }
-        public ObservableCollection<PersonalDocumentBase> Documents { get; set; }
-
-        PersonalDocumentBase selectedDocument;
-        public PersonalDocumentBase SelectedDocument
-        {
-            get => selectedDocument;
-            set
-            {
-                selectedDocument = value;
-                _dialogDocument.GetUserControlDocument(UserControlDocument, SelectedDocument);
-            }
-        }
-
-        public UserControl UserControlDocument { get; set; }
-
-        #endregion
-        #region Контактная Информация
-        public string ResidenceAddress { get; set; }
-        public string RegistrationAddress { get; set; }
-        public string HomePhone { get; set; }
-        public string MobilePhone { get; set; }
-        public string Mail { get; set; }
-        #endregion
-        #region Образование
-        public ObservableCollection<EducationDocumentBase> Educations { get; set; }
-
-        EducationDocumentBase selectedEducation;
-        public EducationDocumentBase SelectedEducation
-        {
-            get => selectedEducation;
-            set
-            {
-                selectedEducation = value;
-                _dialogEducation.GetUserControlEducation(UserControlEducation, SelectedEducation);
-            }
-        }
-
-        public UserControl UserControlEducation { get; set; }
-        #endregion
-        #region Поступление
-        public ObservableCollection<DirectionViewModel> Directions { get; set; }
-
-        DirectionViewModel selectedDirection;
-        public DirectionViewModel SelectedDirection
-        {
-            get => selectedDirection;
-            set
-            {
-                selectedDirection = value;
-                _dialogDirection.GetUserControlDirection(UserControlDirection, SelectedDirection);
-            }
-        }
-
-        [Reactive] public UserControl UserControlDirection { get; set; }
-        #endregion
-        #region Поданные
-        public ObservableCollection<ISubmitted> SubmittedDocuments { get; set; }
-        #endregion
-        #region Распечатка
-        #endregion
-
-        #region Команды Личная Информация
-        public ReactiveCommand<Unit,Unit> OpenPopupCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> OpenValueCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> DelValueCommand { get; set; }
-        public ReactiveCommand<string,Unit> AddDocumentCommand { get; set; }
-        #endregion
-        #region Команды Образование
-        public ReactiveCommand<string,Unit> AddEducationCommand { get; set; }
-        #endregion
-        #region Команды Поступление
-        public ReactiveCommand<Unit,Unit> AddDirection { get; set; }
-        #endregion
-        #region Поданные
-        public ReactiveCommand<Unit,Unit> AddinSubmittedDocumentCommand { get; set; }
-        #endregion
-        #region Распечатка
-        #endregion
+        public EnrolleePersonalInfoViewModel epivm { get; set; } //ViewModel или Model Личной информации
+        public EnrolleeContactInfoViewModel ecivm { get; set; } //ViewModel или Model Контактной информации
+        public EnrolleeEducationViewModel eevm { get; set; } //ViewModel или Model Образования
+        public EnrolleeAdmissionViewModel eavm { get; set; } //ViewModel или Model Поступления
 
 
-        public ReactiveCommand<Unit,Unit> Final { get; set; }
-        public ReactiveCommand<Unit,Unit> ChangeEnrolleeCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> DelEnrolleeCommand { get; set; }
-
-
-        public event Action<AddChangeEnrolleeViewModel>? OnChange;
         public event Action<AddChangeEnrolleeViewModel>? OnDelete;
 
-        public void Change() => OnChange?.Invoke(this);
-        public void Delete() => OnDelete?.Invoke(this);
+        [JsonIgnore] public ReactiveCommand<Unit, Unit> ChangeEnrolleeCommand { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> DeleteEnrolleeCommand { get; set; }
+
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> AddEnrolleeCommand { get; set; }
+
+
+        public ObservableCollection<AddChangeEnrolleeViewModel> enrollees { get; set; }
+        public MainTabControl<MainTabItem> data { get; set; }
 
 
         IDialogDocument _dialogDocument;
-        IDialogEducation _dialogEducation;
-        IDialogDirection _dialogDirection;
-        public AddChangeEnrolleeViewModel(IDialogDocument dialogDocument, IDialogEducation dialogEducation, IDialogDirection dialogDirection, 
-            IDialogSubmitted dialogSubmitted, ObservableCollection<AddChangeEnrolleeViewModel> enrollees)
+        IJSONService _jsonService;
+        public AddChangeEnrolleeViewModel(ObservableCollection<AddChangeEnrolleeViewModel> enrollees, MainTabControl<MainTabItem> data)
         {
-            _dialogDocument = dialogDocument;
-            _dialogEducation = dialogEducation;
-            _dialogDirection = dialogDirection;
+            _dialogDocument = new DialogDocument();
+            _jsonService = new JSONService();
 
-            #region Персональная информация
-            Documents = new ObservableCollection<PersonalDocumentBase>();
-            Documents.CollectionChanged += (sender, e) =>
+            this.enrollees = enrollees;
+            this.data = data;
+
+            epivm = new EnrolleePersonalInfoViewModel();
+            ecivm = new EnrolleeContactInfoViewModel();
+            eevm = new EnrolleeEducationViewModel();
+            eavm = new EnrolleeAdmissionViewModel();
+
+            ChangeEnrolleeCommand = ReactiveCommand.Create(changeEnrollee);
+            DeleteEnrolleeCommand = ReactiveCommand.Create(() =>
             {
-                if (e.OldItems != null) foreach (PersonalDocumentBase item in e.OldItems) item.OnDelete -= document => Documents.Remove(document);
-                if (e.NewItems != null) foreach (PersonalDocumentBase item in e.NewItems) item.OnDelete += document => Documents.Remove(document);
-            };
-            UserControlDocument = new UserControl();
-            InitializingCommandsPersonalInfo();
-            #endregion
-            #region Образование
-            Educations = new ObservableCollection<EducationDocumentBase>();
-            Educations.CollectionChanged += (sender, e) =>
-            {
-                if (e.OldItems != null) foreach(EducationDocumentBase item in e.OldItems) item.OnDelete -= education => Educations.Remove(education);
-                if (e.NewItems != null) foreach(EducationDocumentBase item in e.NewItems) item.OnDelete += education => Educations.Remove(education);
-            };
-            UserControlEducation = new UserControl();
-            AddEducationCommand = ReactiveCommand.Create<string>(parameter =>
-            {
-                if (parameter == "9th grade")
-                {
-                    _dialogEducation.GetBasicGeneral(Educations, SubmittedDocuments);
-                    return;
-                }
-                if (parameter == "11th grade")
-                {
-                    _dialogEducation.GetBasicAverage(Educations, SubmittedDocuments);
-                    return;
-                }
-                if (parameter == "SPO")
-                {
-                    _dialogEducation.GetSpo(Educations, SubmittedDocuments);
-                    return;
-                }
-                if (parameter == "Undergraduate")
-                {
-                    _dialogEducation.GetUndergraduate(Educations, SubmittedDocuments);
-                    return;
-                }
-                if (parameter == "Master")
-                {
-                    _dialogEducation.GetMaster(Educations, SubmittedDocuments);
-                    return;
-                }
-                if (parameter == "Specialty")
-                {
-                    _dialogEducation.GetSpecialty(Educations, SubmittedDocuments);
-                    return;
-                }
+                OnDelete?.Invoke(this);
             });
-            #endregion
-            #region Поступление
-            Directions = new ObservableCollection<DirectionViewModel>();
-            Directions.CollectionChanged += (sender, e) =>
-            { 
-                if(e.OldItems != null) foreach(DirectionViewModel item in e.OldItems) item.OnDelete -= direction => Directions.Remove(item);
-                if(e.NewItems != null) foreach(DirectionViewModel item in e.NewItems) item.OnDelete += direction => Directions.Remove(item);
-            };
-            UserControlDirection = new UserControl();
-            AddDirection = ReactiveCommand.Create(() =>
+
+            AddEnrolleeCommand = ReactiveCommand.Create(() =>
             {
-                dialogDirection.GetDirection(Directions);
-            });
-            #endregion
-            #region Поданные
-            SubmittedDocuments = new ObservableCollection<ISubmitted>();
-            AddinSubmittedDocumentCommand = ReactiveCommand.Create(() =>
-            {
-                dialogSubmitted.GetSubmitted(SubmittedDocuments);
-            });
-            #endregion
-            #region Распечатка
-            Final = ReactiveCommand.Create(() =>
-            {
+                _jsonService.SerializeEnrollee(this);
                 enrollees.Add(this);
             });
-            #endregion
-
-            //OnChange ДОПИСАТЬ
-
-            ChangeEnrolleeCommand = ReactiveCommand.Create(Change);
-            DelEnrolleeCommand = ReactiveCommand.Create(Delete);
         }
 
-        void InitializingCommandsPersonalInfo()
-        {
-            OpenPopupCommand = ReactiveCommand.Create(() =>
-            {
-                if (!Popup) Popup = true;
-                else Popup = false;
-            });
-            OpenValueCommand = ReactiveCommand.Create(() =>
-            {
-                IsEnabled = true;
-            });
-            DelValueCommand = ReactiveCommand.Create(() =>
-            {
-                Citizenship = string.Empty;
-                DoCitizenship = DateTime.MinValue;
-                IsEnabled = false;
-            });
-            AddDocumentCommand = ReactiveCommand.Create<string>(parameter =>
-            {
-                if(parameter == "Passport") 
-                {
-                    _dialogDocument.GetPassport(Documents, SubmittedDocuments);
-                    return;
-                }
-                if(parameter == "Snils")
-                {
-                    _dialogDocument.GetSnils(Documents, SubmittedDocuments);
-                    return;
-                }
-                if(parameter == "Inn")
-                {
-                    _dialogDocument.GetInn(Documents, SubmittedDocuments);
-                    return;
-                }
-                if(parameter == "ForeignPassport")
-                {
-                    _dialogDocument.GetForeignPassport(Documents, SubmittedDocuments);
-                    return;
-                }
-            });
-        }
+        void changeEnrollee() => _dialogDocument.OpenWindowChangeEnrollee(this, data);
     }
 }

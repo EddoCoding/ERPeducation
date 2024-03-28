@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Common.Windows.WindowTest;
+using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -7,6 +8,7 @@ using System.Reactive;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
+    [JsonObject]
     public class TestViewModel : ReactiveObject
     {
         [Reactive] public string TextAddChange { get; set; } = "Добавить";
@@ -16,56 +18,41 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         [Reactive] public string Where { get; set; }
         [Reactive] public bool SpecialConditions { get; set; }
 
-        public ReactiveCommand<Unit,Unit> ChangeTestCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> DeleteTestCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> AddTestCommand { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> ChangeTestCommand { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> DeleteTestCommand { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> AddTestCommand { get; set; }
 
         public event Action<TestViewModel>? OnChange;
         public event Action<TestViewModel>? OnDelete;
 
-        public void Change() => OnChange?.Invoke(this);
-        public void Delete() => OnDelete?.Invoke(this);
 
-
-
-        //КОНСТРУКТОР ДЛЯ ИЗМЕНЕНИЯ ОБЪЕКТА
-        public TestViewModel(TestViewModel test, Action closeWindow)
+        IDialogTest _dialogTest;
+        public TestViewModel(ObservableCollection<TestViewModel> test, Action closeWindow)
         {
-            TextAddChange = "Изменить";
+            _dialogTest = new DialogTest();
 
-            SelectedObject = test.SelectedObject;
-            When = test.When;
-            Where = test.Where;
-            SpecialConditions = test.SpecialConditions;
+            OnChange += changeTest;
 
-            ChangeTestCommand = ReactiveCommand.Create(Change);
-            DeleteTestCommand = ReactiveCommand.Create(Delete);
-            CloseWindowCommand = ReactiveCommand.Create(closeWindow);
-            AddTestCommand = ReactiveCommand.Create(() =>
+            ChangeTestCommand = ReactiveCommand.Create(() =>
             {
-                test.SelectedObject = SelectedObject;
-                test.When = When;
-                test.Where = Where;
-                test.SpecialConditions = SpecialConditions;
-
+                OnChange?.Invoke(this);
+            });
+            DeleteTestCommand = ReactiveCommand.Create(() =>
+            {
+                OnDelete?.Invoke(this);
+            });
+            CloseWindowCommand = ReactiveCommand.Create(() =>
+            {
                 closeWindow();
             });
-        }
-
-        //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО ИСПЫТАНИЯ
-        public TestViewModel(IDialogTest dialogTest, ObservableCollection<TestViewModel> test, Action closeWindow)
-        {
-            OnChange += test => dialogTest.GetTest(this);
-
-            ChangeTestCommand = ReactiveCommand.Create(Change);
-            DeleteTestCommand = ReactiveCommand.Create(Delete);
-            CloseWindowCommand = ReactiveCommand.Create(closeWindow);
             AddTestCommand = ReactiveCommand.Create(() =>
             {
                 test.Add(this);
                 closeWindow();
             });
         }
+
+        void changeTest(TestViewModel tests) => _dialogTest.GetTest(tests);
     }
 }

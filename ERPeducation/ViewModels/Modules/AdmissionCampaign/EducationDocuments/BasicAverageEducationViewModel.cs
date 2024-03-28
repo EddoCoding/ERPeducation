@@ -1,11 +1,12 @@
-﻿using ReactiveUI;
-using System.Collections.ObjectModel;
-using System;
+﻿using Newtonsoft.Json;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using ERPeducation.Common.Interface;
+using System;
+using System.Collections.ObjectModel;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
 {
+    [JsonObject]
     public class BasicAverageEducationViewModel : EducationDocumentBase
     {
         [Reactive] public string CodeSeriesNumber { get; set; } = string.Empty;
@@ -36,7 +37,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
         }
 
         //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО ДОКУМЕНТА
-        public BasicAverageEducationViewModel(ObservableCollection<EducationDocumentBase> education, ObservableCollection<ISubmitted> submittedDocuments, Action closeWindow)
+        public BasicAverageEducationViewModel(ObservableCollection<EducationDocumentBase> education, Action closeWindow)
         {
             TypeEducation = "Среднее общее образование";
             TypeDocument = "Аттестат о среднем общем образовании";
@@ -50,7 +51,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
             AddDocumentCommand = ReactiveCommand.Create(() =>
             {
                 education.Add(this);
-                submittedDocuments.Add(this);
                 closeWindow();
             });
         }

@@ -21,44 +21,28 @@ namespace ERPeducation.ViewModels
 
         Action closeWindow;
 
-
-        IDialogService _dialogService;
-        IValidation _validation;
-        IJSONService _jsonService;
-        IDirectoryFile _directoryFile;
         public AuthorizationViewModel(IDialogService dialogService, IValidation validation, 
             IJSONService jsonService, IDirectoryFile directoryFile, Action closeWindow)
         {
-            _dialogService = dialogService;
-            _validation = validation;
-            _jsonService = jsonService;
-            _directoryFile = directoryFile;
-
-            InitializingCommands();
-
-            this.closeWindow = closeWindow;
-        }
-
-        void InitializingCommands()
-        {
             GetFodlerPath = ReactiveCommand.Create(() =>
             {
-                Path = _dialogService.OpenPathDialog();
+                Path = dialogService.OpenPathDialog();
             });
-
             CreateBase = ReactiveCommand.Create(() =>
             {
-                Path = _directoryFile.CreateBase();
+                Path = directoryFile.CreateBase();
+                directoryFile.CreateFileBase();
             });
-
             EnterBase = ReactiveCommand.Create(() =>
             {
-                if (_validation.Validation(Identifier))
+                if (validation.Validation(Identifier))
                 {
-                    UserViewModel user = _jsonService.GetFileJson(System.IO.Path.Combine(FileServer.Users, $"{Identifier}.json"));
-                    _dialogService.OpenMainWindow(user, closeWindow);
+                    UserViewModel user = jsonService.GetFileJson(System.IO.Path.Combine(FileServer.Users, $"{Identifier}.json"));
+                    dialogService.OpenMainWindow(user, closeWindow);
                 }
             });
+
+            this.closeWindow = closeWindow;
         }
     }
 }

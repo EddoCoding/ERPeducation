@@ -10,13 +10,11 @@ namespace ERPeducation.Common.Resourses
     {
         public DataTemplate TemplateDocument { get; set; }
         public DataTemplate TemplateEducation { get; set; }
-        public DataTemplate TemplateSubmitted { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item is PersonalDocumentBase) return TemplateDocument;
             if (item is EducationDocumentBase) return TemplateEducation;
-            if (item is SubmittedViewModel) return TemplateSubmitted;
 
             return base.SelectTemplate(item, container);
         }

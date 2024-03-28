@@ -1,4 +1,4 @@
-﻿using ERPeducation.Common.Interface;
+﻿using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
 {
+    [JsonObject]
     public class ForeignPassportViewModel : PersonalDocumentBase
     {
         [Reactive] public string IssuedBy { get; set; } = string.Empty;
@@ -52,7 +53,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
         }
 
         //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО ДОКУМЕНТА
-        public ForeignPassportViewModel(ObservableCollection<PersonalDocumentBase> documents, ObservableCollection<ISubmitted> submittedDocuments, Action closeWindow)
+        public ForeignPassportViewModel(ObservableCollection<PersonalDocumentBase> documents, Action closeWindow)
         {
             TypeDocument = "Паспорт иностранного гражданина";
 
@@ -64,7 +65,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
             AddDocumentCommand = ReactiveCommand.Create(() =>
             {
                 documents.Add(this);
-                submittedDocuments.Add(this);
                 CloseWindowCommand.Execute().Subscribe();
             });
         }

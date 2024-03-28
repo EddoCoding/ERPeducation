@@ -1,4 +1,4 @@
-﻿using ERPeducation.Common.Interface;
+﻿using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
 {
+    [JsonObject]
     public class InnViewModel : PersonalDocumentBase
     {
         [Reactive] public string NumberInn { get; set; } = string.Empty;
@@ -52,7 +53,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
         }
 
         //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО ДОКУМЕНТА
-        public InnViewModel(ObservableCollection<PersonalDocumentBase> documents, ObservableCollection<ISubmitted> submittedDocuments, Action closeWindow)
+        public InnViewModel(ObservableCollection<PersonalDocumentBase> documents, Action closeWindow)
         {
             TypeDocument = "ИНН";
 
@@ -65,7 +66,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
             AddDocumentCommand = ReactiveCommand.Create(() =>
             {
                 documents.Add(this);
-                submittedDocuments.Add(this);
                 CloseWindowCommand.Execute().Subscribe();
             });
         }

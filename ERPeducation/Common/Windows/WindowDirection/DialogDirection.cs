@@ -1,5 +1,4 @@
-﻿using ERPeducation.Common.Windows.WindowTest;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign;
+﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.Views.AdmissionCampaign.UserControlDirection;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
@@ -11,14 +10,14 @@ namespace ERPeducation.Common.Windows.WindowDirection
         public void GetDirection(ObservableCollection<DirectionViewModel> directions)
         {
             DirectionView view = new DirectionView();
-            view.DataContext = new DirectionViewModel(this, new DialogTest(), directions, view.Close);
+            view.DataContext = new DirectionViewModel(directions, view.Close);
             view.ShowDialog();
         }
 
-        public void GetDirection(DirectionViewModel directions)
+        public void GetDirection(DirectionViewModel direction)
         {
-            DirectionView view = new DirectionView();
-            view.DataContext = new DirectionViewModel(directions, view.Close);
+            ChangeDirectionWindow view = new ChangeDirectionWindow();
+            view.DataContext = direction;
             view.ShowDialog();
         }
 

@@ -1,9 +1,4 @@
 ﻿using ERPeducation.Common.Interface;
-using ERPeducation.Common.Windows.WindowDirection;
-using ERPeducation.Common.Windows.WindowDocuments;
-using ERPeducation.Common.Windows.WindowEducation;
-using ERPeducation.Common.Windows.WindowSubmitted;
-using ERPeducation.Common.Windows.WindowTest;
 using ERPeducation.Models;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.Administration;
@@ -29,19 +24,17 @@ namespace ERPeducation.Common.Services
 
 
         //ВКЛАДКА ДОБАВЛЕНИЯ АБИТУРИЕНТА
-        public UserControl GetUserControlEnrollee(ObservableCollection<AddChangeEnrolleeViewModel> enrollees) =>
-            new AddEnrolleView() { DataContext = new AddChangeEnrolleeViewModel(new DialogDocument(), new DialogEducation(), 
-                new DialogDirection(), new DialogSubmitted(), enrollees) };
+        public UserControl GetUserControlEnrollee(ObservableCollection<AddChangeEnrolleeViewModel> enrollees, MainTabControl<MainTabItem> data) =>
+            new AddEnrolleView() { DataContext = new AddChangeEnrolleeViewModel(enrollees, data) };
 
 
-
-
-
+        //ПОЛУЧЕНИЕ КРАТКОЙ ИНФОРМАЦИИ ОБ АБИТУРИЕНТЕ В UserControl
+        public void GetInfoEnrollee(UserControl userControlEnrollee, AddChangeEnrolleeViewModel selectedEnrollee) =>
+            userControlEnrollee.Content = new InfoEnrolleeUserControl() { DataContext = selectedEnrollee };
 
         public UserControl GetUserControlForAdministrationView() =>
             new AdministrationUsersView() { DataContext = new AdministrationUserViewModel(new DialogService(), new JSONService()) };
         public UserControl GetUserControlForAdministrationStruct() => 
             new AdministrationStructView() { DataContext = new AdministrationStructViewModel(new JSONService()) };
-
     }
 }

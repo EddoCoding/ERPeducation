@@ -2,6 +2,7 @@
 using ERPeducation.Common.Command;
 using ERPeducation.Common.Windows.WindowDirection;
 using ERPeducation.Common.Windows.WindowTest;
+using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -10,6 +11,7 @@ using System.Reactive;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
+    [JsonObject]
     public class DirectionViewModel : ReactiveObject
     {
         [Reactive] public string TextAddChange { get; set; } = "Добавить";
@@ -20,7 +22,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
 
         string selectedLvl;
-        public string SelectedLvl
+        [JsonIgnore] public string SelectedLvl
         {
             get => selectedLvl;
             set
@@ -31,7 +33,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         }
 
         string selectedDirection;
-        public string SelectedDirection
+        [JsonIgnore] public string SelectedDirection
         {
             get => selectedDirection;
             set
@@ -41,54 +43,32 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             }
         }
 
-        [Reactive] public string SelectedForms { get; set; }
+        [JsonIgnore] [Reactive] public string SelectedForms { get; set; }
 
 
         public ObservableCollection<TestViewModel> Tests { get; set; }
 
-        public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> ChangeDirectionCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> DeleteDirectionCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> AddDirectionCommand { get; set; }
 
-        public ReactiveCommand<Unit, Unit> AddTest { get; set; }
-        public ReactiveCommand<Unit, Unit> SelectTemplateTest { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> ChangeDirectionCommand { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> DeleteDirectionCommand { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit,Unit> AddDirectionCommand { get; set; }
 
-
-        public Action<DirectionViewModel>? OnChange;
-        public Action<DirectionViewModel>? OnDelete;
-
-        public void Change() => OnChange?.Invoke(this);
-        public void Delete() => OnDelete?.Invoke(this);
+        [JsonIgnore] public ReactiveCommand<Unit, Unit> AddTest { get; set; }
+        [JsonIgnore] public ReactiveCommand<Unit, Unit> SelectTemplateTest { get; set; }
 
 
-        //КОНСТРУКТОР ДЛЯ ИЗМЕНЕНИЯ ОБЪЕКТА
-        public DirectionViewModel(DirectionViewModel directions, Action closeWindow)
+         public event Action<DirectionViewModel>? OnChange;
+         public event Action<DirectionViewModel>? OnDelete;
+        
+        IDialogDirection _dialogDirection;
+        IDialogTest _dialogTest;
+        public DirectionViewModel(ObservableCollection<DirectionViewModel> directions, Action closeWindow)
         {
-            TextAddChange = "Изменить";
+            _dialogDirection = new DialogDirection();
+            _dialogTest = new DialogTest();
 
-            SelectedLvl = directions.SelectedLvl;
-            SelectedDirection = directions.SelectedDirection;
-            SelectedForms = directions.SelectedForms;
-            Tests = directions.Tests;
-
-            ChangeDirectionCommand = ReactiveCommand.Create(Change);
-            DeleteDirectionCommand = ReactiveCommand.Create(Delete);
-            CloseWindowCommand = ReactiveCommand.Create(closeWindow);
-            AddDirectionCommand = ReactiveCommand.Create(() =>
-            {
-                directions.SelectedLvl = SelectedLvl;
-                directions.SelectedDirection = SelectedDirection;
-                directions.SelectedForms = SelectedForms;
-
-                closeWindow();
-            });
-        }
-
-        //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО НАПРАВЛЕНИЯ
-        public DirectionViewModel(IDialogDirection dialogdirection, IDialogTest dialogTest, ObservableCollection<DirectionViewModel> directions, Action closeWindow)
-        {
-            OnChange += direction => dialogdirection.GetDirection(direction);
+            OnChange += changeDirection; 
 
             LevelOfTraining = StaticData.GetLvlEducation();
             DirectionOfTraining = new ObservableCollection<string>();
@@ -101,9 +81,18 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 if (e.NewItems != null) foreach (TestViewModel item in e.NewItems) item.OnDelete += test => Tests.Remove(test);
             };
 
-            ChangeDirectionCommand = ReactiveCommand.Create(Change);
-            DeleteDirectionCommand = ReactiveCommand.Create(Delete);
-            CloseWindowCommand = ReactiveCommand.Create(closeWindow);
+            ChangeDirectionCommand = ReactiveCommand.Create(() =>
+            {
+                OnChange?.Invoke(this);
+            });
+            DeleteDirectionCommand = ReactiveCommand.Create(() =>
+            {
+                OnDelete?.Invoke(this);
+            });
+            CloseWindowCommand = ReactiveCommand.Create(() =>
+            {
+                closeWindow();
+            });
             AddDirectionCommand = ReactiveCommand.Create(() =>
             {
                 directions.Add(this);
@@ -112,9 +101,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
             AddTest = ReactiveCommand.Create(() =>
             {
-                dialogTest.GetTest(Tests);
+                _dialogTest.GetTest(Tests);
             });
             SelectTemplateTest = ReactiveCommand.Create(NotReady.Message);
         }
+
+        void changeDirection(DirectionViewModel direction) => _dialogDirection.GetDirection(direction);
     }
 }

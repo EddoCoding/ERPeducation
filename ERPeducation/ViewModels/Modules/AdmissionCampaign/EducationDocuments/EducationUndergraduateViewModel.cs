@@ -1,11 +1,12 @@
-﻿using ReactiveUI;
+﻿using Newtonsoft.Json;
+using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using System.Collections.ObjectModel;
 using System;
-using ERPeducation.Common.Interface;
+using System.Collections.ObjectModel;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
 {
+    [JsonObject]
     public class EducationUndergraduateViewModel : EducationDocumentBase
     {
         [Reactive] public string RegistrationNumber { get; set; } = string.Empty;
@@ -51,7 +52,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
         }
 
         //ОСНОВНОЙ КОНСТРУКТОР ДЛЯ НОВОГО ДОКУМЕНТА
-        public EducationUndergraduateViewModel(ObservableCollection<EducationDocumentBase> education, ObservableCollection<ISubmitted> submittedDocuments, Action closeWindow)
+        public EducationUndergraduateViewModel(ObservableCollection<EducationDocumentBase> education, Action closeWindow)
         {
             TypeEducation = "Бакалавриат";
             TypeDocument = "Диплом бакалавра";
@@ -65,7 +66,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
             AddDocumentCommand = ReactiveCommand.Create(() =>
             {
                 education.Add(this);
-                submittedDocuments.Add(this);
                 closeWindow();
             });
         }

@@ -143,14 +143,14 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                
-                                <TextBlock Grid.Column="0" Text="{Binding SurName}" Margin="5" FontSize="14"/>
-                                <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="5" FontSize="14"/>
-                                <TextBlock Grid.Column="2" Text="{Binding MiddleName}" Margin="5" FontSize="14"/>
+
+                                <TextBlock Grid.Column="0" Text="{Binding epivm.SurName}" Margin="5" FontSize="14"/>
+                                <TextBlock Grid.Column="1" Text="{Binding epivm.Name}" Margin="5" FontSize="14"/>
+                                <TextBlock Grid.Column="2" Text="{Binding epivm.MiddleName}" Margin="5" FontSize="14"/>
 
                                 <Button Grid.Column="3" Content="Изменить" Style="{StaticResource ButtonChange}" Command="{Binding ChangeEnrolleeCommand}" 
                                         HorizontalAlignment="Right" Margin="0,0,5,0"/>
-                                <Button Grid.Column="4" Content="Отозвать" Style="{StaticResource ButtonDelete}" Command="{Binding DelEnrolleeCommand}" 
+                                <Button Grid.Column="4" Content="Отозвать" Style="{StaticResource ButtonDelete}" Command="{Binding DeleteEnrolleeCommand}" 
                                         Margin="0,0,10,0"/>
                             </Grid>
                         </Border>
@@ -202,7 +202,7 @@
                 </Grid>
 
                 <ListBox Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" BorderThickness="1" BorderBrush="Gray"
-                         ItemsSource="{Binding Enrollees}" ItemContainerStyle="{StaticResource ListBoxItem}" />
+                         ItemsSource="{Binding Enrollees}" ItemContainerStyle="{StaticResource ListBoxItem}" SelectedItem="{Binding SelectedEnrollee}"/>
 
             </Grid>
 
@@ -211,7 +211,7 @@
                     <DropShadowEffect ShadowDepth="1" Color="Black" BlurRadius="20" Opacity="0.3"/>
                 </Grid.Effect>
 
-                <TextBlock Text="ОвощеБАЗА" Margin="10"/>
+                <UserControl Content="{Binding UserControlEnrollee}"/>
             </Grid>
 
         </Grid>
