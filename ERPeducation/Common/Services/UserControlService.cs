@@ -16,7 +16,7 @@ namespace ERPeducation.Common.Services
     {
         //ВКЛАДКА МОДУЛЯ ПРИЕМНАЯ КАМПАНИЯ
         public UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> data) => 
-            new AdmissionCampaign() { DataContext = new AdmissionCampaignViewModel(this, data) };
+            new AdmissionCampaign() { DataContext = new AdmissionCampaignViewModel(this, new JSONService(), data) };
 
         //ВКЛАДКА МОДУЛЯ АДМИНИСТРИРОВАНИЕ
         public UserControl GetModuleAdministration() => 

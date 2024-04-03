@@ -1,10 +1,12 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows.AddUser;
+using ERPeducation.Common.Windows.WindowError;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 
@@ -158,7 +160,15 @@ namespace ERPeducation.Common.Services
             {
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
-                    sw.Write(JsonConvert.SerializeObject(enrollee,options));
+                    try
+                    {
+                        sw.Write(JsonConvert.SerializeObject(enrollee,options));
+                    }
+                    catch(Exception e)
+                    {
+                        DialogError error = new DialogError();
+                        error.Error(e.Message);
+                    }
                 }
             }
         }

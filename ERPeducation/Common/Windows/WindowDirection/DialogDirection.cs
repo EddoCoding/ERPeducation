@@ -13,14 +13,12 @@ namespace ERPeducation.Common.Windows.WindowDirection
             view.DataContext = new DirectionViewModel(directions, view.Close);
             view.ShowDialog();
         }
-
         public void GetDirection(DirectionViewModel direction)
         {
-            ChangeDirectionWindow view = new ChangeDirectionWindow();
+            DirectionView view = new DirectionView();
             view.DataContext = direction;
             view.ShowDialog();
         }
-
         public void GetUserControlDirection(UserControl userControl, DirectionViewModel direction) =>
             userControl.Content = new DirectionUserControl() { DataContext = direction };
     }

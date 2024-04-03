@@ -8,8 +8,6 @@ using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
-using System.Windows;
-using JsonIgnoreAttribute = Newtonsoft.Json.JsonIgnoreAttribute;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
@@ -20,7 +18,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public EnrolleeContactInfoViewModel ecivm { get; set; } //ViewModel или Model Контактной информации
         public EnrolleeEducationViewModel eevm { get; set; } //ViewModel или Model Образования
         public EnrolleeAdmissionViewModel eavm { get; set; } //ViewModel или Model Поступления
-
 
         public event Action<AddChangeEnrolleeViewModel>? OnDelete;
 
@@ -62,6 +59,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             });
         }
 
-        void changeEnrollee() => _dialogDocument.OpenWindowChangeEnrollee(this, data);
+        void changeEnrollee() => _dialogDocument.ChangeEnrollee(this, data);
     }
 }

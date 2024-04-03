@@ -1,7 +1,10 @@
-﻿using ERPeducation.Common.BD;
+﻿using DynamicData;
+using ERPeducation.Common.BD;
 using ERPeducation.Common.Command;
 using ERPeducation.Common.Interface;
+using ERPeducation.Common.Services;
 using ERPeducation.Models;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
 using Newtonsoft.Json;
 using ReactiveUI;
 using System.Collections.ObjectModel;
@@ -35,9 +38,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
 
         IUserControlService _userControlService;
-        public AdmissionCampaignViewModel(IUserControlService userControlService, MainTabControl<MainTabItem> data)
+        IJSONService _jsonService;
+        public AdmissionCampaignViewModel(IUserControlService userControlService, IJSONService jsonService, MainTabControl<MainTabItem> data)
         {
             _userControlService = userControlService;
+            _jsonService = jsonService;
 
             UserControlEnrollee = new UserControl();
 
@@ -63,9 +68,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 {
                     var enrollee = JsonConvert.DeserializeObject<AddChangeEnrolleeViewModel>(File.ReadAllText(file));
                     enrollee.data = data;
+
                     enrollee.AddEnrolleeCommand = ReactiveCommand.Create(() =>
                     {
-                        MessageBox.Show("Жопа", "Новый год");
+                        _jsonService.SerializeEnrollee(enrollee);
                     });
                     
                     Enrollees.Add(enrollee);

@@ -730,7 +730,8 @@
                                 <TextBlock Grid.Column="0" Text="{Binding SelectedDirection}" Margin="5" FontSize="14"/>
                                 <Button Grid.Column="1" Style="{StaticResource ButtonChange}" Command="{Binding ChangeDirectionCommand}" 
                                         HorizontalAlignment="Right" ToolTip="Изменить образование"/>
-                                <Button Grid.Column="2" Style="{StaticResource ButtonDelete}" Command="{Binding DeleteDirectionCommand}" ToolTip="Удалить образование"/>
+                                <Button Grid.Column="2" Style="{StaticResource ButtonDelete}" Command="{Binding DeleteDirectionCommand}" 
+                                        ToolTip="Удалить образование"/>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>

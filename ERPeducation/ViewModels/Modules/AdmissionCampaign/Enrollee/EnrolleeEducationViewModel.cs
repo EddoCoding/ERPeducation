@@ -13,7 +13,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Enrollee
     {
         public ObservableCollection<EducationDocumentBase> Educations { get; set; }
 
-
         EducationDocumentBase selectedEducation;
         [JsonIgnore] public EducationDocumentBase SelectedEducation
         {
@@ -41,6 +40,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Enrollee
                 if (e.OldItems != null) foreach (EducationDocumentBase item in e.OldItems) item.OnDelete -= deleteEducation;
                 if (e.NewItems != null) foreach (EducationDocumentBase item in e.NewItems) item.OnDelete += deleteEducation;
             };
+
             UserControlEducation = new UserControl();
 
             AddEducationCommand = ReactiveCommand.Create<string>(parameter =>

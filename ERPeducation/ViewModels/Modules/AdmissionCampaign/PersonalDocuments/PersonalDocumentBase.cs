@@ -5,6 +5,7 @@ using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Reactive;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
 {
@@ -40,6 +41,25 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments
         {
             if(_dialogDocument == null)
                 _dialogDocument = new DialogDocument();
+
+            OnChange += changeDocument;
+
+            ChangeCommand = ReactiveCommand.Create(() =>
+            {
+                OnChange?.Invoke(this);
+            });
+            DeleteCommand = ReactiveCommand.Create(() =>
+            {
+                OnDelete?.Invoke(this);
+            });
+        }
+
+        void changeDocument(PersonalDocumentBase document)
+        {
+            if (document.TypeDocument == "Паспорт") _dialogDocument.GetPassport(document);
+            if (document.TypeDocument == "Снилс") _dialogDocument.GetSnils(document);
+            if (document.TypeDocument == "ИНН") _dialogDocument.GetInn(document);
+            if (document.TypeDocument == "Паспорт иностранного гражданина") _dialogDocument.GetForeignPassport(document);
         }
     }
 }

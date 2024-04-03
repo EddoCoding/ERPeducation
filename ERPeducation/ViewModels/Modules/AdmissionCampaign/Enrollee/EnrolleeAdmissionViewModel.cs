@@ -44,7 +44,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Enrollee
             AddDirection = ReactiveCommand.Create(() =>
             {
                 _dialogDirection.GetDirection(Directions);
-            }); //ОТКРЫТИЕ ОКНА ВЫБОРА НАПРАВЛЕНИЯ И ДОБАВЛЕНИЯ
+            });
         }
 
         void deleteDirection(DirectionViewModel direction) => Directions.Remove(direction);

@@ -48,9 +48,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Enrollee
         [JsonIgnore] public ReactiveCommand<string, Unit> AddDocumentCommand { get; set; }
 
 
-
         IDialogDocument _dialogDocument;
-
         public EnrolleePersonalInfoViewModel()
         {
             _dialogDocument = new DialogDocument();
@@ -81,25 +79,20 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Enrollee
 
             AddDocumentCommand = ReactiveCommand.Create<string>(parameter =>
             {
-                if (parameter == "Passport")
+                switch (parameter)
                 {
-                    _dialogDocument.GetPassport(Documents);
-                    return;
-                }
-                if (parameter == "Snils")
-                {
-                    _dialogDocument.GetSnils(Documents);
-                    return;
-                }
-                if (parameter == "Inn")
-                {
-                    _dialogDocument.GetInn(Documents);
-                    return;
-                }
-                if (parameter == "ForeignPassport")
-                {
-                    _dialogDocument.GetForeignPassport(Documents);
-                    return;
+                    case "Passport":
+                        _dialogDocument.GetPassport(Documents);
+                        break;
+                    case "Snils":
+                        _dialogDocument.GetSnils(Documents);
+                        break;
+                    case "Inn":
+                        _dialogDocument.GetInn(Documents);
+                        break;
+                    case "ForeignPassport":
+                        _dialogDocument.GetForeignPassport(Documents);
+                        break;
                 }
             });
         }

@@ -1,5 +1,4 @@
-﻿using ERPeducation.Common.Interface;
-using ERPeducation.Models;
+﻿using ERPeducation.Models;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
@@ -11,19 +10,19 @@ namespace ERPeducation.Common.Windows.WindowDocuments
     public interface IDialogDocument
     {
         void GetPassport(ObservableCollection<PersonalDocumentBase> documents);
-        void GetPassport(PassportViewModel document);
+        void GetPassport(PersonalDocumentBase document);
 
         void GetSnils(ObservableCollection<PersonalDocumentBase> documents);
-        void GetSnils(SnilsViewModel document);
+        void GetSnils(PersonalDocumentBase document);
 
         void GetInn(ObservableCollection<PersonalDocumentBase> documents);
-        void GetInn(InnViewModel document);
+        void GetInn(PersonalDocumentBase document);
 
         void GetForeignPassport(ObservableCollection<PersonalDocumentBase> documents);
-        void GetForeignPassport(ForeignPassportViewModel document);
+        void GetForeignPassport(PersonalDocumentBase document);
 
         void GetUserControlDocument(UserControl userControl, PersonalDocumentBase document);
 
-        void OpenWindowChangeEnrollee(AddChangeEnrolleeViewModel enrollee, MainTabControl<MainTabItem> data);
+        void ChangeEnrollee(AddChangeEnrolleeViewModel enrollee, MainTabControl<MainTabItem> data);
     }
 }

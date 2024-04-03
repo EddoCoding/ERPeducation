@@ -4,6 +4,7 @@ using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
 using ERPeducation.Views.AdmissionCampaign;
 using ERPeducation.Views.AdmissionCampaign.NewView;
+using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
@@ -17,10 +18,12 @@ namespace ERPeducation.Common.Windows.WindowDocuments
             view.DataContext = new PassportViewModel(documents, view.Close);
             view.ShowDialog();
         }
-        public void GetPassport(PassportViewModel document)
+        public void GetPassport(PersonalDocumentBase document)
         {
             PassportView view = new PassportView();
-            view.DataContext = new PassportViewModel(document, view.Close);
+            document.CloseWindowCommand = ReactiveCommand.Create(view.Close);
+            document.AddDocumentCommand = ReactiveCommand.Create(view.Close);
+            view.DataContext = document;
             view.ShowDialog();
         }
 
@@ -30,10 +33,12 @@ namespace ERPeducation.Common.Windows.WindowDocuments
             view.DataContext = new SnilsViewModel(documents, view.Close);
             view.ShowDialog();
         }
-        public void GetSnils(SnilsViewModel document)
+        public void GetSnils(PersonalDocumentBase document)
         {
             SnilsView view = new SnilsView();
-            view.DataContext = new SnilsViewModel(document, view.Close);
+            document.CloseWindowCommand = ReactiveCommand.Create(view.Close);
+            document.AddDocumentCommand = ReactiveCommand.Create(view.Close);
+            view.DataContext = document;
             view.ShowDialog();
         }
 
@@ -43,10 +48,12 @@ namespace ERPeducation.Common.Windows.WindowDocuments
             view.DataContext = new InnViewModel(documents, view.Close);
             view.ShowDialog();
         }
-        public void GetInn(InnViewModel document)
+        public void GetInn(PersonalDocumentBase document)
         {
             InnView view = new InnView();
-            view.DataContext = new InnViewModel(document, view.Close);
+            document.CloseWindowCommand = ReactiveCommand.Create(view.Close);
+            document.AddDocumentCommand = ReactiveCommand.Create(view.Close);
+            view.DataContext = document;
             view.ShowDialog();
         }
 
@@ -56,38 +63,40 @@ namespace ERPeducation.Common.Windows.WindowDocuments
             view.DataContext = new ForeignPassportViewModel(documents, view.Close);
             view.ShowDialog();
         }
-        public void GetForeignPassport(ForeignPassportViewModel document)
+        public void GetForeignPassport(PersonalDocumentBase document)
         {
             ForeignPassportView view = new ForeignPassportView();
-            view.DataContext = new ForeignPassportViewModel(document, view.Close);
+            document.CloseWindowCommand = ReactiveCommand.Create(view.Close);
+            document.AddDocumentCommand = ReactiveCommand.Create(view.Close);
+            view.DataContext = document;
             view.ShowDialog();
         }
 
         public void GetUserControlDocument(UserControl userControl, PersonalDocumentBase document)
         {
-            if(document is PassportViewModel)
+            if(document.TypeDocument == "Паспорт")
             {
                 userControl.Content = new PassportUserControl() { DataContext = document };
                 return;
             }
-            if (document is SnilsViewModel)
+            if (document.TypeDocument == "Снилс")
             {
                 userControl.Content = new SnilsUserControl() { DataContext = document };
                 return;
             }
-            if (document is InnViewModel)
+            if (document.TypeDocument == "ИНН")
             {
                 userControl.Content = new InnUserControl() { DataContext = document };
                 return;
             }
-            if (document is ForeignPassportViewModel)
+            if (document.TypeDocument == "Паспорт иностранного гражданина")
             {
                 userControl.Content = new ForeignPassportUserControl() { DataContext = document };
                 return;
             }
         }
 
-        public void OpenWindowChangeEnrollee(AddChangeEnrolleeViewModel enrollee, MainTabControl<MainTabItem> data) =>
+        public void ChangeEnrollee(AddChangeEnrolleeViewModel enrollee, MainTabControl<MainTabItem> data) =>
             data.TabItem.Add(new MainTabItem("Абитуриент", new AddEnrolleView() { DataContext = enrollee }));
     }
 }

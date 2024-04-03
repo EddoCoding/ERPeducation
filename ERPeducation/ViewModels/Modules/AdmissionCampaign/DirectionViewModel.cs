@@ -8,6 +8,7 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
@@ -22,7 +23,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
 
         string selectedLvl;
-        [JsonIgnore] public string SelectedLvl
+        public string SelectedLvl
         {
             get => selectedLvl;
             set
@@ -33,7 +34,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         }
 
         string selectedDirection;
-        [JsonIgnore] public string SelectedDirection
+        public string SelectedDirection
         {
             get => selectedDirection;
             set
@@ -43,7 +44,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             }
         }
 
-        [JsonIgnore] [Reactive] public string SelectedForms { get; set; }
+        [Reactive] public string SelectedForms { get; set; }
 
 
         public ObservableCollection<TestViewModel> Tests { get; set; }
@@ -68,7 +69,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             _dialogDirection = new DialogDirection();
             _dialogTest = new DialogTest();
 
-            OnChange += changeDirection; 
+            OnChange += changeDirection;
 
             LevelOfTraining = StaticData.GetLvlEducation();
             DirectionOfTraining = new ObservableCollection<string>();
@@ -89,6 +90,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             {
                 OnDelete?.Invoke(this);
             });
+
             CloseWindowCommand = ReactiveCommand.Create(() =>
             {
                 closeWindow();

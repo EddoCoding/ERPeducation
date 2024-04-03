@@ -37,6 +37,27 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments
         {
             if (_dialogEducation == null)
                 _dialogEducation = new DialogEducation();
+
+            OnChange += changeEducation;
+
+            ChangeCommand = ReactiveCommand.Create(() =>
+            {
+                OnChange?.Invoke(this);
+            });
+            DeleteCommand = ReactiveCommand.Create(() =>
+            {
+                OnDelete?.Invoke(this);
+            });
+        }
+
+        void changeEducation(EducationDocumentBase education)
+        {
+            if (education.TypeEducation == "Основное общее образование") _dialogEducation.GetBasicGeneral(education);
+            if (education.TypeEducation == "Среднее общее образование") _dialogEducation.GetBasicAverage(education);
+            if (education.TypeEducation == "Среднее профессиональное образование") _dialogEducation.GetSpo(education);
+            if (education.TypeEducation == "Бакалавриат") _dialogEducation.GetUndergraduate(education);
+            if (education.TypeEducation == "Магистратура") _dialogEducation.GetMaster(education);
+            if (education.TypeEducation == "Специалитет") _dialogEducation.GetSpecialty(education);
         }
     }
 }
