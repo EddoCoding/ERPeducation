@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="MyStyleLabel" TargetType="Label">
             <Setter Property="Margin" Value="15,10,0,10"/>
@@ -13,10 +12,6 @@
             <Setter Property="FontSize" Value="15"/>
         </Style>
         
-        <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="Black"/>
-        <SolidColorBrush x:Key="Expander.MouseOver.Arrow.Stroke" Color="Green"/>
-        <SolidColorBrush x:Key="Expander.Pressed.Arrow.Stroke" Color="Black"/>
-        <SolidColorBrush x:Key="Expander.Disabled.Arrow.Stroke" Color="Gray"/>
         <Style x:Key="ExpanderHeaderFocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -33,15 +28,15 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ToggleButton">
                         <Border Padding="{TemplateBinding Padding}" Background="White" Height="45" Margin="-1">
-                            <Grid Background="Transparent" SnapsToDevicePixels="False">
+                            <Grid Background="Transparent" SnapsToDevicePixels="True">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <ContentPresenter Grid.Column="0" HorizontalAlignment="Left" Margin="10,0,0,0" RecognizesAccessKey="True" 
-                                                  SnapsToDevicePixels="True" VerticalAlignment="Center"/>
-                                <Path Grid.Column="1" x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Right" Stroke="{StaticResource Expander.Static.Arrow.Stroke}" 
+                                                  UseLayoutRounding="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+                                <Path Grid.Column="1" x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Right" Stroke="Black" 
                                       SnapsToDevicePixels="false" StrokeThickness="2" VerticalAlignment="Center" Margin="20,0"/>
                             </Grid>
                         </Border>
@@ -50,13 +45,13 @@
                                 <Setter Property="Data" TargetName="arrow" Value="M 1,4.5  L 4.5,1  L 8,4.5"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.MouseOver.Arrow.Stroke}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="Green"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
-                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Pressed.Arrow.Stroke}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="Black"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="false">
-                                <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource Expander.Disabled.Arrow.Stroke}"/>
+                                <Setter Property="Stroke" TargetName="arrow" Value="Gray"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -195,7 +190,7 @@
         <ControlTemplate x:Key="MyStyleExpander" TargetType="{x:Type Expander}">
             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" 
                     SnapsToDevicePixels="true" Margin="15,1,15,0">
-                <DockPanel>
+                <DockPanel >
                     <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" 
                                   ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}" 
                                   Foreground="{TemplateBinding Foreground}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" 
@@ -233,7 +228,7 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        
+
         <Style x:Key="MyStyleExpanderEffect" TargetType="Expander">
             <Setter Property="Effect">
                 <Setter.Value>
@@ -251,7 +246,7 @@
 
             <Label Grid.Row="0" Content="Администрирование ERP системы" Style="{StaticResource MyStyleLabel}" FontWeight="DemiBold"/>
 
-            <ScrollViewer Grid.Row="1">
+            <ScrollViewer Grid.Row="1" SnapsToDevicePixels="True" UseLayoutRounding="True">
 
                 <Grid>
                     <Grid.RowDefinitions>

@@ -1,9 +1,10 @@
-﻿using ReactiveUI;
+﻿using Newtonsoft.Json;
+using ReactiveUI;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 namespace ERPeducation.ViewModels.Modules.Administration.Struct.Education
 {
+    [JsonObject]
     public class TreeViewLvlOne : TreeViewBaseClass
     {
         public ObservableCollection<TreeViewLvlTwo> Items { get; set; }

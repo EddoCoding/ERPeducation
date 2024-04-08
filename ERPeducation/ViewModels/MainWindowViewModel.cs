@@ -91,6 +91,11 @@ namespace ERPeducation.ViewModels
             CommandAddTabItem = ReactiveCommand.Create<string>(parameter =>
             {
                 bool ExistsTabItem = Data.TabItem.Any(MyTabItem => MyTabItem.Title == parameter);
+                if (!ExistsTabItem && parameter == "Деканат")
+                {
+                    Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleDeanRoom()));
+                    return;
+                }
                 if (!ExistsTabItem && parameter == "Приёмная кампания")
                 {
                     Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleAdmissionCampaign(Data)));
@@ -106,6 +111,9 @@ namespace ERPeducation.ViewModels
             {
                 switch (parameter)
                 {
+                    case "Деканат":
+                        Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleDeanRoom()));
+                        break;
                     case "Приёмная кампания":
                         Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleAdmissionCampaign(Data)));
                         break;

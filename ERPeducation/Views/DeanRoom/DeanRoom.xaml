@@ -1,0 +1,385 @@
+﻿<UserControl x:Class="ERPeducation.Views.DeanRoom.DeanRoom"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom"
+             xmlns:vm="clr-namespace:ERPeducation.ViewModels.Modules.DeanRoom"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" FontFamily="Calibri">
+    <UserControl.Resources>
+        <Style x:Key="ComboBox" TargetType="ComboBox">
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <StackPanel>
+                            <ToggleButton x:Name="togglebutton" Content="{Binding FacultyVM.SelectedFaculty.Title}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                      RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" MinWidth="200" HorizontalAlignment="Left">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,25,0"/>
+                                            </Border>
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide" Width="Auto">
+                                <Border x:Name="DropDown" MinWidth="200" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxItem" TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="White">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <ContentPresenter Content="{Binding Title}" Margin="3"/>
+                                <Button Grid.Column="1" Content="del" FontSize="10" Width="25" Command="{Binding DataContext.FacultyVM.DeleteFacultyCommand, ElementName=Faculty}"
+                                        CommandParameter="{Binding}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonDeleteDepertment" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Margin="5,2" HorizontalAlignment="Right">
+                            <Image Height="24" Width="24" Source="/Common/Image/delete.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonChangeDepertment" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Margin="5,2" HorizontalAlignment="Right">
+                            <Image Height="24" Width="24" Source="/Common/Image/changedepartment.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListBoxItemDepartments" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <ContentPresenter Content="{Binding Title}" Margin="5"/>
+                                <Button Grid.Column="1" Style="{StaticResource ButtonChangeDepertment}" ToolTip="Изменить кафедру"/>
+                                <Button Grid.Column="2" Style="{StaticResource ButtonDeleteDepertment}" ToolTip="Удалить кафедру"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="Button" TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter Margin="10,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonInfoGroup" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Margin="5,2" HorizontalAlignment="Right">
+                            <Image Height="24" Width="24" Source="/Common/Image/infogroup.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonChangeGroup" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Margin="5,2">
+                            <Image Height="24" Width="24" Source="/Common/Image/changegroup.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonLiquidationGroup" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Margin="5,2">
+                            <Image Height="24" Width="24" Source="/Common/Image/liquidationgroup.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListBoxItemGroups" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <ContentPresenter Content="{Binding Title}" Margin="5"/>
+                                <Button Grid.Column="1" Style="{StaticResource ButtonInfoGroup}" Command="{Binding DataContext.DepartmentVM.InfoGroupCommand, ElementName=Groups}"
+                                        CommandParameter="{Binding}" ToolTip="Информация о группу"/>
+                                <Button Grid.Column="2" Style="{StaticResource ButtonChangeGroup}" Command="{Binding DataContext.DepartmentVM.ChangeGroupCommand, ElementName=Groups}"
+                                        CommandParameter="{Binding}" ToolTip="Изменить данные"/>
+                                <Button Grid.Column="3" Style="{StaticResource ButtonLiquidationGroup}" Command="{Binding DataContext.DepartmentVM.LiquidationGroupCommand, ElementName=Groups}"
+                                        CommandParameter="{Binding}" ToolTip="Ликвидировать группу"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonInfoStudent" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Margin="5,2" HorizontalAlignment="Right">
+                            <Image Height="24" Width="24" Source="/Common/Image/infostudent.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonDeductStudent" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Margin="5,2" HorizontalAlignment="Right">
+                            <Image Height="24" Width="24" Source="/Common/Image/deductstudent.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonTransferStudent" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Margin="5,2" HorizontalAlignment="Right">
+                            <Image Height="24" Width="24" Source="/Common/Image/transferstudent.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListBoxItemStudent" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <ContentPresenter Grid.Column="0" Content="{Binding Title}" Margin="5"/>
+                                <Button Grid.Column="1" Style="{StaticResource ButtonInfoStudent}" ToolTip="Информация о студенте"/>
+                                <Button Grid.Column="2" Style="{StaticResource ButtonTransferStudent}" ToolTip="Перевод студента"/>
+                                <Button Grid.Column="3" Style="{StaticResource ButtonDeductStudent}" ToolTip="Отчислить студента"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Деканат" Foreground="Gray" Margin="10,5,0,0" Padding="0" FontSize="20" FontWeight="Bold"/>
+
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Label Content="Факультеты" Margin="10,5,0,5" FontSize="15" Padding="0"/>
+            <StackPanel x:Name="Faculty" Orientation="Horizontal">
+                <ComboBox ItemsSource="{Binding FacultyVM.Faculties}" Style="{StaticResource ComboBox}" 
+                          SelectedItem="{Binding FacultyVM.SelectedFaculty}" ItemContainerStyle="{StaticResource ComboBoxItem}"/>
+
+                <Button Content="+ Добавить факультет" Style="{StaticResource Button}" Command="{Binding FacultyVM.AddFacultyCommand}"/>
+            </StackPanel>
+            
+            <Grid Margin="10,5,0,5">
+                <Label Content="Кафедры" FontSize="15" Padding="0"/>
+                <Button Content="Сформировать кафедру" Style="{StaticResource Button}" Command="{Binding DepartmentVM.CreateGroupCommand}"/>
+            </Grid>
+
+            <ListBox ItemsSource="{Binding DepartmentVM.Departments}" SelectedItem="{Binding DepartmentVM.SelectedDepartment}"
+                     ItemContainerStyle="{StaticResource ListBoxItemDepartments}" Margin="10,0,10,0" Height="200" />
+
+            <Grid Margin="10,5,0,5" x:Name="gridGroup">
+                <Label Content="Группы" FontSize="15" Padding="0"/>
+                <Button Content="Сформировать группу" Style="{StaticResource Button}" Command="{Binding DataContext.DepartmentVM.CreateGroupCommand, ElementName=gridGroup}"/>
+            </Grid>
+
+            <ListBox x:Name="Groups" ItemsSource="{Binding GroupVM.Groups}" SelectedItem="{Binding GroupVM.SelectedStudent}"
+                     ItemContainerStyle="{StaticResource ListBoxItemGroups}" Margin="10,0,10,0" Height="200"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label Grid.Column="0" Content="Студенты" Margin="10,5,0,5" FontSize="15" Padding="0"/>
+                <Button Grid.Column="1" Content="+ Добавить студента" Style="{StaticResource Button}" Command="{Binding .}"/>
+                <Button Grid.Column="2" Content="Перевод студента" Style="{StaticResource Button}" Command="{Binding .}"/>
+            </Grid>
+
+            <ListBox ItemsSource="{Binding StudentVM.Students}" ItemContainerStyle="{StaticResource ListBoxItemStudent}" Margin="10,0,10,0" Height="482"/>
+
+        </StackPanel>
+        
+    </Grid>
+    
+</UserControl>

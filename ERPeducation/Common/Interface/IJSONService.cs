@@ -8,16 +8,20 @@ namespace ERPeducation.Common.Interface
 {
     public interface IJSONService
     {
-        void CreateFacultyFileJson(string filePath, ObservableCollection<TreeViewFacultyItemOne> collection);
+        void CreateFacultyFileJson(string filePath, ObservableCollection<TreeViewMain> collection);
         void CreateEducationFileJson(string filePath, ObservableCollection<TreeViewLvlOne> collection);
-        void GetTreeViewFacultyItem(ObservableCollection<TreeViewFacultyItemOne> treeViewCollection);
+        void GetTreeViewFacultyItem(ObservableCollection<TreeViewMain> treeViewCollection);
         void GetTreeViewEducationItem(ObservableCollection<TreeViewLvlOne> treeViewCollection);
         void CreateFileJson(string fileJson, string fileName, string fullname, string identifier,
             bool rectorAccess, bool deanRoom, bool trainingDivision, bool teacher, bool admissionCampaign, bool administration);
         UserViewModel GetFileJson(string filePath);
         void GetUserFileJson(ObservableCollection<UserViewModel> users);
         ObservableCollection<TreeViewLvlOne> TreeViewEducation();
-        ObservableCollection<TreeViewFacultyItemOne> TreeViewFaculty();
+        ObservableCollection<TreeViewMain> TreeViewFaculty();
         void SerializeEnrollee(AddChangeEnrolleeViewModel enrollee);
+
+
+
+        ObservableCollection<TreeViewMain> DeserializeTreeViewMain();
     }
 }

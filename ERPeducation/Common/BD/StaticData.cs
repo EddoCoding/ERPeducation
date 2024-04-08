@@ -7,7 +7,7 @@ namespace ERPeducation.Common.BD
     public static class StaticData
     {
         public static ObservableCollection<TreeViewLvlOne> LvlEducations;
-        public static ObservableCollection<TreeViewFacultyItemOne> Faculties;
+        public static ObservableCollection<TreeViewMain> Faculties;
 
         public static ObservableCollection<string> GetLvlEducation()
         {

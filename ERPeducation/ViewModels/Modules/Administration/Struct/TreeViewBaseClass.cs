@@ -1,10 +1,10 @@
-﻿using ReactiveUI;
-using System;
+﻿using Newtonsoft.Json;
+using ReactiveUI;
 using System.Reactive;
-using System.Text.Json.Serialization;
 
-namespace ERPeducation.ViewModels.Modules.Administration.Struct.Education
+namespace ERPeducation.ViewModels.Modules.Administration.Struct
 {
+    [JsonObject]
     public class TreeViewBaseClass : ReactiveObject
     {
         public string Title { get; set; }

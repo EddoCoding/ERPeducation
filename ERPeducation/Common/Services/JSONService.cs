@@ -1,7 +1,6 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows.AddUser;
-using ERPeducation.Common.Windows.WindowError;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
@@ -14,33 +13,40 @@ namespace ERPeducation.Common.Services
 {
     public class JSONService : IJSONService
     {
-        public void CreateFacultyFileJson(string filePath, ObservableCollection<TreeViewFacultyItemOne> collection)
+        JsonSerializerSettings options = new JsonSerializerSettings
         {
-            using (StreamWriter sw = new StreamWriter(filePath)) sw.Write(System.Text.Json.JsonSerializer.Serialize(collection));
-        } //КОНФИГУРАЦИЯ ФАКУЛЬТЕТОВ И КАФЕДР
+            Formatting = Formatting.Indented
+        };
+
+        //КОНФИГУРАЦИЯ ФАКУЛЬТЕТОВ И КАФЕДР
+        public void CreateFacultyFileJson(string filePath, ObservableCollection<TreeViewMain> collection)
+        {
+            using (StreamWriter sw = new StreamWriter(filePath)) sw.Write(JsonConvert.SerializeObject(collection, options));
+        }
+        //КОНФИГУРАЦИЯ ОБРАЗОВАТЕЛЬНОЙ СТРУКТУРЫ (УРОВНИ, НАПРАВЛЕНИЯ, ФОРМЫ)
         public void CreateEducationFileJson(string filePath, ObservableCollection<TreeViewLvlOne> collection)
         {
-            using (StreamWriter sw = new StreamWriter(filePath)) sw.Write(System.Text.Json.JsonSerializer.Serialize(collection));
-        } //КОНФИГУРАЦИЯ ОБРАЗОВАТЕЛЬНОЙ СТРУКТУРЫ (УРОВНИ, НАПРАВЛЕНИЯ, ФОРМЫ)
+            using (StreamWriter sw = new StreamWriter(filePath)) sw.Write(JsonConvert.SerializeObject(collection, options));
+        } 
 
 
-        public void GetTreeViewFacultyItem(ObservableCollection<TreeViewFacultyItemOne> treeViewCollection)
+        public void GetTreeViewFacultyItem(ObservableCollection<TreeViewMain> treeViewCollection)
         {
             using (var fs = new FileStream(FileServer.structPathFaculty, FileMode.Open))
             {
                 using (var sr = new StreamReader(fs))
                 {
-                    foreach (var levelOneItem in System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<TreeViewFacultyItemOne>>(sr.ReadToEnd()))
+                    foreach (var levelOneItem in JsonConvert.DeserializeObject<ObservableCollection<TreeViewMain>>(sr.ReadToEnd()))
                     {
-                        var treeViewItemOne = new TreeViewFacultyItemOne(levelOneItem.Title);
+                        var treeViewItemOne = new TreeViewMain(levelOneItem.Title);
 
                         foreach (var levelTwoItem in levelOneItem.Items)
                         {
-                            var treeViewItemTwo = new TreeViewFacultyItemTwo(levelTwoItem.Title);
+                            var treeViewItemTwo = new TreeViewFaculty(levelTwoItem.Title);
 
                             foreach (var levelThreeItem in levelTwoItem.Items)
                             {
-                                var treeViewItemThree = new TreeViewFacultyItemThree(levelThreeItem.Title);
+                                var treeViewItemThree = new TreeViewDepartment(levelThreeItem.Title);
                                 treeViewItemTwo.Items.Add(treeViewItemThree);
                             }
 
@@ -58,7 +64,7 @@ namespace ERPeducation.Common.Services
             {
                 using (StreamReader sr = new StreamReader(fs))
                 {
-                    foreach (var levelOneItem in System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<TreeViewLvlOne>>(sr.ReadToEnd()))
+                    foreach (var levelOneItem in JsonConvert.DeserializeObject<ObservableCollection<TreeViewLvlOne>>(sr.ReadToEnd()))
                     {
                         var treeViewItemOne = new TreeViewLvlOne(levelOneItem.Title);
 
@@ -86,6 +92,7 @@ namespace ERPeducation.Common.Services
         }
 
 
+        //СЕРИАЛИЗАЦИЯ\ДОБАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯ В ПАПКУ
         public void CreateFileJson(string fileJson, string fileName, string fullName, string identifier, bool rectorAccess,
             bool deanRoom, bool trainingDivision, bool teacher, bool admissionCampaign, bool administration)
         {
@@ -96,6 +103,7 @@ namespace ERPeducation.Common.Services
                 sw.Close();
             }
         }
+
 
         public UserViewModel GetFileJson(string filePath)
         {
@@ -128,20 +136,20 @@ namespace ERPeducation.Common.Services
             {
                 using (var sr = new StreamReader(fs))
                 {
-                    collection = System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<TreeViewLvlOne>>(sr.ReadToEnd());
+                    collection = JsonConvert.DeserializeObject<ObservableCollection<TreeViewLvlOne>>(sr.ReadToEnd());
                     return collection;
                 }
             }
         }
-        public ObservableCollection<TreeViewFacultyItemOne> TreeViewFaculty()
+        public ObservableCollection<TreeViewMain> TreeViewFaculty()
         {
-            ObservableCollection<TreeViewFacultyItemOne> collection = new ObservableCollection<TreeViewFacultyItemOne>();
+            ObservableCollection<TreeViewMain> collection = new ObservableCollection<TreeViewMain>();
 
             using (var fs = new FileStream(FileServer.structPathFaculty, FileMode.Open))
             {
                 using (var sr = new StreamReader(fs))
                 {
-                    collection = System.Text.Json.JsonSerializer.Deserialize<ObservableCollection<TreeViewFacultyItemOne>>(sr.ReadToEnd());
+                    collection = JsonConvert.DeserializeObject<ObservableCollection<TreeViewMain>>(sr.ReadToEnd());
                     return collection;
                 }
             }
@@ -169,6 +177,19 @@ namespace ERPeducation.Common.Services
                         DialogError error = new DialogError();
                         error.Error(e.Message);
                     }
+                }
+            }
+        }
+
+
+        //Десериализация TreeViewMain
+        public ObservableCollection<TreeViewMain> DeserializeTreeViewMain()
+        {
+            using (var fs = new FileStream(FileServer.structPathFaculty, FileMode.Open))
+            {
+                using (var sr = new StreamReader(fs))
+                {
+                    return JsonConvert.DeserializeObject<ObservableCollection<TreeViewMain>>(sr.ReadToEnd());
                 }
             }
         }

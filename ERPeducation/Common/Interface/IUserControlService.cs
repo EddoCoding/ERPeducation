@@ -8,6 +8,7 @@ namespace ERPeducation.Common.Interface
 {
     public interface IUserControlService
     {
+        UserControl GetModuleDeanRoom();
         UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> data);
         UserControl GetModuleAdministration();
 

@@ -2,11 +2,15 @@
 using ERPeducation.Models;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.Administration;
+using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
+using ERPeducation.ViewModels.Modules.DeanRoom;
+using ERPeducation.ViewModels.Modules.DeanRoom.Services;
 using ERPeducation.Views;
 using ERPeducation.Views.Administration;
 using ERPeducation.Views.AdmissionCampaign;
 using ERPeducation.Views.AdmissionCampaign.NewView;
+using ERPeducation.Views.DeanRoom;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
@@ -14,6 +18,10 @@ namespace ERPeducation.Common.Services
 {
     public class UserControlService : IUserControlService
     {
+        //ВКЛАДКА МОДУЛЯ ДЕКАНАТ
+        public UserControl GetModuleDeanRoom() => 
+            new DeanRoom() { DataContext = new DeanRoomViewModel(new ObservableCollection<TreeViewMain>()) };
+
         //ВКЛАДКА МОДУЛЯ ПРИЕМНАЯ КАМПАНИЯ
         public UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> data) => 
             new AdmissionCampaign() { DataContext = new AdmissionCampaignViewModel(this, new JSONService(), data) };
@@ -31,6 +39,7 @@ namespace ERPeducation.Common.Services
         //ПОЛУЧЕНИЕ КРАТКОЙ ИНФОРМАЦИИ ОБ АБИТУРИЕНТЕ В UserControl
         public void GetInfoEnrollee(UserControl userControlEnrollee, AddChangeEnrolleeViewModel selectedEnrollee) =>
             userControlEnrollee.Content = new InfoEnrolleeUserControl() { DataContext = selectedEnrollee };
+
 
         public UserControl GetUserControlForAdministrationView() =>
             new AdministrationUsersView() { DataContext = new AdministrationUserViewModel(new DialogService(), new JSONService()) };

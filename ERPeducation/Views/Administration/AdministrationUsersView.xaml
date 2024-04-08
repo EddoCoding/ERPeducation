@@ -128,7 +128,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="5" Background="{TemplateBinding Background}">
-                            <Image Width="20" Height="20" Source="/Common/Image/delDirection.png" Margin="3"/>
+                            <Image Width="20" Height="20" Source="/Common/Image/delete.png" Margin="3"/>
                             <Border.ToolTip>
                                 <ToolTip Content="Удалить пользователя" Style="{StaticResource MyStyleToolTip}"/>
                             </Border.ToolTip>
@@ -146,7 +146,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border BorderBrush="Gray" BorderThickness="0,1,0,1" Background="{TemplateBinding Background}">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="280"/>

@@ -10,7 +10,7 @@ namespace ERPeducation.ViewModels.Modules.Administration
 {
     public class AdministrationStructViewModel : ReactiveObject
     {
-        public ObservableCollection<TreeViewFacultyItemOne> TreeViewFacultyCollection { get; set; } //Дерево факультетов
+        public ObservableCollection<TreeViewMain> TreeViewFacultyCollection { get; set; } //Дерево факультетов
         public ObservableCollection<TreeViewLvlOne> TreeViewEducationCollection { get; set; } //Дерево образования
         public ObservableCollection<object> TreeViewSpaceCollection { get; set; } //Дерево пространств - СДЕЛАТЬ!!!
 
@@ -25,7 +25,7 @@ namespace ERPeducation.ViewModels.Modules.Administration
             InitializingCommands();
 
             #region Структура Факультетов
-            TreeViewFacultyCollection = new ObservableCollection<TreeViewFacultyItemOne>();
+            TreeViewFacultyCollection = new ObservableCollection<TreeViewMain>();
             _jsonService.GetTreeViewFacultyItem(TreeViewFacultyCollection);
             #endregion
             #region Структура Образования

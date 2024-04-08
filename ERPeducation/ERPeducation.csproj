@@ -14,13 +14,19 @@
     <None Remove="Common\Image\burger.png" />
     <None Remove="Common\Image\Calendar.png" />
     <None Remove="Common\Image\change.png" />
+    <None Remove="Common\Image\changedepartment.png" />
+    <None Remove="Common\Image\changegroup.png" />
     <None Remove="Common\Image\deanRoom.png" />
+    <None Remove="Common\Image\deductstudent.png" />
     <None Remove="Common\Image\delete.png" />
     <None Remove="Common\Image\department.png" />
     <None Remove="Common\Image\diploma.png" />
     <None Remove="Common\Image\enrollee.png" />
     <None Remove="Common\Image\faculty.png" />
     <None Remove="Common\Image\folderPath.png" />
+    <None Remove="Common\Image\infogroup.png" />
+    <None Remove="Common\Image\infostudent.png" />
+    <None Remove="Common\Image\liquidationgroup.png" />
     <None Remove="Common\Image\lvl.png" />
     <None Remove="Common\Image\lvlEducation.png" />
     <None Remove="Common\Image\profile.png" />
@@ -29,6 +35,7 @@
     <None Remove="Common\Image\structEducation.png" />
     <None Remove="Common\Image\teacher.png" />
     <None Remove="Common\Image\trainingDivision.png" />
+    <None Remove="Common\Image\transferstudent.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,7 +68,16 @@
     <Resource Include="Common\Image\calendar.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Common\Image\changedepartment.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\changegroup.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Common\Image\deanRoom.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\deductstudent.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\delete.png">
@@ -80,6 +96,15 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\folderPath.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\infogroup.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\infostudent.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\liquidationgroup.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\lvl.png">
@@ -106,12 +131,14 @@
     <Resource Include="Common\Image\trainingDivision.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Common\Image\transferstudent.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Common\Patterns\" />
     <Folder Include="ViewModels\Modules\Administration\Users\" />
-    <Folder Include="ViewModels\Modules\Administration\Struct\Spaces\" />
     <Folder Include="ViewModels\Modules\Administration\Documents\" />
     <Folder Include="ViewModels\Modules\Administration\AdmissionCampaign\" />
   </ItemGroup>

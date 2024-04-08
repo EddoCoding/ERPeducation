@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Command;
 using ERPeducation.Common.Interface;
 using ERPeducation.Common.Interface.DialogPersonal;
 using ERPeducation.Common.Windows.AddUser;
@@ -6,7 +7,6 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Reactive;
-using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.Administration
 {
@@ -43,20 +43,12 @@ namespace ERPeducation.ViewModels.Modules.Administration
 
             jsonService.GetUserFileJson(Users);
 
-            InitializingCommands();
-        }
-
-        void InitializingCommands()
-        {
             AddUser = ReactiveCommand.Create(() =>
             {
-                _dialogService.OpenWindowAddUser(Users);
+                dialogService.OpenWindowAddUser(Users);
             });
 
-            SearchCommand = ReactiveCommand.Create(() =>
-            {
-                MessageBox.Show("Команда не реализована", "Заголовок");
-            });
+            SearchCommand = ReactiveCommand.Create(NotReady.Message);
         }
 
         void deleteUserModel(UserViewModel userModel)

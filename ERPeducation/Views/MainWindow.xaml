@@ -4,8 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200">
+        mc:Ignorable="d" Title="ERP" Height="800" Width="1200">
     <Window.Resources>
         <Style x:Key="ButtonBurger" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="White"/>
@@ -27,16 +26,15 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+        <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="Height" Value="45"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderThickness="0" Background="{TemplateBinding Background}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}" Height="35" Width="35" Margin="10,0"/>
                                 <ContentPresenter Content="{TemplateBinding Content}" VerticalAlignment="Center" Margin="0,0,10,0"/>

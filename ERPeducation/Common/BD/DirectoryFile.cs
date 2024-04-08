@@ -49,9 +49,9 @@ namespace ERPeducation.Common.BD
             {
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
-                    sw.Write(JsonSerializer.Serialize(new ObservableCollection<TreeViewFacultyItemOne>()
+                    sw.Write(JsonSerializer.Serialize(new ObservableCollection<TreeViewMain>()
                     {
-                        new TreeViewFacultyItemOne("Факультеты")
+                        new TreeViewMain("Факультеты")
                     }));
                 }
             }
