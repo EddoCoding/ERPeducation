@@ -1,5 +1,4 @@
 ﻿using ERPeducation.Common.BD;
-using ERPeducation.Common.Command;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.DeanRoom.Services;
 using ReactiveUI;
@@ -37,8 +36,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         public ReactiveCommand<TreeViewGroup, Unit> ChangeGroupCommand { get; set; }
         public ReactiveCommand<TreeViewGroup, Unit> InfoGroupCommand { get; set; }
 
-        IEducationalService _educationalService;
-        public DepartmentVM(IEducationalService educationalService, ObservableCollection<TreeViewMain>? treeViewMain)
+        IEducationalService<TreeViewDepartment> _educationalService;
+        public DepartmentVM(IEducationalService<TreeViewDepartment> educationalService, ObservableCollection<TreeViewMain>? treeViewMain)
         {
             _educationalService = educationalService;
             this.treeViewMain = treeViewMain;
@@ -53,25 +52,36 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
         public event Action<DepartmentVM> InitializingGroups;
 
+        int chislo = 0;
+
         void AddDepartment()
         {
-            MessageBox.Show(selectedFaculty.Title);
+            if(selectedFaculty != null)
+            {
+                treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
 
-            //treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
-            //
-            //foreach (var main in treeViewMain)
-            //{
-            //    foreach (var faculties in main.Items)
-            //    {
-            //        
-            //    }
-            //    //main.Items.Add(new TreeViewFaculty($"Факультет"));
-            //    //_educationalService.jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, treeViewMain);
-            //
-            //    //GetEducationalData();
-            //}
+                foreach (var main in treeViewMain)
+                {
+                    foreach (var faculties in main.Items)
+                    {
+                        if (faculties.Title == selectedFaculty.Title)
+                        {
+                            faculties.Items.Add(new TreeViewDepartment($"Кафедра {chislo += 1}"));
+                            _educationalService.jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, treeViewMain);
+
+                            GetEducationalData();
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
+        void GetEducationalData()
+        {
+            foreach (var department in _educationalService.GetEducationalData(selectedFaculty))
+                Departments.Add(department);
+        }
         public void SetSelectedFaculty(TreeViewFaculty treeViewFaculty) => selectedFaculty = treeViewFaculty;
     }
 }

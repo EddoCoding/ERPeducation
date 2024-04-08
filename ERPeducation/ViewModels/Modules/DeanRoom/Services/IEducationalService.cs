@@ -1,13 +1,13 @@
 ﻿using ERPeducation.Common.Interface;
-using ERPeducation.Common.Services;
+using ERPeducation.ViewModels.Modules.Administration.Struct;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using System.Collections.Generic;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.Services
 {
-    public interface IEducationalService
+    public interface IEducationalService<T>
     {
         IJSONService jsonService { get; set; }
-        IEnumerable<TreeViewFaculty> GetEducationalData();
+        IEnumerable<T> GetEducationalData(TreeViewBaseClass treeView = default);
     }
 }

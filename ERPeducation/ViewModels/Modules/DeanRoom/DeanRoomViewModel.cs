@@ -1,4 +1,6 @@
-﻿using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
+﻿using ERPeducation.Common.Windows.WindowDeanRoom;
+using ERPeducation.Common.Windows.WindowDeanRoom.Faculty;
+using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.DeanRoom.Services;
 using ReactiveUI;
 using System.Collections.ObjectModel;
@@ -15,8 +17,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
         public DeanRoomViewModel(ObservableCollection<TreeViewMain>? treeViewMain = default)
         {
-            FacultyVM = new FacultyVM(new FacultyService(), treeViewMain); //Переименовать фэкульти в эдукейшионал
-            DepartmentVM = new DepartmentVM(new FacultyService(), treeViewMain); //Переименовать фэкульти в эдукейшионал
+            FacultyVM = new FacultyVM(new Faculty(), new FacultyService(), treeViewMain);
+            DepartmentVM = new DepartmentVM(new DepartmentService(), treeViewMain);
             GroupVM = new GroupVM();
             StudentVM = new StudentVM();
 
@@ -50,51 +52,5 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
             StudentVM.Students.Add(new TreeViewStudent("Студент 1"));
         }
-
-
-        //void GetDepartments(string department)
-        //{
-        //    Departments.Clear();
-        //    foreach(var itemOne in treeViewMain)
-        //    {
-        //        foreach(var itemTwo in itemOne.Items)
-        //        {
-        //            if(itemTwo.Title == department) foreach (var itemThree in itemTwo.Items) Departments.Add(itemThree.Title);
-        //        }
-        //    }
-        //}
-
-        //void GetGroup(string group)
-        //{
-        //    Groups.Clear();
-        //    foreach (var itemOne in treeViewMain)
-        //    {
-        //        foreach (var itemTwo in itemOne.Items)
-        //        {
-        //            foreach (var itemThree in itemTwo.Items)
-        //            {
-        //                if (itemThree.Title == group) foreach (var itemFour in itemThree.Items) Groups.Add(itemFour.Title);
-        //            }
-        //        }
-        //    }
-        //}
-
-        //void GetStudent(string student)
-        //{
-        //    Students.Clear();
-        //    foreach (var itemOne in treeViewMain)
-        //    {
-        //        foreach (var itemTwo in itemOne.Items)
-        //        {
-        //            foreach (var itemThree in itemTwo.Items)
-        //            {
-        //                foreach (var itemFour in itemThree.Items)
-        //                {
-        //                    if(itemFour.Title == student) foreach(var jopa in itemFour.Items) Students.Add(jopa.Title);
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
     }
 }

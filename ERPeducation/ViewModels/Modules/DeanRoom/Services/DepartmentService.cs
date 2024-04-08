@@ -11,11 +11,11 @@ using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.Services
 {
-    public class FacultyService : IEducationalService<TreeViewFaculty>
+    public class DepartmentService : IEducationalService<TreeViewDepartment>
     {
         public IJSONService jsonService { get; set; } = new JSONService();
 
-        public IEnumerable<TreeViewFaculty> GetEducationalData(TreeViewBaseClass treeView = default)
+        public IEnumerable<TreeViewDepartment> GetEducationalData(TreeViewBaseClass treeView = default)
         {
             ObservableCollection<TreeViewMain> treeViewMain = new ObservableCollection<TreeViewMain>();
             try
@@ -28,16 +28,24 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Services
                     }
                 }
             }
-            catch { MessageBox.Show("Исключение выпало при получение списка факультетов"); }
+            catch { MessageBox.Show("Исключение выпало при перечислении списка факультетов"); }
 
 
-            ICollection<TreeViewFaculty> faculties = new List<TreeViewFaculty>();
+            ICollection<TreeViewDepartment> departments = new List<TreeViewDepartment>();
 
             foreach (var item in treeViewMain)
                 foreach (var faculty in item.Items)
-                    faculties.Add(faculty);
-
-            return faculties;
+                { 
+                    if(faculty.Title == treeView.Title)
+                    {
+                        foreach(var department in faculty.Items)
+                        {
+                            departments.Add(department);
+                            break;
+                        }
+                    }
+                }
+            return departments;
         }
     }
 }

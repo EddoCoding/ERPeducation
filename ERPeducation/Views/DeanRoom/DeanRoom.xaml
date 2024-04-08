@@ -57,10 +57,13 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 
                                 <ContentPresenter Content="{Binding Title}" Margin="3"/>
-                                <Button Grid.Column="1" Content="del" FontSize="10" Width="25" Command="{Binding DataContext.FacultyVM.DeleteFacultyCommand, ElementName=Faculty}"
+                                <Button Grid.Column="1" Content="change" FontSize="10" Width="25" Command="{Binding DataContext.FacultyVM.ChangeFacultyCommand, ElementName=Faculty}"
+                                        CommandParameter="{Binding}"/>
+                                <Button Grid.Column="2" Content="delete" FontSize="10" Width="25" Command="{Binding DataContext.FacultyVM.DeleteFacultyCommand, ElementName=Faculty}"
                                         CommandParameter="{Binding}"/>
                             </Grid>
                         </Border>
@@ -137,6 +140,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="Button" TargetType="Button">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Template">
@@ -152,6 +156,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="ButtonInfoGroup" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Template">
@@ -354,7 +359,7 @@
 
             <Grid Margin="10,5,0,5" x:Name="gridGroup">
                 <Label Content="Группы" FontSize="15" Padding="0"/>
-                <Button Content="Сформировать группу" Style="{StaticResource Button}" Command="{Binding DataContext.DepartmentVM.CreateGroupCommand, ElementName=gridGroup}"/>
+                <Button Content="Сформировать группу" Style="{StaticResource Button}"/>
             </Grid>
 
             <ListBox x:Name="Groups" ItemsSource="{Binding GroupVM.Groups}" SelectedItem="{Binding GroupVM.SelectedStudent}"

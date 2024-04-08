@@ -1,10 +1,12 @@
 ﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Windows.WindowDeanRoom.Faculty;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.DeanRoom.Services;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom
 {
@@ -29,12 +31,14 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         ObservableCollection<TreeViewMain>? treeViewMain;
 
         public ReactiveCommand<Unit,Unit> AddFacultyCommand { get; set; }
+        //public ReactiveCommand<TreeViewFaculty, Unit> ChangeFacultyCommand { get; set; } Сделать команду изменения факультета
         public ReactiveCommand<TreeViewFaculty,Unit> DeleteFacultyCommand { get; set; }
 
-
-        IEducationalService _educationalService;
-        public FacultyVM(IEducationalService educationalService, ObservableCollection<TreeViewMain>? treeViewMain)
+        IFaculty _faculty;
+        IEducationalService<TreeViewFaculty> _educationalService;
+        public FacultyVM(IFaculty faculty, IEducationalService<TreeViewFaculty> educationalService, ObservableCollection<TreeViewMain>? treeViewMain)
         {
+            _faculty = faculty;
             _educationalService = educationalService;
             this.treeViewMain = treeViewMain;
 
@@ -44,6 +48,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
             AddFacultyCommand = ReactiveCommand.Create(AddFaculty);
 
+            //ChangeFacultyCommand = ReactiveCommand.Create<TreeViewFaculty>( faculty => ChangeFaculty(faculty)); Сделать команду изменения факультета
             DeleteFacultyCommand = ReactiveCommand.Create<TreeViewFaculty>( faculty => DelFaculty(faculty));
         }
 
@@ -55,12 +60,14 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
             foreach (var main in treeViewMain)
             {
-                main.Items.Add(new TreeViewFaculty($"Факультет"));
+                _faculty.AddFaculty(main);
+                
                 _educationalService.jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, treeViewMain);
 
                 GetEducationalData();
             }
         }
+        //void ChangeFaculty(TreeViewFaculty faculty) => _faculty.ChangeFaculty(faculty); Сделать метод изменения факультета
         void DelFaculty(TreeViewFaculty faculty)
         {
             treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
