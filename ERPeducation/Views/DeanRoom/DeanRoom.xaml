@@ -59,7 +59,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                
+
                                 <ContentPresenter Content="{Binding Title}" Margin="3"/>
                                 <Button Grid.Column="1" Content="change" FontSize="10" Width="25" Command="{Binding DataContext.FacultyVM.ChangeFacultyCommand, ElementName=Faculty}"
                                         CommandParameter="{Binding}"/>
@@ -124,8 +124,10 @@
                                 </Grid.ColumnDefinitions>
                                 
                                 <ContentPresenter Content="{Binding Title}" Margin="5"/>
-                                <Button Grid.Column="1" Style="{StaticResource ButtonChangeDepertment}" ToolTip="Изменить кафедру"/>
-                                <Button Grid.Column="2" Style="{StaticResource ButtonDeleteDepertment}" ToolTip="Удалить кафедру"/>
+                                <Button Grid.Column="1" Style="{StaticResource ButtonChangeDepertment}" Command="{Binding DataContext.DepartmentVM.ChangeDepartmentCommand, ElementName=Departments}" 
+                                        CommandParameter="{Binding}" ToolTip="Изменить кафедру"/>
+                                <Button Grid.Column="2" Style="{StaticResource ButtonDeleteDepertment}" Command="{Binding DataContext.DepartmentVM.LiquidationDepartmentCommand, ElementName=Departments}"
+                                        CommandParameter="{Binding}" ToolTip="Удалить кафедру"/>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -216,17 +218,21 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                
-                                <ContentPresenter Content="{Binding Title}" Margin="5"/>
-                                <Button Grid.Column="1" Style="{StaticResource ButtonInfoGroup}" Command="{Binding DataContext.DepartmentVM.InfoGroupCommand, ElementName=Groups}"
-                                        CommandParameter="{Binding}" ToolTip="Информация о группу"/>
-                                <Button Grid.Column="2" Style="{StaticResource ButtonChangeGroup}" Command="{Binding DataContext.DepartmentVM.ChangeGroupCommand, ElementName=Groups}"
+
+                                <ContentPresenter Content="{Binding GroupNumber}"  VerticalAlignment="Center" Margin="5"/>
+                                <ContentPresenter Grid.Column="1" Content="{Binding Speciality}" VerticalAlignment="Center" Margin="5"/>
+                                <ContentPresenter Grid.Column="2" Content="Курс:" VerticalAlignment="Center" Margin="5"/>
+                                <ContentPresenter Grid.Column="3" Content="{Binding Course}" VerticalAlignment="Center" Margin="0,0"/>
+                                <Button Grid.Column="4" Style="{StaticResource ButtonChangeGroup}" Command="{Binding DataContext.GroupVM.ChangeGroupCommand, ElementName=Groups}" 
                                         CommandParameter="{Binding}" ToolTip="Изменить данные"/>
-                                <Button Grid.Column="3" Style="{StaticResource ButtonLiquidationGroup}" Command="{Binding DataContext.DepartmentVM.LiquidationGroupCommand, ElementName=Groups}"
+                                <Button Grid.Column="5" Style="{StaticResource ButtonLiquidationGroup}" Command="{Binding DataContext.GroupVM.LiquidationGroupCommand, ElementName=Groups}" 
                                         CommandParameter="{Binding}" ToolTip="Ликвидировать группу"/>
                             </Grid>
                         </Border>
@@ -306,11 +312,13 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                
-                                <ContentPresenter Grid.Column="0" Content="{Binding Title}" Margin="5"/>
-                                <Button Grid.Column="1" Style="{StaticResource ButtonInfoStudent}" ToolTip="Информация о студенте"/>
+
+                                <ContentPresenter Grid.Column="0" Content="{Binding FullName}" Margin="5"/>
+                                <Button Grid.Column="1" Style="{StaticResource ButtonInfoStudent}" Command="{Binding DataContext.StudentVM.ChangeStudentCommand, ElementName=Students}" 
+                                        CommandParameter="{Binding}" ToolTip="Изменить студента"/>
                                 <Button Grid.Column="2" Style="{StaticResource ButtonTransferStudent}" ToolTip="Перевод студента"/>
-                                <Button Grid.Column="3" Style="{StaticResource ButtonDeductStudent}" ToolTip="Отчислить студента"/>
+                                <Button Grid.Column="3" Style="{StaticResource ButtonDeductStudent}" Command="{Binding DataContext.StudentVM.DeductStudentCommand, ElementName=Students}" 
+                                        CommandParameter="{Binding}" ToolTip="Отчислить студента"/>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -351,18 +359,18 @@
             
             <Grid Margin="10,5,0,5">
                 <Label Content="Кафедры" FontSize="15" Padding="0"/>
-                <Button Content="Сформировать кафедру" Style="{StaticResource Button}" Command="{Binding DepartmentVM.CreateGroupCommand}"/>
+                <Button Content="Сформировать кафедру" Style="{StaticResource Button}" Command="{Binding DepartmentVM.CreateDepartmentCommand}"/>
             </Grid>
 
-            <ListBox ItemsSource="{Binding DepartmentVM.Departments}" SelectedItem="{Binding DepartmentVM.SelectedDepartment}"
+            <ListBox x:Name="Departments" ItemsSource="{Binding DepartmentVM.Departments}" SelectedItem="{Binding DepartmentVM.SelectedDepartment}"
                      ItemContainerStyle="{StaticResource ListBoxItemDepartments}" Margin="10,0,10,0" Height="200" />
 
             <Grid Margin="10,5,0,5" x:Name="gridGroup">
                 <Label Content="Группы" FontSize="15" Padding="0"/>
-                <Button Content="Сформировать группу" Style="{StaticResource Button}"/>
+                <Button Content="Сформировать группу" Style="{StaticResource Button}" Command="{Binding GroupVM.CreateGroupCommand}"/>
             </Grid>
 
-            <ListBox x:Name="Groups" ItemsSource="{Binding GroupVM.Groups}" SelectedItem="{Binding GroupVM.SelectedStudent}"
+            <ListBox x:Name="Groups" ItemsSource="{Binding GroupVM.Groups}" SelectedItem="{Binding GroupVM.SelectedGroup}"
                      ItemContainerStyle="{StaticResource ListBoxItemGroups}" Margin="10,0,10,0" Height="200"/>
 
         </StackPanel>
@@ -377,11 +385,12 @@
                 </Grid.ColumnDefinitions>
                 
                 <Label Grid.Column="0" Content="Студенты" Margin="10,5,0,5" FontSize="15" Padding="0"/>
-                <Button Grid.Column="1" Content="+ Добавить студента" Style="{StaticResource Button}" Command="{Binding .}"/>
-                <Button Grid.Column="2" Content="Перевод студента" Style="{StaticResource Button}" Command="{Binding .}"/>
+                <Button Grid.Column="1" Content="+ Добавить студента" Style="{StaticResource Button}" Command="{Binding StudentVM.CreateStudentCommand}"/>
+                <Button Grid.Column="2" Foreground="Red" Content="Перевод студента//ДОДЕЛАТЬ" Style="{StaticResource Button}" Command="{Binding .}"/>
             </Grid>
 
-            <ListBox ItemsSource="{Binding StudentVM.Students}" ItemContainerStyle="{StaticResource ListBoxItemStudent}" Margin="10,0,10,0" Height="482"/>
+            <ListBox x:Name="Students" ItemsSource="{Binding StudentVM.Students}" SelectedItem="{Binding GroupVM.Students}"
+                     ItemContainerStyle="{StaticResource ListBoxItemStudent}" Margin="10,0,10,0" Height="482"/>
 
         </StackPanel>
         

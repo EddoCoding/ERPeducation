@@ -17,6 +17,7 @@ namespace ERPeducation.Common.Windows.WindowDeanRoom.Faculty
 
         Action closeWindow;
 
+        public FacultyWindowVM() { }
         public FacultyWindowVM(TreeViewMain treeViewMain, Action closeWindow) 
         {
             this.treeViewMain = treeViewMain;
