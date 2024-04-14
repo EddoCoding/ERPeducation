@@ -1,7 +1,8 @@
-﻿using ERPeducation.Common.Windows.WindowDeanRoom.Group;
-using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
+﻿using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
+using ERPeducation.ViewModels.Modules.DeanRoom.Services;
 using ReactiveUI;
-using System.Xml.Linq;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace ERPeducation.Common.Windows.WindowDeanRoom.Student
 {
@@ -34,6 +35,7 @@ namespace ERPeducation.Common.Windows.WindowDeanRoom.Student
             };
             vm.AddStudentCommand = ReactiveCommand.Create(() =>
             {
+                student.Title = $"{student.SurName} {student.Name} {student.MiddleName}";
                 student.SurName = vm.SurName;
                 student.Name = vm.Name;
                 student.MiddleName = vm.MiddleName;
@@ -48,6 +50,13 @@ namespace ERPeducation.Common.Windows.WindowDeanRoom.Student
                 view.Close();
             });
             view.DataContext = vm;
+            view.ShowDialog();
+        }
+
+        public void TransferStudent(IEducationalService<TreeViewStudent> educationalService, TreeViewStudent student)
+        {
+            TransferStudentView view = new TransferStudentView();
+            view.DataContext = new TransferVM(educationalService, student, view.Close);
             view.ShowDialog();
         }
     }

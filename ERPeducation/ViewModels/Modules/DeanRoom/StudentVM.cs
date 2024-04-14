@@ -1,5 +1,4 @@
 ﻿using ERPeducation.Common.BD;
-using ERPeducation.Common.Command;
 using ERPeducation.Common.Windows.WindowDeanRoom.Student;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.DeanRoom.Services;
@@ -31,6 +30,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
         public ReactiveCommand<Unit, Unit> CreateStudentCommand { get; set; }
         public ReactiveCommand<TreeViewStudent, Unit> ChangeStudentCommand { get; set; }
+        public ReactiveCommand<TreeViewStudent, Unit> TransferStudentCommand { get; set; }
         public ReactiveCommand<TreeViewStudent, Unit> DeductStudentCommand { get; set; }
 
         IStudent _student;
@@ -45,6 +45,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
             CreateStudentCommand = ReactiveCommand.Create(AddStudent);
             ChangeStudentCommand = ReactiveCommand.Create<TreeViewStudent>(student => ChangeStudent(student));
+            TransferStudentCommand = ReactiveCommand.Create<TreeViewStudent>(student => TransferStudent(student));
             DeductStudentCommand = ReactiveCommand.Create<TreeViewStudent>(student => DeductStudent(student));
         }
 
@@ -60,7 +61,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
                     foreach (var faculties in main.Items)
                         foreach (var departments in faculties.Items)
                             foreach(var groups in departments.Items)
-                                if (groups.Title == selectedGroup.Title)
+                                if (groups.GroupNumber == selectedGroup.GroupNumber)
                                 {
                                     _student.AddStudent(groups);
 
@@ -70,7 +71,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
                                     return;
                                 }
-
             }
         }
         void ChangeStudent(TreeViewStudent student) 
@@ -89,23 +89,47 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
             GetEducationalData();
         }
+
+        TreeViewFaculty _faculty = new TreeViewFaculty("");
+        TreeViewDepartment _department = new TreeViewDepartment("");
+        TreeViewGroup _group = new TreeViewGroup("");
+        void TransferStudent(TreeViewStudent student)
+        {
+            treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
+            foreach (var main in treeViewMain)
+                foreach(var faculty in main.Items)
+                    foreach(var departments in faculty.Items)
+                        foreach(var groups in departments.Items)
+                            foreach(var students in groups.Items)
+                                if(student.FullName == student.FullName)
+                                {
+                                    _faculty = new TreeViewFaculty(faculty.Title);
+                                    _department = new TreeViewDepartment(departments.Title);
+                                    _group = new TreeViewGroup(groups.Title);
+                                }
+
+            IStudent stud = new Student();
+            ((Student)stud).TransferStudent(_educationalService, student);
+
+            DeductStudent(student);
+        }
         void DeductStudent(TreeViewStudent student)
         {
             treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
 
             foreach (var main in treeViewMain)
-                foreach (var faculty in main.Items)
-                    foreach (var departments in faculty.Items)
-                        foreach(var groups in departments.Items)
-                            for (int i = groups.Items.Count - 1; i >= 0; i--)
-                            {
-                                var students = groups.Items[i];
-                                if (students.FullName == student.FullName)
-                                {
-                                    groups.Items.RemoveAt(i);
-                                    break;
-                                }
-                            }
+                foreach (var faculties in main.Items)
+                    if (faculties.Title == _faculty.Title)
+                        foreach (var departments in faculties.Items)
+                            if (departments.Title == _department.Title)
+                                foreach (var groups in departments.Items)
+                                    if (groups.Title == _group.Title)
+                                        for (int i = groups.Items.Count - 1; i >= 0; i--)
+                                            if (groups.Items[i] is TreeViewStudent stud && stud.FullName == student.FullName)
+                                            {
+                                                groups.Items.RemoveAt(i);
+                                                break;
+                                            }
 
             _educationalService.jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, treeViewMain);
 

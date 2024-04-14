@@ -32,6 +32,7 @@ namespace ERPeducation.Common.Windows.WindowDeanRoom.Group
             };
             vm.AddGroupCommand = ReactiveCommand.Create(() =>
             {
+                group.Title = vm.GroupNumber;
                 group.GroupNumber = vm.GroupNumber;
                 group.Speciality = vm.Speciality;
                 group.LvlOfStudy = vm.LvlOfStudy;

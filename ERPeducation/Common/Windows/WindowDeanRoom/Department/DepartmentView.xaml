@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows.WindowDeanRoom.Department"
-        mc:Ignorable="d" Title="Кафедра" Height="180" Width="300" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Кафедра" Height="200" Width="300" FontFamily="Calibri">
     <Window.Resources>
         <Style x:Key="TextBox" TargetType="TextBox">
             <Setter Property="Template">
@@ -63,18 +63,18 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Навание кафедры" Padding="0" FontSize="14" Margin="10,5,0,5"/>
+        <StackPanel>
+            <Label Content="Навание кафедры" Padding="0" FontSize="14" Margin="10,5,0,0"/>
 
-        <TextBox Grid.Row="1" Style="{StaticResource TextBox}"/>
+            <TextBox Style="{StaticResource TextBox}"/>
 
-        <Label Grid.Row="2" Content="Пример: Кафедра информационных технологий" Padding="0" FontSize="13" Margin="10,0,0,5" Foreground="Gray"/>
-
-        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Label Content="Пример: Кафедра информационных технологий" Padding="0" FontSize="13" Margin="10,0,0,5" Foreground="Gray"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Button Content="Отменить" Style="{StaticResource ButtonCancel}" Command="{Binding CloseWindowCommand}"/>
             <Button Content="{Binding TextAddChange}" Style="{StaticResource ButtonAdd}" Command="{Binding AddDepartmentCommand}"/>
         </StackPanel>

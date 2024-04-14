@@ -16,11 +16,13 @@ namespace ERPeducation.ViewModels.Modules.Administration.Struct.Faculty
         public DateTime EndDateOfTraining { get; set; }
         public string Curator { get; set; } = string.Empty;
         public string Headman { get; set; } = string.Empty;
+        
 
         public ObservableCollection<TreeViewStudent> Items { get; set; }
 
         public TreeViewGroup(string groupNumber)
         {
+            Title = groupNumber;
             GroupNumber = groupNumber;
             Items = new ObservableCollection<TreeViewStudent>();
         }

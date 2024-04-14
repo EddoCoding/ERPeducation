@@ -22,6 +22,10 @@ namespace ERPeducation.Common.Services
         public UserControl GetModuleDeanRoom() => 
             new DeanRoom() { DataContext = new DeanRoomViewModel(new ObservableCollection<TreeViewMain>()) };
 
+        public UserControl GetModuleTrainingDivision() =>
+            new ModuleTrainingDivision();
+
+
         //ВКЛАДКА МОДУЛЯ ПРИЕМНАЯ КАМПАНИЯ
         public UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> data) => 
             new AdmissionCampaign() { DataContext = new AdmissionCampaignViewModel(this, new JSONService(), data) };

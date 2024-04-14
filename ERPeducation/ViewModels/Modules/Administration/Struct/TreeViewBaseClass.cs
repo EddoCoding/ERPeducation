@@ -7,7 +7,7 @@ namespace ERPeducation.ViewModels.Modules.Administration.Struct
     [JsonObject]
     public class TreeViewBaseClass : ReactiveObject
     {
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         [JsonIgnore] public ReactiveCommand<Unit, Unit> Add { get; set; }
         [JsonIgnore] public ReactiveCommand<Unit, Unit> Del { get; set; }

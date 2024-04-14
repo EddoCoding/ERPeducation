@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows.WindowDeanRoom.Student"
         xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
-        mc:Ignorable="d" Title="Студент" Height="540" Width="500" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Студент" Height="630" Width="500" FontFamily="Calibri">
     <Window.Resources>
         <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
 

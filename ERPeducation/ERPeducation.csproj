@@ -33,6 +33,7 @@
     <None Remove="Common\Image\rector.png" />
     <None Remove="Common\Image\search.png" />
     <None Remove="Common\Image\structEducation.png" />
+    <None Remove="Common\Image\syllabus.png" />
     <None Remove="Common\Image\teacher.png" />
     <None Remove="Common\Image\trainingDivision.png" />
     <None Remove="Common\Image\transferstudent.png" />
@@ -123,6 +124,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\structEducation.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\syllabus.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\teacher.png">

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows.WindowDeanRoom.Group"
         xmlns:converters="clr-namespace:ERPeducation.Common.Converters"
-        mc:Ignorable="d" Title="Группа" Height="700" Width="500" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Группа" Height="750" Width="500" FontFamily="Calibri">
     <Window.Resources>
         <converters:DateTimeToStringFormatConvert x:Key="DateTimeToStringFormatConvert"/>
 
@@ -219,7 +219,7 @@
             <TextBox Style="{StaticResource TextBoxHeadman}"/>
             <Label Content="Пример: Иванов Иван Иванович" Padding="0" FontSize="13" Margin="10,0,0,5" Foreground="Gray"/>
         </StackPanel>
-
+        
         <StackPanel Grid.Row="9" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Button Content="Отменить" Style="{StaticResource ButtonCancel}" Command="{Binding CloseWindowCommand}"/>
             <Button Content="{Binding TextAddChange}" Style="{StaticResource ButtonAdd}" Command="{Binding AddGroupCommand}"/>

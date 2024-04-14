@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Command;
 using ERPeducation.Common.Windows.WindowDeanRoom.Group;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.DeanRoom.Services;
@@ -30,6 +31,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
         public ReactiveCommand<Unit, Unit> CreateGroupCommand { get; set; }
         public ReactiveCommand<TreeViewGroup, Unit> ChangeGroupCommand { get; set; }
+        public ReactiveCommand<TreeViewGroup, Unit> ShowSyllabusCommand { get; set; }
         public ReactiveCommand<TreeViewGroup, Unit> LiquidationGroupCommand { get; set; }
 
         IGroup _group;
@@ -44,6 +46,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
             CreateGroupCommand = ReactiveCommand.Create(AddGroup);
             ChangeGroupCommand = ReactiveCommand.Create<TreeViewGroup>(group => ChangeGroup(group));
+            ShowSyllabusCommand = ReactiveCommand.Create<TreeViewGroup>(group => SyllabusShow(group));
             LiquidationGroupCommand = ReactiveCommand.Create<TreeViewGroup>(group => LiquidationGroup(group));
         }
 
@@ -85,6 +88,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
             GetEducationalData();
         }
+        void SyllabusShow(TreeViewGroup group) => NotReady.Message();
         void LiquidationGroup(TreeViewGroup group)
         {
             treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();

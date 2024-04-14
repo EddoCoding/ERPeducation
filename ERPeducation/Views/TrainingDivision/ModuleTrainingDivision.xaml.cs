@@ -5,10 +5,9 @@ namespace ERPeducation.Views
 
     public partial class ModuleTrainingDivision : UserControl
     {
-        public ModuleTrainingDivision(object viewModel)
+        public ModuleTrainingDivision()
         {
             InitializeComponent();
-            DataContext = viewModel;
         }
     }
 }

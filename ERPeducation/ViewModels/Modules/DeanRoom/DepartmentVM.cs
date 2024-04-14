@@ -96,7 +96,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
                     for (int i = faculty.Items.Count - 1; i >= 0; i--)
                     {
                         var departments = faculty.Items[i];
-                        if (departments.Title == main.Title)
+                        if (departments.Title == department.Title)
                         {
                             faculty.Items.RemoveAt(i);
                             break;

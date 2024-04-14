@@ -18,6 +18,7 @@ namespace ERPeducation.Common.Windows.WindowDeanRoom.Student
         public string Speciality { get; set; } = string.Empty;
         public string LevelOfTraining { get; set; } = string.Empty;
         public string FormOfStudy { get; set; } = string.Empty;
+
         //public ObservableCollection<PersonalDocumentBase> PersonalDocuments { get; set; } = new(); //Персональные документы
         //public ObservableCollection<EducationDocumentBase> EducationDocuments { get; set; } = new(); //Образование документы
         //public AcademicPerformance AcademicPerfomance { get; set; } = new(); //Класс успеваемости - разработать
@@ -36,14 +37,17 @@ namespace ERPeducation.Common.Windows.WindowDeanRoom.Student
             this.treeViewGroup = treeViewGroup;
             this.closeWindow = closeWindow;
 
-            AddStudentCommand = ReactiveCommand.Create(AddGroup);
+            AddStudentCommand = ReactiveCommand.Create(AddStudent);
             CloseWindowCommand = ReactiveCommand.Create(Exit);
+
+            InitializingProperties();
         }
 
-        void AddGroup()
+        void AddStudent()
         {
             treeViewGroup.Items.Add(new TreeViewStudent(SurName, Name, MiddleName)
             {
+                Title = $"{SurName} {Name} {MiddleName}",
                 DateOfBirth = DateOfBirth,
                 Group = Group,
                 Course = Course,
@@ -54,5 +58,14 @@ namespace ERPeducation.Common.Windows.WindowDeanRoom.Student
             closeWindow();
         }
         void Exit() => closeWindow();
+
+        void InitializingProperties()
+        {
+            Group = treeViewGroup.GroupNumber;
+            Course = treeViewGroup.Course;
+            Speciality = treeViewGroup.Speciality;
+            LevelOfTraining = treeViewGroup.LvlOfStudy;
+            FormOfStudy = treeViewGroup.FormOfStudy;
+        }
     }
 }

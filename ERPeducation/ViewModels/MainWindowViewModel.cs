@@ -96,6 +96,11 @@ namespace ERPeducation.ViewModels
                     Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleDeanRoom()));
                     return;
                 }
+                if (!ExistsTabItem && parameter == "Учебный отдел")
+                {
+                    Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleTrainingDivision()));
+                    return;
+                }
                 if (!ExistsTabItem && parameter == "Приёмная кампания")
                 {
                     Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleAdmissionCampaign(Data)));
@@ -113,6 +118,9 @@ namespace ERPeducation.ViewModels
                 {
                     case "Деканат":
                         Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleDeanRoom()));
+                        break;
+                    case "Учебный отдел":
+                        Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleTrainingDivision()));
                         break;
                     case "Приёмная кампания":
                         Data.TabItem.Add(new MainTabItem(parameter, _userControlService.GetModuleAdmissionCampaign(Data)));

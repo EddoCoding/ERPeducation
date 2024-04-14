@@ -35,7 +35,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Services
             foreach (var main in treeViewMain)
                 foreach (var faculties in main.Items)
                     foreach (var departments in faculties.Items)
-                        foreach(var groups in departments.Items)
+                        foreach (var groups in departments.Items)
                             if (groups.Title == treeView.Title)
                                 foreach (var student in groups.Items)
                                     students.Add(student);

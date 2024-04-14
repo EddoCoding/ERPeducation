@@ -32,8 +32,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Services
 
             ICollection<TreeViewGroup> groups = new List<TreeViewGroup>();
 
-            foreach (var main in treeViewMain)
-                foreach (var faculties in main.Items)
+            foreach(var main in treeViewMain)
+                foreach(var faculties in main.Items)
                     foreach(var departments in faculties.Items)
                         if (departments.Title == treeView.Title)
                             foreach (var group in departments.Items)

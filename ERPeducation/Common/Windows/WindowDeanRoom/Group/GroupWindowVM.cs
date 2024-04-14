@@ -1,5 +1,4 @@
-﻿using DynamicData;
-using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
+﻿using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ReactiveUI;
 using System;
 using System.Reactive;
@@ -42,6 +41,7 @@ namespace ERPeducation.Common.Windows.WindowDeanRoom.Group
         {
             treeViewDepartment.Items.Add(new TreeViewGroup(GroupNumber)
             {
+                Title = GroupNumber,
                 Speciality = Speciality,
                 LvlOfStudy = LvlOfStudy,
                 FormOfStudy = FormOfStudy,
