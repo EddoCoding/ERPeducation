@@ -36,6 +36,10 @@ namespace ERPeducation.Common.BD
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "AdmissionCampaign"));
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "AdmissionCampaign", "Enrollees"));
 
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision"));
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision", "Syllabus"));
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision", "Schedule"));
+
             FileServer.PathIS = dialog.SelectedPath;
 
             jsonService.CreateFileJson(FileServer.Users, "AdminAdmin.json", "Администратор", "AdminAdmin", true, true, true, true, true, true);

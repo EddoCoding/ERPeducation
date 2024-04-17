@@ -1,11 +1,12 @@
 ﻿using ERPeducation.Common.Interface;
+using ERPeducation.Common.Windows.WindowAddSyllabus;
 using ERPeducation.Models;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.Administration;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.DeanRoom;
-using ERPeducation.ViewModels.Modules.DeanRoom.Services;
+using ERPeducation.ViewModels.Modules.TrainingDivision;
 using ERPeducation.Views;
 using ERPeducation.Views.Administration;
 using ERPeducation.Views.AdmissionCampaign;
@@ -22,9 +23,9 @@ namespace ERPeducation.Common.Services
         public UserControl GetModuleDeanRoom() => 
             new DeanRoom() { DataContext = new DeanRoomViewModel(new ObservableCollection<TreeViewMain>()) };
 
+        //ВКЛАДКА МОДУЛЯ УЧЕБНЫЙ ОТДЕЛ
         public UserControl GetModuleTrainingDivision() =>
-            new ModuleTrainingDivision();
-
+            new ModuleTrainingDivision() { DataContext = new TrainingDivisionViewModel(new Syllabus()) };
 
         //ВКЛАДКА МОДУЛЯ ПРИЕМНАЯ КАМПАНИЯ
         public UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> data) => 
@@ -33,7 +34,6 @@ namespace ERPeducation.Common.Services
         //ВКЛАДКА МОДУЛЯ АДМИНИСТРИРОВАНИЕ
         public UserControl GetModuleAdministration() => 
             new ModuleAdministration() { DataContext = new AdministrationViewModel(this) };
-
 
         //ВКЛАДКА ДОБАВЛЕНИЯ АБИТУРИЕНТА
         public UserControl GetUserControlEnrollee(ObservableCollection<AddChangeEnrolleeViewModel> enrollees, MainTabControl<MainTabItem> data) =>
