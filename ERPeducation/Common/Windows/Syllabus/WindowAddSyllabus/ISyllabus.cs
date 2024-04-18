@@ -3,7 +3,7 @@ using ERPeducation.ViewModels.Modules.TrainingDivision;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace ERPeducation.Common.Windows.WindowAddSyllabus
+namespace ERPeducation.Common.Windows.Syllabus.WindowAddSyllabus
 {
     public interface ISyllabus
     {

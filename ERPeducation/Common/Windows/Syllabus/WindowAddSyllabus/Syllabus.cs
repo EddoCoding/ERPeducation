@@ -1,5 +1,6 @@
 ﻿using ERPeducation.Common.BD;
-using ERPeducation.Common.Command;
+using ERPeducation.Common.Windows.Syllabus.WindowSettingSyllabus;
+using ERPeducation.Common.Windows.WindowAddSyllabus;
 using ERPeducation.Models;
 using ERPeducation.ViewModels.Modules.TrainingDivision;
 using Newtonsoft.Json;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 
-namespace ERPeducation.Common.Windows.WindowAddSyllabus
+namespace ERPeducation.Common.Windows.Syllabus.WindowAddSyllabus
 {
     public class Syllabus : ISyllabus
     {
@@ -48,7 +49,12 @@ namespace ERPeducation.Common.Windows.WindowAddSyllabus
         }
 
         //Настройка учебного плана
-        public void SettingSyllabus(SyllabusVM syllabus) => NotReady.Message();
+        public void SettingSyllabus(SyllabusVM syllabus)
+        {
+            SettingSyllabusWindow view = new SettingSyllabusWindow();
+            view.DataContext = new SettingSyllabusViewModel(syllabus, view.Close);
+            view.ShowDialog();
+        }
 
         //Удаление учебного плана
         public void DeleteSyllabus(SyllabusVM syllabus)

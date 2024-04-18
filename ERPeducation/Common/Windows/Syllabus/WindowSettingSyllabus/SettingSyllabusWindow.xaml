@@ -1,0 +1,57 @@
+﻿<Window x:Class="ERPeducation.Common.Windows.Syllabus.WindowSettingSyllabus.SettingSyllabusWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Title="Настройка учебного плана" Height="450" Width="800" FontFamily="Calibri">
+    <Window.Resources>
+        <Style x:Key="ListBoxItemDiscipline" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <StackPanel Orientation="Horizontal" Background="{TemplateBinding Background}">
+                            <TextBlock Text="{Binding TitleSubject}" Margin="3"/>
+                            <TextBlock Text="{Binding LectureHours}" Margin="3"/>
+                            <TextBlock Text="{Binding PracticeHours}" Margin="3"/>
+                            <TextBlock Text="{Binding TypeOfControl}" Margin="3"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListBoxItemSemester" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="3">
+                                <Label Content="Семестр:" Padding="0" FontSize="15"/>
+                                <TextBlock Text="{Binding Number}" FontSize="15" Margin="5,0"/>
+                                <Button Content="Добавить дисциплину" Command="{Binding AddDisciplineCommand}"/>
+
+                            </StackPanel>
+                            <ListBox ItemsSource="{Binding Disciplines}" ItemContainerStyle="{StaticResource ListBoxItemDiscipline}"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+
+    <Grid>
+        <ListBox ItemsSource="{Binding Semesters}" ItemContainerStyle="{StaticResource ListBoxItemSemester}" Margin="10,10,10,40"/>
+
+        <Button Height="30" Width="100" Content="Выход" Command="{Binding CloseWindowCommand}" VerticalAlignment="Bottom"/>
+    </Grid>
+    
+</Window>

@@ -1,4 +1,4 @@
-﻿using ERPeducation.Common.Windows.WindowAddSyllabus;
+﻿using ERPeducation.Common.Windows.Syllabus.WindowAddSyllabus;
 using ERPeducation.Models;
 using ReactiveUI;
 using System.Collections.ObjectModel;

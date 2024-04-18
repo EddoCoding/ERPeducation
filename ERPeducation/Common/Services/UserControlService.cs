@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Common.Interface;
+using ERPeducation.Common.Windows.Syllabus.WindowAddSyllabus;
 using ERPeducation.Common.Windows.WindowAddSyllabus;
 using ERPeducation.Models;
 using ERPeducation.ViewModels;

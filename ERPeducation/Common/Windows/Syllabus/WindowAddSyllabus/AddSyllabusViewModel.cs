@@ -4,7 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 
-namespace ERPeducation.Common.Windows.WindowAddSyllabus
+namespace ERPeducation.Common.Windows.Syllabus.WindowAddSyllabus
 {
     public class AddSyllabusViewModel
     {
@@ -12,13 +12,13 @@ namespace ERPeducation.Common.Windows.WindowAddSyllabus
 
         ObservableCollection<SyllabusVM> syllabus;
 
-        public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<SyllabusVM, Unit> AddSellabusCommand { get; set; }
 
         Action closeWindow;
 
         ISyllabus _syllabus;
-        public AddSyllabusViewModel(ISyllabus _syllabus, ObservableCollection<SyllabusVM> syllabus, Action closeWindow) 
+        public AddSyllabusViewModel(ISyllabus _syllabus, ObservableCollection<SyllabusVM> syllabus, Action closeWindow)
         {
             this._syllabus = _syllabus;
             this.syllabus = syllabus;
@@ -29,12 +29,10 @@ namespace ERPeducation.Common.Windows.WindowAddSyllabus
         }
 
         void Exit() => closeWindow();
-        void AddSellabus(SyllabusVM syllabusVM) 
+        void AddSellabus(SyllabusVM syllabusVM)
         {
-            var syllabus = new SyllabusVM(syllabusVM.NumberOfSemester)
-            {
-                TitleSyllabus = syllabusVM.TitleSyllabus
-            };
+            var syllabus = new SyllabusVM(syllabusVM.TitleSyllabus, syllabusVM.NumberOfSemester);
+
             _syllabus.SerializationSyllabus(syllabus);
 
             closeWindow();

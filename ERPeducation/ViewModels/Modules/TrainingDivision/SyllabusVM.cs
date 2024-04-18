@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ERPeducation.ViewModels.Modules.TrainingDivision
 {
@@ -6,15 +7,17 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
     {
         public string TitleSyllabus { get; set; } = string.Empty;
         public int NumberOfSemester { get; set; }
-        public List<DisciplineVM> Semesters { get; set; }
+        public List<SemestrVM> Semesters { get; set; }
 
-        public SyllabusVM(int number = default)
+        public SyllabusVM(string titleSyllabus = default, int number = default)
         {
-            Semesters = new List<DisciplineVM>();
+            TitleSyllabus = titleSyllabus;
             NumberOfSemester = number;
 
-            for (int i = 0; i < NumberOfSemester; i++) 
-                Semesters.Add(new DisciplineVM());
+            Semesters = new List<SemestrVM>();
+
+            for (int i = 0; i < NumberOfSemester; i++)
+                Semesters.Add(new SemestrVM($"{i + 1}"));
         }
     }
 }
