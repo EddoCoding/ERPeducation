@@ -1,10 +1,8 @@
 ﻿using ERPeducation.Common.Windows.Syllabus.WindowAddSyllabus;
-using ERPeducation.Models;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
-using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.TrainingDivision
 {
@@ -16,12 +14,13 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
         public ReactiveCommand<SyllabusVM, Unit> SettingSyllabusCommand { get; set; }
         public ReactiveCommand<SyllabusVM, Unit> DeleteSyllabusCommand { get; set; }
 
+
         ISyllabus _syllabus;
         public TrainingDivisionViewModel(ISyllabus syllabus)
         {
             _syllabus = syllabus;
             Syllabus = new ObservableCollection<SyllabusVM>();
-
+        
             GetAllSyllabus();
 
             CreateSyllabusCommand = ReactiveCommand.Create(CreateSyllabus);

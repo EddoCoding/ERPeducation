@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using ReactiveUI;
+using System.Collections.Generic;
 
 namespace ERPeducation.ViewModels.Modules.TrainingDivision
 {

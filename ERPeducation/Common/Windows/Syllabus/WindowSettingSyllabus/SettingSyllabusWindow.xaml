@@ -39,7 +39,48 @@
                                 <Button Content="Добавить дисциплину" Command="{Binding AddDisciplineCommand}"/>
 
                             </StackPanel>
-                            <ListBox ItemsSource="{Binding Disciplines}" ItemContainerStyle="{StaticResource ListBoxItemDiscipline}"/>
+
+                            <ListView x:Name="Semesters" ItemsSource="{Binding Disciplines}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding TitleSubject}" Width="Auto">
+                                            <GridViewColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="Предмет"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.HeaderTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn DisplayMemberBinding="{Binding LectureHours}" Width="Auto">
+                                            <GridViewColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="Часы лекции"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.HeaderTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn DisplayMemberBinding="{Binding PracticeHours}" Width="Auto">
+                                            <GridViewColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="Часы практики"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.HeaderTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn DisplayMemberBinding="{Binding TypeOfControl}" Width="Auto">
+                                            <GridViewColumn.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="Тип контроля"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.HeaderTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Content="Удалить" Command="{Binding DataContext.DelDisciplineCommand, ElementName=Semesters}" CommandParameter="{Binding}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </StackPanel>
                     </ControlTemplate>
                 </Setter.Value>

@@ -1,6 +1,5 @@
 ﻿using ERPeducation.ViewModels.Modules.TrainingDivision;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace ERPeducation.Models
 {
