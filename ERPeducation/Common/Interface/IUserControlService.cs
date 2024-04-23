@@ -1,6 +1,6 @@
 ﻿using ERPeducation.Models;
 using ERPeducation.ViewModels;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 

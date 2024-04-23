@@ -1,6 +1,8 @@
-﻿using ERPeducation.Common.Windows.Syllabus.WindowAddSyllabus;
+﻿using ERPeducation.Common.BD;
+using ERPeducation.Models;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Reactive;
 
@@ -8,50 +10,39 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
 {
     public class TrainingDivisionViewModel
     {
-        public ObservableCollection<SyllabusVM> Syllabus { get; set; }
+        public Syllabus Syllabus { get; set; }
+        public ObservableCollection<Syllabus> SyllabusCollection { get; set; }
 
         public ReactiveCommand<Unit, Unit> CreateSyllabusCommand { get; set; }
-        public ReactiveCommand<SyllabusVM, Unit> SettingSyllabusCommand { get; set; }
-        public ReactiveCommand<SyllabusVM, Unit> DeleteSyllabusCommand { get; set; }
+        public ReactiveCommand<Syllabus, Unit> SettingSyllabusCommand { get; set; }
+        public ReactiveCommand<Syllabus, Unit> DeleteSyllabusCommand { get; set; }
 
-
-        ISyllabus _syllabus;
-        public TrainingDivisionViewModel(ISyllabus syllabus)
+        ISyllabus _syllabusService;
+        public TrainingDivisionViewModel(ISyllabus _syllabusService)
         {
-            _syllabus = syllabus;
-            Syllabus = new ObservableCollection<SyllabusVM>();
-        
-            GetAllSyllabus();
+            this._syllabusService = _syllabusService;
+            Syllabus = _syllabusService.GetSyllabusModel();
+
+            SyllabusCollection = new ObservableCollection<Syllabus>();
+
+            foreach (var syllabus in _syllabusService.GetSyllabusCollection())
+                SyllabusCollection.Add(syllabus);
 
             CreateSyllabusCommand = ReactiveCommand.Create(CreateSyllabus);
-            SettingSyllabusCommand = ReactiveCommand.Create<SyllabusVM>(SettingSyllabus);
-            DeleteSyllabusCommand = ReactiveCommand.Create<SyllabusVM>(DeleteSyllabus);
+            SettingSyllabusCommand = ReactiveCommand.Create<Syllabus>(s =>
+            {
+
+            });
+            DeleteSyllabusCommand = ReactiveCommand.Create<Syllabus>(DeleteSyllabus);
         }
 
-        void GetAllSyllabus()
+        void CreateSyllabus() => _syllabusService.OpenWindowAddSyllabus(SyllabusCollection);
+        void DeleteSyllabus(Syllabus syllabus)
         {
-            foreach (var item in _syllabus.DeserializationSyllabus())
-                Syllabus.Add(new SyllabusVM()
-                {
-                    TitleSyllabus = item.TitleSyllabus,
-                    Semesters = item.Semesters
-                });
-        }
-        void CreateSyllabus()
-        {
-            _syllabus.OpenWindowAddSyllabus(Syllabus);
-            Syllabus.Clear();
-            GetAllSyllabus();
-        }
-        void SettingSyllabus(SyllabusVM syllabus) => _syllabus.SettingSyllabus(syllabus);
-        void DeleteSyllabus(SyllabusVM syllabus) 
-        {
-            var itemSyllabus = Syllabus.FirstOrDefault(x => x.TitleSyllabus == syllabus.TitleSyllabus);
-            if (itemSyllabus is not null)
-                _syllabus.DeleteSyllabus(itemSyllabus);
+            if (File.Exists(Path.Combine(FileServer.Syllabus, $"{syllabus.TitleSyllabus}.json")))
+                File.Delete(Path.Combine(FileServer.Syllabus, $"{syllabus.TitleSyllabus}.json"));
 
-            Syllabus.Clear();
-            GetAllSyllabus();
+            SyllabusCollection.Select(syllabus => syllabus.TitleSyllabus);
         }
     }
 }

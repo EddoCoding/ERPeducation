@@ -1,11 +1,10 @@
 ﻿using ERPeducation.Common.Interface;
-using ERPeducation.Common.Windows.Syllabus.WindowAddSyllabus;
-using ERPeducation.Common.Windows.WindowAddSyllabus;
 using ERPeducation.Models;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.Administration;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old;
 using ERPeducation.ViewModels.Modules.DeanRoom;
 using ERPeducation.ViewModels.Modules.TrainingDivision;
 using ERPeducation.Views;
@@ -26,11 +25,16 @@ namespace ERPeducation.Common.Services
 
         //ВКЛАДКА МОДУЛЯ УЧЕБНЫЙ ОТДЕЛ
         public UserControl GetModuleTrainingDivision() =>
-            new ModuleTrainingDivision() { DataContext = new TrainingDivisionViewModel(new Syllabus()) };
+            new ModuleTrainingDivision() { DataContext = new TrainingDivisionViewModel(new SyllabusService()) };
 
         //ВКЛАДКА МОДУЛЯ ПРИЕМНАЯ КАМПАНИЯ
-        public UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> data) => 
-            new AdmissionCampaign() { DataContext = new AdmissionCampaignViewModel(this, new JSONService(), data) };
+        public UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> mainTabControls)
+        {
+            AdmissionCampaignView view = new();
+            view.DataContext = new AdmissionCampaignViewModel(new AdmissionRepository(), mainTabControls);
+            return view;
+        }
+
 
         //ВКЛАДКА МОДУЛЯ АДМИНИСТРИРОВАНИЕ
         public UserControl GetModuleAdministration() => 

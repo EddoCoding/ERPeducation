@@ -1,4 +1,4 @@
-﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments;
+﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old.EducationDocuments;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 

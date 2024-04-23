@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Common.BD;
+using ERPeducation.Common.Windows.WindowAddStudentFromEnrollees;
 using ERPeducation.Common.Windows.WindowDeanRoom.Student;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.DeanRoom.Services;
@@ -29,6 +30,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         TreeViewGroup? selectedGroup;
 
         public ReactiveCommand<Unit, Unit> CreateStudentCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> CreateStudentFromEnrolleesCommand { get; set; }
         public ReactiveCommand<TreeViewStudent, Unit> ChangeStudentCommand { get; set; }
         public ReactiveCommand<TreeViewStudent, Unit> TransferStudentCommand { get; set; }
         public ReactiveCommand<TreeViewStudent, Unit> DeductStudentCommand { get; set; }
@@ -44,6 +46,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             Students = new ObservableCollection<TreeViewStudent>();
 
             CreateStudentCommand = ReactiveCommand.Create(AddStudent);
+            CreateStudentFromEnrolleesCommand = ReactiveCommand.Create(AddStudentFromEnrollees);
             ChangeStudentCommand = ReactiveCommand.Create<TreeViewStudent>(student => ChangeStudent(student));
             TransferStudentCommand = ReactiveCommand.Create<TreeViewStudent>(student => TransferStudent(student));
             DeductStudentCommand = ReactiveCommand.Create<TreeViewStudent>(student => DeductStudent(student));
@@ -72,6 +75,13 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
                                     return;
                                 }
             }
+        }
+        void AddStudentFromEnrollees() //Потом все вынести в сервис - тело метода
+        {
+            
+            AddStudentFromEnrolleesWindow view = new();
+            view.DataContext = new AddStudentFromEnrolleesViewModel(view.Close);
+            view.ShowDialog();
         }
         void ChangeStudent(TreeViewStudent student) 
         {

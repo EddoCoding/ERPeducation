@@ -3,7 +3,7 @@ using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows.AddUser;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;

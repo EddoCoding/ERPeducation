@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Common.Windows.WindowAddSyllabus"
-        mc:Ignorable="d" Title="Учебный план" Height="300" Width="450" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Учебный план" Height="150" Width="450" FontFamily="Calibri">
     <Window.Resources>
         <Style x:Key="TextBoxSyllabus" TargetType="TextBox">
             <Setter Property="Template">
@@ -17,18 +17,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="TextBoxSemester" TargetType="TextBox">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border BorderBrush="Gray" BorderThickness="1" Margin="10,0">
-                            <TextBox Text="{Binding Syllabus.NumberOfSemester}"  BorderThickness="0" FontSize="14" Margin="3" SelectionBrush="Gray"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <Style x:Key="ButtonCancel" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Gray"/>
@@ -86,12 +74,9 @@
         <TextBox Grid.Row="1" Style="{StaticResource TextBoxSyllabus}"/>
         <Label Grid.Row="2" Content="Пример: Учебный план для Бак/Приклад.Инфо./Очной формы" Padding="0" Margin="10,0,0,0" Foreground="Gray"/>
 
-        <Label Grid.Row="3" Content="Количество семестров" FontSize="15" Padding="0" Margin="10,5,0,0"/>
-        <TextBox Grid.Row="4" Style="{StaticResource TextBoxSemester}"/>
-
         <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Button Content="Отменить" Style="{StaticResource ButtonCancel}" Command="{Binding CloseWindowCommand}"/>
-            <Button Content="Добавить" Style="{StaticResource ButtonAdd}" Command="{Binding AddSellabusCommand}" CommandParameter="{Binding Syllabus}"/>
+            <Button Content="Добавить" Style="{StaticResource ButtonAdd}" Command="{Binding AddSyllabusCommand}" CommandParameter="{Binding Syllabus}"/>
         </StackPanel>
 
     </Grid>

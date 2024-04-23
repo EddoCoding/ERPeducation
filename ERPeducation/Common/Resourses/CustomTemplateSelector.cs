@@ -1,6 +1,6 @@
 ﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.PersonalDocuments;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old.EducationDocuments;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old.PersonalDocuments;
 using System.Windows;
 using System.Windows.Controls;
 

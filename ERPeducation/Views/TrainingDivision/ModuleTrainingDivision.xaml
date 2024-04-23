@@ -90,18 +90,14 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="{Binding TitleSyllabus}" Margin="5" FontSize="14"/>
-                                <Label Grid.Column="1" Content="Семестров:" VerticalAlignment="Center"/>
-                                <TextBlock Grid.Column="2" Text="{Binding Semesters.Count}" Margin="5" FontSize="14" VerticalAlignment="Center"/>
-                                <Button Grid.Column="3" Content="Настроить учебный план" Command="{Binding DataContext.SettingSyllabusCommand, ElementName=Syllabus}" 
+                                <Button Grid.Column="1" Content="Настроить учебный план" Command="{Binding DataContext.SettingSyllabusCommand, ElementName=Syllabus}" 
                                         CommandParameter="{Binding}" Style="{StaticResource Button}"/>
-                                <Button Grid.Column="4" Content="Удалить учебный план" Command="{Binding DataContext.DeleteSyllabusCommand, ElementName=Syllabus}"
+                                <Button Grid.Column="2" Content="Удалить учебный план" Command="{Binding DataContext.DeleteSyllabusCommand, ElementName=Syllabus}"
                                         CommandParameter="{Binding}" Style="{StaticResource ButtonDelete}"/>
                             </Grid>
                         </Border>

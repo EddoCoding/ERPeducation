@@ -5,7 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" Title="Настройка учебного плана" Height="450" Width="800" FontFamily="Calibri">
     <Window.Resources>
-        <Style x:Key="ListBoxItemDiscipline" TargetType="ListBoxItem">
+        <Style x:Key="Button" TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="1" HorizontalAlignment="Left">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                                <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                <Setter Property="BorderBrush" Value="DarkCyan"/>
+                            </Trigger> 
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonExit" TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="1" 
+                                HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--<Style x:Key="ListBoxItemDiscipline" TargetType="ListBoxItem">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -27,8 +70,8 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
-        <Style x:Key="ListBoxItemSemester" TargetType="ListBoxItem">
+        </Style>-->
+        <!--<Style x:Key="ListBoxItemSemester" TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
@@ -85,14 +128,52 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>-->
+
+        <Style x:Key="listboxitem" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="Семестр" Padding="0" FontSize="14"/>
+                                <TextBlock Text="{Binding Number}" Padding="0" Margin="3,0" FontSize="14"/>
+                            </StackPanel>
+
+                            <ListBox ItemsSource="{Binding Disciplines}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding TitleSubject}"/>
+                                            <TextBlock Text="{Binding LectureHours}"/>
+                                            <TextBlock Text="{Binding PracticeHours}"/>
+                                            <TextBlock Text="{Binding TypeOfControl}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
+        
     </Window.Resources>
     
 
     <Grid>
-        <ListBox ItemsSource="{Binding Semesters}" ItemContainerStyle="{StaticResource ListBoxItemSemester}" Margin="10,10,10,40"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <Button Height="30" Width="100" Content="Выход" Command="{Binding CloseWindowCommand}" VerticalAlignment="Bottom"/>
+        <Button Content="Добавить семестр" Style="{StaticResource Button}" Command="{Binding AddSemestrCommand}"/>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding Semesters.Semesters}" ItemContainerStyle="{StaticResource listboxitem}" Margin="10,0"/>
+
+        <Button Grid.Row="2" Content="Закончить настройку" Style="{StaticResource ButtonExit}" Command="{Binding CloseWindowCommand}"/>
     </Grid>
     
 </Window>

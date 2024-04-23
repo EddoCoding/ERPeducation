@@ -1,4 +1,4 @@
-﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.EducationDocuments;
+﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old.EducationDocuments;
 using ERPeducation.Views.AdmissionCampaign.UserControlEducations;
 using ReactiveUI;
 using System.Collections.ObjectModel;

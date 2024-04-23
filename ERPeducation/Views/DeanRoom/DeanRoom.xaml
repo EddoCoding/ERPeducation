@@ -414,12 +414,14 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" Content="Студенты" Margin="10,5,0,5" FontSize="15" Padding="0"/>
                         <Button Grid.Column="1" Content="+ Добавить студента" Style="{StaticResource Button}" Command="{Binding StudentVM.CreateStudentCommand}"/>
+                        <Button Grid.Column="2" Content="+ Добавить списка абитуриентов" Style="{StaticResource Button}" Command="{Binding StudentVM.CreateStudentFromEnrolleesCommand}"/>
                     </Grid>
 
                     <ListBox x:Name="Students" ItemsSource="{Binding StudentVM.Students}" SelectedItem="{Binding GroupVM.Students}"

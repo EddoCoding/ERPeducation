@@ -1,39 +1,48 @@
-﻿using ERPeducation.ViewModels.Modules.TrainingDivision;
+﻿using ERPeducation.Common.BD;
+using Newtonsoft.Json;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Reactive;
 
 namespace ERPeducation.Common.Windows.Syllabus.WindowAddSyllabus
 {
     public class AddSyllabusViewModel
     {
-        public SyllabusVM Syllabus { get; set; } = new();
+        public Models.Syllabus Syllabus { get; set; } = new();
+        ObservableCollection<Models.Syllabus> syllabus;
 
-        ObservableCollection<SyllabusVM> syllabus;
-
-        public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
-        public ReactiveCommand<SyllabusVM, Unit> AddSellabusCommand { get; set; }
-
+        public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
+        public ReactiveCommand<Models.Syllabus, Unit> AddSyllabusCommand { get; set; }
         Action closeWindow;
 
-        ISyllabus _syllabus;
-        public AddSyllabusViewModel(ISyllabus _syllabus, ObservableCollection<SyllabusVM> syllabus, Action closeWindow)
+        public AddSyllabusViewModel(ObservableCollection<Models.Syllabus> syllabus, Action closeWindow)
         {
-            this._syllabus = _syllabus;
             this.syllabus = syllabus;
             this.closeWindow = closeWindow;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
-            AddSellabusCommand = ReactiveCommand.Create<SyllabusVM>(syllabusVM => AddSellabus(syllabusVM));
+            AddSyllabusCommand = ReactiveCommand.Create<Models.Syllabus>(AddSyllabus);
         }
 
         void Exit() => closeWindow();
-        void AddSellabus(SyllabusVM syllabusVM)
+        void AddSyllabus(Models.Syllabus syllabus)
         {
-            var syllabus = new SyllabusVM(syllabusVM.TitleSyllabus, syllabusVM.NumberOfSemester);
+            var item = new Models.Syllabus()
+            {
+                TitleSyllabus = syllabus.TitleSyllabus
+            };
 
-            _syllabus.SerializationSyllabus(syllabus);
+            var jsonSetting = new JsonSerializerSettings()
+            {
+                Formatting = Formatting.Indented
+            };
+
+            File.WriteAllText(Path.Combine(FileServer.Syllabus, $"{item.TitleSyllabus}.json"), JsonConvert.SerializeObject(item, jsonSetting));
+            if (File.Exists(Path.Combine(FileServer.Syllabus, $"{item.TitleSyllabus}.json")))
+                this.syllabus.Add(item);
+            
 
             closeWindow();
         }

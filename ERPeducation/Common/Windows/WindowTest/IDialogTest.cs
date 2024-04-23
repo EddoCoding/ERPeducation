@@ -1,4 +1,4 @@
-﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign;
+﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old;
 using System.Collections.ObjectModel;
 
 namespace ERPeducation.Common.Windows.WindowTest
