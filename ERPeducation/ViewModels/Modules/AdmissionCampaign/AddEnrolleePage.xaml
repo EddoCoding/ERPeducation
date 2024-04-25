@@ -1,0 +1,247 @@
+﻿<UserControl x:Class="ERPeducation.ViewModels.Modules.AdmissionCampaign.AddEnrolleePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ERPeducation.ViewModels.Modules.AdmissionCampaign"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" FontFamily="Calibri">
+    <UserControl.Resources>
+        <Style x:Key="MyStyleLabel" TargetType="Label">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="Label" TargetType="Label">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="10,5,0,0"/>
+        </Style>
+        <Style x:Key="ComboBoxGender" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <StackPanel>
+                            <ToggleButton x:Name="togglebutton" Content="{Binding Enrollee.Gender}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                  RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Width="70" HorizontalAlignment="Left">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                            </Border>
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide" Width="70">
+                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxItem" TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="White">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+            <Label Content="Личная информация" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
+
+            <!--Блок персональной информации-->
+            <StackPanel Grid.Row="1">
+                <Label Content="Фамилия" Style="{StaticResource Label}"/>
+                <TextBox Style="{StaticResource defaultTextBox}" Width="350" HorizontalAlignment="Left" Margin="10,0,0,0"
+                     Text="{Binding Enrollee.SurName}" />
+
+                <Label Content="Имя" Style="{StaticResource Label}"/>
+                <TextBox Style="{StaticResource defaultTextBox}" Width="350" HorizontalAlignment="Left" Margin="10,0,0,0"
+                     Text="{Binding Enrollee.Name}" />
+
+                <Label Content="Отчество" Style="{StaticResource Label}"/>
+                <TextBox Style="{StaticResource defaultTextBox}" Width="350" HorizontalAlignment="Left" Margin="10,0,0,0" 
+                     Text="{Binding Enrollee.MiddleName}"/>
+
+                <Label Content="Пол" Style="{StaticResource Label}"/>
+                <ComboBox Style="{StaticResource ComboBoxGender}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
+                      SelectedItem="{Binding Enrollee.Gender, Converter={StaticResource ComboBoxItemToStringConvert}}" Margin="10,0,0,0">
+                <ComboBox.Items>
+                    <ComboBoxItem Content="Муж"/>
+                    <ComboBoxItem Content="Жен"/>
+                </ComboBox.Items>
+            </ComboBox>
+
+                <Label Content="Дата рождения" Style="{StaticResource Label}"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="{Binding Enrollee.DateOfBirth, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                         Style="{StaticResource DataTextBox}" Width="76" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                <Label Content="Формат даты: 05.12.2000" Foreground="Gray"/>
+            </StackPanel>
+
+                <!--Блок гражданства-->
+                <Grid Margin="10,0,0,0">
+                    <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                    <RadioButton Grid.Column="0" Grid.Row="0" 
+                             IsChecked="True" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Grid.Row="0" 
+                       Content="Гражданство" FontSize="15"/>
+                    
+                    <TextBox Grid.Column="2" Grid.Row="0" 
+                         Style="{StaticResource defaultTextBox}" Width="400" 
+                         Text="{Binding Enrollee.Citizenship}" IsEnabled="{Binding .}"/>
+                    <Label Grid.Column="3" Grid.Row="0"
+                       Content="Действует с:" Style="{StaticResource Label}"/>
+                    <StackPanel Grid.Column="4" Grid.Row="0" Orientation="Horizontal">
+                        <TextBox  Text="{Binding Enrollee.DateCitizenship, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                        Style="{StaticResource DataTextBox}" Width="76" Margin="10,0,0,0" IsEnabled="{Binding .}"/>
+                    <Label Content="Формат даты: 05.12.2000" Foreground="Gray" VerticalAlignment="Center"/>
+                </StackPanel>
+                    
+                    <RadioButton Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
+                    <Label Grid.Column="1" Grid.Row="1" Content="Без гражданства" FontSize="15"/>
+                </Grid>
+
+            </StackPanel>
+
+            <Line Grid.Row="2" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,10,40,0"
+                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+            <!--Блок документов-->
+            <Label Grid.Row="3" Content="Документы" Style="{StaticResource Label}" Margin="10,10,0,10" FontWeight="Bold"/>
+
+            <Grid Grid.Row="4" Margin="10,0,0,0">
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+                <Label Content="Добавить документ:" Padding="0" FontSize="15"/>
+                <Button Grid.Column="1" Content="Паспорт" Style="{StaticResource defaultButton}" 
+                    Command="{Binding AddPassportCommand}"/>
+                <Button Grid.Column="2" Content="Снилс" Style="{StaticResource defaultButton}" 
+                    Command="{Binding AddSnilsCommand}"/>
+                <Button Grid.Column="3" Content="ИНН" Style="{StaticResource defaultButton}" 
+                    Command="{Binding AddINNCommand}"/>
+                <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Style="{StaticResource defaultButton}" 
+                    Command="{Binding AddForeignPassportCommand}"/>
+            </Grid>
+
+            <ListBox Grid.Row="5" ItemsSource="{Binding Documents}" ItemContainerStyle="{Binding}" Margin="10,0,10,0" Height="200"/>
+
+            <Line Grid.Row="6" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"
+                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+            <!--Блок образования-->
+            <Label Grid.Row="7" Content="Образование" Style="{StaticResource Label}" Margin="10,10,0,10" FontWeight="Bold"/>
+
+            <Grid Grid.Row="8" Margin="10,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label  Grid.Column="0" Content="Добавить образование:" Padding="0" FontSize="15"/>
+                <Button Grid.Column="1" Content="9 класс" 
+                        Style="{StaticResource defaultButton}" Command="{Binding AddNineCommand}"/>
+                <Button Grid.Column="2" Content="11 класс" 
+                        Style="{StaticResource defaultButton}" Command="{Binding AddElevenCommand}"/>
+                <Button Grid.Column="3" Content="СПО" 
+                        Style="{StaticResource defaultButton}" Command="{Binding AddSPOCommand}"/>
+                <Button Grid.Column="4" Content="Бакалавриат" 
+                        Style="{StaticResource defaultButton}" Command="{Binding AddBAKCommand}"/>
+                <Button Grid.Column="5" Content="Магистратура" 
+                        Style="{StaticResource defaultButton}" Command="{Binding AddMAGCommand}"/>
+                <Button Grid.Column="6" Content="Специалитет" 
+                        Style="{StaticResource defaultButton}" Command="{Binding AddASPCommand}"/>
+
+            </Grid>
+
+            <ListBox Grid.Row="9" ItemsSource="{Binding Educations}" ItemContainerStyle="{Binding}" Margin="10,0,10,0" Height="200"/>
+
+            <Line Grid.Row="10" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,10"
+                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+            <!--Блок распечатки документов-->
+            <Label Grid.Row="11" Content="Распечатка" Style="{StaticResource Label}" Margin="10,0,0,0" FontWeight="Bold"/>
+
+            <Line Grid.Row="12" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,10,40,0"
+                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
+
+            <!--Кнопка добавления абитуриента-->
+            <Button Grid.Row="13" Content="Добавить абитуриента" 
+                    Style="{StaticResource OkButton}" HorizontalAlignment="Center"
+                    Command="{Binding AddEnrollee}"/>
+            
+        </Grid>
+    </ScrollViewer>
+    
+</UserControl>

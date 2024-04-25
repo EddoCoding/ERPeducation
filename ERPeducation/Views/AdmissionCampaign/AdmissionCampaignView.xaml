@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" FontFamily="Calibri">
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -20,8 +21,8 @@
                Padding="0" FontSize="20" FontWeight="Bold"/>
 
         <StackPanel Grid.Row="1">
-            <Button Content="Добавить абитуриента" Style="{StaticResource фыв}"/>
-            <ListBox ItemsSource="{Binding Enrollees}" Margin="10,0,0,0"/>
+            <Button Content="Добавить абитуриента" Style="{StaticResource defaultButton}" Command="{Binding OpenPageAddEnrolleeCommand}"/>
+            <ListBox ItemsSource="{Binding Enrollees}" Margin="10,0,0,0" Height="550"/>
         </StackPanel>
         
     </Grid>
