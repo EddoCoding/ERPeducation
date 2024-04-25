@@ -1,6 +1,7 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Models;
 using ERPeducation.Models.AdmissionCampaign;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Services;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -31,7 +32,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public void OpenPageAddEnrollee(MainTabControl<MainTabItem> mainTabControls, ObservableCollection<Enrollee> enrollees)
         {
             AddEnrolleePage page = new();
-            page.DataContext = new AddEnrolleeViewModel(this, new EnrolleService(), enrollees);
+            page.DataContext = new AddEnrolleeViewModel(this, new EnrolleeDocumentService(), new EnrolleeRepository(), enrollees);
             mainTabControls.TabItem.Add(new MainTabItem("Добавление абитуриента", page));
         }
 

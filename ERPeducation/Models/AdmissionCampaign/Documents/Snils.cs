@@ -6,5 +6,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents
     {
         public string Number { get; set; } = string.Empty;
         public DateTime RegistrationDate { get; set; }
+
+        public Snils()
+        {
+            TypeDocument = "Снилс";
+        }
     }
 }

@@ -8,5 +8,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents
         public DateTime DateOfIssue { get; set; }
         public string Code { get; set; } = string.Empty;
         public string Number { get; set; } = string.Empty;
+
+        public ForeignPassport()
+        {
+            TypeDocument = "Паспорт иностранного гражданина";
+        }
     }
 }

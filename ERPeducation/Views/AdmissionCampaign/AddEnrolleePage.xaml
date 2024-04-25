@@ -181,13 +181,13 @@
 
                 <Label Content="Добавить документ:" Padding="0" FontSize="15"/>
                 <Button Grid.Column="1" Content="Паспорт" Style="{StaticResource defaultButton}" 
-                    Command="{Binding AddPassportCommand}"/>
+                    Command="{Binding AddDocumentCommand}" CommandParameter="Passport"/>
                 <Button Grid.Column="2" Content="Снилс" Style="{StaticResource defaultButton}" 
-                    Command="{Binding AddSnilsCommand}"/>
+                    Command="{Binding AddDocumentCommand}" CommandParameter="Snils"/>
                 <Button Grid.Column="3" Content="ИНН" Style="{StaticResource defaultButton}" 
-                    Command="{Binding AddINNCommand}"/>
+                    Command="{Binding AddDocumentCommand}" CommandParameter="INN"/>
                 <Button Grid.Column="4" Content="Паспорт иностранного гражданина" Style="{StaticResource defaultButton}" 
-                    Command="{Binding AddForeignPassportCommand}"/>
+                    Command="{Binding AddDocumentCommand}" CommandParameter="ForeignPassport"/>
             </Grid>
 
             <ListBox Grid.Row="5" ItemsSource="{Binding Documents}" ItemContainerStyle="{Binding}" Margin="10,0,10,0" Height="200"/>

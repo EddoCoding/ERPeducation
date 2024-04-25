@@ -9,5 +9,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents
         public string DepartmentCode { get; set; } = string.Empty;
         public string Series { get; set; } = string.Empty;
         public string Number { get; set; } = string.Empty;
+
+        public Passport()
+        {
+            TypeDocument = "Паспорт";
+        }
     }
 }

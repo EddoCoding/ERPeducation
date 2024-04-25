@@ -9,5 +9,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents
         public string Series { get; set; } = string.Empty;
         public string Number { get; set; } = string.Empty;
 
+        public INN()
+        {
+            TypeDocument = "ИНН";
+        }
     }
 }
