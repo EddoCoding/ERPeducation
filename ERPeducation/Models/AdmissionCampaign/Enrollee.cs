@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
+using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
+using System.Collections.ObjectModel;
 
 namespace ERPeducation.Models.AdmissionCampaign
 {
@@ -15,5 +17,15 @@ namespace ERPeducation.Models.AdmissionCampaign
         [Reactive] public DateTime DateOfBirth { get; set; }                  // -- Дата рождения --
         [Reactive] public string Citizenship { get; set; } = string.Empty;    // -- Гражданство --
         [Reactive] public DateTime DateCitizenship { get; set; }              // -- Действует до --
+
+
+        ObservableCollection<DocumentBase> _documents;
+        public ObservableCollection<DocumentBase> Documents
+        {
+            get => _documents;
+            set => this.RaiseAndSetIfChanged(ref _documents, value);
+        }
+
+        public Enrollee() => Documents = new ObservableCollection<DocumentBase>();
     }
 }

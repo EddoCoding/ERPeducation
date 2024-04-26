@@ -1,0 +1,167 @@
+﻿<Window x:Class="ERPeducation.Views.AdmissionCampaign.WindowDocuments.PassportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.WindowDocuments"
+        mc:Ignorable="d" Title="Паспорт" Height="330" Width="490" FontFamily="Calibri">
+    <Window.Resources>
+        <Style x:Key="Label" TargetType="Label">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10,10,10,10"/>
+            <Setter Property="FontFamily" Value="15"/>
+        </Style>
+        <Style x:Key="ComboBoxGender" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <StackPanel>
+                            <ToggleButton x:Name="togglebutton" Content="{Binding Passport.Gender}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Width="76" HorizontalAlignment="Left">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                            </Border>
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide" Width="76">
+                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxItem" TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="White">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Фамилия:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Column="1" Text="{Binding Passport.SurName}" Style="{StaticResource defaultTextBox}" Width="200"/>
+            <Label Grid.Column="2" Content="Дата рождения:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Column="3" Text="{Binding Passport.DateOfBirth, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"  
+                     Style="{StaticResource DataTextBox}" Width="76"/>
+
+            <Label Grid.Row="1" Content="Имя:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Row="1" Text="{Binding Passport.Name}" Grid.Column="1" Style="{StaticResource defaultTextBox}" Width="200"/>
+            <Label Grid.Row="1" Grid.Column="2" Content="Пол:" Style="{StaticResource Label}"/>
+            <ComboBox Grid.Row="1" Grid.Column="3" Style="{StaticResource ComboBoxGender}" ItemContainerStyle="{StaticResource ComboBoxItem}" SelectedItem="{Binding Passport.Gender,
+                Converter={StaticResource ComboBoxItemToStringConvert}}">
+                <ComboBox.Items>
+                    <ComboBoxItem>Муж</ComboBoxItem>
+                    <ComboBoxItem>Жен</ComboBoxItem>
+                </ComboBox.Items>
+            </ComboBox>
+
+            <Label Grid.Row="2" Content="Отчество:" Style="{StaticResource Label}"/>
+            <TextBox Text="{Binding Passport.MiddleName}" Grid.Row="2" Grid.Column="1" Style="{StaticResource defaultTextBox}" Width="200"/>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Label Content="Место рождения:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Column="1" Text="{Binding Passport.PlaceOfBirth}" Style="{StaticResource defaultTextBox}" Width="341"/>
+
+            <Label Grid.Row="1" Content="Кем выдан:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Passport.IssuedBy}" Style="{StaticResource defaultTextBox}" Width="341"/>
+        </Grid>
+    
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Дата выдачи:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Column="1" Text="{Binding Passport.DateOfIssue, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"  
+                     Style="{StaticResource DataTextBox}" Width="125"/>
+            <Label Grid.Column="2" Content="Серия:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Column="3" Text="{Binding Passport.Series}" Style="{StaticResource defaultTextBox}" Width="125"/>
+
+            <Label Grid.Row="1" Content="Код подразделения:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Passport.DepartmentCode}" Style="{StaticResource defaultTextBox}" Width="125"/>
+            <Label Grid.Row="1" Grid.Column="2" Content="Номер:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding Passport.Number}" Style="{StaticResource defaultTextBox}" Width="125"/>
+
+        </Grid>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Отменить" Style="{StaticResource OkButton}" Margin="0,10,10,10"
+                    Command="{Binding CloseWindowCommand}"/>
+            <Button Content="Добавить" Style="{StaticResource OkButton}" Margin="0,10,10,10"
+                    Command="{Binding AddDocumentCommand}" CommandParameter="{Binding Passport}"/>
+        </StackPanel>    
+            
+    </Grid>
+
+</Window>

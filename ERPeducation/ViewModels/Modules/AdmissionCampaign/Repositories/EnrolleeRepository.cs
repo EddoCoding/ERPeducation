@@ -18,6 +18,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             Documents = new ObservableCollection<DocumentBase>();
         }
 
-        public void CreateDocument(string typeDocument) { }
+        public void CreateDocument(DocumentBase typeDocument) => _documents.Add(typeDocument);
     }
 }

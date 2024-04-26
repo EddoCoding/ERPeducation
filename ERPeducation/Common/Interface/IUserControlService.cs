@@ -1,7 +1,5 @@
 ﻿using ERPeducation.Models;
 using ERPeducation.ViewModels;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
 namespace ERPeducation.Common.Interface
@@ -12,14 +10,6 @@ namespace ERPeducation.Common.Interface
         UserControl GetModuleTrainingDivision();
         UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> data);
         UserControl GetModuleAdministration();
-
-
-        UserControl GetUserControlEnrollee(ObservableCollection<AddChangeEnrolleeViewModel> enrollees, MainTabControl<MainTabItem> data);
-
-
-        void GetInfoEnrollee(UserControl userControlEnrollee, AddChangeEnrolleeViewModel selectedEnrollee);
-
-
         UserControl GetUserControlForAdministrationView();
         UserControl GetUserControlForAdministrationStruct();
     }

@@ -3,7 +3,6 @@ using ERPeducation.Common.Interface;
 using ERPeducation.Common.Windows.AddUser;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
@@ -154,33 +153,6 @@ namespace ERPeducation.Common.Services
                 }
             }
         }
-
-
-        public void SerializeEnrollee(AddChangeEnrolleeViewModel enrollee)
-        {
-            var options = new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented
-            };
-
-            using (FileStream fs = new FileStream(Path.Combine(FileServer.Enrollees,
-                $"{enrollee.epivm.SurName}{enrollee.epivm.Name}{enrollee.epivm.MiddleName}.json"), FileMode.Create))
-            {
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    try
-                    {
-                        sw.Write(JsonConvert.SerializeObject(enrollee,options));
-                    }
-                    catch(Exception e)
-                    {
-                        DialogError error = new DialogError();
-                        error.Error(e.Message);
-                    }
-                }
-            }
-        }
-
 
         //Десериализация TreeViewMain
         public ObservableCollection<TreeViewMain> DeserializeTreeViewMain()

@@ -4,8 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.ViewModels.Modules.AdmissionCampaign"
+             xmlns:selector="clr-namespace:ERPeducation.Common.Selectors"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" FontFamily="Calibri">
     <UserControl.Resources>
+        <DataTemplate x:Key="Passport">
+            <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding TypeDocument}" Margin="5,0"/>
+                        <TextBlock Text="-"/>
+                        <TextBlock Text="{Binding SurName}" Margin="5,0"/>
+                        <TextBlock Text="{Binding Name}" Margin="5,0"/>
+                        <TextBlock Text="{Binding MiddleName}" Margin="5,0"/>
+                    </StackPanel>
+
+                </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="Snils">
+            <TextBlock Text="{Binding TypeDocument}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="INN">
+            <TextBlock Text="{Binding TypeDocument}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="ForeignPassport">
+            <TextBlock Text="{Binding TypeDocument}"/>
+        </DataTemplate>
+
+        <selector:SelectorDocuments x:Key="SelectorDocuments" 
+                                    TemplatePassport="{StaticResource Passport}" 
+                                    TemplateSnils="{StaticResource Snils}"
+                                    TemplateINN="{StaticResource INN}"
+                                    TemplateForeignPassport="{StaticResource ForeignPassport}"/>
+
         <Style x:Key="MyStyleLabel" TargetType="Label">
             <Setter Property="FontFamily" Value="Calibri"/>
             <Setter Property="Padding" Value="0"/>
@@ -190,7 +219,8 @@
                     Command="{Binding AddDocumentCommand}" CommandParameter="ForeignPassport"/>
             </Grid>
 
-            <ListBox Grid.Row="5" ItemsSource="{Binding Documents}" ItemContainerStyle="{Binding}" Margin="10,0,10,0" Height="200"/>
+            <ListBox Grid.Row="5" ItemsSource="{Binding Enrollee.Documents}" ItemTemplateSelector="{StaticResource SelectorDocuments}"
+                     Margin="10,0,10,0" Height="200"/>
 
             <Line Grid.Row="6" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"
                   X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
@@ -225,7 +255,7 @@
 
             </Grid>
 
-            <ListBox Grid.Row="9" ItemsSource="{Binding Educations}" ItemContainerStyle="{Binding}" Margin="10,0,10,0" Height="200"/>
+            <ListBox Grid.Row="9" Margin="10,0,10,0" Height="200"/>
 
             <Line Grid.Row="10" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,10"
                   X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>

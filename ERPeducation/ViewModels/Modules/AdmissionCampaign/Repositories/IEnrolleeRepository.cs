@@ -6,6 +6,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
     public interface IEnrolleeRepository
     {
         public ObservableCollection<DocumentBase> Documents { get; set; }
-        void CreateDocument(string typeDocument);
+        void CreateDocument(DocumentBase typeDocument);
     }
 }

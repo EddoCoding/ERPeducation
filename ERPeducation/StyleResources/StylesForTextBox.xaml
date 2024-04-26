@@ -5,7 +5,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
                     <Border BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" Height="25" Width="{TemplateBinding Width}">
-                        <TextBox Text="{TemplateBinding Text}" BorderThickness="0" VerticalAlignment="Center"
+                        <TextBox Text="{Binding Text, RelativeSource={RelativeSource AncestorType=TextBox}}" BorderThickness="0" VerticalAlignment="Center"
                                  Margin="3,0,3,0" FontFamily="Calibri" FontSize="14" SelectionBrush="Gray" CaretBrush="Gray"/>
                     </Border>
                 </ControlTemplate>

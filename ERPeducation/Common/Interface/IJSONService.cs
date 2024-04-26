@@ -1,7 +1,6 @@
 ﻿using ERPeducation.Common.Windows.AddUser;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.Old;
 using System.Collections.ObjectModel;
 
 namespace ERPeducation.Common.Interface
@@ -18,9 +17,6 @@ namespace ERPeducation.Common.Interface
         void GetUserFileJson(ObservableCollection<UserViewModel> users);
         ObservableCollection<TreeViewLvlOne> TreeViewEducation();
         ObservableCollection<TreeViewMain> TreeViewFaculty();
-        void SerializeEnrollee(AddChangeEnrolleeViewModel enrollee);
-
-
 
         ObservableCollection<TreeViewMain> DeserializeTreeViewMain();
     }

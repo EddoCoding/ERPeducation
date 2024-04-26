@@ -10,20 +10,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
     public class AddEnrolleeViewModel : ReactiveObject
     {
-        Enrollee _enrollee;
-        public Enrollee Enrollee
-        {
-            get => _enrollee;
-            set => this.RaiseAndSetIfChanged(ref _enrollee, value);
-        }
-
-        ObservableCollection<DocumentBase> _documents;
-        public ObservableCollection<DocumentBase> Documents
-        {
-            get => _documents;
-            set => this.RaiseAndSetIfChanged(ref _documents, value);
-        }
-
+        public Enrollee Enrollee { get; set; } = new();
 
 
         //Добавить логику для радиобатонов
@@ -43,11 +30,12 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             _documentService = documentService;
             _repository = repository;
 
-            Documents = new ObservableCollection<DocumentBase>();
             _repository.Documents.CollectionChanged += (sender, e) =>
             {
                 if (e.Action == NotifyCollectionChangedAction.Add)
-                    Documents.Add(e.NewItems[0] as DocumentBase);
+                    Enrollee.Documents.Add(e.NewItems[0] as DocumentBase);
+                else if (e.Action == NotifyCollectionChangedAction.Remove)
+                    Enrollee.Documents.Remove(e.OldItems[0] as DocumentBase);
             };
 
             AddDocumentCommand = ReactiveCommand.Create<string>(AddDocument);
@@ -55,7 +43,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             AddEnrolleeCommand = ReactiveCommand.Create(AddEnrollee);
         }
 
-        void AddDocument(string typeDocument) => _repository.CreateDocument(typeDocument);
+        void AddDocument(string typeDocument) => _documentService.OpenWindowCreateDocument(_repository, typeDocument);
         void AddEducation() { }
         void AddEnrollee() { }
     }
