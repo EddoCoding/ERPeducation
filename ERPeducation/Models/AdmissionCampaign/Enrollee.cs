@@ -1,4 +1,6 @@
-﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
+﻿using ERPeducation.Models.AdmissionCampaign.Educations;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
 using Newtonsoft.Json;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -24,8 +26,27 @@ namespace ERPeducation.Models.AdmissionCampaign
         {
             get => _documents;
             set => this.RaiseAndSetIfChanged(ref _documents, value);
-        }
+        }                // -- Коллекция персональных документов --
 
-        public Enrollee() => Documents = new ObservableCollection<DocumentBase>();
+        ObservableCollection<EducationBase> _educations;
+        public ObservableCollection<EducationBase> Educations
+        {
+            get => _educations;
+            set => this.RaiseAndSetIfChanged(ref _educations, value);
+        }              // -- Коллекция документов об образовании --
+
+        ObservableCollection<DirectionsOfAdmission> _directions;
+        public ObservableCollection<DirectionsOfAdmission> Directions
+        {
+            get => _directions;
+            set => this.RaiseAndSetIfChanged(ref _directions, value);
+        }      // -- Коллекция выбранных направлений подготовки --
+
+        public Enrollee()
+        {
+            Documents = new ObservableCollection<DocumentBase>();
+            Educations = new ObservableCollection<EducationBase>();
+            Directions = new ObservableCollection<DirectionsOfAdmission>();
+        }
     }
 }

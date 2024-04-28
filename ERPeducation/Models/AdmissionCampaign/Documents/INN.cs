@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents
 {
+    [JsonObject]
     public class INN : DocumentBase
     {
-        public string NumberINN { get; set; } = "Номер ИНН";
-        public DateTime DateAssigned { get; set; } = DateTime.Now;
-        public string Series { get; set; } = "Серия ИНН";
-        public string Number { get; set; } = "Номер ИНН";
+        public string NumberINN { get; set; } = string.Empty;
+        public DateTime DateAssigned { get; set; }
+        public string Series { get; set; } = string.Empty;
+        public string Number { get; set; } = string.Empty;
 
         public INN()
         {

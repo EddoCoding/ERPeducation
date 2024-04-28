@@ -1,0 +1,89 @@
+﻿<Window x:Class="ERPeducation.Views.AdmissionCampaign.WindowEducations.EditEducation.EditSPOWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.WindowEducations.EditEducation"
+        mc:Ignorable="d" Title="Изменить среднее профессиональное образование" Height="450" Width="800" FontFamily="Calibri">
+    <Window.Resources>
+        <Style x:Key="Label" TargetType="Label">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="15"/>
+            <Setter Property="Margin" Value="10,10,10,10"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Тип образования:" Style="{StaticResource Label}"/>
+            <TextBlock Text="{Binding SPO.TypeEducation}" FontSize="13" VerticalAlignment="Center" FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Удостоверяющий документ:" Style="{StaticResource Label}"/>
+            <TextBlock Text="{Binding SPO.IdentificationDocument}" FontSize="13" VerticalAlignment="Center" FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Label Content="Кем выдан:" Style="{StaticResource Label}"/>
+            <TextBox Text="{Binding SPO.IssuedBy}" Style="{StaticResource defaultTextBox}" Width="405"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal">
+            <Label Content="Дата выдачи:" Style="{StaticResource Label}"/>
+            <TextBox Text="{Binding SPO.DateOfIssue, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" Style="{StaticResource DataTextBox}" Width="76"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <Label Content="С отличием:" Style="{StaticResource Label}"/>
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding SPO.Honours}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Форма обучения:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Column="1" Text="{Binding SPO.FormOfEducation}" Style="{StaticResource defaultTextBox}" Width="105"/>
+            <Label Grid.Column="2" Content="Регистрационный номер:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Column="3" Text="{Binding SPO.RegistrationNumber}" Style="{StaticResource defaultTextBox}" Width="105"/>
+
+            <Label Grid.Row="1" Content="Серия диплома:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SPO.DiplomaSeries}" Style="{StaticResource defaultTextBox}" Width="105"/>
+            <Label Grid.Row="1" Grid.Column="2" Content="Серия приложения:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding SPO.SupplementSeries}" Style="{StaticResource defaultTextBox}" Width="105"/>
+
+            <Label Grid.Row="2" Content="Номер диплома:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SPO.DiplomaNumber}" Style="{StaticResource defaultTextBox}" Width="105"/>
+            <Label Grid.Row="2" Grid.Column="2" Content="Номер приложения:" Style="{StaticResource Label}"/>
+            <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding SPO.SupplementNumber}" Style="{StaticResource defaultTextBox}" Width="105"/>
+
+        </Grid>
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Сохранить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
+                Command="{Binding SaveEducationCommand}"/>
+        </StackPanel>
+    </Grid>
+
+</Window>
