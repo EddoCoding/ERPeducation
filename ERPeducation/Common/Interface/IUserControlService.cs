@@ -11,6 +11,5 @@ namespace ERPeducation.Common.Interface
         UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> data);
         UserControl GetModuleAdministration();
         UserControl GetUserControlForAdministrationView();
-        UserControl GetUserControlForAdministrationStruct();
     }
 }

@@ -56,7 +56,6 @@ namespace ERPeducation.ViewModels.Modules.Administration
             _userControlService = userControlService;
 
             UserControlUserView = _userControlService.GetUserControlForAdministrationView();
-            UserControlStructView = _userControlService.GetUserControlForAdministrationStruct();
 
             BrushUsers = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             BrushStruct = new SolidColorBrush(Color.FromRgb(255, 255, 255));

@@ -39,14 +39,13 @@ namespace ERPeducation.Common.Services
             return view;
         }
 
-
         //ВКЛАДКА МОДУЛЯ АДМИНИСТРИРОВАНИЕ
         public UserControl GetModuleAdministration() => 
             new ModuleAdministration() { DataContext = new AdministrationViewModel(this) };
 
+
+
         public UserControl GetUserControlForAdministrationView() =>
             new AdministrationUsersView() { DataContext = new AdministrationUserViewModel(new DialogService(), new JSONService()) };
-        public UserControl GetUserControlForAdministrationStruct() => 
-            new AdministrationStructView() { DataContext = new AdministrationStructViewModel(new JSONService()) };
     }
 }
