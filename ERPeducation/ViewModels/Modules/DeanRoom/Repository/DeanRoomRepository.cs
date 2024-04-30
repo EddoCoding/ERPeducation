@@ -86,7 +86,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
                 Groups = _groups,
                 Students = _students
             };
-            var json = JsonConvert.SerializeObject(FileServer.Structures);
+
 
             //string json = JsonConvert.SerializeObject(data);
             //using(FileStream fs = new FileStream($"ыфв.json", FileMode.Create, FileAccess.Write))

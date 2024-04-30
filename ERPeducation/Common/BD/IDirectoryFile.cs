@@ -3,6 +3,5 @@
     public interface IDirectoryFile
     {
         string CreateBase();
-        void CreateFileBase();
     }
 }

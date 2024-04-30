@@ -61,9 +61,6 @@ namespace ERPeducation.ViewModels
         IUserControlService _userControlService;
         public MainWindowViewModel(IJSONService jsonService, IUserControlService userControlService, Action close, UserViewModel user)
         {
-            StaticData.LvlEducations = jsonService.TreeViewEducation();
-            StaticData.Faculties = jsonService.TreeViewFaculty();
-
             _userControlService = userControlService;
             FullName = user.FullName;
 

@@ -1,5 +1,4 @@
-﻿using ERPeducation.Common.BD;
-using ERPeducation.Common.Interface;
+﻿using ERPeducation.Common.Interface;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Education;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ReactiveUI;
@@ -21,36 +20,6 @@ namespace ERPeducation.ViewModels.Modules.Administration
         public AdministrationStructViewModel(IJSONService jsonService)
         {
             _jsonService = jsonService;
-
-            InitializingCommands();
-
-            #region Структура Факультетов
-            TreeViewFacultyCollection = new ObservableCollection<TreeViewMain>();
-            _jsonService.GetTreeViewFacultyItem(TreeViewFacultyCollection);
-            #endregion
-            #region Структура Образования
-            TreeViewEducationCollection = new ObservableCollection<TreeViewLvlOne>();
-            _jsonService.GetTreeViewEducationItem(TreeViewEducationCollection);
-            #endregion
-
-            //СДЕЛАТЬ
-            #region Пространства
-
-            #endregion
-            //СДЕЛАТЬ
-
-        }
-
-        void InitializingCommands()
-        {
-            ConfigureFacultyCommand = ReactiveCommand.Create(() =>
-            {
-                _jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, TreeViewFacultyCollection);
-            });
-            ConfigureEducationCommand = ReactiveCommand.Create(() =>
-            {
-                _jsonService.CreateEducationFileJson(FileServer.structPathEducation, TreeViewEducationCollection);
-            });
         }
     }
 }

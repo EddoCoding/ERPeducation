@@ -72,51 +72,17 @@ namespace ERPeducation.Common.Windows.WindowDeanRoom.Student
             Student = student;
             this.closeWindow = closeWindow;
 
-            treeViewMain = educationalService.jsonService.DeserializeTreeViewMain();
-
             Faculties = new List<TreeViewFaculty>();
             Departments = new ObservableCollection<TreeViewDepartment>();
             Groups = new ObservableCollection<TreeViewGroup>();
-
-            try
-            {
-                using (var fs = new FileStream(FileServer.structPathFaculty, FileMode.Open))
-                    using (var sr = new StreamReader(fs))
-                        treeViewMain = JsonConvert.DeserializeObject<ObservableCollection<TreeViewMain>>(sr.ReadToEnd());
-            }
-            catch { MessageBox.Show("Исключение выпало при получение списка факультетов из TransferVM"); }
 
             foreach (var main in treeViewMain)
                 foreach (var faculties in main.Items)
                     Faculties.Add(faculties);
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
-            TransferCommand = ReactiveCommand.Create(TransferStudent);
         }
 
         void Exit() => closeWindow();
-        void TransferStudent()
-        {
-            foreach (var main in treeViewMain)
-                foreach (var faculties in main.Items)
-                    if (faculties.Title == selectedFaculty.Title)
-                    {
-                        foreach (var departments in faculties.Items)
-                            if (departments.Title == selectedDepartment.Title)
-                            {
-                                foreach (var groups in departments.Items)
-                                    if (groups.Title == selectedGroup.Title)
-                                    {
-                                        //Здесь можно добавить для студента при переводе новые свойства
-                                        Student.Group = groups.Title;
-                                        groups.Items.Add(Student);
-                                    }
-                            }
-                    }
-                        
-            _educationalService.jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, treeViewMain);
-
-            closeWindow();
-        }
     }
 }

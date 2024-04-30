@@ -31,7 +31,6 @@ namespace ERPeducation.ViewModels
             CreateBase = ReactiveCommand.Create(() =>
             {
                 Path = directoryFile.CreateBase();
-                directoryFile.CreateFileBase();
             });
             EnterBase = ReactiveCommand.Create(() =>
             {
