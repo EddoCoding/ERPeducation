@@ -9,13 +9,13 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 
-namespace ERPeducation.ViewModels.Modules.DeanRoom.Services
+namespace ERPeducation.ViewModels.Modules.DeanRoom.Old.Services
 {
-    public class StudentService : IEducationalService<TreeViewStudent>
+    public class DepartmentService : IEducationalService<TreeViewDepartment>
     {
         public IJSONService jsonService { get; set; } = new JSONService();
 
-        public IEnumerable<TreeViewStudent> GetEducationalData(TreeViewBaseClass treeView = null)
+        public IEnumerable<TreeViewDepartment> GetEducationalData(TreeViewBaseClass treeView = default)
         {
             ObservableCollection<TreeViewMain> treeViewMain = new ObservableCollection<TreeViewMain>();
             try
@@ -30,17 +30,20 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Services
             }
             catch { MessageBox.Show("Исключение выпало при перечислении списка факультетов"); }
 
-            ICollection<TreeViewStudent> students = new List<TreeViewStudent>();
+            ICollection<TreeViewDepartment> departments = new List<TreeViewDepartment>();
 
             foreach (var main in treeViewMain)
-                foreach (var faculties in main.Items)
-                    foreach (var departments in faculties.Items)
-                        foreach (var groups in departments.Items)
-                            if (groups.Title == treeView.Title)
-                                foreach (var student in groups.Items)
-                                    students.Add(student);
-
-            return students;
+                foreach (var faculty in main.Items)
+                {
+                    if (faculty.Title == treeView.Title)
+                    {
+                        foreach (var department in faculty.Items)
+                        {
+                            departments.Add(department);
+                        }
+                    }
+                }
+            return departments;
         }
     }
 }

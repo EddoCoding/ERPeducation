@@ -1,13 +1,13 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Common.Windows.WindowDeanRoom.Department;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ERPeducation.ViewModels.Modules.DeanRoom.Services;
+using ERPeducation.ViewModels.Modules.DeanRoom.Old.Services;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 
-namespace ERPeducation.ViewModels.Modules.DeanRoom
+namespace ERPeducation.ViewModels.Modules.DeanRoom.Old
 {
     public class DepartmentVM : ReactiveObject
     {
@@ -55,7 +55,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
         void AddDepartment()
         {
-            if(selectedFaculty != null)
+            if (selectedFaculty != null)
             {
                 treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
 
@@ -77,10 +77,10 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         {
             treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
 
-            foreach(var main in treeViewMain)
-                foreach(var faculty in main.Items)
-                    foreach( var departments in faculty.Items)
-                        if(departments.Title == department.Title)
+            foreach (var main in treeViewMain)
+                foreach (var faculty in main.Items)
+                    foreach (var departments in faculty.Items)
+                        if (departments.Title == department.Title)
                             _department.ChangeDepartment(departments);
 
             _educationalService.jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, treeViewMain);

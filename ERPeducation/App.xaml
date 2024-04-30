@@ -7,6 +7,7 @@
                 <ResourceDictionary Source="StyleResources/ConvertersForControls.xaml"/>
                 <ResourceDictionary Source="StyleResources/StylesForButton.xaml"/>
                 <ResourceDictionary Source="StyleResources/StylesForTextBox.xaml"/>
+                <ResourceDictionary Source="StyleResources/StylesForLabel.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

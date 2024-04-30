@@ -9,13 +9,13 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 
-namespace ERPeducation.ViewModels.Modules.DeanRoom.Services
+namespace ERPeducation.ViewModels.Modules.DeanRoom.Old.Services
 {
-    public class DepartmentService : IEducationalService<TreeViewDepartment>
+    public class GroupService : IEducationalService<TreeViewGroup>
     {
         public IJSONService jsonService { get; set; } = new JSONService();
 
-        public IEnumerable<TreeViewDepartment> GetEducationalData(TreeViewBaseClass treeView = default)
+        public IEnumerable<TreeViewGroup> GetEducationalData(TreeViewBaseClass treeView = null)
         {
             ObservableCollection<TreeViewMain> treeViewMain = new ObservableCollection<TreeViewMain>();
             try
@@ -30,20 +30,16 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Services
             }
             catch { MessageBox.Show("Исключение выпало при перечислении списка факультетов"); }
 
-            ICollection<TreeViewDepartment> departments = new List<TreeViewDepartment>();
+            ICollection<TreeViewGroup> groups = new List<TreeViewGroup>();
 
             foreach (var main in treeViewMain)
-                foreach (var faculty in main.Items)
-                { 
-                    if(faculty.Title == treeView.Title)
-                    {
-                        foreach(var department in faculty.Items)
-                        {
-                            departments.Add(department);
-                        }
-                    }
-                }
-            return departments;
+                foreach (var faculties in main.Items)
+                    foreach (var departments in faculties.Items)
+                        if (departments.Title == treeView.Title)
+                            foreach (var group in departments.Items)
+                                groups.Add(group);
+
+            return groups;
         }
     }
 }

@@ -2,13 +2,13 @@
 using ERPeducation.Common.Windows.WindowAddStudentFromEnrollees;
 using ERPeducation.Common.Windows.WindowDeanRoom.Student;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ERPeducation.ViewModels.Modules.DeanRoom.Services;
+using ERPeducation.ViewModels.Modules.DeanRoom.Old.Services;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 
-namespace ERPeducation.ViewModels.Modules.DeanRoom
+namespace ERPeducation.ViewModels.Modules.DeanRoom.Old
 {
     public class StudentVM : ReactiveObject
     {
@@ -37,7 +37,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
         IStudent _student;
         IEducationalService<TreeViewStudent> _educationalService;
-        public StudentVM(IStudent student, IEducationalService<TreeViewStudent> educationalService, ObservableCollection<TreeViewMain>? treeViewMain) 
+        public StudentVM(IStudent student, IEducationalService<TreeViewStudent> educationalService, ObservableCollection<TreeViewMain>? treeViewMain)
         {
             _student = student;
             _educationalService = educationalService;
@@ -63,7 +63,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
                 foreach (var main in treeViewMain)
                     foreach (var faculties in main.Items)
                         foreach (var departments in faculties.Items)
-                            foreach(var groups in departments.Items)
+                            foreach (var groups in departments.Items)
                                 if (groups.GroupNumber == selectedGroup.GroupNumber)
                                 {
                                     _student.AddStudent(groups);
@@ -78,12 +78,12 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         }
         void AddStudentFromEnrollees() //Потом все вынести в сервис - тело метода
         {
-            
+
             AddStudentFromEnrolleesWindow view = new();
             view.DataContext = new AddStudentFromEnrolleesViewModel(view.Close);
             view.ShowDialog();
         }
-        void ChangeStudent(TreeViewStudent student) 
+        void ChangeStudent(TreeViewStudent student)
         {
             treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
 
@@ -91,7 +91,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
                 foreach (var faculty in main.Items)
                     foreach (var departments in faculty.Items)
                         foreach (var groups in departments.Items)
-                            foreach(var students in groups.Items)
+                            foreach (var students in groups.Items)
                                 if (students.FullName == student.FullName)
                                     _student.ChangeStudent(students);
 
@@ -107,11 +107,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         {
             treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
             foreach (var main in treeViewMain)
-                foreach(var faculty in main.Items)
-                    foreach(var departments in faculty.Items)
-                        foreach(var groups in departments.Items)
-                            foreach(var students in groups.Items)
-                                if(student.FullName == student.FullName)
+                foreach (var faculty in main.Items)
+                    foreach (var departments in faculty.Items)
+                        foreach (var groups in departments.Items)
+                            foreach (var students in groups.Items)
+                                if (student.FullName == student.FullName)
                                 {
                                     _faculty = new TreeViewFaculty(faculty.Title);
                                     _department = new TreeViewDepartment(departments.Title);

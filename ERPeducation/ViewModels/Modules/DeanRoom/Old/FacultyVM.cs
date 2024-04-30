@@ -1,13 +1,13 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Common.Windows.WindowDeanRoom.Faculty;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ERPeducation.ViewModels.Modules.DeanRoom.Services;
+using ERPeducation.ViewModels.Modules.DeanRoom.Old.Services;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 
-namespace ERPeducation.ViewModels.Modules.DeanRoom
+namespace ERPeducation.ViewModels.Modules.DeanRoom.Old
 {
     public class FacultyVM : ReactiveObject
     {
@@ -26,9 +26,9 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
         ObservableCollection<TreeViewMain>? treeViewMain;
 
-        public ReactiveCommand<Unit,Unit> AddFacultyCommand { get; set; }
-        public ReactiveCommand<TreeViewFaculty,Unit> ChangeFacultyCommand { get; set; }
-        public ReactiveCommand<TreeViewFaculty,Unit> DeleteFacultyCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> AddFacultyCommand { get; set; }
+        public ReactiveCommand<TreeViewFaculty, Unit> ChangeFacultyCommand { get; set; }
+        public ReactiveCommand<TreeViewFaculty, Unit> DeleteFacultyCommand { get; set; }
 
         IFaculty _faculty;
         IEducationalService<TreeViewFaculty> _educationalService;
@@ -57,7 +57,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             foreach (var main in treeViewMain)
             {
                 _faculty.AddFaculty(main);
-                
+
                 _educationalService.jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, treeViewMain);
 
                 GetEducationalData();
@@ -73,7 +73,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
                         _faculty.ChangeFaculty(facultys);
 
             _educationalService.jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, treeViewMain);
-            
+
             GetEducationalData();
         }
         void DelFaculty(TreeViewFaculty faculty)

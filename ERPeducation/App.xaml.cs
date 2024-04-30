@@ -12,10 +12,6 @@ namespace ERPeducation
             //ОКНО АВТОРИЗАЦИИ
             IDialogService dialogService = new DialogService();
             dialogService.OpenAuthorizationWindow();
-
-            //ГЛАВНОЕ ОКНО БЕЗ АВТОРИЗАЦИИ
-            //IDialogService dialogService = new DialogService(); 
-            //dialogService.OpenMainWindow(new Models.UserModel("Без авторизации", "Admin", false, false, false, false, true, true));
         }
     }
 }

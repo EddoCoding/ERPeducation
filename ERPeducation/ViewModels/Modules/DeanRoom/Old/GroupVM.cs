@@ -2,13 +2,13 @@
 using ERPeducation.Common.Command;
 using ERPeducation.Common.Windows.WindowDeanRoom.Group;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ERPeducation.ViewModels.Modules.DeanRoom.Services;
+using ERPeducation.ViewModels.Modules.DeanRoom.Old.Services;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive;
 
-namespace ERPeducation.ViewModels.Modules.DeanRoom
+namespace ERPeducation.ViewModels.Modules.DeanRoom.Old
 {
     public class GroupVM : ReactiveObject
     {
@@ -21,7 +21,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             set
             {
                 this.RaiseAndSetIfChanged(ref selectedGroup, value);
-                if(selectedGroup != null) InitializingGroups?.Invoke(this);
+                if (selectedGroup != null) InitializingGroups?.Invoke(this);
             }
         }
 
@@ -54,14 +54,14 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
         void AddGroup()
         {
-            if(selectedDepartment != null)
+            if (selectedDepartment != null)
             {
                 treeViewMain = _educationalService.jsonService.DeserializeTreeViewMain();
 
                 foreach (var main in treeViewMain)
                     foreach (var faculties in main.Items)
-                        foreach(var departments in faculties.Items)
-                            if(departments.Title == selectedDepartment.Title)
+                        foreach (var departments in faculties.Items)
+                            if (departments.Title == selectedDepartment.Title)
                             {
                                 _group.AddGroup(departments);
 
@@ -80,8 +80,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             foreach (var main in treeViewMain)
                 foreach (var faculty in main.Items)
                     foreach (var departments in faculty.Items)
-                        foreach(var groups in departments.Items)
-                            if(groups.GroupNumber == group.GroupNumber)
+                        foreach (var groups in departments.Items)
+                            if (groups.GroupNumber == group.GroupNumber)
                                 _group.ChangeGroup(groups);
 
             _educationalService.jsonService.CreateFacultyFileJson(FileServer.structPathFaculty, treeViewMain);
@@ -95,7 +95,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
 
             foreach (var main in treeViewMain)
                 foreach (var faculty in main.Items)
-                    foreach(var departments in faculty.Items)
+                    foreach (var departments in faculty.Items)
                         for (int i = departments.Items.Count - 1; i >= 0; i--)
                         {
                             var groups = departments.Items[i];

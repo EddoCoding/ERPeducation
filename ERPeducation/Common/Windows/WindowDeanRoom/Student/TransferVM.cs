@@ -1,6 +1,5 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ERPeducation.ViewModels.Modules.DeanRoom.Services;
 using ERPeducation.ViewModels.Modules.DeanRoom;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -10,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Reactive;
 using System.Windows;
+using ERPeducation.ViewModels.Modules.DeanRoom.Old.Services;
 
 namespace ERPeducation.Common.Windows.WindowDeanRoom.Student
 {

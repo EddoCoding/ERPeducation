@@ -2,24 +2,30 @@
 using ERPeducation.Models;
 using ERPeducation.ViewModels;
 using ERPeducation.ViewModels.Modules.Administration;
-using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.DeanRoom;
+using ERPeducation.ViewModels.Modules.DeanRoom.Repository;
+using ERPeducation.ViewModels.Modules.DeanRoom.Service;
 using ERPeducation.ViewModels.Modules.TrainingDivision;
 using ERPeducation.Views;
 using ERPeducation.Views.Administration;
 using ERPeducation.Views.AdmissionCampaign;
 using ERPeducation.Views.DeanRoom;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
 namespace ERPeducation.Common.Services
 {
     public class UserControlService : IUserControlService
     {
-        //ВКЛАДКА МОДУЛЯ ДЕКАНАТ
-        public UserControl GetModuleDeanRoom() => 
-            new DeanRoom() { DataContext = new DeanRoomViewModel(new ObservableCollection<TreeViewMain>()) };
+
+
+
+
+        public UserControl GetModuleDeanRoom() => new DeanRoom() { DataContext = new DeanRoomViewModel(new DeanRoomService(), new DeanRoomRepository()) };     // -- ВКЛАДКА МОДУЛЯ ДЕКАНАТ --
+
+
+
+
 
         //ВКЛАДКА МОДУЛЯ УЧЕБНЫЙ ОТДЕЛ
         public UserControl GetModuleTrainingDivision() =>

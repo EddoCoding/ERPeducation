@@ -1,5 +1,5 @@
 ﻿using ERPeducation.ViewModels.Modules.Administration.Struct.Faculty;
-using ERPeducation.ViewModels.Modules.DeanRoom.Services;
+using ERPeducation.ViewModels.Modules.DeanRoom.Old.Services;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Windows;
