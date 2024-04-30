@@ -14,17 +14,20 @@ namespace ERPeducation.Common.BD
             FolderBrowserDialog dialog = new FolderBrowserDialog();
             dialog.ShowDialog();
 
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems")); 
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems"));
 
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration")); 
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Users"));
-
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "AdmissionCampaign")); 
-            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "AdmissionCampaign", "Enrollees")); 
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "DeanRoom"));
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "DeanRoom", "DeanRoomData"));
 
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision"));
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision", "Syllabus"));
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision", "Schedule"));
+
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "AdmissionCampaign")); 
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "AdmissionCampaign", "Enrollees")); 
+
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration")); 
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "Administration", "Users"));
 
             FileServer.PathIS = dialog.SelectedPath;
 
