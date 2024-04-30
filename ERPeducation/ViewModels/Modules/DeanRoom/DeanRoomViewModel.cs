@@ -72,6 +72,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         #endregion
         #region Команды удаления
         public ReactiveCommand<Faculty, Unit> DelFacultyCommand { get; set; }
+        public ReactiveCommand<LvlOfTraining, Unit> DelLevelCommand { get; set; }
+        public ReactiveCommand<FormsOfTraining, Unit> DelFormCommand { get; set; }
+        public ReactiveCommand<TypeGroup, Unit> DelTypeGroupCommand { get; set; }
+        public ReactiveCommand<Group, Unit> DelGroupCommand { get; set; }
+        public ReactiveCommand<Student, Unit> DelStudentCommand { get; set; }
         #endregion
 
         IDeanRoomService _deanRoomService;
@@ -83,6 +88,9 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             _repository = deanRoomRepository;
 
             Faculties = new ObservableCollection<Faculty>();
+            foreach (var faculty in _repository.GetJsonFaculty())
+                Faculties.Add(faculty);
+
             Lvl = new ObservableCollection<LvlOfTraining>();
             Forms = new ObservableCollection<FormsOfTraining>();
             TypeGroups = new ObservableCollection<TypeGroup>();
@@ -105,6 +113,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             #endregion
             #region Инициализация команд удаления
             DelFacultyCommand = ReactiveCommand.Create<Faculty>(DelFaculty);
+            DelLevelCommand = ReactiveCommand.Create<LvlOfTraining>(DelLevel);
+            DelFormCommand = ReactiveCommand.Create<FormsOfTraining>(DelForm);
+            DelTypeGroupCommand = ReactiveCommand.Create<TypeGroup>(DelTypeGroup);
+            DelGroupCommand = ReactiveCommand.Create<Group>(DelGroup);
+            DelStudentCommand = ReactiveCommand.Create<Student>(DelStudent);
             #endregion
         }
 
@@ -118,10 +131,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         #endregion
         #region Методы удаления
         void DelFaculty(Faculty faculty) => _repository.DeleteFaculty(faculty);
+        void DelLevel(LvlOfTraining level) => _repository.DeleteLevel(level);
+        void DelForm(FormsOfTraining form) => _repository.DeleteForm(form);
+        void DelTypeGroup(TypeGroup typeGroup) => _repository.DeleteTypeGroup(typeGroup);
+        void DelGroup(Group group) => _repository.DeleteGroup(group);
+        void DelStudent(Student student) => _repository.DeleteStudent(student);
         #endregion
     }
 }
-//if (e.Action == NotifyCollectionChangedAction.Add)
-//    Enrollee.Documents.Add(e.NewItems[0] as DocumentBase);
-//else if (e.Action == NotifyCollectionChangedAction.Remove)
-//    Enrollee.Documents.Remove(e.OldItems[0] as DocumentBase);

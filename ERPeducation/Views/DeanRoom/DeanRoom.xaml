@@ -34,7 +34,7 @@
                                     <ControlTemplate TargetType="ToggleButton">
                                         <Grid>
                                             <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
-                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,25,0"/>
                                             </Border>
                                             <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
                                         </Grid>
@@ -48,9 +48,9 @@
                                 </ToggleButton.Template>
                             </ToggleButton>
                             <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
-                           Focusable="True" PopupAnimation="Slide" MinWidth="150" Width="Auto">
+                                   Focusable="True" PopupAnimation="Slide" MinWidth="150" Width="Auto">
                                 <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
-                                SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
                                     <ScrollViewer SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
                                     </ScrollViewer>
@@ -108,9 +108,13 @@
                     <ControlTemplate TargetType="ComboBoxItem">
                         <Border Background="White">
                             <Grid>
-
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
                                 <ContentPresenter Content="{Binding NameFaculty}" Margin="3"/>
-                                <Button Content="/Common/Image/delete.png" Style="{StaticResource ImageButton}"
+                                <Button Grid.Column="1" Content="/Common/Image/delete.png" Style="{StaticResource ImageButton}"
                                         HorizontalAlignment="Right" Margin="0,0,5,0" ToolTip="Удалить факультет"
                                         Command="{Binding DataContext.DelFacultyCommand, ElementName=Faculties}" CommandParameter="{Binding}"/>
                             </Grid>
@@ -161,7 +165,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
 
             <Label Grid.Row="0" Content="Деканат" FontFamily="Calibri" Foreground="Gray" 
                    Margin="10,5,0,0" Padding="0" FontSize="20" FontWeight="Bold"/>

@@ -3,7 +3,6 @@ using ERPeducation.ViewModels.Modules.DeanRoom.Repository;
 using ReactiveUI;
 using System;
 using System.Reactive;
-using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.FacultyVM
 {

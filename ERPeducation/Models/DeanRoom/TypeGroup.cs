@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace ERPeducation.Models.DeanRoom
 {
+    [JsonObject]
     public class TypeGroup
     {
         public string NameType { get; set; }
