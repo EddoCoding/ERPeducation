@@ -4,10 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowFaculty"
-        mc:Ignorable="d" Title="Изменить факультет" Height="450" Width="800" FontFamily="Calibri">
-    
+        mc:Ignorable="d" Title="Изменить факультет" Height="190" Width="400" FontFamily="Calibri">
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Старое название факультета" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="1" Text="{Binding OldNameFaculty.NameFaculty}" Style="{StaticResource defaultTextBox}" Margin="10,0" IsEnabled="False"/>
+
+        <Label Grid.Row="2" Content="Новое название факультета" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="3" Text="{Binding NewNameFaculty.NameFaculty}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
+                Command="{Binding CloseWindowCommand}"/>
+            <Button Content="Изменить" Style="{StaticResource OkButton}" Margin="0,10,10,10"
+                Command="{Binding EditFacultyCommand}" CommandParameter="{Binding OldnameFaculty}"/>
+        </StackPanel>
+
     </Grid>
-    
+
 </Window>

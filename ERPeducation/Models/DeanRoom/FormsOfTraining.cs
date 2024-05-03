@@ -8,7 +8,6 @@ namespace ERPeducation.Models.DeanRoom
     {
         public string NameForm { get; set; }
         public List<TypeGroup> TypeGroups { get; set; }
-        public string NameLevel { get; set; }
 
         public FormsOfTraining() => TypeGroups = new List<TypeGroup>();
     }

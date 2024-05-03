@@ -1,0 +1,53 @@
+﻿<Window x:Class="ERPeducation.Views.DeanRoom.WindowStudent.EditStudentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowStudent"
+        mc:Ignorable="d" Title="Изменить студента" Height="400" Width="400" FontFamily="Calibri">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Имя" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="1" Text="{Binding OldStudent.SurName}" Style="{StaticResource defaultTextBox}" Margin="10,0" IsEnabled="False"/>
+
+        <Label Grid.Row="2" Content="Новое имя" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="3" Text="{Binding NewStudent.SurName}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+
+        <Label Grid.Row="4" Content="Фамилия" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="5" Text="{Binding OldStudent.Name}" Style="{StaticResource defaultTextBox}" Margin="10,0" IsEnabled="False"/>
+
+        <Label Grid.Row="6" Content="Новая фамилия" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="7" Text="{Binding NewStudent.Name}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+
+        <Label Grid.Row="8" Content="Отчество" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="9" Text="{Binding OldStudent.MiddleName}" Style="{StaticResource defaultTextBox}" Margin="10,0" IsEnabled="False"/>
+
+        <Label Grid.Row="10" Content="Новое отчество" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="11" Text="{Binding NewStudent.MiddleName}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+
+        <StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
+                Command="{Binding CloseWindowCommand}"/>
+            <Button Content="Изменить" Style="{StaticResource OkButton}" Margin="0,10,10,10"
+                Command="{Binding EditStudentCommand}" CommandParameter="{Binding OldStudent}"/>
+        </StackPanel>
+
+    </Grid>
+    
+</Window>

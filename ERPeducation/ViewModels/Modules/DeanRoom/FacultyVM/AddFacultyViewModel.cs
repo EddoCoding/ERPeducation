@@ -6,30 +6,30 @@ using System.Reactive;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.FacultyVM
 {
-    public class AddFacultyViewModel
+    public class AddFacultyViewModel : ReactiveObject
     {
         public Faculty Faculty { get; set; } = new();
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<Faculty, Unit> AddFacultyCommand { get; set; }
 
-        Action closeWindow;
+        Action _closeWindow;
 
         IDeanRoomRepository _repository;
         public AddFacultyViewModel(IDeanRoomRepository deanRoomRepository, Action closeWindow)
         {
             _repository = deanRoomRepository;
-            this.closeWindow = closeWindow;
+            _closeWindow = closeWindow;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             AddFacultyCommand = ReactiveCommand.Create<Faculty>(AddFaculty);
         }
 
-        void Exit() => closeWindow();
+        void Exit() => _closeWindow();
         void AddFaculty(Faculty faculty)
         {
             _repository.CreateFaculty(faculty);
-            closeWindow();
+            _closeWindow();
         }
     }
 }

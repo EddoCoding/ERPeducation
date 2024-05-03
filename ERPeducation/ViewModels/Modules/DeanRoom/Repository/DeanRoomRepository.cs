@@ -15,7 +15,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _faculties;
             set => this.RaiseAndSetIfChanged(ref _faculties, value);
-        }  //Факультеты
+        }           //Факультеты
 
 
         ObservableCollection<LvlOfTraining> _levels;
@@ -23,7 +23,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _levels;
             set => this.RaiseAndSetIfChanged(ref _levels, value);
-        }     //Уровни подготовки
+        }        //Уровни подготовки
 
 
         ObservableCollection<FormsOfTraining> _forms;
@@ -31,7 +31,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _forms;
             set => this.RaiseAndSetIfChanged(ref _forms, value);
-        }      //Формы подготовки
+        }       //Формы подготовки
 
 
         ObservableCollection<TypeGroup> _types;
@@ -39,7 +39,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _types;
             set => this.RaiseAndSetIfChanged(ref _types, value);
-        }      //Типы групп
+        }             //Типы групп
 
 
         ObservableCollection<Group> _groups;
@@ -47,7 +47,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _groups;
             set => this.RaiseAndSetIfChanged(ref _groups, value);
-        }     //Учебные группы
+        }                //Учебные группы
 
 
         ObservableCollection<Student> _students;
@@ -55,7 +55,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _students;
             set => this.RaiseAndSetIfChanged(ref _students, value);
-        }   //Студенты
+        }            //Студенты
 
         public DeanRoomRepository() 
         {
@@ -71,49 +71,228 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             ICollection<Faculty> faculties = new List<Faculty>();
 
+            var files = Directory.GetFiles(FileServer.DeanRoomData, "*.json");
+            if (files.Length > 0)
+                foreach (var file in files)
+                {
+                    var json = File.ReadAllText(file);
+                    var faculty = JsonConvert.DeserializeObject<Faculty>(json);
+                    faculties.Add(faculty);
+                    _faculties.Add(faculty);
+                }
 
             return faculties;
         } //Десериализация факультетов -- чтобы можно было их выбрать изначально --
 
         public void CreateFaculty(Faculty faculty)
         {
+            Serialization(faculty);
             _faculties.Add(faculty);
-            var data = new
-            {
-                Levels = _levels,
-                Forms = _forms,
-                Types = _types,
-                Groups = _groups,
-                Students = _students
-            };
-
-
-            //string json = JsonConvert.SerializeObject(data);
-            //using(FileStream fs = new FileStream($"ыфв.json", FileMode.Create, FileAccess.Write))
-            //{
-            //    using(StreamWriter sw = new StreamWriter(fs))
-            //    {
-            //        sw.Write(json);
-            //    }
-            //}
         }
-        public void DeleteFaculty(Faculty faculty) => _faculties.Remove(faculty);
+        public void EditFaculty(Faculty oldNameFaculty, Faculty newNameFaculty)
+        {
+            Serialization(newNameFaculty);
+            _faculties.Add(newNameFaculty);
+
+            File.Delete(Path.Combine(FileServer.DeanRoomData, $"{oldNameFaculty.NameFaculty}.json"));
+            _faculties.Remove(oldNameFaculty);
+        }
+        public void DeleteFaculty(Faculty faculty)
+        {
+            if (File.Exists(Path.Combine(FileServer.DeanRoomData, $"{faculty.NameFaculty}.json")))
+                File.Delete(Path.Combine(FileServer.DeanRoomData, $"{faculty.NameFaculty}.json"));
+
+            _faculties.Remove(faculty);
+        }
 
 
+        public void CreateLevel(LvlOfTraining level, Faculty faculty)
+        {
+            faculty.Levels.Add(level);
+            Serialization(faculty);
+            _levels.Add(level);
+        }
+        public void EditLevel(LvlOfTraining oldNamelevel, LvlOfTraining newNamelevel, Faculty faculty)
+        {
+            faculty.Levels.Remove(oldNamelevel);
+            faculty.Levels.Add(newNamelevel);
+            _levels.Add(newNamelevel);
+            Serialization(faculty);
+            _levels.Remove(oldNamelevel);
+        }
+        public void DeleteLevel(LvlOfTraining level, Faculty faculty)
+        {
+            if(faculty != null)
+            {
+                faculty.Levels.Remove(level);
+                Serialization(faculty);
+            }
+            _levels.Remove(level);
+        }
 
 
+        public void CreateForm(FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            foreach(var levelItem in faculty.Levels)
+                if (levelItem.NameLevel == level.NameLevel)
+                    levelItem.Forms.Add(form);
 
-        public void DeleteLevel(LvlOfTraining level) => _levels.Remove(level);
-        public void DeleteForm(FormsOfTraining form) => _forms.Remove(form);
-        public void DeleteTypeGroup(TypeGroup typeGroup) => _types.Remove(typeGroup);
-        public void DeleteGroup(Group group) => _groups.Remove(group);
-        public void DeleteStudent(Student student) => _students.Remove(student);
+            Serialization(faculty);
+            _forms.Add(form);
+        }
+        public void EditForm(FormsOfTraining oldNameForm, FormsOfTraining newNameForm, LvlOfTraining level, Faculty faculty)
+        {
+            level.Forms.Remove(oldNameForm);
+            level.Forms.Add(newNameForm);
+            _forms.Add(newNameForm);
+            Serialization(faculty);
+            _forms.Remove(oldNameForm);
+        }
+        public void DeleteForm(FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            if(level != null)
+            {
+                level.Forms.Remove(form);
+                Serialization(faculty);
+            }                                                                         
+            _forms.Remove(form);                                                                               
+        }
 
 
+        public void CreateTypeGroup(TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            foreach (var levelItem in faculty.Levels)
+                if (levelItem.NameLevel == level.NameLevel)
+                    foreach(var formItem in levelItem.Forms)
+                        if(formItem.NameForm == form.NameForm)
+                            formItem.TypeGroups.Add(typeGroup);
+
+            Serialization(faculty);
+            _types.Add(typeGroup);
+        }
+        public void EditTypeGroup(TypeGroup oldNameTypeGroup, TypeGroup newNameTypeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            form.TypeGroups.Remove(oldNameTypeGroup);
+            form.TypeGroups.Add(newNameTypeGroup);
+            _types.Add(newNameTypeGroup);
+            Serialization(faculty);
+            _types.Remove(oldNameTypeGroup);
+        }
+        public void DeleteTypeGroup(TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            if(form != null)
+            {
+                form.TypeGroups.Remove(typeGroup);
+                Serialization(faculty);
+            }
+            _types.Remove(typeGroup);
+        }
 
 
-        void GetFaculty() { } //Получаем факультеты во ViewModel
-        void GetLevels() { } //Получаем уровни во ViewModel
-        // И так далее...
+        public void CreateGroup(Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            foreach(var levelItem in faculty.Levels)
+                if (levelItem.NameLevel == level.NameLevel)
+                    foreach(var formItem in levelItem.Forms)
+                        if (formItem.NameForm == form.NameForm)
+                            foreach(var typeGroupItem in formItem.TypeGroups)
+                                if(typeGroupItem.NameType == typeGroup.NameType)
+                                    typeGroup.Groups.Add(group);
+
+            Serialization(faculty);
+            _groups.Add(group);
+        }
+        public void EditGroup(Group oldNameGroup, Group newNameGroup, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            typeGroup.Groups.Remove(oldNameGroup);
+            typeGroup.Groups.Add(newNameGroup);
+            _groups.Add(newNameGroup);
+            Serialization(faculty);
+            _groups.Remove(oldNameGroup);
+        }
+        public void DeleteGroup(Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            if(typeGroup != null)
+            {
+                typeGroup.Groups.Remove(group);
+                Serialization(faculty);
+            }
+            _groups.Remove(group);
+        }
+
+
+        public void CreateStudent(Student student, Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            foreach (var levelItem in faculty.Levels)
+                if (levelItem.NameLevel == level.NameLevel)
+                    foreach (var formItem in levelItem.Forms)
+                        if (formItem.NameForm == form.NameForm)
+                            foreach (var typeGroupItem in formItem.TypeGroups)
+                                if (typeGroupItem.NameType == typeGroup.NameType)
+                                    foreach(var groupItem in typeGroupItem.Groups)
+                                        if(groupItem.NameGroup == group.NameGroup)
+                                            group.Students.Add(student);
+
+            Serialization(faculty);
+            _students.Add(student);
+        }
+        public void EditStudent(Student oldStudent, Student newStudent, Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            group.Students.Remove(oldStudent);
+            group.Students.Add(newStudent);
+            _students.Add(newStudent);
+            Serialization(faculty);
+            _students.Remove(oldStudent);
+        }
+        public void DeleteStudent(Student student, Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
+        {
+            if (group != null)
+            {
+                group.Students.Remove(student);
+                Serialization(faculty);
+            }
+            _students.Remove(student);
+        }
+
+
+        public void SelectedFaculty(Faculty faculty)
+        {
+            _levels.Clear();
+            foreach(var level in faculty.Levels)
+                _levels.Add(level);
+        }
+        public void SelectedLevel(LvlOfTraining level)
+        {
+            _forms.Clear();
+            foreach(var form in level.Forms)
+                _forms.Add(form);
+        }
+        public void SelectedForm(FormsOfTraining form)
+        {
+            _types.Clear();
+            foreach(var typeGroup in form.TypeGroups)
+                _types.Add(typeGroup);
+        }
+        public void SelectedTypeGroup(TypeGroup typeGroup)
+        {
+            _groups.Clear();
+            foreach(var group in typeGroup.Groups)
+                _groups.Add(group);
+        }
+        public void SelectedGroup(Group group)
+        {
+            _students.Clear();
+            foreach(var student in group.Students)
+                _students.Add(student);
+        }
+
+        void Serialization(Faculty faculty)
+        {
+            string json = JsonConvert.SerializeObject(faculty, new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented
+            });
+            File.WriteAllText(Path.Combine(FileServer.DeanRoomData, $"{faculty.NameFaculty}.json"), json);
+        }
     }
 }

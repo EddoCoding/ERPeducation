@@ -1,8 +1,6 @@
 ﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.Services;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using System;
-using System.Collections.ObjectModel;
 using System.Reactive;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions

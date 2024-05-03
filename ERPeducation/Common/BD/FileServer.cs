@@ -10,7 +10,7 @@ namespace ERPeducation.Common.BD
 
 
         public static string DeanRoom => Path.Combine(PathIS, IS, "DeanRoom"); //Путь к папке -- Деканат --
-        public static string DeanRoomData => Path.Combine(Administration, "DeanRoomData"); //Путь к папке -- Данных для деканата --
+        public static string DeanRoomData => Path.Combine(DeanRoom, "DeanRoomData"); //Путь к папке -- Данных для деканата --
 
 
         public static string TrainingDivision => Path.Combine(PathIS, IS, "TrainingDivision"); //Путь к папке -- Учбеного отдела --

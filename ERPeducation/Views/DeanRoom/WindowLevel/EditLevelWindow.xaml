@@ -1,0 +1,33 @@
+﻿<Window x:Class="ERPeducation.Views.DeanRoom.WindowLevel.EditLevelWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowLevel"
+        mc:Ignorable="d" Title="Изменить уровень подготовки" Height="200" Width="400" FontFamily="Calibri">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Старое название уровня подготовки" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="1" Text="{Binding OldNameLevel.NameLevel}" Style="{StaticResource defaultTextBox}" Margin="10,0" IsEnabled="False"/>
+
+        <Label Grid.Row="2" Content="Новое название уровня подготовки" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="3" Text="{Binding NewNameLevel.NameLevel}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
+                    Command="{Binding CloseWindowCommand}"/>
+            <Button Content="Изменить" Style="{StaticResource OkButton}" Margin="0,10,10,10"
+                    Command="{Binding EditLevelCommand}" CommandParameter="{Binding OldNameLevel}"/>
+        </StackPanel>
+
+    </Grid>
+
+</Window>

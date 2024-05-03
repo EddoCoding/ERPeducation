@@ -8,33 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Common\Image\AcademicSubject.png" />
-    <None Remove="Common\Image\addLvl.png" />
     <None Remove="Common\Image\administration.png" />
     <None Remove="Common\Image\burger.png" />
     <None Remove="Common\Image\Calendar.png" />
-    <None Remove="Common\Image\change.png" />
-    <None Remove="Common\Image\changedepartment.png" />
-    <None Remove="Common\Image\changegroup.png" />
     <None Remove="Common\Image\deanRoom.png" />
     <None Remove="Common\Image\deductstudent.png" />
     <None Remove="Common\Image\delete.png" />
     <None Remove="Common\Image\deleteDocument.png" />
     <None Remove="Common\Image\department.png" />
-    <None Remove="Common\Image\diploma.png" />
     <None Remove="Common\Image\editDocument.png" />
+    <None Remove="Common\Image\editFaculty.png" />
+    <None Remove="Common\Image\editForm.png" />
+    <None Remove="Common\Image\editGroup.png" />
+    <None Remove="Common\Image\editStudent.png" />
+    <None Remove="Common\Image\editTypeGroup.png" />
     <None Remove="Common\Image\enrollee.png" />
-    <None Remove="Common\Image\faculty.png" />
     <None Remove="Common\Image\folderPath.png" />
-    <None Remove="Common\Image\infogroup.png" />
-    <None Remove="Common\Image\infostudent.png" />
     <None Remove="Common\Image\liquidationgroup.png" />
-    <None Remove="Common\Image\lvl.png" />
-    <None Remove="Common\Image\lvlEducation.png" />
     <None Remove="Common\Image\profile.png" />
     <None Remove="Common\Image\rector.png" />
     <None Remove="Common\Image\search.png" />
-    <None Remove="Common\Image\structEducation.png" />
     <None Remove="Common\Image\syllabus.png" />
     <None Remove="Common\Image\teacher.png" />
     <None Remove="Common\Image\trainingDivision.png" />
@@ -42,7 +35,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Common\Image\change.png">
+    <Resource Include="Common\Image\editFaculty.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\editForm.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\editStudent.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -56,12 +55,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Common\Image\academicSubject.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Common\Image\addLvl.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Common\Image\administration.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -69,12 +62,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\calendar.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Common\Image\changedepartment.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Common\Image\changegroup.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\deanRoom.png">
@@ -92,34 +79,19 @@
     <Resource Include="Common\Image\department.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Common\Image\diploma.png">
+    <Resource Include="Common\Image\editDocument.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Common\Image\editDocument.png">
+    <Resource Include="Common\Image\editTypeGroup.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\enrollee.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Common\Image\faculty.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Common\Image\folderPath.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Common\Image\infogroup.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Common\Image\infostudent.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Common\Image\liquidationgroup.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Common\Image\lvl.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Common\Image\lvlEducation.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\profile.png">
@@ -129,9 +101,6 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\search.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Common\Image\structEducation.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\syllabus.png">
@@ -165,6 +134,12 @@
 
   <ItemGroup>
     <EditorConfigFiles Remove="C:\Users\79613\source\repos\ERPeducation\ERPeducation\Views\AdmissionCampaign\NewView\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Common\Image\editGroup.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
