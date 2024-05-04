@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Common.BD;
+using ERPeducation.Models.AdmissionCampaign;
 using ERPeducation.Models.DeanRoom;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -44,6 +45,13 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories
             set => this.RaiseAndSetIfChanged(ref _groups, value);
         }
 
+        ObservableCollection<Test> _tests;
+        public ObservableCollection<Test> Tests
+        {
+            get => _tests;
+            set => this.RaiseAndSetIfChanged(ref _tests, value);
+        }
+
         public DirectionRepository()
         {
             Faculties = new ObservableCollection<Faculty>();
@@ -51,6 +59,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories
             Forms = new ObservableCollection<FormsOfTraining>();
             Types = new ObservableCollection<TypeGroup>();
             Groups = new ObservableCollection<Group>();
+            Tests = new ObservableCollection<Test>();
         }
 
         public void GetFaculties()
@@ -64,7 +73,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories
                     _faculties.Add(faculty);
                 }
         }
-
         public void GetLevels(Faculty faculty)
         {
             foreach(var level in faculty.Levels)
@@ -85,5 +93,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories
             foreach(var group in typeGroup.Groups)
                 _groups.Add(group);
         }
+
+        public void CreateTest(Test test) => _tests.Add(test);
+        public void DelTest(Test test) => _tests.Remove(test);
     }
 }

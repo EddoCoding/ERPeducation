@@ -1,8 +1,6 @@
-﻿using ERPeducation.Common.Command;
-using ERPeducation.Models.AdmissionCampaign;
+﻿using ERPeducation.Models.AdmissionCampaign;
 using ERPeducation.Models.AdmissionCampaign.Direction;
 using ERPeducation.Models.AdmissionCampaign.Educations;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Services;
 using ReactiveUI;
@@ -29,9 +27,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ReactiveCommand<EducationBase, Unit> DelEducationCommand { get; set; }       // --- Удаление образования ---
         #endregion
         #region Команды направления
-        public ReactiveCommand<Unit, Unit> AddDirectionCommand { get; set; }              // --- Добавление направления ---
-        public ReactiveCommand<Unit, Unit> EditDirectionCommand { get; set; }             // --- Изменение направления ---
-        public ReactiveCommand<Unit, Unit> DeleteDirectionCommand { get; set; }           // --- Удаление направления ---
+        public ReactiveCommand<Unit, Unit> AddDirectionCommand { get; set; }                              // --- Добавление направления ---
+        public ReactiveCommand<DirectionOfAdmission, Unit> DeleteDirectionCommand { get; set; }           // --- Удаление направления ---
         #endregion
         #region Команда добавления абитуриента
         public ReactiveCommand<Unit,Unit> AddEnrolleeCommand { get; set; }                  // --- Добавление абитуриента ---
@@ -80,8 +77,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             #endregion
             #region Команды направления
             AddDirectionCommand = ReactiveCommand.Create(AddDirection);
-            EditDirectionCommand = ReactiveCommand.Create(EditDirection);
-            DeleteDirectionCommand = ReactiveCommand.Create(DelDirection);
+            DeleteDirectionCommand = ReactiveCommand.Create<DirectionOfAdmission>(DelDirection);
             #endregion
             #region Команда добавления абитуриента
             AddEnrolleeCommand = ReactiveCommand.Create(AddEnrollee);
@@ -98,10 +94,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         void EditEducation(EducationBase education) => _documentService.OpenWindowEditEducation(education);
         void DelEducation(EducationBase education) => _repository.DeleteEducation(education);
         #endregion
-        #region Методы документов
+        #region Методы направлений
         void AddDirection() => _documentService.OpenWindowCreateDirection(_repository);
-        void EditDirection() => NotReady.Message();
-        void DelDirection() => NotReady.Message();
+        void DelDirection(DirectionOfAdmission direction) => _repository.DeleteDirection(direction);
         #endregion
         #region Метод добавления абитуриента
         void AddEnrollee() => NotReady.Message();

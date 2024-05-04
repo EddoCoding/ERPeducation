@@ -41,7 +41,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="EditEducation" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Template">
@@ -77,6 +77,24 @@
             </Setter>
         </Style>
 
+        <Style x:Key="DeleteDirection" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" Height="35" Width="35" ToolTip="Удалить направление">
+                            <Image Height="24" Width="24" Source="/Common/Image/deleteDocument.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <DataTemplate x:Key="Passport">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -85,7 +103,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel>
-                    
+
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding TypeDocument}" Margin="5,0" FontSize="13" FontWeight="Bold"/>
                         <TextBlock Text="-" FontSize="13"/>
@@ -100,7 +118,7 @@
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Дата выдачи:" Margin="5,0" FontSize="13" FontWeight="Bold"/>
-                            <TextBlock Text="{Binding DateOfIssue, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" Margin="5,0" FontSize="13" />
+                        <TextBlock Text="{Binding DateOfIssue, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" Margin="5,0" FontSize="13" />
                         <TextBlock Text="Код подразделения:" Margin="5,0" FontSize="13" FontWeight="Bold"/>
                         <TextBlock Text="{Binding DepartmentCode}" Margin="5,0" FontSize="13" />
                         <TextBlock Text="Серия:" Margin="5,0" FontSize="13" FontWeight="Bold"/>
@@ -115,14 +133,14 @@
                     </StackPanel>
 
                 </StackPanel>
-                
+
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Content="Изменить" Style="{StaticResource EditDocument}" Margin="0,0,10,0"
                             Command="{Binding DataContext.EditDocumentCommand, ElementName=Documents}" CommandParameter="{Binding}"/>
                     <Button Content="Удалить" Style="{StaticResource DeleteDocument}" Margin="0,0,10,0"
                             Command="{Binding DataContext.DelDocumentCommand, ElementName=Documents}" CommandParameter="{Binding}"/>
                 </StackPanel>
-                
+
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="Snils">
@@ -131,9 +149,9 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <StackPanel>
-                
+
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding TypeDocument}" Margin="5,0" FontSize="13" FontWeight="Bold"/>
                         <TextBlock Text="-" FontSize="13"/>
@@ -147,7 +165,7 @@
                         <TextBlock Text="Дата регистрации:" Margin="5,0" FontSize="13" FontWeight="Bold"/>
                         <TextBlock Text="{Binding RegistrationDate, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" Margin="5,0" FontSize="13"/>
                     </StackPanel>
-                    
+
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
                         <TextBlock Text="Дополнительная информация:" Margin="5,0" FontSize="13" FontWeight="Bold"/>
                         <TextBlock Text="{Binding AdditionalInformation}" Margin="5,0" FontSize="13" />
@@ -170,9 +188,9 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <StackPanel>
-                    
+
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding TypeDocument}" Margin="5,0" FontSize="13" FontWeight="Bold"/>
                         <TextBlock Text="-" FontSize="13"/>
@@ -269,7 +287,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <StackPanel>
 
                     <StackPanel Orientation="Horizontal">
@@ -721,70 +739,126 @@
             </Setter>
         </Style>
         <Style x:Key="ListBoxItemDirection" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
-                            <Grid>
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="3">
+                                <TextBlock Text="Уровень подготовки" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding NameLevel}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Margin="3">
+                                <TextBlock Text="Форма обучения" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding NameForm}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Margin="3">
+                                <TextBlock Text="Тип обучения" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding NameType}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.ColumnSpan="3" Grid.Row="1" Margin="3">
+                                <TextBlock Text="Направление подготовки" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding NameDirection}"/>
+                            </StackPanel>
+
+                            <Grid Grid.Column="4" Grid.RowSpan="2" HorizontalAlignment="Stretch" Margin="0,3">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                
-                                <StackPanel Orientation="Horizontal">
-                                    <ContentPresenter Content="{Binding NameFaculty}" Margin="3"/>
-                                    <ContentPresenter Content="{Binding NameLevel}" Margin="3"/>
-                                    <ContentPresenter Content="{Binding NameForm}" Margin="3"/>
-                                    <ContentPresenter Content="{Binding NameType}" Margin="3"/>
-                                    <ContentPresenter Content="{Binding NameDirection}" Margin="3"/>
-                                </StackPanel>
 
-                                <TextBlock Grid.Row="1" Text="Экзамены" Margin="3"/>
+                                <Border BorderBrush="Gray" BorderThickness="1" Margin="5,0,5,0">
+                                    <StackPanel>
+                                        <TextBlock Grid.Row="0" Text="Экзамены" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                        <ItemsControl Grid.Row="1" ItemsSource="{Binding Tests}" Margin="5,0,0,0">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
 
-                                <StackPanel Orientation="Horizontal" Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right">
-                                    <Button Content="Изменить" Margin="0,0,10,0"/>
-                                    <Button Content="Удалить" Margin="0,0,10,0"/>
-                                </StackPanel>
-                                
+                                                        <StackPanel Grid.Column="0">
+                                                            <TextBlock Text="Предмет" FontWeight="Bold"/>
+                                                            <TextBlock Text="{Binding Subject}"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1">
+                                                            <TextBlock Text="Дата экзамена" FontWeight="Bold"/>
+                                                            <TextBlock Text="{Binding When}"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="2">
+                                                            <TextBlock Text="Время экзамена" FontWeight="Bold"/>
+                                                            <TextBlock Text="{Binding AtWhatTime}"/>
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="3">
+                                                            <TextBlock Text="Место проведения" FontWeight="Bold"/>
+                                                            <TextBlock Text="{Binding Room}"/>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </Border>
+
                             </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="WhiteSmoke"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
+
+                            <Button Grid.Column="5" Grid.RowSpan="2" Style="{StaticResource DeleteDirection}" Margin="5,0" 
+                                    Command="{Binding DataContext.DeleteDirectionCommand, ElementName=Directions}" CommandParameter="{Binding}"/>
+
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="WhiteSmoke"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
             <Label Content="Личная информация" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
 
@@ -805,38 +879,38 @@
                 <Label Content="Пол" Style="{StaticResource Label}"/>
                 <ComboBox Style="{StaticResource ComboBoxGender}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
                       SelectedItem="{Binding Enrollee.Gender, Converter={StaticResource ComboBoxItemToStringConvert}}" Margin="10,0,0,0">
-                <ComboBox.Items>
-                    <ComboBoxItem Content="Муж"/>
-                    <ComboBoxItem Content="Жен"/>
-                </ComboBox.Items>
-            </ComboBox>
+                    <ComboBox.Items>
+                        <ComboBoxItem Content="Муж"/>
+                        <ComboBoxItem Content="Жен"/>
+                    </ComboBox.Items>
+                </ComboBox>
 
                 <Label Content="Дата рождения" Style="{StaticResource Label}"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBox Text="{Binding Enrollee.DateOfBirth, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
                          Style="{StaticResource DataTextBox}" Width="76" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                <Label Content="Формат даты: 05.12.2000" Foreground="Gray"/>
-            </StackPanel>
+                    <Label Content="Формат даты: 05.12.2000" Foreground="Gray"/>
+                </StackPanel>
 
                 <!--Блок гражданства-->
                 <Grid Margin="10,0,0,0">
                     <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
                     <RadioButton Grid.Column="0" Grid.Row="0" 
                              IsChecked="True" VerticalAlignment="Center"/>
                     <Label Grid.Column="1" Grid.Row="0" 
                        Content="Гражданство" FontSize="15"/>
-                    
+
                     <TextBox Grid.Column="2" Grid.Row="0" 
                          Style="{StaticResource defaultTextBox}" Width="400" 
                          Text="{Binding Enrollee.Citizenship}" IsEnabled="{Binding .}"/>
@@ -845,9 +919,9 @@
                     <StackPanel Grid.Column="4" Grid.Row="0" Orientation="Horizontal">
                         <TextBox  Text="{Binding Enrollee.DateCitizenship, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
                         Style="{StaticResource DataTextBox}" Width="76" Margin="10,0,0,0" IsEnabled="{Binding .}"/>
-                    <Label Content="Формат даты: 05.12.2000" Foreground="Gray" VerticalAlignment="Center"/>
-                </StackPanel>
-                    
+                        <Label Content="Формат даты: 05.12.2000" Foreground="Gray" VerticalAlignment="Center"/>
+                    </StackPanel>
+
                     <RadioButton Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
                     <Label Grid.Column="1" Grid.Row="1" Content="Без гражданства" FontSize="15"/>
                 </Grid>
@@ -862,12 +936,12 @@
 
             <Grid Grid.Row="4" Margin="10,0,0,0">
                 <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
                 <Label Content="Добавить документ:" Padding="0" FontSize="15"/>
                 <Button Grid.Column="1" Content="Паспорт" Style="{StaticResource defaultButton}" 
@@ -923,14 +997,13 @@
                   X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
 
             <!--   БЛОК НАПРАВЛЕНИЯ ПОДГОТОВКИ   -->
-
             <Label Grid.Row="11" Content="Направление подготовки" Style="{StaticResource Label}" Margin="10,0,0,10" FontWeight="Bold"/>
 
             <Button Grid.Row="12" Content="Добавить направление подготовки" Style="{StaticResource defaultButton}" HorizontalAlignment="Left"
                     Command="{Binding AddDirectionCommand}"/>
 
-            <ListBox x:Name="Directions" Grid.Row="13" ItemContainerStyle="{StaticResource ListBoxItemDirection}" Margin="10,0,10,0" Height="200"
-                     ItemsSource="{Binding Enrollee.Directions}"/>
+            <ListBox x:Name="Directions" Grid.Row="13" Margin="10,0,10,0" Height="200" HorizontalContentAlignment="Stretch"
+                     ItemsSource="{Binding Enrollee.Directions}" ItemContainerStyle="{StaticResource ListBoxItemDirection}"/>
 
             <Line Grid.Row="14" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,10"
                   X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
@@ -945,8 +1018,8 @@
             <Button Grid.Row="17" Content="Добавить абитуриента" 
                     Style="{StaticResource OkButton}" HorizontalAlignment="Center"
                     Command="{Binding AddEnrollee}"/>
-            
+
         </Grid>
     </ScrollViewer>
-    
+
 </UserControl>

@@ -1,0 +1,47 @@
+﻿<Window x:Class="ERPeducation.Views.AdmissionCampaign.WindowDirections.WindowTests.AddTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.WindowDirections.WindowTests"
+        mc:Ignorable="d" Title="Добавить испытание" Height="210" Width="430" FontFamily="Calibri">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Предмет:" Style="{StaticResource Label}" Margin="10,0,0,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Test.Subject}" Style="{StaticResource defaultTextBox}" 
+                 Margin="10,0,0,5" Width="300"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Когда:" Style="{StaticResource Label}" Margin="10,0,0,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Test.When}" Style="{StaticResource defaultTextBox}" 
+                 Margin="10,0,0,5" Width="150" HorizontalAlignment="Left"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Во сколько:" Style="{StaticResource Label}" Margin="10,0,0,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Test.AtWhatTime}" Style="{StaticResource defaultTextBox}" 
+                 Margin="10,0,0,5" Width="150" HorizontalAlignment="Left"/>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Помещение:" Style="{StaticResource Label}" Margin="10,0,0,5" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Test.Room}" Style="{StaticResource defaultTextBox}" 
+                 Margin="10,0,0,5" Width="150" HorizontalAlignment="Left"/>
+
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
+                    Command="{Binding CloseWindowCommand}"/>
+            <Button Content="Добавить" Style="{StaticResource OkButton}" Margin="0,10,10,10"
+                    Command="{Binding AddTestCommand}" CommandParameter="{Binding Test}"/>
+        </StackPanel>
+
+    </Grid>
+    
+</Window>

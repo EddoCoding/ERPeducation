@@ -296,6 +296,44 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="ListBoxItemTest" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Grid.Column="0" Text="Предмет:" FontWeight="Bold" Margin="3"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Subject}" Margin="3"/>
+                            <TextBlock Grid.Column="2" Text="Когда:" FontWeight="Bold" Margin="3"/>
+                            <TextBlock Grid.Column="3" Text="{Binding When}" Margin="3"/>
+                            <TextBlock Grid.Column="4" Text="Во сколько:" FontWeight="Bold" Margin="3"/>
+                            <TextBlock Grid.Column="5" Text="{Binding AtWhatTime}" Margin="3"/>
+                            <TextBlock Grid.Column="6" Text="Помещение:" FontWeight="Bold" Margin="3"/>
+                            <TextBlock Grid.Column="7"  Text="{Binding Room}" Margin="3"/>
+
+                            <Button Grid.Column="8" Content="/Common/Image/editDocument.png" Style="{StaticResource ImageButton}" HorizontalAlignment="Right" Margin="0,0,10,0"
+                                    Command="{Binding DataContext.EditTestCommand, ElementName=Tests}" CommandParameter="{Binding}" ToolTip="Изменить испытание"/>
+                            <Button Grid.Column="9" Content="/Common/Image/delete.png" Style="{StaticResource ImageButton}" Margin="0,0,10,0"
+                                    Command="{Binding DataContext.DelTestCommand, ElementName=Tests}" CommandParameter="{Binding}" ToolTip="Удалить испытание"/>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     
     <Grid>
@@ -342,9 +380,10 @@
                       ItemsSource="{Binding GroupDirections}" SelectedItem="{Binding SelectedGroup}"/>
         </StackPanel>
 
-        <Button Grid.Row="3" Content="Добавить испытание" Style="{StaticResource defaultButton}" HorizontalAlignment="Left"/>
-
-        <ListBox Grid.Row="4" Margin="10,0" Height="150"/>
+        <Button Grid.Row="3" Content="Добавить испытание" Style="{StaticResource defaultButton}" HorizontalAlignment="Left"
+                Command="{Binding AddTestCommand}"/>
+        <ListBox x:Name="Tests" Grid.Row="4" ItemContainerStyle="{StaticResource ListBoxItemTest}" Margin="10,0" Height="150"
+                 ItemsSource="{Binding Tests}"/>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"

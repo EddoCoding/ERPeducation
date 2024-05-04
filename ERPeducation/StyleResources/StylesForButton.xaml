@@ -71,7 +71,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="WhiteSmoke"/>
+                            <Setter Property="Background" Value="LightGray"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

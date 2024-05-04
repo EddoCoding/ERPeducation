@@ -1,6 +1,8 @@
-﻿using ERPeducation.Models.AdmissionCampaign.Direction;
+﻿using ERPeducation.Models.AdmissionCampaign;
+using ERPeducation.Models.AdmissionCampaign.Direction;
 using ERPeducation.Models.DeanRoom;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Services;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -20,7 +22,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
         public ObservableCollection<FormsOfTraining> Forms { get; set; }
         public ObservableCollection<TypeGroup> Types { get; set; }
         public ObservableCollection<Group> GroupDirections { get; set; }
-        public ObservableCollection<string> test { get; set; }
+        public ObservableCollection<Test> Tests { get; set; }
         #endregion
         #region Свойства выбранных элементов
         Faculty _selectedFaculty;
@@ -94,9 +96,16 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
 
         Action _closeWindow;
 
+        #region Команды
         public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<DirectionOfAdmission, Unit> AddDirectionCommand { get; set; }
+        public ReactiveCommand<Unit,Unit> AddTestCommand { get; set; }
 
+        public ReactiveCommand<Test,Unit> EditTestCommand { get; set;}
+        public ReactiveCommand<Test,Unit> DelTestCommand { get; set;}
+        #endregion
+
+        ITestService _testService;
         IDirectionRepository _directionRepository;
         IEnrolleeRepository _repository;
         public DirectionViewModel(IEnrolleeRepository repository, Action closeWindow)
@@ -104,14 +113,16 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
             _repository = repository;
             _closeWindow = closeWindow;
             _directionRepository = new DirectionRepository();
+            _testService = new TestService();
 
+            #region Инициализация коллекций
             Faculties = new ObservableCollection<Faculty>();
             Levels = new ObservableCollection<LvlOfTraining>();
             Forms = new ObservableCollection<FormsOfTraining>();
             Types = new ObservableCollection<TypeGroup>();
             GroupDirections = new ObservableCollection<Group>();
-            test = new ObservableCollection<string>();
-
+            Tests = new ObservableCollection<Test>();
+            #endregion
             #region Синхронизация
             _directionRepository.Faculties.CollectionChanged += (sender, e) =>
             {
@@ -133,12 +144,22 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
             {
                 if (e.Action == NotifyCollectionChangedAction.Add) GroupDirections.Add(e.NewItems[0] as Group);
             };
+            _directionRepository.Tests.CollectionChanged += (sender, e) =>
+            {
+                if (e.Action == NotifyCollectionChangedAction.Add) Tests.Add(e.NewItems[0] as Test);
+                else if (e.Action == NotifyCollectionChangedAction.Remove) Tests.Remove(e.OldItems[0] as Test);
+            };
             #endregion
 
             _directionRepository.GetFaculties();
 
+            #region Инициализация команд
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             AddDirectionCommand = ReactiveCommand.Create<DirectionOfAdmission>(AddDirection);
+            AddTestCommand = ReactiveCommand.Create(AddTest);
+            EditTestCommand = ReactiveCommand.Create<Test>(EditTest);
+            DelTestCommand = ReactiveCommand.Create<Test>(DelTest);
+            #endregion
         }
 
         void Exit() => _closeWindow();
@@ -150,8 +171,13 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
             direction.NameType = SelectedType.NameType;
             direction.NameDirection = SelectedGroup.Direction;
 
+            direction.Tests = Tests;
+
             _repository.CreateDirection(direction);
             _closeWindow();
         }
+        void AddTest() => _testService.OpenWindowAddTest(_directionRepository);
+        void EditTest(Test test) => _testService.OpenWindowEditTest(test);
+        void DelTest(Test test) => _directionRepository.DelTest(test);
     }
 }

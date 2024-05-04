@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ERPeducation.Views.AdmissionCampaign.WindowDirections
+namespace ERPeducation.Views.AdmissionCampaign.WindowDirections.WindowTests
 {
     /// <summary>
-    /// Логика взаимодействия для EditDirectionWindow.xaml
+    /// Логика взаимодействия для AddTestWindow.xaml
     /// </summary>
-    public partial class EditDirectionWindow : Window
+    public partial class AddTestWindow : Window
     {
-        public EditDirectionWindow()
+        public AddTestWindow()
         {
             InitializeComponent();
         }
