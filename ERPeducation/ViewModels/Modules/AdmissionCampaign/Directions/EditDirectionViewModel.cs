@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ERPeducation.Models.AdmissionCampaign.Direction;
+using System;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
 {
@@ -7,7 +8,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
         Action closeWindow;
 
 
-        public EditDirectionViewModel(DirectionsOfAdmission direction, Action closeWindow)
+        public EditDirectionViewModel(DirectionOfAdmission direction, Action closeWindow)
         {
             
         }

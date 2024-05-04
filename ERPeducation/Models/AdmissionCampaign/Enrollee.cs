@@ -1,5 +1,5 @@
-﻿using ERPeducation.Models.AdmissionCampaign.Educations;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions;
+﻿using ERPeducation.Models.AdmissionCampaign.Direction;
+using ERPeducation.Models.AdmissionCampaign.Educations;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -35,8 +35,8 @@ namespace ERPeducation.Models.AdmissionCampaign
             set => this.RaiseAndSetIfChanged(ref _educations, value);
         }              // -- Коллекция документов об образовании --
 
-        ObservableCollection<DirectionsOfAdmission> _directions;
-        public ObservableCollection<DirectionsOfAdmission> Directions
+        ObservableCollection<DirectionOfAdmission> _directions;
+        public ObservableCollection<DirectionOfAdmission> Directions
         {
             get => _directions;
             set => this.RaiseAndSetIfChanged(ref _directions, value);
@@ -46,7 +46,7 @@ namespace ERPeducation.Models.AdmissionCampaign
         {
             Documents = new ObservableCollection<DocumentBase>();
             Educations = new ObservableCollection<EducationBase>();
-            Directions = new ObservableCollection<DirectionsOfAdmission>();
+            Directions = new ObservableCollection<DirectionOfAdmission>();
         }
     }
 }

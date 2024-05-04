@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowGroup"
-        mc:Ignorable="d" Title="Добавить группу" Height="170" Width="400" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Добавить группу" Height="220" Width="400" FontFamily="Calibri">
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -18,7 +20,11 @@
         <TextBox Grid.Row="1" Text="{Binding Group.NameGroup}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
         <Label Grid.Row="2" Content="Например: ПИ2" Padding="0" Foreground="Gray" Margin="10,0,0,0" FontSize="13"/>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <Label Grid.Row="3" Content="Направление подготовки" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="4" Text="{Binding Group.Direction}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        <Label Grid.Row="5" Content="Например: Прикладная информатика" Padding="0" Foreground="Gray" Margin="10,0,0,0" FontSize="13"/>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
                 Command="{Binding CloseWindowCommand}"/>
             <Button Content="Добавить" Style="{StaticResource OkButton}" Margin="0,10,10,10"

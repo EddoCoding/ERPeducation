@@ -1,5 +1,5 @@
-﻿using ERPeducation.Models.AdmissionCampaign.Educations;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions;
+﻿using ERPeducation.Models.AdmissionCampaign.Direction;
+using ERPeducation.Models.AdmissionCampaign.Educations;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
 using System.Collections.ObjectModel;
 
@@ -15,8 +15,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         void CreateEducation (EducationBase typeEducation);
         void DeleteEducation (EducationBase education);
 
-        public ObservableCollection<DirectionsOfAdmission> Directions { get; set; }
-        void CreateDirection(DirectionsOfAdmission direction);
-        void DeleteDirection(DirectionsOfAdmission direction);
+        public ObservableCollection<DirectionOfAdmission> Directions { get; set; }
+        void CreateDirection(DirectionOfAdmission direction);
+        void DeleteDirection(DirectionOfAdmission direction);
     }
 }

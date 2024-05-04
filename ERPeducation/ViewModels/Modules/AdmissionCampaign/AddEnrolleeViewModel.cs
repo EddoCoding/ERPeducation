@@ -1,5 +1,6 @@
 ﻿using ERPeducation.Common.Command;
 using ERPeducation.Models.AdmissionCampaign;
+using ERPeducation.Models.AdmissionCampaign.Direction;
 using ERPeducation.Models.AdmissionCampaign.Educations;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
@@ -62,9 +63,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             _repository.Directions.CollectionChanged += (sender, e) =>
             {
                 if (e.Action == NotifyCollectionChangedAction.Add)
-                    Enrollee.Directions.Add(e.NewItems[0] as DirectionsOfAdmission);
+                    Enrollee.Directions.Add(e.NewItems[0] as DirectionOfAdmission);
                 else if (e.Action == NotifyCollectionChangedAction.Remove)
-                    Enrollee.Directions.Remove(e.OldItems[0] as DirectionsOfAdmission);
+                    Enrollee.Directions.Remove(e.OldItems[0] as DirectionOfAdmission);
             };
 
             #region Команды документов

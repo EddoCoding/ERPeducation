@@ -1,9 +1,11 @@
-﻿using ERPeducation.Models.AdmissionCampaign.Educations;
+﻿using ERPeducation.Models.AdmissionCampaign.Direction;
+using ERPeducation.Models.AdmissionCampaign.Educations;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents.EditDocument;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Educations.AddEducation;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Educations.EditEducation;
+using ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories;
 using ERPeducation.Views.AdmissionCampaign.WindowDirections;
 using ERPeducation.Views.AdmissionCampaign.WindowDocuments;
 using ERPeducation.Views.AdmissionCampaign.WindowDocuments.EditDocument;
@@ -160,7 +162,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Services
             directionWindow.DataContext = new DirectionViewModel(repository, directionWindow.Close);
             directionWindow.ShowDialog();
         }
-        public void OpenWindowEditDirection(DirectionsOfAdmission direction) 
+        public void OpenWindowEditDirection(DirectionOfAdmission direction) 
         {
             EditDirectionWindow directionWindow = new EditDirectionWindow();
             directionWindow.DataContext = new EditDirectionViewModel(direction, directionWindow.Close);
