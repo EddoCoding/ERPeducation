@@ -1015,9 +1015,8 @@
                   X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
 
             <!--   ДОБАВЛЕНИЕ АБИТУРИЕНТА   -->
-            <Button Grid.Row="17" Content="Добавить абитуриента" 
-                    Style="{StaticResource OkButton}" HorizontalAlignment="Center"
-                    Command="{Binding AddEnrollee}"/>
+            <Button Grid.Row="17" Content="Добавить абитуриента" Style="{StaticResource OkButton}" HorizontalAlignment="Center"
+                    Command="{Binding AddEnrolleeCommand}" CommandParameter="{Binding Enrollee}"/>
 
         </Grid>
     </ScrollViewer>

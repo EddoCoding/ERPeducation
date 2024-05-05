@@ -5,6 +5,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" FontFamily="Calibri">
+    <UserControl.Resources>
+        <Style x:Key="ListBoxItemEnrollee" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding SurName}" Margin="3"/>
+                                <TextBlock Text="{Binding Name}" Margin="3"/>
+                                <TextBlock Text="{Binding MiddleName}" Margin="3"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
 
         <Grid.RowDefinitions>
@@ -20,9 +46,48 @@
         <Label Grid.Row="0" Content="Приёмная кампания" FontFamily="Calibri" Foreground="Gray" Margin="10,5,0,0" 
                Padding="0" FontSize="20" FontWeight="Bold"/>
 
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Margin="10,0,5,0">
             <Button Content="Добавить абитуриента" Style="{StaticResource defaultButton}" Command="{Binding OpenPageAddEnrolleeCommand}"/>
-            <ListBox ItemsSource="{Binding Enrollees}" Margin="10,0,0,0" Height="550"/>
+            <ListBox x:Name="Enrollees" ItemContainerStyle="{StaticResource ListBoxItemEnrollee}" Height="550"
+                     ItemsSource="{Binding Enrollees}" SelectedItem="{Binding SelectedEnrollee}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,16,10,0">
+            <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding SelectedEnrollee.SurName}" Margin="3" FontSize="14"/>
+                    <TextBlock Text="{Binding SelectedEnrollee.Name}" Margin="3" FontSize="14"/>
+                    <TextBlock Text="{Binding SelectedEnrollee.MiddleName}" Margin="3" FontSize="14"/>
+                </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Пол:" Margin="3" FontSize="14" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedEnrollee.Gender}" Margin="3" FontSize="14"/>
+                    <TextBlock Text="Дата рождения:" Margin="3" FontSize="14" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedEnrollee.DateOfBirth}" Margin="3" FontSize="14"/>
+                </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Гражданство:" Margin="3" FontSize="14" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedEnrollee.Citizenship}" Margin="3" FontSize="14"/>
+                    <TextBlock Text="До:" Margin="3" FontSize="14" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedEnrollee.DateCitizenship}" Margin="3" FontSize="14"/>
+                </StackPanel>
+            <StackPanel>
+                    <TextBlock Text="Персональные документы" Margin="3,3,3,0" FontSize="14" FontWeight="Bold"/>
+                    <ListBox ItemsSource="{Binding SelectedEnrollee.Documents}" MinHeight="70"  Margin="3,0"/>
+                </StackPanel>
+            <StackPanel>
+                    <TextBlock Text="Документы об образовании" Margin="3,3,3,0" FontSize="14" FontWeight="Bold"/>
+                    <ListBox ItemsSource="{Binding SelectedEnrollee.Educations}" MinHeight="70" Margin="3,0"/>
+                </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Направления подготовки" Margin="3,3,3,0" FontSize="14" FontWeight="Bold"/>
+                <ListBox ItemsSource="{Binding SelectedEnrollee.Directions}" MinHeight="70" Margin="3,0"/>
+            </StackPanel>
+            
+            <Button Content="Внести экзаменационные баллы" Margin="3,3,3,0" FontSize="14" FontWeight="Bold"
+                    Command="{Binding .}"/>
+            <Button Content="Печать документов" Margin="3,3,3,0" FontSize="14" FontWeight="Bold"
+                    Command="{Binding .}"/>
+            
         </StackPanel>
         
     </Grid>

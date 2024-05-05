@@ -14,6 +14,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
     {
         public Enrollee Enrollee { get; set; } = new();
 
+        ObservableCollection<Enrollee> _enrollees;
+
         //Добавить логику для радиобатонов
 
         #region Команды документов
@@ -31,7 +33,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ReactiveCommand<DirectionOfAdmission, Unit> DeleteDirectionCommand { get; set; }           // --- Удаление направления ---
         #endregion
         #region Команда добавления абитуриента
-        public ReactiveCommand<Unit,Unit> AddEnrolleeCommand { get; set; }                  // --- Добавление абитуриента ---
+        public ReactiveCommand<Enrollee, Unit> AddEnrolleeCommand { get; set; }                  // --- Добавление абитуриента ---
         #endregion
 
         IAdmissionRepository _admissionRepository;
@@ -42,6 +44,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             _admissionRepository = dataRepository;
             _documentService = documentService;
             _repository = repository;
+            _enrollees = enrollees;
 
             _repository.Documents.CollectionChanged += (sender, e) =>
             {
@@ -80,7 +83,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             DeleteDirectionCommand = ReactiveCommand.Create<DirectionOfAdmission>(DelDirection);
             #endregion
             #region Команда добавления абитуриента
-            AddEnrolleeCommand = ReactiveCommand.Create(AddEnrollee);
+            AddEnrolleeCommand = ReactiveCommand.Create<Enrollee>(AddEnrollee);
             #endregion
         }
 
@@ -99,7 +102,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         void DelDirection(DirectionOfAdmission direction) => _repository.DeleteDirection(direction);
         #endregion
         #region Метод добавления абитуриента
-        void AddEnrollee() => NotReady.Message();
+        void AddEnrollee(Enrollee enrollee) => _enrollees.Add(enrollee);
         #endregion
     }
 }
