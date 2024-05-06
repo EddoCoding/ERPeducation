@@ -354,6 +354,24 @@
         <selector:SelectorTestEGE x:Key="SelectorTestEGE" 
                     TemplateTest="{StaticResource Test}" 
                     TemplateEGE="{StaticResource EGE}"/>
+
+        <Style x:Key="ListBoxItem" TargetType="ListBoxItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     
     <Grid>
@@ -408,7 +426,7 @@
             
         </StackPanel>
         <ListBox x:Name="Tests" Grid.Row="4" ItemTemplateSelector="{StaticResource SelectorTestEGE}" Margin="10,0" Height="150"
-                 ItemsSource="{Binding Tests}" HorizontalContentAlignment="Stretch"/>
+                 ItemsSource="{Binding Tests}" ItemContainerStyle="{StaticResource ListBoxItem}" HorizontalContentAlignment="Stretch"/>
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"

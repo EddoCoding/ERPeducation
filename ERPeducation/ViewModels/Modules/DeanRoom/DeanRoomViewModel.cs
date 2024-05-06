@@ -149,12 +149,13 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             foreach (var faculty in _repository.GetJsonFaculty())
                 Faculties.Add(faculty);
 
+            #region Коллекции
             Lvl = new ObservableCollection<LvlOfTraining>();
             Forms = new ObservableCollection<FormsOfTraining>();
             TypeGroups = new ObservableCollection<TypeGroup>();
             Groups = new ObservableCollection<Group>();
             Students = new ObservableCollection<Student>();
-
+            #endregion
             #region Синхронизация через подписку на изменеия коллекций в репозитории
             _repository.Faculties.CollectionChanged += (sender,e) =>
             {
@@ -187,7 +188,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
                 else if (e.Action == NotifyCollectionChangedAction.Remove) Students.Remove(e.OldItems[0] as Student);
             };
             #endregion
-
             #region Инициализация команд добавления
             AddFacultyCommand = ReactiveCommand.Create(AddFaculty);
             AddLvlCommand = ReactiveCommand.Create(AddLevel);

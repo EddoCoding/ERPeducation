@@ -6,29 +6,29 @@ using System.Reactive;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions.EGGVM
 {
-    public class AddEGGViewModel
+    public class AddEGEViewModel
     {
-        public EGE EGG { get; set; } = new();
+        public EGE EGE { get; set; } = new();
 
         public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
-        public ReactiveCommand<EGE, Unit> AddEGGCommand { get; set; }
+        public ReactiveCommand<EGE, Unit> AddEGECommand { get; set; }
 
         Action _closeWindow;
 
         IDirectionRepository _repository;
-        public AddEGGViewModel(IDirectionRepository repository, Action closeWindow)
+        public AddEGEViewModel(IDirectionRepository repository, Action closeWindow)
         {
             _repository = repository;
             _closeWindow = closeWindow;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
-            AddEGGCommand = ReactiveCommand.Create<EGE>(AddEGG);
+            AddEGECommand = ReactiveCommand.Create<EGE>(AddEGE);
         }
 
         void Exit() => _closeWindow();
-        void AddEGG(EGE egg)
+        void AddEGE(EGE ege)
         {
-            _repository.CreateEGG(egg);
+            _repository.CreateEGG(ege);
             _closeWindow();
         }
     }

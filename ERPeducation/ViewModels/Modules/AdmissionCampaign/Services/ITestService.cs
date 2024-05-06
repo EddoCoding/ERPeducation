@@ -8,6 +8,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Services
         void OpenWindowAddTest(IDirectionRepository directionRepository);
         void OpenWindowEditTest(TestEGEBase test);
         void OpenWindowAddEGG(IDirectionRepository directionRepository);
-        void OpenWindowEditEGG(TestEGEBase test);
+        void OpenWindowEditEGG(TestEGEBase ege);
     }
 }

@@ -25,12 +25,15 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Services
         public void OpenWindowAddEGG(IDirectionRepository directionRepository)
         {
             AddEGGWindow addEGGWindow = new AddEGGWindow();
-            addEGGWindow.DataContext = new AddEGGViewModel(directionRepository, addEGGWindow.Close);
+            addEGGWindow.DataContext = new AddEGEViewModel(directionRepository, addEGGWindow.Close);
             addEGGWindow.ShowDialog();
         }    //Открытие окна добавления испытания
-        public void OpenWindowEditEGG(TestEGEBase test)
+        public void OpenWindowEditEGG(TestEGEBase ege)
         {
-            
+            EditEGEWindow editEGEWindow = new EditEGEWindow();
+            editEGEWindow.DataContext = new EditEGEViewModel(ege, editEGEWindow.Close);
+            editEGEWindow.ShowDialog();
+
         }                           //Открытие окна изменения ЕГЭ
     }
 }

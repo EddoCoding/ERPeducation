@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace ERPeducation.Views.AdmissionCampaign.WindowDirections.WindowEGG
 {
     /// <summary>
-    /// Логика взаимодействия для EditEGGWindow.xaml
+    /// Логика взаимодействия для EditEGEWindow.xaml
     /// </summary>
-    public partial class EditEGGWindow : Window
+    public partial class EditEGEWindow : Window
     {
-        public EditEGGWindow()
+        public EditEGEWindow()
         {
             InitializeComponent();
         }

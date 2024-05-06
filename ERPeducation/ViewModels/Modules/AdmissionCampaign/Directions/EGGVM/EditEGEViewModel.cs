@@ -8,20 +8,21 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions.EGGVM
 {
     public class EditEGEViewModel
     {
-        public EGE EGE { get; set; }
+        public TestEGEBase EGE { get; set; }
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<EGE, Unit> EditEGECommand { get; set; }
 
         Action _closeWindow;
 
-        public EditEGEViewModel(EGE egg, Action closeWindow)
+        public EditEGEViewModel(TestEGEBase ege, Action closeWindow)
         {
             _closeWindow = closeWindow;
+            EGE = ege;
 
-            EditEGECommand = ReactiveCommand.Create<EGE>(EditEGG);
+            EditEGECommand = ReactiveCommand.Create<EGE>(EditEGE);
         }
 
-        void EditEGG(EGE egg) => _closeWindow();
+        void EditEGE(EGE ege) => _closeWindow();
     }
 }
