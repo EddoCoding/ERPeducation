@@ -1,0 +1,131 @@
+﻿<Window x:Class="ERPeducation.Views.AdmissionCampaign.WindowDirections.WindowTests.InputTestResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ERPeducation.Views.AdmissionCampaign.WindowDirections.WindowTests"
+        mc:Ignorable="d" Title="Управление испытаниями" Height="400" Width="800" FontFamily="Calibri">
+    <Window.Resources>
+        <Style x:Key="ComboBox" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <StackPanel>
+                            <ToggleButton x:Name="togglebutton" Content="{Binding StatusTest}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" MinWidth="165" Width="Auto" HorizontalAlignment="Left">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                            </Border>
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide" MinWidth="165" Width="Auto">
+                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxItem" TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="White">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Абитуриент:" FontWeight="Bold" Margin="5" FontSize="14"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Enrollee.SurName}" Margin="3" FontSize="14"/>
+                <TextBlock Text="{Binding Enrollee.Name}" Margin="3" FontSize="14"/>
+                <TextBlock Text="{Binding Enrollee.MiddleName}" Margin="3" FontSize="14"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Уровень подготовки:" FontWeight="Bold" Margin="5,2" FontSize="14"/>
+                <TextBlock Text="{Binding Direction.NameFaculty}" Margin="5,2" FontSize="14"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Форма подготовки:" FontWeight="Bold" Margin="5,2" FontSize="14"/>
+                <TextBlock Text="{Binding Direction.NameForm}" Margin="5,2" FontSize="14"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Тип обучения:" FontWeight="Bold" Margin="5,2" FontSize="14"/>
+                <TextBlock Text="{Binding Direction.NameType}" Margin="5,2" FontSize="14"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Направление подготовки:" FontWeight="Bold" Margin="5,2" FontSize="14"/>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Direction.NameDirection}" Margin="5,2" FontSize="14"/>
+            </StackPanel>
+
+        </StackPanel>
+        
+        <TextBlock Grid.Row="2" Text="Испытания" FontWeight="Bold" Margin="5,10,0,2" FontSize="14"/>
+        <ItemsControl Grid.Row="3" Grid.ColumnSpan="2" Margin="5,0" ItemsSource="{Binding Direction.Tests}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="5">
+                        
+                        <TextBlock Text="Предмет:" FontWeight="Bold" Margin="5,0" FontSize="14" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Subject}" FontSize="14" VerticalAlignment="Center"/>
+                        <TextBlock Text="Баллы:" FontWeight="Bold" Margin="5,0" FontSize="14" VerticalAlignment="Center"/>
+                        <TextBox Text="{Binding Points}" Style="{StaticResource defaultTextBox}" FontSize="13" Width="50"/>
+                        <TextBlock Text="Статус:" FontWeight="Bold" Margin="5,0" FontSize="14" VerticalAlignment="Center"/>
+                        <ComboBox Style="{StaticResource ComboBox}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
+                                  SelectedItem="{Binding StatusTest}" ItemsSource="{Binding Status}"/>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
+                    Command="{Binding CloseWindowCommand}"/>
+            <Button Content="Ввод" Style="{StaticResource OkButton}" Margin="0,10,10,10"
+                    Command="{Binding InputResultCommand}" CommandParameter="{Binding Enrollee}"/>
+        </StackPanel>
+    </Grid>
+
+</Window>

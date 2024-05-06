@@ -1,4 +1,4 @@
-﻿using ERPeducation.Models.AdmissionCampaign;
+﻿using ERPeducation.Models.AdmissionCampaign.Directions.TestEGG;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories;
 using ReactiveUI;
 using System;

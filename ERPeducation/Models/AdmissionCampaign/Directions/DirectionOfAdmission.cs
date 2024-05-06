@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ERPeducation.Models.AdmissionCampaign.Directions.TestEGG;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace ERPeducation.Models.AdmissionCampaign.Direction
@@ -12,6 +13,6 @@ namespace ERPeducation.Models.AdmissionCampaign.Direction
         public string NameType { get; set; }
         public string NameDirection { get; set; }
 
-        public IEnumerable<Test> Tests { get; set; }
+        public IEnumerable<TestEGEBase> Tests { get; set; }
     }
 }

@@ -7,6 +7,41 @@
              xmlns:selector="clr-namespace:ERPeducation.Common.Selectors"
              mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800" FontFamily="Calibri">
     <UserControl.Resources>
+        <Style x:Key="EditEnrollee" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" Height="30" Width="30" ToolTip="Изменить абитуриента">
+                            <Image Height="20" Width="20" Source="/Common/Image/editStudent.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="DelEnrollee" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" Height="30" Width="30" ToolTip="Изменить абитуриента">
+                            <Image Height="20" Width="20" Source="/Common/Image/deductstudent.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="ListBoxItemEnrollee" TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
@@ -18,13 +53,17 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 
                                 <TextBlock Grid.Column="0" Text="{Binding SurName}" Margin="3" FontSize="13" VerticalAlignment="Center"/>
                                 <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="3" FontSize="13" VerticalAlignment="Center"/>
                                 <TextBlock Grid.Column="2" Text="{Binding MiddleName}" Margin="3" FontSize="13" VerticalAlignment="Center"/>
 
-                                <Button Grid.Column="3" Content="Удалить" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="3" Padding="2"
+                                <Button Grid.Column="3" Style="{StaticResource EditEnrollee}"
+                                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                                        Command="{Binding DataContext.EditEnrolleeCommand, ElementName=Enrollees}" CommandParameter="{Binding}"/>
+                                <Button Grid.Column="4" Style="{StaticResource DelEnrollee}"
                                         Command="{Binding DataContext.DelEnrolleeCommand, ElementName=Enrollees}" CommandParameter="{Binding}"/>
                             </Grid>
                         </Border>
@@ -450,7 +489,59 @@
                              TemplateBak="{StaticResource Bak}"
                              TemplateMag="{StaticResource Mag}"
                              TemplateAsp="{StaticResource Asp}"/>
-            
+
+        <DataTemplate x:Key="Test">
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="3">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Предмет:" FontWeight="Bold" Margin="3,0"/>
+                        <TextBlock Text="{Binding Subject}"/>
+                        <TextBlock Text="Когда:" FontWeight="Bold" Margin="3,0"/>
+                        <TextBlock Text="{Binding When}"/>
+                        <TextBlock Text="Во сколько:" FontWeight="Bold" Margin="3,0"/>
+                        <TextBlock Text="{Binding AtWhatTime}"/>
+                        <TextBlock Text="Помещение:" FontWeight="Bold" Margin="3,0"/>
+                        <TextBlock Text="{Binding Room}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Баллы:" FontWeight="Bold" Margin="3,0"/>
+                        <TextBlock Text="{Binding Points}"/>
+                        <TextBlock Text="Статус:" FontWeight="Bold" Margin="3,0"/>
+                        <TextBlock Text="{Binding StatusTest}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" Value="Испытание не проведено">
+                                            <Setter Property="Foreground" Value="Violet"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" Value="Испытание не пройдено">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" Value="Испытание пройдено">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="EGE">
+            <Border BorderBrush="Gray" BorderThickness="1" Margin="3">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Предмет:" FontWeight="Bold" Margin="3,0"/>
+                    <TextBlock Text="{Binding Subject}" Margin="3,0"/>
+                    <TextBlock Text="Баллы:" FontWeight="Bold" Margin="3,0"/>
+                    <TextBlock Text="{Binding Points}" Margin="3,0"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+        <selector:SelectorTestEGE x:Key="SelectorTestEGE"
+                                  TemplateTest="{StaticResource Test}"
+                                  TemplateEGE="{StaticResource EGE}"/>
+
         <Style x:Key="ListBoxItemDocument" TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
@@ -487,7 +578,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="Gray" BorderThickness="0,1,0,1">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Gray" BorderThickness="0,0,0,1">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Уровень подготовки:" FontWeight="Bold" Margin="3"/>
@@ -501,48 +592,7 @@
                                     <TextBlock Text="Направление подготовки:" FontWeight="Bold" Margin="3,0"/>
                                     <TextBlock Text="{Binding NameDirection}" Margin="3,0"/>
                                 </StackPanel>
-                                <ItemsControl ItemsSource="{Binding Tests}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border BorderBrush="Gray" BorderThickness="0,1,0,1" Margin="2">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Предмет:" FontWeight="Bold" Margin="3,0"/>
-                                                        <TextBlock Text="{Binding Subject}"/>
-                                                        <TextBlock Text="Когда:" FontWeight="Bold" Margin="3,0"/>
-                                                        <TextBlock Text="{Binding When}"/>
-                                                        <TextBlock Text="Во сколько:" FontWeight="Bold" Margin="3,0"/>
-                                                        <TextBlock Text="{Binding AtWhatTime}"/>
-                                                        <TextBlock Text="Помещение:" FontWeight="Bold" Margin="3,0"/>
-                                                        <TextBlock Text="{Binding Room}"/>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Баллы:" FontWeight="Bold" Margin="3,0"/>
-                                                        <TextBlock Text="{Binding Points}"/>
-                                                        <TextBlock Text="Статус:" FontWeight="Bold" Margin="3,0"/>
-                                                        <TextBlock Text="{Binding StatusTest}">
-                                                            <TextBlock.Style>
-                                                                <Style TargetType="TextBlock">
-                                                                    <Style.Triggers>
-                                                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" Value="Испытание не проведено">
-                                                                            <Setter Property="Foreground" Value="Violet"/>
-                                                                        </DataTrigger>
-                                                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" Value="Испытание не пройдено">
-                                                                            <Setter Property="Foreground" Value="Red"/>
-                                                                        </DataTrigger>
-                                                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" Value="Испытание пройдено">
-                                                                            <Setter Property="Foreground" Value="Green"/>
-                                                                        </DataTrigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </TextBlock.Style>
-                                                        </TextBlock>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                <ItemsControl ItemsSource="{Binding Tests}" ItemTemplateSelector="{StaticResource SelectorTestEGE}"/>
                             </StackPanel>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -583,7 +633,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Приёмная кампания" FontFamily="Calibri" Foreground="Gray" Margin="10,5,0,0" 
@@ -631,10 +681,11 @@
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Направления подготовки" Margin="3,3,3,0" FontSize="14" FontWeight="Bold"/>
-                    <ListBox ItemsSource="{Binding SelectedEnrollee.Directions}" ItemContainerStyle="{StaticResource ListBoxItemDirection}" MinHeight="70" Margin="3,0"/>
+                    <ListBox ItemContainerStyle="{StaticResource ListBoxItemDirection}" MinHeight="70" Margin="3,0"
+                             ItemsSource="{Binding SelectedEnrollee.Directions}" SelectedItem="{Binding SelectedDirection}"/> 
                 </StackPanel>
 
-                <Button Content="Внести данные по экзамену" Style="{StaticResource Button}" Margin="3,3,3,0" FontSize="14"
+                <Button Content="Управление испытаниями" Style="{StaticResource Button}" Margin="3,3,3,0" FontSize="14"
                         Command="{Binding InputDataTestCommand}" CommandParameter="{Binding SelectedEnrollee}"/>
                 <Button Content="Печать документов" Style="{StaticResource Button}" Margin="3,3,3,0" FontSize="14"
                         Command="{Binding PrintDocumentCommand}"/>

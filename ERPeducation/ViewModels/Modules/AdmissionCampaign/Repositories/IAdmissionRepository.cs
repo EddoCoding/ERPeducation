@@ -1,5 +1,6 @@
 ﻿using ERPeducation.Models;
 using ERPeducation.Models.AdmissionCampaign;
+using ERPeducation.Models.AdmissionCampaign.Direction;
 using System.Collections.ObjectModel;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
@@ -11,7 +12,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         void CreateEnrollee(Enrollee enrollee);
         void DelEnrolle(Enrollee enrollee);
         void OpenPageAddEnrollee(MainTabControl<MainTabItem> mainTabControls);
+        void OpenPageEditEnrollee(MainTabControl<MainTabItem> mainTabControls, Enrollee enrollee);
+        void OpenWindowInputResultTest(DirectionOfAdmission direction, Enrollee enrollee);
 
-        void OpenWindowInputResultTest();
+        void Serialization(Enrollee enrollee);
     }
 }

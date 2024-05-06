@@ -1,5 +1,6 @@
 ﻿using ERPeducation.Models;
 using ERPeducation.Models.AdmissionCampaign;
+using ERPeducation.Models.AdmissionCampaign.Direction;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Collections.ObjectModel;
@@ -20,12 +21,16 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
             set => this.RaiseAndSetIfChanged(ref _enrollees, value);
         }
 
-        [Reactive] public Enrollee SelectedEnrollee { get; set; }// = new Enrollee();
+        [Reactive] public Enrollee SelectedEnrollee { get; set; }
+        public DirectionOfAdmission SelectedDirection { get; set; }
 
+        #region Команды
         public ReactiveCommand<Unit,Unit> OpenPageAddEnrolleeCommand { get; set; }
+        public ReactiveCommand<Enrollee, Unit> EditEnrolleeCommand { get; set; }
         public ReactiveCommand<Enrollee, Unit> DelEnrolleeCommand { get; set; }
         public ReactiveCommand<Enrollee, Unit> InputDataTestCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> PrintDocumentCommand { get; set; }
+        public ReactiveCommand<Unit,Unit> PrintDocumentCommand { get; set; } //Сделать потом
+        #endregion
 
         IAdmissionRepository _repository;
         public AdmissionCampaignViewModel(IAdmissionRepository repository, MainTabControl<MainTabItem> mainTabControls)
@@ -42,18 +47,24 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
             repository.GetEnrollees();
 
+            #region Инициализация команд
             OpenPageAddEnrolleeCommand = ReactiveCommand.Create(OpenPageAddEnrollee);
+            EditEnrolleeCommand = ReactiveCommand.Create<Enrollee>(EditEnrollee);
             DelEnrolleeCommand = ReactiveCommand.Create<Enrollee>(DelEnrollee);
             InputDataTestCommand = ReactiveCommand.Create<Enrollee>(InputDataTest);
             PrintDocumentCommand = ReactiveCommand.Create(PrintDocument);
+            #endregion
         }
-
+        
+        #region Методы команд
         void OpenPageAddEnrollee() => _repository.OpenPageAddEnrollee(_mainTabControls);
+        void EditEnrollee(Enrollee enrollee) => _repository.OpenPageEditEnrollee(_mainTabControls, enrollee);
         void DelEnrollee(Enrollee enrollee) => _repository.DelEnrolle(enrollee);
         void InputDataTest(Enrollee enrollee)
         {
-            if(SelectedEnrollee != null) MessageBox.Show($"{enrollee.SurName}{enrollee.SurName}{enrollee.MiddleName}");
+            if(SelectedDirection != null) _repository.OpenWindowInputResultTest(SelectedDirection, SelectedEnrollee);
         }
         void PrintDocument() => NotReady.Message();
+        #endregion
     }
 }

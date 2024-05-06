@@ -1,5 +1,5 @@
 ﻿using ERPeducation.Common.BD;
-using ERPeducation.Models.AdmissionCampaign;
+using ERPeducation.Models.AdmissionCampaign.Directions.TestEGG;
 using ERPeducation.Models.DeanRoom;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -45,8 +45,8 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories
             set => this.RaiseAndSetIfChanged(ref _groups, value);
         }
 
-        ObservableCollection<Test> _tests;
-        public ObservableCollection<Test> Tests
+        ObservableCollection<TestEGEBase> _tests;
+        public ObservableCollection<TestEGEBase> Tests
         {
             get => _tests;
             set => this.RaiseAndSetIfChanged(ref _tests, value);
@@ -59,7 +59,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories
             Forms = new ObservableCollection<FormsOfTraining>();
             Types = new ObservableCollection<TypeGroup>();
             Groups = new ObservableCollection<Group>();
-            Tests = new ObservableCollection<Test>();
+            Tests = new ObservableCollection<TestEGEBase>();
         }
 
         public void GetFaculties()
@@ -94,7 +94,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories
                 _groups.Add(group);
         }
 
-        public void CreateTest(Test test) => _tests.Add(test);
-        public void DelTest(Test test) => _tests.Remove(test);
+        public void CreateTest(TestEGEBase test) => _tests.Add(test);
+        public void DelTest(TestEGEBase test) => _tests.Remove(test);
+        public void CreateEGG(TestEGEBase egg) => _tests.Add(egg);
+        public void DelEGG(TestEGEBase egg) => _tests.Remove(egg);
     }
 }

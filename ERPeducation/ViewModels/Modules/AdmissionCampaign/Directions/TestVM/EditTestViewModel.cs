@@ -1,4 +1,4 @@
-﻿using ERPeducation.Models.AdmissionCampaign;
+﻿using ERPeducation.Models.AdmissionCampaign.Directions.TestEGG;
 using ReactiveUI;
 using System;
 using System.Reactive;
@@ -13,9 +13,9 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions.TestVM
 
         Action _closeWindow;
 
-        public EditTestViewModel(Test test, Action closeWindow)
+        public EditTestViewModel(TestEGEBase test, Action closeWindow)
         {
-            Test = test;
+            Test = (Test)test;
             _closeWindow = closeWindow;
 
             EditTestCommand = ReactiveCommand.Create(EditTest);

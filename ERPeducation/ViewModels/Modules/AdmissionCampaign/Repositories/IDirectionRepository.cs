@@ -1,4 +1,4 @@
-﻿using ERPeducation.Models.AdmissionCampaign;
+﻿using ERPeducation.Models.AdmissionCampaign.Directions.TestEGG;
 using ERPeducation.Models.DeanRoom;
 using System.Collections.ObjectModel;
 
@@ -26,8 +26,10 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Repositories
         void GetGroups(TypeGroup typeGroup);
 
 
-        ObservableCollection<Test> Tests { get; set; }
-        void CreateTest(Test test);
-        void DelTest(Test test);
+        ObservableCollection<TestEGEBase> Tests { get; set; }
+        void CreateTest(TestEGEBase test);
+        void DelTest(TestEGEBase test);
+        void CreateEGG(TestEGEBase egg);
+        void DelEGG(TestEGEBase egg);
     }
 }
