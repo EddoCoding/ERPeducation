@@ -20,7 +20,6 @@ namespace ERPeducation.Models.AdmissionCampaign
         [Reactive] public string Citizenship { get; set; } = string.Empty;    // -- Гражданство --
         [Reactive] public DateTime DateCitizenship { get; set; }              // -- Действует до --
 
-
         ObservableCollection<DocumentBase> _documents;
         public ObservableCollection<DocumentBase> Documents
         {

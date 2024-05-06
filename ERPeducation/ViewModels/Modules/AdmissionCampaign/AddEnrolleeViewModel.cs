@@ -4,7 +4,6 @@ using ERPeducation.Models.AdmissionCampaign.Educations;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Services;
 using ReactiveUI;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive;
 
@@ -13,8 +12,6 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
     public class AddEnrolleeViewModel : ReactiveObject
     {
         public Enrollee Enrollee { get; set; } = new();
-
-        ObservableCollection<Enrollee> _enrollees;
 
         //Добавить логику для радиобатонов
 
@@ -39,12 +36,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         IAdmissionRepository _admissionRepository;
         IEnrolleeDocumentService _documentService;
         IEnrolleeRepository _repository;
-        public AddEnrolleeViewModel(IAdmissionRepository dataRepository, IEnrolleeDocumentService documentService, IEnrolleeRepository repository, ObservableCollection<Enrollee> enrollees)
+        public AddEnrolleeViewModel(IAdmissionRepository dataRepository, IEnrolleeDocumentService documentService, IEnrolleeRepository repository)
         {
             _admissionRepository = dataRepository;
             _documentService = documentService;
             _repository = repository;
-            _enrollees = enrollees;
 
             _repository.Documents.CollectionChanged += (sender, e) =>
             {
@@ -102,7 +98,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         void DelDirection(DirectionOfAdmission direction) => _repository.DeleteDirection(direction);
         #endregion
         #region Метод добавления абитуриента
-        void AddEnrollee(Enrollee enrollee) => _enrollees.Add(enrollee);
+        void AddEnrollee(Enrollee enrollee) => _admissionRepository.CreateEnrollee(enrollee);
         #endregion
     }
 }

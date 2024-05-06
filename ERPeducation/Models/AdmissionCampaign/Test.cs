@@ -10,7 +10,7 @@ namespace ERPeducation.Models.AdmissionCampaign
         public DateTime When { get; set; }
         public DateTime AtWhatTime { get; set; }
         public string Room { get; set; } = string.Empty;
-        public string StatusTest { get; set; } = string.Empty;
+        public string StatusTest { get; set; } = "Испытание не проведено";
         public double Points { get; set; }
     }
 }

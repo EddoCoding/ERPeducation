@@ -3,17 +3,30 @@ using ERPeducation.Models;
 using ERPeducation.Models.AdmissionCampaign;
 using ERPeducation.ViewModels.Modules.AdmissionCampaign.Services;
 using Newtonsoft.Json;
-using System.Collections.Generic;
+using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.IO;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
-    public class AdmissionRepository : IAdmissionRepository
+    public class AdmissionRepository : ReactiveObject, IAdmissionRepository
     {
-        public ICollection<Enrollee> Enrollees { get; set; } = new List<Enrollee>();
+        JsonSerializerSettings jsonSetting = new JsonSerializerSettings()
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            Formatting = Formatting.Indented
+        };
+        
+        ObservableCollection<Enrollee> _enrollees;
+        public ObservableCollection<Enrollee> Enrollees
+        {
+            get => _enrollees;
+            set => this.RaiseAndSetIfChanged(ref _enrollees, value);
+        }
 
-        public ICollection<Enrollee> GetEnrollees()
+        public AdmissionRepository() => Enrollees = new ObservableCollection<Enrollee>();
+
+        public void GetEnrollees()
         {
             Enrollees.Clear();
             if (Directory.Exists(FileServer.Enrollees))
@@ -23,32 +36,39 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
                 {
                     using(StreamReader reader = new StreamReader(file))
                     {
-                        Enrollees.Add(JsonConvert.DeserializeObject<Enrollee>(reader.ReadToEnd()));
+                        var enrollee = JsonConvert.DeserializeObject<Enrollee>(reader.ReadToEnd(), jsonSetting);
+                        _enrollees.Add(enrollee);
                     }
                 }
             }
-            return Enrollees;
         }
-        public void OpenPageAddEnrollee(MainTabControl<MainTabItem> mainTabControls, ObservableCollection<Enrollee> enrollees)
+        public void CreateEnrollee(Enrollee enrollee)
+        {
+            if(Directory.Exists(FileServer.Enrollees))
+                using (StreamWriter file = File.CreateText(Path.Combine(FileServer.Enrollees, $"{enrollee.SurName}{enrollee.Name}{enrollee.MiddleName}.json")))
+                {
+                    file.Write(JsonConvert.SerializeObject(enrollee, jsonSetting));
+                }
+            _enrollees.Add(enrollee);
+        }
+        public void DelEnrolle(Enrollee enrollee)
+        {
+            if (File.Exists(Path.Combine(FileServer.Enrollees, $"{enrollee.SurName}{enrollee.Name}{enrollee.MiddleName}.json")))
+                File.Delete(Path.Combine(FileServer.Enrollees, $"{enrollee.SurName}{enrollee.Name}{enrollee.MiddleName}.json"));
+            _enrollees.Remove(enrollee);
+        }
+
+        public void OpenPageAddEnrollee(MainTabControl<MainTabItem> mainTabControls)
         {
             AddEnrolleePage page = new();
-            page.DataContext = new AddEnrolleeViewModel(this, new EnrolleeDocumentService(), new EnrolleeRepository(), enrollees);
+            page.DataContext = new AddEnrolleeViewModel(this, new EnrolleeDocumentService(), new EnrolleeRepository());
             mainTabControls.TabItem.Add(new MainTabItem("Добавление абитуриента", page));
         }
 
-        int i = 0;
-        public void CreateEnrollee()
+        public void OpenWindowInputResultTest()
         {
-            var jsonSetting = new JsonSerializerSettings()
-            {
-                Formatting = Formatting.Indented
-            };
 
-            if (Directory.Exists(FileServer.Enrollees))
-                using (StreamWriter file = File.CreateText(Path.Combine(FileServer.Enrollees, $"{i}.json")))
-                {
-                    file.Write(JsonConvert.SerializeObject(new Enrollee(), jsonSetting));
-                }
         }
+
     }
 }

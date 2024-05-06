@@ -856,8 +856,6 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <Label Content="Личная информация" Style="{StaticResource MyStyleLabel}" Margin="10,10,0,0"/>
@@ -1005,17 +1003,11 @@
             <ListBox x:Name="Directions" Grid.Row="13" Margin="10,0,10,0" Height="200" HorizontalContentAlignment="Stretch"
                      ItemsSource="{Binding Enrollee.Directions}" ItemContainerStyle="{StaticResource ListBoxItemDirection}"/>
 
-            <Line Grid.Row="14" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,10"
-                  X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
-
-            <!--   БЛОК РАСПЕЧАТКИ ДОКУМЕНТОВ   -->
-            <Label Grid.Row="15" Content="Распечатка" Style="{StaticResource Label}" Margin="10,0,0,0" FontWeight="Bold"/>
-
-            <Line Grid.Row="16" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,10,40,0"
+            <Line Grid.Row="14" Stroke="Gray" StrokeThickness="1" X1="0" Y1="0" Y2="0" Margin="40,20,40,0"
                   X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
 
             <!--   ДОБАВЛЕНИЕ АБИТУРИЕНТА   -->
-            <Button Grid.Row="17" Content="Добавить абитуриента" Style="{StaticResource OkButton}" HorizontalAlignment="Center"
+            <Button Grid.Row="15" Content="Добавить абитуриента" Style="{StaticResource OkButton}" HorizontalAlignment="Center"
                     Command="{Binding AddEnrolleeCommand}" CommandParameter="{Binding Enrollee}"/>
 
         </Grid>
