@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Models.DeanRoom;
+using ERPeducation.ViewModels.Modules.DeanRoom.EnrolleeVM;
 using ERPeducation.ViewModels.Modules.DeanRoom.FacultyVM;
 using ERPeducation.ViewModels.Modules.DeanRoom.FormVM;
 using ERPeducation.ViewModels.Modules.DeanRoom.GroupVM;
@@ -6,6 +7,7 @@ using ERPeducation.ViewModels.Modules.DeanRoom.LevelVM;
 using ERPeducation.ViewModels.Modules.DeanRoom.Repository;
 using ERPeducation.ViewModels.Modules.DeanRoom.StudentVM;
 using ERPeducation.ViewModels.Modules.DeanRoom.TypeGroupVM;
+using ERPeducation.Views.DeanRoom.WindowEnrolleeGroup;
 using ERPeducation.Views.DeanRoom.WindowFaculty;
 using ERPeducation.Views.DeanRoom.WindowForm;
 using ERPeducation.Views.DeanRoom.WindowGroup;
@@ -110,6 +112,14 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Service
             EditStudentWindow editStudentWindow = new EditStudentWindow();
             editStudentWindow.DataContext = new EditStudentViewModel(deanRoomRepository, student, group, typeGroup, form, level, faculty, editStudentWindow.Close);
             editStudentWindow.ShowDialog();
+        }
+
+        // -- Открытие окна добавления абитуриента
+        public void OpenWindowAddEnrollee(Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty, IDeanRoomRepository deanRoomRepository)
+        {
+            AddEnrolleeGroupWindow window = new AddEnrolleeGroupWindow();
+            window.DataContext = new AddEnrolleeGroupViewModel(group, typeGroup, form, level, faculty, deanRoomRepository, window.Close);
+            window.ShowDialog();
         }
     }
 }

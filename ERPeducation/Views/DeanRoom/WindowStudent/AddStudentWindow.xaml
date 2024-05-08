@@ -17,12 +17,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Имя" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="1" Text="{Binding Student.SurName}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        <Label Content="Фамилия" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="1" Text="{Binding Student.Name}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
 
-        <Label Grid.Row="2" Content="Фамилия" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="3" Text="{Binding Student.Name}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
-        
+        <Label Grid.Row="2" Content="Имя" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="3" Text="{Binding Student.SurName}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+
         <Label Grid.Row="4" Content="Отчество" Style="{StaticResource Label}"/>
         <TextBox Grid.Row="5" Text="{Binding Student.MiddleName}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
 

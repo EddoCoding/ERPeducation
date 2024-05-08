@@ -5,6 +5,7 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom
 {
@@ -119,6 +120,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         public ReactiveCommand<Unit,Unit> AddTypeGroupCommand { get; set; }
         public ReactiveCommand<Unit,Unit> AddGroupCommand { get; set; }
         public ReactiveCommand<Unit,Unit> AddStudentCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> AddEnrolleeCommand { get; set; }
         #endregion
         #region Команды изменения
         public ReactiveCommand<Faculty,Unit> EditFacultyCommand { get; set; }
@@ -136,19 +138,13 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         public ReactiveCommand<Group, Unit> DelGroupCommand { get; set; }
         public ReactiveCommand<Student, Unit> DelStudentCommand { get; set; }
         #endregion
-        #region Команды доп. функц.
-        public ReactiveCommand<Unit,Unit> AddApplicantsComand { get; set; }
-        #endregion
 
-        IAdditionallyDeanRoom _applicantService;
         IDeanRoomService _deanRoomService;
         IDeanRoomRepository _repository;
         public DeanRoomViewModel(IDeanRoomService deanRoomService, IDeanRoomRepository deanRoomRepository)
         {
             _deanRoomService = deanRoomService;
             _repository = deanRoomRepository;
-
-            _applicantService = new AdditionallyDeanRoomService();
 
             Faculties = new ObservableCollection<Faculty>();
             foreach (var faculty in _repository.GetJsonFaculty())
@@ -200,6 +196,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             AddTypeGroupCommand = ReactiveCommand.Create(AddTypeGroup);
             AddGroupCommand = ReactiveCommand.Create(AddGroup);
             AddStudentCommand = ReactiveCommand.Create(AddStudent);
+            AddEnrolleeCommand = ReactiveCommand.Create(AddEnrollee);
             #endregion
             #region Инициализация команд изменения
             EditFacultyCommand = ReactiveCommand.Create<Faculty>(editFaculty);
@@ -216,9 +213,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             DelTypeGroupCommand = ReactiveCommand.Create<TypeGroup>(DelTypeGroup);
             DelGroupCommand = ReactiveCommand.Create<Group>(DelGroup);
             DelStudentCommand = ReactiveCommand.Create<Student>(DelStudent);
-            #endregion
-            #region Инициализация команд доп. функц.
-            AddApplicantsComand = ReactiveCommand.Create(AddApplicants);
             #endregion
         }
 
@@ -245,6 +239,10 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         {
             if (_group != null) _deanRoomService.OpenWindowCreateStudent(_repository, _group, _typeGroup, _form, _level, _faculty);
         }
+        void AddEnrollee()
+        {
+            if(Group != null) _deanRoomService.OpenWindowAddEnrollee(_group, _typeGroup, _form, _level, _faculty, _repository);
+        }
         #endregion
         #region Методы изменения
         void editFaculty(Faculty faculty) => _deanRoomService.OpenWindowEditFaculty(_repository, faculty);
@@ -261,9 +259,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         void DelTypeGroup(TypeGroup typeGroup) => _repository.DeleteTypeGroup(typeGroup, _form, _level, _faculty);
         void DelGroup(Group group) => _repository.DeleteGroup(group, _typeGroup, _form, _level, _faculty);
         void DelStudent(Student student) => _repository.DeleteStudent(student, _group, _typeGroup, _form, _level, _faculty);
-        #endregion
-        #region Методы доп. функц.
-        void AddApplicants() => _applicantService.OpenWindowApplicants();
         #endregion
     }
 }

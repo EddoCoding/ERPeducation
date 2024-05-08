@@ -22,5 +22,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Service
 
         void OpenWindowCreateStudent(IDeanRoomRepository deanRoomRepository, Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty);
         void OpenWindowEditStudent(IDeanRoomRepository deanRoomRepository, Student student, Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty);
+
+        void OpenWindowAddEnrollee(Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty, IDeanRoomRepository deanRoomRepository);
     }
 }

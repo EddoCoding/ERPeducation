@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ERPeducation.Views.DeanRoom.WindowApplicants
+namespace ERPeducation.Views.DeanRoom.WindowEnrolleeGroup
 {
     /// <summary>
-    /// Логика взаимодействия для ApplicantsWindow.xaml
+    /// Логика взаимодействия для AddEnrolleeGroupWindow.xaml
     /// </summary>
-    public partial class ApplicantsWindow : Window
+    public partial class AddEnrolleeGroupWindow : Window
     {
-        public ApplicantsWindow()
+        public AddEnrolleeGroupWindow()
         {
             InitializeComponent();
         }
