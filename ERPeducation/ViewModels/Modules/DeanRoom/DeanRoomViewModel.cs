@@ -136,14 +136,19 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         public ReactiveCommand<Group, Unit> DelGroupCommand { get; set; }
         public ReactiveCommand<Student, Unit> DelStudentCommand { get; set; }
         #endregion
+        #region Команды доп. функц.
+        public ReactiveCommand<Unit,Unit> AddApplicantsComand { get; set; }
+        #endregion
 
+        IAdditionallyDeanRoom _applicantService;
         IDeanRoomService _deanRoomService;
         IDeanRoomRepository _repository;
-
         public DeanRoomViewModel(IDeanRoomService deanRoomService, IDeanRoomRepository deanRoomRepository)
         {
             _deanRoomService = deanRoomService;
             _repository = deanRoomRepository;
+
+            _applicantService = new AdditionallyDeanRoomService();
 
             Faculties = new ObservableCollection<Faculty>();
             foreach (var faculty in _repository.GetJsonFaculty())
@@ -196,7 +201,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             AddGroupCommand = ReactiveCommand.Create(AddGroup);
             AddStudentCommand = ReactiveCommand.Create(AddStudent);
             #endregion
-            #region Команды изменения
+            #region Инициализация команд изменения
             EditFacultyCommand = ReactiveCommand.Create<Faculty>(editFaculty);
             EditLevelCommand = ReactiveCommand.Create<LvlOfTraining>(editLevel);
             EditFormCommand = ReactiveCommand.Create<FormsOfTraining>(editForm);
@@ -211,6 +216,9 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             DelTypeGroupCommand = ReactiveCommand.Create<TypeGroup>(DelTypeGroup);
             DelGroupCommand = ReactiveCommand.Create<Group>(DelGroup);
             DelStudentCommand = ReactiveCommand.Create<Student>(DelStudent);
+            #endregion
+            #region Инициализация команд доп. функц.
+            AddApplicantsComand = ReactiveCommand.Create(AddApplicants);
             #endregion
         }
 
@@ -253,6 +261,9 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         void DelTypeGroup(TypeGroup typeGroup) => _repository.DeleteTypeGroup(typeGroup, _form, _level, _faculty);
         void DelGroup(Group group) => _repository.DeleteGroup(group, _typeGroup, _form, _level, _faculty);
         void DelStudent(Student student) => _repository.DeleteStudent(student, _group, _typeGroup, _form, _level, _faculty);
+        #endregion
+        #region Методы доп. функц.
+        void AddApplicants() => _applicantService.OpenWindowApplicants();
         #endregion
     }
 }

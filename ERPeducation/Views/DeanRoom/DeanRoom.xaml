@@ -314,8 +314,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -327,23 +327,27 @@
             <Label Grid.Row="0" Content="Деканат" FontFamily="Calibri" Foreground="Gray" 
                    Margin="10,5,0,0" Padding="0" FontSize="20" FontWeight="Bold"/>
 
-            <Label Grid.Row="1" Content="Факультеты" Style="{StaticResource Label}"/>
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <ComboBox x:Name="Faculties" Style="{StaticResource ComboBoxFaculty}" ItemContainerStyle="{StaticResource ComboBoxItemFaculty}" Margin="10,0,0,0"
+            <StackPanel Grid.Row="1">
+                <Label Content="Факультеты" Style="{StaticResource Label}"/>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <ComboBox x:Name="Faculties" Style="{StaticResource ComboBoxFaculty}" ItemContainerStyle="{StaticResource ComboBoxItemFaculty}" Margin="10,0,0,0"
                           ItemsSource="{Binding Faculties}" SelectedItem="{Binding Faculty}"/>
-                <Button Content="Добавить факультет" Style="{StaticResource defaultButton}" VerticalAlignment="Center"
+                    <Button Content="Добавить факультет" Style="{StaticResource defaultButton}" VerticalAlignment="Center"
                         Command="{Binding AddFacultyCommand}"/>
+                </StackPanel>
             </StackPanel>
 
-            <Label Grid.Row="3" Content="Уровни подготовки" Style="{StaticResource Label}"/>
-            <StackPanel Grid.Row="4" Orientation="Horizontal">
-                <ComboBox x:Name="Levels" Style="{StaticResource ComboBoxLvl}" ItemContainerStyle="{StaticResource ComboBoxItem}" Margin="10,0,0,0"
+            <StackPanel Grid.Row="2">
+                <Label Content="Уровни подготовки" Style="{StaticResource Label}"/>
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <ComboBox x:Name="Levels" Style="{StaticResource ComboBoxLvl}" ItemContainerStyle="{StaticResource ComboBoxItem}" Margin="10,0,0,0"
                           ItemsSource="{Binding Lvl}" SelectedItem="{Binding Level}"/>
-                <Button Content="Добавить уровень подготовки" Style="{StaticResource defaultButton}" VerticalAlignment="Center"
+                    <Button Content="Добавить уровень подготовки" Style="{StaticResource defaultButton}" VerticalAlignment="Center"
                         Command="{Binding AddLvlCommand}" />
+                </StackPanel>
             </StackPanel>
-
-            <Grid Grid.Row="5" Margin="0,10,0,0">
+            
+            <Grid Grid.Row="3" Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -364,7 +368,7 @@
                             Command="{Binding AddFormCommand}"/>
                 </Grid>
                 <ListBox x:Name="Forms" Grid.Row="1" ItemsSource="{Binding Forms}" SelectedItem="{Binding Form}"
-                         ItemContainerStyle="{StaticResource ListBoxItemForm}" Margin="10,0,10,0"/>
+                         ItemContainerStyle="{StaticResource ListBoxItemForm}" Margin="10,0,10,0" MinHeight="120" MaxHeight="120"/>
 
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -377,24 +381,29 @@
                             Command="{Binding AddTypeGroupCommand}"/>
                 </Grid>
                 <ListBox x:Name="TypesGroup" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding TypeGroups}" SelectedItem="{Binding TypeGroup}"
-                         ItemContainerStyle="{StaticResource ListBoxItemTypeGroup}"/>
+                         ItemContainerStyle="{StaticResource ListBoxItemTypeGroup}" MinHeight="120" MaxHeight="120"/>
                 
             </Grid>
 
-            <Grid Grid.Row="6">
+            <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
                 <Label Grid.Column="0" Content="Группы" Style="{StaticResource Label}"/>
                 <Button Grid.Column="1" Content="Добавить группу" Style="{StaticResource defaultButton}" VerticalAlignment="Bottom"
                         Command="{Binding AddGroupCommand}"/>
-            </Grid>
-            <ListBox x:Name="Groups" Grid.Row="7" ItemsSource="{Binding Groups}" SelectedItem="{Binding Group}"
-                     Height="300" Margin="10,0,0,10" ItemContainerStyle="{StaticResource ListBoxItemGroup}"/>
 
-            <Grid Grid.Row="5" Grid.Column="1" Grid.RowSpan="3" Margin="0,10,10,0">
+                <ListBox x:Name="Groups" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Groups}" SelectedItem="{Binding Group}"
+                         Margin="10,0,0,0" ItemContainerStyle="{StaticResource ListBoxItemGroup}" MinHeight="300"/>
+            </Grid>
+
+            <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="0,10,10,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -405,16 +414,26 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Label Grid.Column="0" Content="Студенты" Style="{StaticResource Label}"/>
                     <Button Grid.Column="1" Content="Добавить студента" Style="{StaticResource defaultButton}" VerticalAlignment="Bottom"
                             Command="{Binding AddStudentCommand}"/>
                 </Grid>
                 <ListBox x:Name="Students" Grid.Row="1" ItemsSource="{Binding Students}" SelectedItem="{Binding Student}"
-                         Margin="10,0,0,10" ItemContainerStyle="{StaticResource ListBoxItemStudent}"/>
+                         Margin="10,0,0,0" ItemContainerStyle="{StaticResource ListBoxItemStudent}"/>
 
             </Grid>
+
+            <Line Grid.Row="5" Grid.ColumnSpan="2" X1="0" X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}" Y1="0" Y2="0" 
+                  Stroke="Black" StrokeThickness="1" Margin="30,20,30,10"/>
             
+            <Button Grid.Row="6" Grid.ColumnSpan="2" Style="{StaticResource defaultButton}"
+                    Content="Добавить поступающих" HorizontalAlignment="Left"
+                    Command="{Binding AddApplicantsComand}"/>
+
+            <Line Grid.Row="7" Grid.ColumnSpan="2" X1="0" X2="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}" Y1="0" Y2="0" 
+                  Stroke="Black" StrokeThickness="1" Margin="30,10,30,10"/>
+
         </Grid>
         
     </ScrollViewer>

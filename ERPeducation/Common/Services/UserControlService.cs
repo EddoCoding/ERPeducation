@@ -17,15 +17,8 @@ namespace ERPeducation.Common.Services
 {
     public class UserControlService : IUserControlService
     {
-
-
-
-
-        public UserControl GetModuleDeanRoom() => new DeanRoom() { DataContext = new DeanRoomViewModel(new DeanRoomService(), new DeanRoomRepository()) };     // -- ВКЛАДКА МОДУЛЯ ДЕКАНАТ --
-
-
-
-
+        // -- ВКЛАДКА МОДУЛЯ ДЕКАНАТ --
+        public UserControl GetModuleDeanRoom() => new DeanRoom() { DataContext = new DeanRoomViewModel(new DeanRoomService(), new DeanRoomRepository()) };
 
         //ВКЛАДКА МОДУЛЯ УЧЕБНЫЙ ОТДЕЛ
         public UserControl GetModuleTrainingDivision() =>
