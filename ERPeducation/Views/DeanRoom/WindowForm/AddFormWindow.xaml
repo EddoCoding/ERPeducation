@@ -4,21 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowForm"
-        mc:Ignorable="d" Title="Добавить форму подготовки" Height="170" Width="400" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Добавить форму подготовки" Height="190" Width="700" FontFamily="Calibri">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Название формы подготовки" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="1" Text="{Binding Form.NameForm}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
-        <Label Grid.Row="2" Content="Например: Очная" Padding="0" Foreground="Gray" Margin="10,0,0,0" FontSize="13"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Факультет:" Padding="0" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedFaculty.NameFaculty}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+        </StackPanel>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Уровень подготовки:" Padding="0" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedLevel.NameLevel}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+        </StackPanel>
+
+        <Label Grid.Row="2" Content="Название формы подготовки" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="3" Text="{Binding Form.NameForm}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        <Label Grid.Row="4" Content="Например: Очная" Padding="0" Foreground="Gray" Margin="10,0,0,0" FontSize="13"/>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
                     Command="{Binding CloseWindowCommand}"/>
             <Button Content="Добавить" Style="{StaticResource OkButton}" Margin="0,10,10,10"

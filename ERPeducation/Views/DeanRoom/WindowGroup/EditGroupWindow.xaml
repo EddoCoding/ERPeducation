@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowGroup"
-        mc:Ignorable="d" Title="Изменить группу" Height="300" Width="400" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Изменить группу" Height="350" Width="700" FontFamily="Calibri">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -12,30 +12,46 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Факультет:" Padding="0" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedFaculty.NameFaculty}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Уровень подготовки:" Padding="0" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedLevel.NameLevel}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+            <Label Content="Форма подготовки:" Padding="0" FontSize="15" FontWeight="Bold" Margin="5,0,0,0"/>
+            <TextBlock Text="{Binding SelectedForm.NameForm}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+            <Label Content="Тип группы:" Padding="0" FontSize="15" FontWeight="Bold" Margin="5,0,0,0"/>
+            <TextBlock Text="{Binding SelectedTypeGroup.NameType}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2">
             <Label Content="Старое название группы" Style="{StaticResource Label}"/>
             <TextBox Text="{Binding OldGroup.NameGroup}" Style="{StaticResource defaultTextBox}" Margin="10,0" IsEnabled="False"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="3">
             <Label Content="Новое название группы" Style="{StaticResource Label}"/>
             <TextBox Text="{Binding NewGroup.NameGroup}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
         </StackPanel>
 
-        <StackPanel  Grid.Row="2">
+        <StackPanel  Grid.Row="4">
             <Label Content="Старое название направления подготовки" Style="{StaticResource Label}"/>
             <TextBox Text="{Binding OldGroup.Direction}" Style="{StaticResource defaultTextBox}" Margin="10,0" IsEnabled="False"/>
         </StackPanel>
 
-        <StackPanel  Grid.Row="3">
+        <StackPanel Grid.Row="5">
             <Label Content="Новое название направления подготовки" Style="{StaticResource Label}"/>
             <TextBox Text="{Binding NewGroup.Direction}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
                     Command="{Binding CloseWindowCommand}"/>
             <Button Content="Изменить" Style="{StaticResource OkButton}" Margin="0,10,10,10"

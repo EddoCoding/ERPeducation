@@ -11,10 +11,10 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         public Group OldGroup { get; set; }
         public Group NewGroup { get; set; }
 
-        Faculty _selectedFaculty;
-        LvlOfTraining _selectedLevel;
-        FormsOfTraining _selectedForm;
-        TypeGroup _selectedTypeGroup;
+        public Faculty SelectedFaculty { get; set; }
+        public LvlOfTraining SelectedLevel { get; set; }
+        public FormsOfTraining SelectedForm { get; set; }
+        public TypeGroup SelectedTypeGroup { get; set; }
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<Group, Unit> EditGroupCommand { get; set; }
@@ -26,10 +26,10 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         {
             _repository = repository;
             OldGroup = group;
-            _selectedForm = selectedForm;
-            _selectedLevel = selectedLevel;
-            _selectedFaculty = selectedFaculty;
-            _selectedTypeGroup = typeGroup;
+            SelectedForm = selectedForm;
+            SelectedLevel = selectedLevel;
+            SelectedFaculty = selectedFaculty;
+            SelectedTypeGroup = typeGroup;
             _closeWindow = closeWindow;
 
             NewGroup = new Group();
@@ -42,7 +42,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         void EditGroup(Group group)
         {
             NewGroup.Students = group.Students;
-            _repository.EditGroup(group, NewGroup, _selectedTypeGroup, _selectedForm, _selectedLevel, _selectedFaculty);
+            NewGroup.TitleFaculty = group.TitleFaculty;
+            NewGroup.TitleLevel = group.TitleLevel;
+            NewGroup.TitleForm = group.TitleForm;
+            NewGroup.TitleTypeGroup = group.TitleTypeGroup;
+            _repository.EditGroup(group, NewGroup, SelectedTypeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }
     }

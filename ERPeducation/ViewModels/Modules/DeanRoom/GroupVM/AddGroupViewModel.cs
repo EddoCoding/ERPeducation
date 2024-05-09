@@ -10,10 +10,10 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
     {
         public Group Group { get; set; } = new();
 
-        Faculty _selectedFaculty;
-        LvlOfTraining _selectedLevel;
-        FormsOfTraining _selectedForm;
-        TypeGroup _selectedTypeGroup;
+        public Faculty SelectedFaculty {get; set;}
+        public LvlOfTraining SelectedLevel {get; set;}
+        public FormsOfTraining SelectedForm {get; set;}
+        public TypeGroup SelectedTypeGroup { get; set; }
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<Group, Unit> AddGroupCommand { get; set; }
@@ -24,10 +24,10 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         public AddGroupViewModel(IDeanRoomRepository repository, TypeGroup typeGroup, FormsOfTraining selectedForm, LvlOfTraining selectedLevel, Faculty selectedFaculty, Action closeWindow)
         {
             _repository = repository;
-            _selectedForm = selectedForm;
-            _selectedLevel = selectedLevel;
-            _selectedFaculty = selectedFaculty;
-            _selectedTypeGroup = typeGroup;
+            SelectedForm = selectedForm;
+            SelectedLevel = selectedLevel;
+            SelectedFaculty = selectedFaculty;
+            SelectedTypeGroup = typeGroup;
             _closeWindow = closeWindow;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
@@ -37,7 +37,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         void Exit() => _closeWindow();
         void AddGroup(Group group)
         {
-            _repository.CreateGroup(group, _selectedTypeGroup, _selectedForm, _selectedLevel, _selectedFaculty);
+            group.TitleFaculty = SelectedFaculty.NameFaculty;
+            group.TitleLevel = SelectedLevel.NameLevel;
+            group.TitleForm = SelectedForm.NameForm;
+            group.TitleTypeGroup = SelectedTypeGroup.NameType;
+            _repository.CreateGroup(group, SelectedTypeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }
     }

@@ -9,8 +9,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.LevelVM
     public class AddLevelViewModel : ReactiveObject
     {
         public LvlOfTraining Level { get; set; } = new();
-
-        Faculty _selectedFaculty;
+        public Faculty SelectedFaculty { get; set; }
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<LvlOfTraining, Unit> AddLevelCommand { get; set; }
@@ -21,7 +20,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.LevelVM
         public AddLevelViewModel(IDeanRoomRepository repository, Faculty selectedFaculty, Action closeWindow)
         {
             _repository = repository;
-            _selectedFaculty = selectedFaculty;
+            SelectedFaculty = selectedFaculty;
             _closeWindow = closeWindow;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
@@ -31,7 +30,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.LevelVM
         void Exit() => _closeWindow();
         void AddLevel(LvlOfTraining level)
         {
-            _repository.CreateLevel(level, _selectedFaculty);
+            level.TitleFaculty = SelectedFaculty.NameFaculty;
+            _repository.CreateLevel(level, SelectedFaculty);
             _closeWindow();
         }
     }

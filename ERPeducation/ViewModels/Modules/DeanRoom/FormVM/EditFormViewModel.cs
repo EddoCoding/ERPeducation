@@ -11,8 +11,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FormVM
         public FormsOfTraining OldNameForm { get; set; }
         public FormsOfTraining NewNameForm { get; set; }
 
-        LvlOfTraining _selectedLevel;
-        Faculty _selectedFaculty;
+        public LvlOfTraining SelectedLevel { get; set; }
+        public Faculty SelectedFaculty { get; set; }
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<FormsOfTraining, Unit> EditFormCommand { get; set; }
@@ -24,8 +24,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FormVM
         {
             _repository = repository;
             OldNameForm = form;
-            _selectedLevel = level;
-            _selectedFaculty = faculty;
+            SelectedLevel = level;
+            SelectedFaculty = faculty;
             _closeWindow = closeWindow;
 
             NewNameForm = new FormsOfTraining();
@@ -38,7 +38,9 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FormVM
         void EditForm(FormsOfTraining form)
         {
             NewNameForm.TypeGroups = form.TypeGroups;
-            _repository.EditForm(form, NewNameForm, _selectedLevel, _selectedFaculty);
+            NewNameForm.TitleFaculty = form.TitleFaculty;
+            NewNameForm.TitleLevel = form.TitleLevel;
+            _repository.EditForm(form, NewNameForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }
     }

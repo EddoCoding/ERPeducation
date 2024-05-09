@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowEnrolleeGroup"
-        mc:Ignorable="d" Title="Добавление абитуриента в группу" Height="450" Width="400" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Добавление абитуриента в группу" Height="450" Width="650" FontFamily="Calibri">
     <Window.Resources>
         <Style x:Key="ListBoxItemEnrollee" TargetType="ListBoxItem">
             <Setter Property="Template">
@@ -35,14 +35,16 @@
         </Style>
     </Window.Resources>
     
-    <Grid>
+    <Grid Margin="10,0,10,10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Text="Абитуриенты" FontWeight="Bold" FontSize="14" Margin="5,0,0,0"/>
-        <ListBox x:Name="Enrollees" Grid.Row="1" Margin="5,0,5,20" ItemContainerStyle="{StaticResource ListBoxItemEnrollee}"
+        
+        <TextBlock Text="Абитуриенты направления:" FontWeight="Bold" FontSize="14"/>
+        <TextBlock Grid.Row="1" Text="{Binding Group.Direction}" FontSize="13" Margin="0,0,0,5"/>
+        <ListBox x:Name="Enrollees" Grid.Row="2" ItemContainerStyle="{StaticResource ListBoxItemEnrollee}"
                  ItemsSource="{Binding Enrolless}"/>
     </Grid>
 

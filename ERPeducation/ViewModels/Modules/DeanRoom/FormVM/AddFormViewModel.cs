@@ -10,8 +10,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FormVM
     {
         public FormsOfTraining Form { get; set; } = new();
 
-        LvlOfTraining _selectedLevel;
-        Faculty _selectedFaculty;
+        public LvlOfTraining SelectedLevel {get; set;}
+        public Faculty SelectedFaculty { get; set; }
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<FormsOfTraining, Unit> AddFormCommand { get; set; }
@@ -22,8 +22,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FormVM
         public AddFormViewModel(IDeanRoomRepository repository, LvlOfTraining selectedLevel, Faculty selectedFaculty, Action closeWindow)
         {
             _repository = repository;
-            _selectedLevel = selectedLevel;
-            _selectedFaculty = selectedFaculty;
+            SelectedLevel = selectedLevel;
+            SelectedFaculty = selectedFaculty;
             _closeWindow = closeWindow;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
@@ -33,7 +33,9 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FormVM
         void Exit() => _closeWindow();
         void AddForm(FormsOfTraining form)
         {
-            _repository.CreateForm(form, _selectedLevel, _selectedFaculty);
+            form.TitleFaculty = SelectedFaculty.NameFaculty;
+            form.TitleLevel = SelectedLevel.NameLevel;
+            _repository.CreateForm(form, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }
     }

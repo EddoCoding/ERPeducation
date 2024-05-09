@@ -10,9 +10,9 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.TypeGroupVM
     {
         public TypeGroup TypeGroup { get; set; } = new();
 
-        LvlOfTraining _selectedLevel;
-        Faculty _selectedFaculty;
-        FormsOfTraining _selectedForm;
+        public FormsOfTraining SelectedForm {get; set;}
+        public LvlOfTraining SelectedLevel { get; set; }
+        public Faculty SelectedFaculty {get; set;}
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<TypeGroup, Unit> AddTypeGroupCommand { get; set; }
@@ -23,9 +23,9 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.TypeGroupVM
         public AddTypeGroupViewModel(IDeanRoomRepository repository, FormsOfTraining selectedForm, LvlOfTraining selectedLevel, Faculty selectedFaculty, Action closeWindow)
         {
             _repository = repository;
-            _selectedForm = selectedForm;
-            _selectedLevel = selectedLevel;
-            _selectedFaculty = selectedFaculty;
+            SelectedForm = selectedForm;
+            SelectedLevel = selectedLevel;
+            SelectedFaculty = selectedFaculty;
             _closeWindow = closeWindow;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
@@ -35,7 +35,10 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.TypeGroupVM
         void Exit() => _closeWindow();
         void AddTypeGroup(TypeGroup typeGroup)
         {
-            _repository.CreateTypeGroup(typeGroup, _selectedForm, _selectedLevel, _selectedFaculty);
+            typeGroup.TitleFaculty = SelectedFaculty.NameFaculty;
+            typeGroup.TitleLevel = SelectedLevel.NameLevel;
+            typeGroup.TitleForm = SelectedForm.NameForm;
+            _repository.CreateTypeGroup(typeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }
     }

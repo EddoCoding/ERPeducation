@@ -1,10 +1,12 @@
-﻿using ERPeducation.Models.AdmissionCampaign;
+﻿using ERPeducation.Common.BD;
+using ERPeducation.Models.AdmissionCampaign;
 using ERPeducation.Models.DeanRoom;
 using ERPeducation.ViewModels.Modules.DeanRoom.Repository;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.IO;
 using System.Reactive;
 using System.Windows.Forms;
 
@@ -13,7 +15,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.EnrolleeVM
     public class AddEnrolleeGroupViewModel
     {
         public ObservableCollection<Enrollee> Enrolless { get; set; }
-        Group _group;
+        public Group Group { get; set; }
         TypeGroup _typeGroup;
         FormsOfTraining _form;
         LvlOfTraining _level;
@@ -28,7 +30,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.EnrolleeVM
         public AddEnrolleeGroupViewModel(Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty, IDeanRoomRepository deanRoomRepository, Action closeWindow)
         {
             _deanRoomRepository = deanRoomRepository;
-            _group = group;
+            Group = group;
             _typeGroup = typeGroup;
             _form = form;
             _level = level;
@@ -51,7 +53,12 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.EnrolleeVM
             student.Name = enrollee.Name;
             student.MiddleName = enrollee.MiddleName;
             student.FullName = $"{enrollee.SurName} {enrollee.Name} {enrollee.MiddleName}";
-            _deanRoomRepository.CreateStudent(student, _group, _typeGroup, _form, _level, _faculty);
+            _deanRoomRepository.CreateStudent(student, Group, _typeGroup, _form, _level, _faculty);
+            if (File.Exists(Path.Combine(FileServer.Enrollees, $"{enrollee.SurName}{enrollee.Name}{enrollee.MiddleName}.json")))
+            {
+                Enrolless.Remove(enrollee);
+                File.Delete(Path.Combine(FileServer.Enrollees, $"{enrollee.SurName}{enrollee.Name}{enrollee.MiddleName}.json"));
+            }
         }
     }
 }

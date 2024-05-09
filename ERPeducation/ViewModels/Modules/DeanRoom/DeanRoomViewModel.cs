@@ -5,7 +5,6 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive;
-using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom
 {
@@ -139,12 +138,12 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         public ReactiveCommand<Student, Unit> DelStudentCommand { get; set; }
         #endregion
 
-        IDeanRoomService _deanRoomService;
+        IDeanRoomService _service;
         IDeanRoomRepository _repository;
-        public DeanRoomViewModel(IDeanRoomService deanRoomService, IDeanRoomRepository deanRoomRepository)
+        public DeanRoomViewModel(IDeanRoomService service, IDeanRoomRepository repository)
         {
-            _deanRoomService = deanRoomService;
-            _repository = deanRoomRepository;
+            _service = service;
+            _repository = repository;
 
             Faculties = new ObservableCollection<Faculty>();
             foreach (var faculty in _repository.GetJsonFaculty())
@@ -217,40 +216,40 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         }
 
         #region Методы добавления
-        void AddFaculty() => _deanRoomService.OpenWindowCreateFaculty(_repository);
+        void AddFaculty() => _service.OpenWindowCreateFaculty(_repository);
         void AddLevel()
         {
-            if (_faculty != null) _deanRoomService.OpenWindowCreateLevel(_repository, _faculty);
+            if (_faculty != null) _service.OpenWindowCreateLevel(_repository, _faculty);
 
         }
         void AddForm()
         {
-            if (_level != null) _deanRoomService.OpenWindowCreateForm(_repository, _level, _faculty);
+            if (_level != null) _service.OpenWindowCreateForm(_repository, _level, _faculty);
         }
         void AddTypeGroup()
         {
-            if (_form != null) _deanRoomService.OpenWindowCreateTypeGroup(_repository, _form, _level, _faculty);
+            if (_form != null) _service.OpenWindowCreateTypeGroup(_repository, _form, _level, _faculty);
         }
         void AddGroup()
         {
-            if (_typeGroup != null) _deanRoomService.OpenWindowCreateGroup(_repository, _typeGroup, _form, _level, _faculty);
+            if (_typeGroup != null) _service.OpenWindowCreateGroup(_repository, _typeGroup, _form, _level, _faculty);
         }
         void AddStudent()
         {
-            if (_group != null) _deanRoomService.OpenWindowCreateStudent(_repository, _group, _typeGroup, _form, _level, _faculty);
+            if (_group != null) _service.OpenWindowCreateStudent(_repository, _group, _typeGroup, _form, _level, _faculty);
         }
         void AddEnrollee()
         {
-            if(Group != null) _deanRoomService.OpenWindowAddEnrollee(_group, _typeGroup, _form, _level, _faculty, _repository);
+            if(Group != null) _service.OpenWindowAddEnrollee(_group, _typeGroup, _form, _level, _faculty, _repository);
         }
         #endregion
         #region Методы изменения
-        void editFaculty(Faculty faculty) => _deanRoomService.OpenWindowEditFaculty(_repository, faculty);
-        void editLevel(LvlOfTraining level) => _deanRoomService.OpenWindowEditLevel(_repository, level, _faculty);
-        void editForm(FormsOfTraining form) => _deanRoomService.OpenWindowEditForm(_repository, form, _level, _faculty);
-        void editTypeGroup(TypeGroup typeGroup) => _deanRoomService.OpenWindowEditTypeGroup(_repository, typeGroup, _form, _level, _faculty);
-        void editGroup(Group group) => _deanRoomService.OpenWindowEditGroup(_repository, group, _typeGroup, _form, _level, _faculty);
-        void editStudent(Student student) => _deanRoomService.OpenWindowEditStudent(_repository, student, _group, _typeGroup, _form, _level, _faculty);
+        void editFaculty(Faculty faculty) => _service.OpenWindowEditFaculty(_repository, faculty);
+        void editLevel(LvlOfTraining level) => _service.OpenWindowEditLevel(_repository, level, _faculty);
+        void editForm(FormsOfTraining form) => _service.OpenWindowEditForm(_repository, form, _level, _faculty);
+        void editTypeGroup(TypeGroup typeGroup) => _service.OpenWindowEditTypeGroup(_repository, typeGroup, _form, _level, _faculty);
+        void editGroup(Group group) => _service.OpenWindowEditGroup(_repository, group, _typeGroup, _form, _level, _faculty);
+        void editStudent(Student student) => _service.OpenWindowEditStudent(_repository, student, _group, _typeGroup, _form, _level, _faculty);
         #endregion
         #region Методы удаления
         void DelFaculty(Faculty faculty) => _repository.DeleteFaculty(faculty);
