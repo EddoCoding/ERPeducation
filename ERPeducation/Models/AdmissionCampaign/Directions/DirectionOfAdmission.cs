@@ -11,6 +11,7 @@ namespace ERPeducation.Models.AdmissionCampaign.Direction
         public string NameLevel { get; set; }
         public string NameForm { get; set; }
         public string NameType { get; set; }
+        public string NameGroup { get; set; }
         public string NameDirection { get; set; }
 
         public IEnumerable<TestEGEBase> Tests { get; set; }

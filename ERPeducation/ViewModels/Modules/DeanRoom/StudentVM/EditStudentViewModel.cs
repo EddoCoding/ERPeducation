@@ -11,11 +11,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
         public Student OldStudent { get; set; }
         public Student NewStudent { get; set; }
 
-        Faculty _selectedFaculty;
-        LvlOfTraining _selectedLevel;
-        FormsOfTraining _selectedForm;
-        TypeGroup _selectedTypeGroup;
-        Group _selectedGroup;
+        public Faculty SelectedFaculty { get; set; }
+        public LvlOfTraining SelectedLevel { get; set; }
+        public FormsOfTraining SelectedForm { get; set; }
+        public TypeGroup SelectedTypeGroup { get; set; }
+        public Group SelectedGroup { get; set; }
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<Student, Unit> EditStudentCommand { get; set; }
@@ -28,11 +28,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
         {
             _repository = repository;
             OldStudent = student;
-            _selectedForm = selectedForm;
-            _selectedLevel = selectedLevel;
-            _selectedFaculty = selectedFaculty;
-            _selectedTypeGroup = selectedTypeGroup;
-            _selectedGroup = group;
+            SelectedForm = selectedForm;
+            SelectedLevel = selectedLevel;
+            SelectedFaculty = selectedFaculty;
+            SelectedTypeGroup = selectedTypeGroup;
+            SelectedGroup = group;
             _closeWindow = closeWindow;
 
             NewStudent = new Student();
@@ -44,10 +44,15 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
         void Exit() => _closeWindow();
         void EditStudent(Student student)
         {
-            //Пока менять нечего внутри студента, поэтому -- не добавляю --
             NewStudent.FullName = $"{NewStudent.SurName} {NewStudent.Name} {NewStudent.MiddleName}";
             student.FullName = $"{student.SurName} {student.Name} {student.MiddleName}";
-            _repository.EditStudent(student, NewStudent, _selectedGroup, _selectedTypeGroup, _selectedForm, _selectedLevel, _selectedFaculty);
+            NewStudent.TitleFaculty = SelectedFaculty.NameFaculty;
+            NewStudent.TitleLevel = SelectedLevel.NameLevel;
+            NewStudent.TitleForm = SelectedForm.NameForm;
+            NewStudent.TitleTypeGroup = SelectedTypeGroup.NameType;
+            NewStudent.TitleGroup = SelectedGroup.NameGroup;
+            NewStudent.TitleDirection = SelectedGroup.Direction;
+            _repository.EditStudent(student, NewStudent, SelectedGroup, SelectedTypeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }
     }

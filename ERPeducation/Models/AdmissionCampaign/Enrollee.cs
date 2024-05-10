@@ -19,7 +19,7 @@ namespace ERPeducation.Models.AdmissionCampaign
         [Reactive] public DateTime DateOfBirth { get; set; }                  // -- Дата рождения --
         [Reactive] public string Citizenship { get; set; } = string.Empty;    // -- Гражданство --
         [Reactive] public DateTime DateCitizenship { get; set; }              // -- Действует до --
-
+        
         ObservableCollection<DocumentBase> _documents;
         public ObservableCollection<DocumentBase> Documents
         {
@@ -39,7 +39,9 @@ namespace ERPeducation.Models.AdmissionCampaign
         {
             get => _directions;
             set => this.RaiseAndSetIfChanged(ref _directions, value);
-        }      // -- Коллекция выбранных направлений подготовки --
+        }       // -- Коллекция выбранных направлений подготовки --
+
+        public DirectionOfAdmission SelectedDirection => Directions[0];       // -- Выбранное направление --
 
         public Enrollee()
         {

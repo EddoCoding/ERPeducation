@@ -170,6 +170,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
             direction.NameLevel = SelectedLevel.NameLevel;
             direction.NameForm = SelectedForm.NameForm;
             direction.NameType = SelectedType.NameType;
+            direction.NameGroup = SelectedGroup.NameGroup;
             direction.NameDirection = SelectedGroup.Direction;
 
             direction.Tests = Tests;

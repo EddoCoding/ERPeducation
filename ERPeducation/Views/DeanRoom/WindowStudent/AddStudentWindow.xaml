@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowStudent"
-        mc:Ignorable="d" Title="Добавить студента" Height="240" Width="400" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Добавить студента" Height="320" Width="700" FontFamily="Calibri">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,19 +14,47 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Фамилия" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="1" Text="{Binding Student.Name}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Факультет:" Padding="0" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedFaculty.NameFaculty}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+        </StackPanel>
 
-        <Label Grid.Row="2" Content="Имя" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="3" Text="{Binding Student.SurName}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Уровень подготовки:" Padding="0" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedLevel.NameLevel}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+            <Label Content="Форма подготовки:" Padding="0" FontSize="15" FontWeight="Bold" Margin="5,0,0,0"/>
+            <TextBlock Text="{Binding SelectedForm.NameForm}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+        </StackPanel>
 
-        <Label Grid.Row="4" Content="Отчество" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="5" Text="{Binding Student.MiddleName}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Тип группы:" Padding="0" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedTypeGroup.NameType}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+            <Label Content="Группа:" Padding="0" FontSize="15" FontWeight="Bold" Margin="5,0,0,0"/>
+            <TextBlock Text="{Binding SelectedGroup.NameGroup}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+        </StackPanel>
 
-        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10,0,0,0">
+            <Label Content="Направление:" Padding="0" FontSize="15" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedGroup.Direction}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
+        </StackPanel>
+        
+        <Label Grid.Row="4" Content="Фамилия" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="5" Text="{Binding Student.Name}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+
+        <Label Grid.Row="6" Content="Имя" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="7" Text="{Binding Student.SurName}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+
+        <Label Grid.Row="8" Content="Отчество" Style="{StaticResource Label}"/>
+        <TextBox Grid.Row="9" Text="{Binding Student.MiddleName}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+
+        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
                     Command="{Binding CloseWindowCommand}"/>
             <Button Content="Добавить" Style="{StaticResource OkButton}" Margin="0,10,10,10"

@@ -22,7 +22,7 @@ namespace ERPeducation.Common.Services
 
         //ВКЛАДКА МОДУЛЯ УЧЕБНЫЙ ОТДЕЛ
         public UserControl GetModuleTrainingDivision() =>
-            new ModuleTrainingDivision() { DataContext = new TrainingDivisionViewModel(new SyllabusService()) };
+            new ModuleTrainingDivision() { DataContext = new TrainingDivisionViewModel() };
 
         //ВКЛАДКА МОДУЛЯ ПРИЕМНАЯ КАМПАНИЯ
         public UserControl GetModuleAdmissionCampaign(MainTabControl<MainTabItem> mainTabControls)

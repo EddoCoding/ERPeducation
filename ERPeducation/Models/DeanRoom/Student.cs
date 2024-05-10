@@ -10,7 +10,12 @@ namespace ERPeducation.Models.DeanRoom
         public string MiddleName { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
 
-        // -- Добавить еще свойства --
+        public string TitleFaculty { get; set; } = string.Empty;
+        public string TitleLevel { get; set; } = string.Empty;
+        public string TitleForm { get; set; } = string.Empty;
+        public string TitleTypeGroup { get; set; } = string.Empty;
+        public string TitleGroup { get; set; } = string.Empty;
+        public string TitleDirection { get; set; } = string.Empty;
 
         // -- Класс успеваемости(Оценки и Посещаемость) --
         // -- Финансовая часть

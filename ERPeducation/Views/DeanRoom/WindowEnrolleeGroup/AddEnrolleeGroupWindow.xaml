@@ -21,7 +21,7 @@
                             <TextBlock Grid.Column="0" Text="{Binding SurName}" FontFamily="14" Margin="3" VerticalAlignment="Center"/>
                             <TextBlock Grid.Column="1" Text="{Binding Name}" FontFamily="14" Margin="3" VerticalAlignment="Center"/>
                             <TextBlock Grid.Column="2" Text="{Binding MiddleName}" FontFamily="14" Margin="3" VerticalAlignment="Center"/>
-                            <Button Grid.Column="3" Content="Добавить в группу" Style="{StaticResource defaultButton}"
+                            <Button Grid.Column="3" Content="Добавить в группу" Style="{StaticResource defaultButton}" VerticalAlignment="Center"
                                     Command="{Binding DataContext.AddEnrolleeCommand, ElementName=Enrollees}" CommandParameter="{Binding}"/>
                         </Grid>
                         <ControlTemplate.Triggers>

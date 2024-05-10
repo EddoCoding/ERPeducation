@@ -27,7 +27,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.EnrolleeVM
 
         IEnrolleeGroupService _enrolleeService = new EnrolleeGroupService();
         IDeanRoomRepository _deanRoomRepository;
-        public AddEnrolleeGroupViewModel(Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty, IDeanRoomRepository deanRoomRepository, Action closeWindow)
+        public AddEnrolleeGroupViewModel(Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, 
+            Faculty faculty, IDeanRoomRepository deanRoomRepository, Action closeWindow)
         {
             _deanRoomRepository = deanRoomRepository;
             Group = group;
@@ -53,6 +54,13 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.EnrolleeVM
             student.Name = enrollee.Name;
             student.MiddleName = enrollee.MiddleName;
             student.FullName = $"{enrollee.SurName} {enrollee.Name} {enrollee.MiddleName}";
+            student.TitleFaculty = enrollee.SelectedDirection.NameFaculty;
+            student.TitleLevel = enrollee.SelectedDirection.NameLevel;
+            student.TitleForm = enrollee.SelectedDirection.NameForm;
+            student.TitleTypeGroup = enrollee.SelectedDirection.NameType;
+            student.TitleGroup = enrollee.SelectedDirection.NameGroup;
+            student.TitleDirection = enrollee.SelectedDirection.NameDirection;
+
             _deanRoomRepository.CreateStudent(student, Group, _typeGroup, _form, _level, _faculty);
             if (File.Exists(Path.Combine(FileServer.Enrollees, $"{enrollee.SurName}{enrollee.Name}{enrollee.MiddleName}.json")))
             {

@@ -122,6 +122,7 @@
     <Folder Include="ViewModels\Modules\Administration\Users\" />
     <Folder Include="ViewModels\Modules\Administration\Documents\" />
     <Folder Include="ViewModels\Modules\Administration\AdmissionCampaign\" />
+    <Folder Include="Views\TrainingDivision\Новая папка\" />
   </ItemGroup>
 
   <ItemGroup>

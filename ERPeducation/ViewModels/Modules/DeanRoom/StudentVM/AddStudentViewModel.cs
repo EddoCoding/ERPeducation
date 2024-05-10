@@ -10,11 +10,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
     {
         public Student Student { get; set; } = new();
 
-        Faculty _selectedFaculty;
-        LvlOfTraining _selectedLevel;
-        FormsOfTraining _selectedForm;
-        TypeGroup _selectedTypeGroup;
-        Group _selectedGroup;
+        public Faculty SelectedFaculty { get; set; }
+        public LvlOfTraining SelectedLevel {get; set;}
+        public FormsOfTraining SelectedForm {get; set;}
+        public TypeGroup SelectedTypeGroup {get; set;}
+        public Group SelectedGroup {get; set;}
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<Student, Unit> AddStudentCommand { get; set; }
@@ -26,11 +26,11 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
             FormsOfTraining selectedForm, LvlOfTraining selectedLevel, Faculty selectedFaculty, Action closeWindow)
         {
             _repository = repository;
-            _selectedForm = selectedForm;
-            _selectedLevel = selectedLevel;
-            _selectedFaculty = selectedFaculty;
-            _selectedTypeGroup = selectedTypeGroup;
-            _selectedGroup = group;
+            SelectedForm = selectedForm;
+            SelectedLevel = selectedLevel;
+            SelectedFaculty = selectedFaculty;
+            SelectedTypeGroup = selectedTypeGroup;
+            SelectedGroup = group;
             _closeWindow = closeWindow;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
@@ -40,8 +40,14 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
         void Exit() => _closeWindow();
         void AddStudent(Student student)
         {
-            student.FullName = $"{student.SurName} {student.Name} {student.MiddleName}"; // -- Здесь формируется полное ФИО --
-            _repository.CreateStudent(student, _selectedGroup, _selectedTypeGroup, _selectedForm, _selectedLevel, _selectedFaculty);
+            student.FullName = $"{student.SurName} {student.Name} {student.MiddleName}";
+            student.TitleFaculty = SelectedFaculty.NameFaculty;
+            student.TitleLevel = SelectedLevel.NameLevel;
+            student.TitleForm = SelectedForm.NameForm;
+            student.TitleTypeGroup = SelectedTypeGroup.NameType;
+            student.TitleGroup = SelectedGroup.NameGroup;
+            student.TitleDirection = SelectedGroup.Direction;
+            _repository.CreateStudent(student, SelectedGroup, SelectedTypeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }
     }
