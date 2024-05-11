@@ -7,7 +7,7 @@ namespace ERPeducation.Models
     public class Syllabus
     {
         public string TitleSyllabus { get; set; } = string.Empty;
-        public ObservableCollection<Semestr>? Semesters { get; set; }
+        public ObservableCollection<Semestr> Semesters { get; set; }
 
         public Syllabus() => Semesters = new ObservableCollection<Semestr>();
     }

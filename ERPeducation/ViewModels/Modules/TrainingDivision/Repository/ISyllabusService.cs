@@ -1,7 +1,13 @@
-﻿namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
+﻿using ERPeducation.Models;
+using ERPeducation.ViewModels.Modules.TrainingDivision.Service;
+
+namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
 {
     public interface ISyllabusService
     {
-        void OpenWindowCreateSyllabus();
+        void OpenWindowCreateSyllabus(ISyllabusRepository syllabusRepository);
+        void OpenWindowEditSyllabus(ISyllabusRepository syllabusRepository, Syllabus syllabus);
+
+        void OpenWindowSettingSyllabus(Syllabus syllabus);
     }
 }

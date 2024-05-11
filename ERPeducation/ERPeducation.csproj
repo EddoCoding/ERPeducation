@@ -28,6 +28,7 @@
     <None Remove="Common\Image\profile.png" />
     <None Remove="Common\Image\rector.png" />
     <None Remove="Common\Image\search.png" />
+    <None Remove="Common\Image\settingSyllabus.png" />
     <None Remove="Common\Image\syllabus.png" />
     <None Remove="Common\Image\teacher.png" />
     <None Remove="Common\Image\trainingDivision.png" />
@@ -122,7 +123,6 @@
     <Folder Include="ViewModels\Modules\Administration\Users\" />
     <Folder Include="ViewModels\Modules\Administration\Documents\" />
     <Folder Include="ViewModels\Modules\Administration\AdmissionCampaign\" />
-    <Folder Include="Views\TrainingDivision\Новая папка\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -135,6 +135,12 @@
 
   <ItemGroup>
     <EditorConfigFiles Remove="C:\Users\79613\source\repos\ERPeducation\ERPeducation\Views\AdmissionCampaign\NewView\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Common\Image\settingSyllabus.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

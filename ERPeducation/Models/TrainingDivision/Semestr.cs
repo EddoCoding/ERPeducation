@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace ERPeducation.Models
 {
+    [JsonObject]
     public class Semestr
     {
         public int Number { get; set; }

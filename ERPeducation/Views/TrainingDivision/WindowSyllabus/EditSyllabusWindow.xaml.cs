@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ERPeducation.Common.Windows.WindowAddSyllabus
+namespace ERPeducation.Views.TrainingDivision.WindowSyllabus
 {
     /// <summary>
-    /// Логика взаимодействия для AddSyllabusWindow.xaml
+    /// Логика взаимодействия для EditSyllabusWindow.xaml
     /// </summary>
-    public partial class AddSyllabusWindow : Window
+    public partial class EditSyllabusWindow : Window
     {
-        public AddSyllabusWindow()
+        public EditSyllabusWindow()
         {
             InitializeComponent();
         }

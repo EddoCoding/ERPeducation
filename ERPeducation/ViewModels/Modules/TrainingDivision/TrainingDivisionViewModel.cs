@@ -5,6 +5,7 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.TrainingDivision
 {
@@ -12,17 +13,17 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
     {
         public ObservableCollection<Syllabus> Syllabus { get; set; }
 
+        #region Команды
         public ReactiveCommand<Unit,Unit> CreateSyllabusCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> EditSyllabusCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> DelSyllabusCommand { get; set; }
+        public ReactiveCommand<Syllabus,Unit> EditSyllabusCommand { get; set; }
+        public ReactiveCommand<Syllabus,Unit> SettingSyllabusCommand { get; set; }
+        public ReactiveCommand<Syllabus,Unit> DelSyllabusCommand { get; set; }
+        #endregion
 
-        ISyllabusService _syllabusService;
-        ISyllabusRepository _syllabusRepository;
+        ISyllabusService _syllabusService = new SyllabusService();
+        ISyllabusRepository _syllabusRepository = new SyllabusRepository();
         public TrainingDivisionViewModel()
         {
-            _syllabusRepository = new SyllabusRepository();
-            _syllabusService = new SyllabusService();
-
             Syllabus = new();
             _syllabusRepository.Syllabus.CollectionChanged += (sender, e) =>
             {
@@ -32,12 +33,16 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
             _syllabusRepository.GetSyllabus();
 
             CreateSyllabusCommand = ReactiveCommand.Create(createSyllabus);
-            EditSyllabusCommand = ReactiveCommand.Create(editSyllabus);
-            DelSyllabusCommand = ReactiveCommand.Create(delSyllabus);
+            EditSyllabusCommand = ReactiveCommand.Create<Syllabus>(editSyllabus);
+            SettingSyllabusCommand = ReactiveCommand.Create<Syllabus>(settingSyllabus);
+            DelSyllabusCommand = ReactiveCommand.Create<Syllabus>(delSyllabus);
         }
 
-        void createSyllabus() { }
-        void editSyllabus() { }
-        void delSyllabus() { }
+        #region Методы
+        void createSyllabus() => _syllabusService.OpenWindowCreateSyllabus(_syllabusRepository);
+        void editSyllabus(Syllabus syllabus) => _syllabusService.OpenWindowEditSyllabus(_syllabusRepository, syllabus);
+        void settingSyllabus(Syllabus syllabus) => _syllabusService.OpenWindowSettingSyllabus(syllabus);
+        void delSyllabus(Syllabus syllabus) => _syllabusRepository.DelSyllabus(syllabus);
+        #endregion
     }
 }

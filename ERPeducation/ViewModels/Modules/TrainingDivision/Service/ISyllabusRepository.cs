@@ -7,8 +7,8 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision.Service
     {
         ObservableCollection<Syllabus> Syllabus { get; set; }
         void GetSyllabus();
-        void CreateSyllabus();
-        void EditSyllabus();
-        void DelSyllabus();
+        void CreateSyllabus(Syllabus syllabus);
+        void EditSyllabus(Syllabus oldSyllabus, Syllabus newSyllabus);
+        void DelSyllabus(Syllabus syllabus);
     }
 }
