@@ -5,7 +5,9 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
 {
     public interface ISemestrRepository
     {
-        ObservableCollection<Semestr> Semestres { get; set; }
+        ObservableCollection<Semestr> Semesters { get; set; }
+
+        void GetSemesters(Syllabus syllabus);
         void AddSemestr();
         void DelSemestr(Semestr semestr);
     }

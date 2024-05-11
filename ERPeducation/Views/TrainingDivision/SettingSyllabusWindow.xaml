@@ -4,15 +4,205 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.TrainingDivision"
-        mc:Ignorable="d" Title="Настройка учебного плана" Height="450" Width="1100" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Настройка учебного плана" Height="800" Width="1300" FontFamily="Calibri">
     <Window.Resources>
+        <Style x:Key="ComboBoxPractice" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <StackPanel>
+                            <ToggleButton x:Name="togglebutton" Content="{Binding TypeOfPractice}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                    RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" MinWidth="120" Width="Auto" HorizontalAlignment="Left">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,25,0"/>
+                                            </Border>
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide" MinWidth="120" Width="Auto">
+                                <Border x:Name="DropDown" MinWidth="70" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxItem" TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="White">
+                            <ContentPresenter Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="DeleteSemester" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" Height="30" Width="30" ToolTip="Удалить семестр">
+                            <Image Height="22" Width="22" Source="/Common/Image/delete.png"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="ListBoxItemSemestr" TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
-                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1">
-                            <ContentPresenter Content="{Binding Number}" Margin="5"/>
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="Семестр" Margin="5" FontSize="15" FontWeight="Bold"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding NumberSemestr}" Margin="5" FontSize="15" FontWeight="Bold"/>
+                                    <Button Grid.Column="2" Style="{StaticResource DeleteSemester}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                            Command="{Binding DataContext.DelSemestrCommand, ElementName=Semesters}" CommandParameter="{Binding}"/>
+
+                                </Grid>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--Период поведения занятий-->
+                                    <StackPanel Margin="5">
+                                        <TextBlock Text="Период проведения занятий" FontWeight="Bold"/>
+                                        <StackPanel Orientation="Horizontal" Height="25">
+                                            <TextBlock Text="С" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding ClassPeriodFrom, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                            <TextBlock Text="До" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding ClassPeriodUpTo, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <!--Период сессии-->
+                                    <StackPanel Grid.Column="1" Margin="5">
+                                        <TextBlock Text="Период проведения сессии" FontWeight="Bold"/>
+                                        <StackPanel Orientation="Horizontal" Height="25">
+                                            <TextBlock Text="С" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding PeriodSessionFrom, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                            <TextBlock Text="До" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding PeriodSessionUpTo, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <!--Тип практики-->
+                                    <StackPanel Grid.Column="2" Margin="5">
+                                        <TextBlock Text="Тип практики" FontWeight="Bold"/>
+                                        <ComboBox Style="{StaticResource ComboBoxPractice}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
+                                                  ItemsSource="{Binding TypesOfPractice}" SelectedItem="{Binding TypeOfPractice}"/>
+                                    </StackPanel>
+                                    
+                                    <!--Период практики-->
+                                    <StackPanel Grid.Column="3" Margin="5">
+                                        <TextBlock Text="Период проведения практики" FontWeight="Bold"/>
+                                        <StackPanel Orientation="Horizontal" Height="25">
+                                            <TextBlock Text="С" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding PeriodPracticeFrom, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                            <TextBlock Text="До" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding PeriodPracticeUpTo, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <!--Период защиты диплома-->
+                                    <StackPanel Grid.Column="4" Margin="5">
+                                        <TextBlock Text="Период проведения защиты" FontWeight="Bold"/>
+                                        <StackPanel Orientation="Horizontal" Height="25">
+                                            <TextBlock Text="С" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding PeriodProtectionFrom, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                            <TextBlock Text="До" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding PeriodProtectionUpTo, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <!--Период каникул-->
+                                    <StackPanel Grid.Column="5" Margin="5">
+                                        <TextBlock Text="Период каникул" FontWeight="Bold"/>
+                                        <StackPanel Orientation="Horizontal" Height="25">
+                                            <TextBlock Text="С" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding PeriodHolidaysFrom, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                            <TextBlock Text="До" VerticalAlignment="Center" FontSize="14"/>
+                                            <TextBox Text="{Binding PeriodHolidaysUpTo, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" 
+                                                     Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                </Grid>
+                                
+                                <!--Блок дисциплин-->
+                                <StackPanel>
+                                    <Button Content="Добавить дисциплину" Style="{StaticResource defaultButton}" HorizontalAlignment="Left" Margin="-5,0,0,5"/>
+                                    <DataGrid ItemsSource="{Binding Disciplines}" AutoGenerateColumns="False" Margin="5" HorizontalAlignment="Left" CanUserAddRows="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Предмет" Binding="{Binding NameSubject}"/>
+                                            <DataGridTextColumn Header="Часы лекций" Binding="{Binding TypeOfControl}"/>
+                                            <DataGridTextColumn Header="Часы практики" Binding="{Binding LectureHours}"/>
+                                            <DataGridTextColumn Header="Тип контроля" Binding="{Binding TypeOfControl}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </StackPanel>
+
+                            </StackPanel>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -40,8 +230,8 @@
             <Button Content="Добавить семестр" Style="{StaticResource defaultButton}" HorizontalAlignment="Left"
                     Command="{Binding AddSemestrCommand}"/>
 
-            <ListBox Grid.Row="1" Margin="10,0,10,10" ItemContainerStyle="{StaticResource ListBoxItemSemestr}"
-                     ItemsSource="{Binding Semestres}"/>
+            <ListBox x:Name="Semesters" Grid.Row="1" Margin="10,0,10,10" ItemContainerStyle="{StaticResource ListBoxItemSemestr}"
+                     ItemsSource="{Binding Semesters}"/>
 
         </Grid>
 
