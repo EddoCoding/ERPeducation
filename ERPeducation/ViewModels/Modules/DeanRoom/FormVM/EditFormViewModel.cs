@@ -9,7 +9,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FormVM
     public class EditFormViewModel : ReactiveObject
     {
         public FormsOfTraining OldNameForm { get; set; }
-        public FormsOfTraining NewNameForm { get; set; }
+        public FormsOfTraining NewNameForm { get; set; } = new FormsOfTraining();
 
         public LvlOfTraining SelectedLevel { get; set; }
         public Faculty SelectedFaculty { get; set; }
@@ -28,7 +28,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FormVM
             SelectedFaculty = faculty;
             _closeWindow = closeWindow;
 
-            NewNameForm = new FormsOfTraining();
+            NewNameForm.NameForm = form.NameForm;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             EditFormCommand = ReactiveCommand.Create<FormsOfTraining>(EditForm);

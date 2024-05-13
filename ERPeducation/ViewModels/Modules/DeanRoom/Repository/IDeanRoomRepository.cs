@@ -1,4 +1,5 @@
-﻿using ERPeducation.Models.DeanRoom;
+﻿using ERPeducation.Models;
+using ERPeducation.Models.DeanRoom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -43,7 +44,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
 
 
         ICollection<Faculty> GetJsonFaculty();
-
+        IEnumerable<Syllabus> GetSyllabus();
 
         void SelectedFaculty(Faculty faculty);
         void SelectedLevel(LvlOfTraining level);

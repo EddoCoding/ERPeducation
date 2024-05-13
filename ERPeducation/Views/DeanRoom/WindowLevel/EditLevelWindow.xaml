@@ -4,12 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowLevel"
-        mc:Ignorable="d" Title="Изменить уровень подготовки" Height="200" Width="700" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Изменить уровень подготовки" Height="170" Width="700" FontFamily="Calibri">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -21,13 +19,17 @@
             <TextBlock Text="{Binding SelectedFaculty.NameFaculty}" VerticalAlignment="Center" FontSize="15" Margin="5,0,0,0"/>
         </StackPanel>
 
-        <Label Grid.Row="1" Content="Старое название уровня подготовки" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="2" Text="{Binding OldNameLevel.NameLevel}" Style="{StaticResource defaultTextBox}" Margin="10,0" IsEnabled="False"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0,0,0">
+            <TextBlock Text="Уровень подготовки:" FontWeight="Bold" FontSize="14"/>
+            <TextBlock Text="{Binding OldNameLevel.NameLevel}" Margin="5,0" FontSize="14"/>
+        </StackPanel>
 
-        <Label Grid.Row="3" Content="Новое название уровня подготовки" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="4" Text="{Binding NewNameLevel.NameLevel}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        <StackPanel Grid.Row="2">
+            <Label Content="Новое название уровня подготовки" Style="{StaticResource Label}"/>
+            <TextBox Text="{Binding NewNameLevel.NameLevel}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        </StackPanel>
 
-        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
                     Command="{Binding CloseWindowCommand}"/>
             <Button Content="Изменить" Style="{StaticResource OkButton}" Margin="0,10,10,10"

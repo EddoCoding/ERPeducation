@@ -9,7 +9,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FacultyVM
     public class EditFacultyViewModel : ReactiveObject
     {
         public Faculty OldNameFaculty { get; set; }
-        public Faculty NewNameFaculty { get; set; }
+        public Faculty NewNameFaculty { get; set; } = new Faculty();
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<Faculty, Unit> EditFacultyCommand { get; set; }
@@ -23,7 +23,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FacultyVM
             OldNameFaculty = faculty;
             _closeWindow = closeWindow;
 
-            NewNameFaculty = new Faculty();
+            NewNameFaculty.NameFaculty = faculty.NameFaculty;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             EditFacultyCommand = ReactiveCommand.Create<Faculty>(EditFaculty);

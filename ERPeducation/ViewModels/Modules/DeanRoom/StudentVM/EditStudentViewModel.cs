@@ -9,7 +9,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
     public class EditStudentViewModel
     {
         public Student OldStudent { get; set; }
-        public Student NewStudent { get; set; }
+        public Student NewStudent { get; set; } = new Student();
 
         public Faculty SelectedFaculty { get; set; }
         public LvlOfTraining SelectedLevel { get; set; }
@@ -35,7 +35,9 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
             SelectedGroup = group;
             _closeWindow = closeWindow;
 
-            NewStudent = new Student();
+            NewStudent.SurName = student.SurName;
+            NewStudent.Name = student.Name;
+            NewStudent.MiddleName = student.MiddleName;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             EditStudentCommand = ReactiveCommand.Create<Student>(EditStudent);

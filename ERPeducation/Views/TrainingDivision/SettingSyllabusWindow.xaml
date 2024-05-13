@@ -79,12 +79,51 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="HeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Border Background="{TemplateBinding Background}">
+                            <TextBlock Text="{Binding}" VerticalAlignment="Center" FontWeight="Bold" HorizontalAlignment="Left" Margin="5,7" FontSize="13"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CellStyle" TargetType="DataGridCell">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Background="{TemplateBinding Background}" BorderThickness="0">
+                            <ContentPresenter Content="{TemplateBinding Content}" Height="Auto" VerticalAlignment="Center" Margin="5,0"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="ListBoxItemSemestr" TargetType="ListBoxItem">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBoxItem">
                         <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
                             <StackPanel>
+                                <!--Шапка семестра-->
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -99,6 +138,7 @@
 
                                 </Grid>
 
+                                <!--Периоды-->
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -121,7 +161,7 @@
                                                      Style="{StaticResource DataTextBox}" Margin="5,0" Width="77"/>
                                         </StackPanel>
                                     </StackPanel>
-                                    
+
                                     <!--Период сессии-->
                                     <StackPanel Grid.Column="1" Margin="5">
                                         <TextBlock Text="Период проведения сессии" FontWeight="Bold"/>
@@ -141,7 +181,7 @@
                                         <ComboBox Style="{StaticResource ComboBoxPractice}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
                                                   ItemsSource="{Binding TypesOfPractice}" SelectedItem="{Binding TypeOfPractice}"/>
                                     </StackPanel>
-                                    
+
                                     <!--Период практики-->
                                     <StackPanel Grid.Column="3" Margin="5">
                                         <TextBlock Text="Период проведения практики" FontWeight="Bold"/>
@@ -182,27 +222,151 @@
                                     </StackPanel>
 
                                 </Grid>
-                                
-                                <!--Блок дисциплин-->
-                                <StackPanel>
-                                    <Button Content="Добавить дисциплину" Style="{StaticResource defaultButton}" HorizontalAlignment="Left" Margin="-5,0,0,5"/>
-                                    <DataGrid ItemsSource="{Binding Disciplines}" AutoGenerateColumns="False" Margin="5" HorizontalAlignment="Left" CanUserAddRows="False">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Предмет" Binding="{Binding NameSubject}"/>
-                                            <DataGridTextColumn Header="Часы лекций" Binding="{Binding TypeOfControl}"/>
-                                            <DataGridTextColumn Header="Часы практики" Binding="{Binding LectureHours}"/>
-                                            <DataGridTextColumn Header="Тип контроля" Binding="{Binding TypeOfControl}"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </StackPanel>
 
+                                <!--Блок дисциплин-->
+                                <Grid Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel>
+                                        <Button Content="Добавить дисциплину" Style="{StaticResource defaultButton}" HorizontalAlignment="Left" Margin="-5,0,0,0"
+                                            Command="{Binding DataContext.AddDisciplineCommand, ElementName=Semesters}" CommandParameter="{Binding}"/>
+                                        <DataGrid ItemsSource="{Binding Disciplines}" AutoGenerateColumns="False" Margin="5,0,0,5" HorizontalAlignment="Left" 
+                                                  CanUserAddRows="False" GridLinesVisibility="None" CanUserDeleteRows="True" CanUserResizeRows="False" 
+                                                  BorderThickness="1,1,1,1" BorderBrush="Gray" HeadersVisibility="Column">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Предмет" Binding="{Binding NameSubject}" HeaderStyle="{StaticResource HeaderStyle}" CellStyle="{StaticResource CellStyle}"/>
+                                                <DataGridTextColumn Header="Часы лекций" Binding="{Binding LectureHours, UpdateSourceTrigger=PropertyChanged}" 
+                                                                HeaderStyle="{StaticResource HeaderStyle}" CellStyle="{StaticResource CellStyle}"/>
+                                                <DataGridTextColumn Header="Часы практики" Binding="{Binding PracticeHours , UpdateSourceTrigger=PropertyChanged}" 
+                                                                HeaderStyle="{StaticResource HeaderStyle}" CellStyle="{StaticResource CellStyle}"/>
+                                                <DataGridTextColumn Header="Сумма часов" Binding="{Binding SumHours}" HeaderStyle="{StaticResource HeaderStyle}" 
+                                                                CellStyle="{StaticResource CellStyle}" IsReadOnly="True"/>
+                                                <DataGridTextColumn Header="Тип контроля" Binding="{Binding TypeOfControl}" HeaderStyle="{StaticResource HeaderStyle}" CellStyle="{StaticResource CellStyle}"/>
+                                                <DataGridTemplateColumn CanUserReorder="False">
+                                                    <DataGridTemplateColumn.HeaderStyle>
+                                                        <Style TargetType="DataGridColumnHeader">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="DataGridColumnHeader">
+                                                                        <Grid Background="White"/>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </DataGridTemplateColumn.HeaderStyle>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button Command="{Binding DataContext.DelDisciplineCommand, ElementName=Semesters}" CommandParameter="{Binding}">
+                                                                <Button.Style>
+                                                                    <Style TargetType="Button">
+                                                                        <Setter Property="Background" Value="White"/>
+                                                                        <Setter Property="Template">
+                                                                            <Setter.Value>
+                                                                                <ControlTemplate TargetType="Button">
+                                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                                                                                        <TextBlock x:Name="textblock" Text="delete" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                                                               Margin="5,2" ToolTip="Удалить дисциплину"/>
+                                                                                    </Border>
+                                                                                    <ControlTemplate.Triggers>
+                                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                                            <Setter Property="Background" Value="LightGray"/>
+                                                                                        </Trigger>
+                                                                                    </ControlTemplate.Triggers>
+                                                                                </ControlTemplate>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Style>
+                                                                </Button.Style>
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1">
+                                        <Button Content="Обновить" Style="{StaticResource defaultButton}" HorizontalAlignment="Left" Command="{Binding Command}"/>
+                                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                            <TextBlock Text="Кол-во предметов: " FontSize="13"/>
+                                            <TextBlock Text="{Binding Disciplines.Count}" FontSize="13"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                            <TextBlock Text="Сумма часов лекций: " FontSize="13"/>
+                                            <TextBlock Text="{Binding SumLectureHours}" FontSize="13"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                            <TextBlock Text="Сумма часов практики: " FontSize="13"/>
+                                            <TextBlock Text="{Binding SumPracticeHours}" FontSize="13"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                            <TextBlock Text="Общая сумма часов: " FontSize="13"/>
+                                            <TextBlock Text="{Binding SumHours}" FontSize="13"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                            <TextBlock Text="Количество курсовых: " FontSize="13"/>
+                                            <TextBlock Text="{Binding Courseworks.Count}" FontSize="13"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <!--Блок курсовых-->
+                                    <StackPanel Grid.Column="2" Margin="10,0">
+                                        <Button Content="Добавить курсовую" Style="{StaticResource defaultButton}" Margin="-5,0,0,0" HorizontalAlignment="Left"
+                                                Command="{Binding DataContext.AddCourseworkCommand, ElementName=Semesters}" CommandParameter="{Binding}"/>
+                                        <DataGrid ItemsSource="{Binding Courseworks}" AutoGenerateColumns="False" Margin="5,0,0,5" CanUserAddRows="False" GridLinesVisibility="None" 
+                                                  CanUserDeleteRows="True" CanUserResizeRows="False" BorderThickness="1,1,1,1" BorderBrush="Gray" HeadersVisibility="Column">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Предмет курсовой" Binding="{Binding NameSubject}" HeaderStyle="{StaticResource HeaderStyle}" CellStyle="{StaticResource CellStyle}"/>
+                                                <DataGridTemplateColumn CanUserReorder="False">
+                                                    <DataGridTemplateColumn.HeaderStyle>
+                                                        <Style TargetType="DataGridColumnHeader">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="DataGridColumnHeader">
+                                                                        <Grid Background="White"/>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </DataGridTemplateColumn.HeaderStyle>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button Command="{Binding DataContext.DelCourseworkCommand, ElementName=Semesters}" CommandParameter="{Binding}">
+                                                                <Button.Style>
+                                                                    <Style TargetType="Button">
+                                                                        <Setter Property="Background" Value="White"/>
+                                                                        <Setter Property="Template">
+                                                                            <Setter.Value>
+                                                                                <ControlTemplate TargetType="Button">
+                                                                                    <Border Background="{TemplateBinding Background}" CornerRadius="3">
+                                                                                        <TextBlock x:Name="textblock" Text="delete" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                                                                   Margin="5,2" ToolTip="Удалить курсовую"/>
+                                                                                    </Border>
+                                                                                    <ControlTemplate.Triggers>
+                                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                                            <Setter Property="Background" Value="LightGray"/>
+                                                                                        </Trigger>
+                                                                                    </ControlTemplate.Triggers>
+                                                                                </ControlTemplate>
+                                                                            </Setter.Value>
+                                                                        </Setter>
+                                                                    </Style>
+                                                                </Button.Style>
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+
+                                </Grid>
                             </StackPanel>
                         </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="WhiteSmoke"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>

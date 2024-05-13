@@ -3,6 +3,10 @@ using ERPeducation.ViewModels.Modules.DeanRoom.Repository;
 using ReactiveUI;
 using System.Reactive;
 using System;
+using System.Collections;
+using ERPeducation.Models;
+using System.Collections.Generic;
+using ReactiveUI.Fody.Helpers;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
 {
@@ -14,6 +18,10 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         public LvlOfTraining SelectedLevel {get; set;}
         public FormsOfTraining SelectedForm {get; set;}
         public TypeGroup SelectedTypeGroup { get; set; }
+
+        public ICollection<Syllabus> Syllabus { get; set; } = new List<Syllabus>();
+        [Reactive] public Syllabus SelectedSyllabus { get; set; }
+
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<Group, Unit> AddGroupCommand { get; set; }
@@ -30,6 +38,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
             SelectedTypeGroup = typeGroup;
             _closeWindow = closeWindow;
 
+            foreach (var syllabus in repository.GetSyllabus()) Syllabus.Add(syllabus);
+
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             AddGroupCommand = ReactiveCommand.Create<Group>(AddGroup);
         }
@@ -41,6 +51,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
             group.TitleLevel = SelectedLevel.NameLevel;
             group.TitleForm = SelectedForm.NameForm;
             group.TitleTypeGroup = SelectedTypeGroup.NameType;
+            group.Syllabus = SelectedSyllabus;
             _repository.CreateGroup(group, SelectedTypeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }

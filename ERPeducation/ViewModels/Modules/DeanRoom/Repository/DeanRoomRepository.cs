@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Common.BD;
+using ERPeducation.Models;
 using ERPeducation.Models.DeanRoom;
 using Newtonsoft.Json;
 using ReactiveUI;
@@ -83,6 +84,20 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
 
             return faculties;
         } //Десериализация факультетов -- чтобы можно было их выбрать изначально --
+
+        public IEnumerable<Syllabus> GetSyllabus() 
+        {
+            ICollection<Syllabus> syllabus = new List<Syllabus>();
+            var files = Directory.GetFiles(FileServer.Syllabus, "*.json");
+            if (files.Length > 0)
+                foreach (var file in files)
+                {
+                    var json = File.ReadAllText(file);
+                    var syllabusItem = JsonConvert.DeserializeObject<Syllabus>(json);
+                    syllabus.Add(syllabusItem);
+                }
+            return syllabus;
+        }
 
         public void CreateFaculty(Faculty faculty)
         {

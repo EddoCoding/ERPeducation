@@ -1,7 +1,11 @@
-﻿namespace ERPeducation.Models.TrainingDivision
+﻿using Newtonsoft.Json;
+using ReactiveUI;
+
+namespace ERPeducation.Models.TrainingDivision
 {
-    public class Coursework
+    [JsonObject]
+    public class Coursework : ReactiveObject
     {
-        public string NameSubject{ get; set; } = string.Empty;
+        public string NameSubject { get; set; } = "Введите предмет курсовой";
     }
 }

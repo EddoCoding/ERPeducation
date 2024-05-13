@@ -13,6 +13,7 @@ namespace ERPeducation.Models.DeanRoom
         public string NameGroup { get; set; }
         public string Direction { get; set; }
         public List<Student> Students { get; set; }
+        public Syllabus Syllabus { get; set; }
 
         public Group() => Students = new List<Student>();
     }

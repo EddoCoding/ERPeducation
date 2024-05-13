@@ -9,7 +9,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.TypeGroupVM
     public class EditTypeGroupViewModel : ReactiveObject
     {
         public TypeGroup OldNameTypeGroup { get; set; }
-        public TypeGroup NewNameTypeGroup { get; set; }
+        public TypeGroup NewNameTypeGroup { get; set; } = new TypeGroup();
 
         public FormsOfTraining SelectedForm { get; set; }
         public LvlOfTraining SelectedLevel { get; set; }
@@ -30,7 +30,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.TypeGroupVM
             SelectedFaculty = faculty;
             _closeWindow = closeWindow;
 
-            NewNameTypeGroup = new TypeGroup();
+            NewNameTypeGroup.NameType = typeGrup.NameType;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             EditTypeGroupCommand = ReactiveCommand.Create<TypeGroup>(EditTypeGroup);

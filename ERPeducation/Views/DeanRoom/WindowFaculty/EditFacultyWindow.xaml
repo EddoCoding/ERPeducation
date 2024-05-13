@@ -4,28 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowFaculty"
-        mc:Ignorable="d" Title="Изменить факультет" Height="190" Width="400" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Изменить факультет" Height="150" Width="600" FontFamily="Calibri">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Старое название факультета" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="1" Text="{Binding OldNameFaculty.NameFaculty}" Style="{StaticResource defaultTextBox}" Margin="10,0" IsEnabled="False"/>
+        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+            <TextBlock Text="Факультет:" FontWeight="Bold" FontSize="14"/>
+            <TextBlock Text="{Binding OldNameFaculty.NameFaculty}" Margin="5,0" FontSize="14"/>
+        </StackPanel>
 
-        <Label Grid.Row="2" Content="Новое название факультета" Style="{StaticResource Label}"/>
-        <TextBox Grid.Row="3" Text="{Binding NewNameFaculty.NameFaculty}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        <StackPanel Grid.Row="1">
+            <Label Content="Новое название факультета" Style="{StaticResource Label}"/>
+            <TextBox Text="{Binding NewNameFaculty.NameFaculty}" Style="{StaticResource defaultTextBox}" Margin="10,0"/>
+        </StackPanel>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,10,10,10"
                 Command="{Binding CloseWindowCommand}"/>
             <Button Content="Изменить" Style="{StaticResource OkButton}" Margin="0,10,10,10"
-                Command="{Binding EditFacultyCommand}" CommandParameter="{Binding OldnameFaculty}"/>
+                Command="{Binding EditFacultyCommand}" CommandParameter="{Binding OldNameFaculty}"/>
         </StackPanel>
 
     </Grid>

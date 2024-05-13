@@ -9,7 +9,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.LevelVM
     public class EditLevelViewModel
     {
         public LvlOfTraining OldNameLevel { get; set; }
-        public LvlOfTraining NewNameLevel { get; set; }
+        public LvlOfTraining NewNameLevel { get; set; } = new LvlOfTraining();
 
         public Faculty SelectedFaculty { get; set; }
 
@@ -26,7 +26,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.LevelVM
             SelectedFaculty = faculty;
             _closeWindow = closeWindow;
 
-            NewNameLevel = new LvlOfTraining();
+            NewNameLevel.NameLevel = level.NameLevel;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             EditLevelCommand = ReactiveCommand.Create<LvlOfTraining>(EditLevel);
