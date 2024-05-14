@@ -1,4 +1,5 @@
 ﻿using ERPeducation.Models;
+using ERPeducation.Models.DeanRoom;
 using ERPeducation.ViewModels.Modules.TrainingDivision.Service;
 using ERPeducation.ViewModels.Modules.TrainingDivision.SyllabusVM;
 using ERPeducation.Views.TrainingDivision;
@@ -19,6 +20,12 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
             EditSyllabusWindow editSyllabusWindow = new EditSyllabusWindow();
             editSyllabusWindow.DataContext = new EditSyllabusViewModel(syllabusRepository, syllabus, editSyllabusWindow.Close);
             editSyllabusWindow.ShowDialog();
+        }
+        public void OpenWindowShowSyllalbus(Syllabus syllabus, Group group)
+        {
+            ShowSyllabusWindow window = new();
+            window.DataContext = new ShowSyllabusViewModel(syllabus, group, window.Close);
+            window.ShowDialog();
         }
 
         public void OpenWindowSettingSyllabus(Syllabus syllabus)

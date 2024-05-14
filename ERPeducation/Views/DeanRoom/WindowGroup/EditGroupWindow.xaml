@@ -107,9 +107,15 @@
         </StackPanel>
 
         <StackPanel Grid.Row="5">
+            
             <Label Content="Выберете учебный план" Style="{StaticResource Label}"/>
-            <ComboBox Style="{StaticResource ComboBoxGender}" ItemContainerStyle="{StaticResource ComboBoxItem}" Margin="10,0,10,0"
-                      ItemsSource="{Binding Syllabus}" SelectedItem="{Binding SelectedSyllabus}"/>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Style="{StaticResource ComboBoxGender}" ItemContainerStyle="{StaticResource ComboBoxItem}" Margin="10,0,10,0"
+                          ItemsSource="{Binding Syllabus}" SelectedItem="{Binding SelectedSyllabus}"/>
+                <Button Content="Посмотреть учебный план" Style="{StaticResource defaultButton}" VerticalAlignment="Center" Margin="5,0"
+                        Command="{Binding ShowInfoSyllabusCommand}" CommandParameter="{Binding SelectedSyllabus}"/>
+            </StackPanel>
+
         </StackPanel>
         
         <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">

@@ -24,11 +24,11 @@
                  Margin="10,0,0,5" Width="300"/>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Когда:" Style="{StaticResource Label}" Margin="10,0,0,5" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Test.When}" Style="{StaticResource defaultTextBox}" 
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Test.When, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" Style="{StaticResource defaultTextBox}" 
                  Margin="10,0,0,5" Width="150" HorizontalAlignment="Left"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Во сколько:" Style="{StaticResource Label}" Margin="10,0,0,5" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Test.AtWhatTime}" Style="{StaticResource defaultTextBox}" 
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Test.AtWhatTime, Converter={StaticResource DateTimeToStringTimeFormat}}" Style="{StaticResource defaultTextBox}" 
                  Margin="10,0,0,5" Width="150" HorizontalAlignment="Left"/>
 
         <Label Grid.Row="3" Grid.Column="0" Content="Помещение:" Style="{StaticResource Label}" Margin="10,0,0,5" VerticalAlignment="Center"/>

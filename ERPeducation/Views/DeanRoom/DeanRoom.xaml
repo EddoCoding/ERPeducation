@@ -250,7 +250,7 @@
                                     <TextBlock Text="Направление подготовки:" Margin="3" FontWeight="Bold"/>
                                     <ContentPresenter Content="{Binding Direction}" Margin="3"/>
                                 </StackPanel>
-                                <Button Grid.Column="1" Content="/Common/Image/editGroup.png" Style="{StaticResource ImageButton}"
+                                <Button Grid.Column="1" Content="/Common/Image/editTypeGroup.png" Style="{StaticResource ImageButton}"
                                         HorizontalAlignment="Right" Margin="0,0,5,0" ToolTip="Изменить группу"
                                         Command="{Binding DataContext.EditGroupCommand, ElementName=Groups}" CommandParameter="{Binding}"/>
                                 <Button Grid.Column="2" Content="/Common/Image/liquidationgroup.png" Style="{StaticResource ImageButton}"
@@ -321,7 +321,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 

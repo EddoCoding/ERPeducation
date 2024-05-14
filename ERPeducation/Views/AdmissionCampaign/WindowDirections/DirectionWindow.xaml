@@ -316,9 +316,9 @@
                 <TextBlock Grid.Column="0" Text="Предмет:" FontWeight="Bold" Margin="3"/>
                 <TextBlock Grid.Column="1" Text="{Binding Subject}" Margin="3"/>
                 <TextBlock Grid.Column="2" Text="Когда:" FontWeight="Bold" Margin="3"/>
-                <TextBlock Grid.Column="3" Text="{Binding When}" Margin="3"/>
+                <TextBlock Grid.Column="3" Text="{Binding When, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" Margin="3"/>
                 <TextBlock Grid.Column="4" Text="Во сколько:" FontWeight="Bold" Margin="3"/>
-                <TextBlock Grid.Column="5" Text="{Binding AtWhatTime}" Margin="3"/>
+                <TextBlock Grid.Column="5" Text="{Binding AtWhatTime, Converter={StaticResource DateTimeToStringTimeFormat}}" Margin="3"/>
                 <TextBlock Grid.Column="6" Text="Помещение:" FontWeight="Bold" Margin="3"/>
                 <TextBlock Grid.Column="7"  Text="{Binding Room}" Margin="3"/>
 

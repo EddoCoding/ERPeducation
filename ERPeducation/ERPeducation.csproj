@@ -19,7 +19,6 @@
     <None Remove="Common\Image\editDocument.png" />
     <None Remove="Common\Image\editFaculty.png" />
     <None Remove="Common\Image\editForm.png" />
-    <None Remove="Common\Image\editGroup.png" />
     <None Remove="Common\Image\editStudent.png" />
     <None Remove="Common\Image\editTypeGroup.png" />
     <None Remove="Common\Image\enrollee.png" />
@@ -139,12 +138,6 @@
 
   <ItemGroup>
     <Resource Include="Common\Image\settingSyllabus.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Common\Image\editGroup.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

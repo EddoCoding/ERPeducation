@@ -722,11 +722,11 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <TextBlock Text="Дата экзамена" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding When}"/>
+                    <TextBlock Text="{Binding When, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="2">
                     <TextBlock Text="Время экзамена" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding AtWhatTime}"/>
+                    <TextBlock Text="{Binding AtWhatTime, Converter={StaticResource DateTimeToStringTimeFormat}}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="3">
                     <TextBlock Text="Место проведения" FontWeight="Bold"/>
