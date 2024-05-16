@@ -11,12 +11,12 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision.ScheduleVM
 {
     public class CreateScheduleViewModel : ReactiveObject
     {
-        public Schedule Schedule { get; set; } = new();
+        public ScheduleVM Schedule { get; set; } = new();
         public ObservableCollection<Syllabus> Syllabus { get; set; }
         [Reactive] public Syllabus SelectedSyllabus { get; set; }
 
         public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
-        public ReactiveCommand<Schedule, Unit> CreateScheduleCommand { get; set; }
+        public ReactiveCommand<ScheduleVM, Unit> CreateScheduleCommand { get; set; }
 
         Action _closeWindow;
 
@@ -28,14 +28,17 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision.ScheduleVM
             _closeWindow = closeWindow;
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
-            CreateScheduleCommand = ReactiveCommand.Create<Schedule>(CreateSchedule);
+            CreateScheduleCommand = ReactiveCommand.Create<ScheduleVM>(CreateSchedule);
         }
 
         void Exit() => _closeWindow();
-        void CreateSchedule(Schedule schedule)
+        void CreateSchedule(ScheduleVM schedule)
         {
-            schedule.Syllabus = SelectedSyllabus;
-            _repository.AddSchedule(schedule);
+            _repository.AddSchedule(new Schedule()
+            {
+                TitleSchedule = schedule.TitleSchedule,
+                Syllabus = SelectedSyllabus
+            });
             _closeWindow();
         }
     }

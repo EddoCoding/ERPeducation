@@ -6,7 +6,7 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.IO;
 
-namespace ERPeducation.ViewModels.Modules.TrainingDivision.Service
+namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
 {
     public class SyllabusRepository : ReactiveObject, ISyllabusRepository
     {

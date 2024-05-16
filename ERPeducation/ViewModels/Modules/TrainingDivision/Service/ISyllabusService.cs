@@ -1,8 +1,8 @@
 ﻿using ERPeducation.Models;
 using ERPeducation.Models.DeanRoom;
-using ERPeducation.ViewModels.Modules.TrainingDivision.Service;
+using ERPeducation.ViewModels.Modules.TrainingDivision.Repository;
 
-namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
+namespace ERPeducation.ViewModels.Modules.TrainingDivision.Service
 {
     public interface ISyllabusService
     {

@@ -1,7 +1,7 @@
 ﻿using ERPeducation.Models;
 using System.Collections.ObjectModel;
 
-namespace ERPeducation.ViewModels.Modules.TrainingDivision.Service
+namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
 {
     public interface ISyllabusRepository
     {

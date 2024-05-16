@@ -106,11 +106,11 @@
                                 <TextBlock Grid.Column="0" Text="{Binding TitleSchedule}" Margin="5" FontSize="13" VerticalAlignment="Center"/>
 
                                 <Button Grid.Column="1" Style="{StaticResource EditSyllabus}" HorizontalAlignment="Right" Margin="0,0,10,0"
-                                        Command="{Binding DataContext.EditSyllabusCommand, ElementName=Syllabus}" CommandParameter="{Binding}"/>
+                                        Command="{Binding .}"/>
                                 <Button Grid.Column="2" Style="{StaticResource SettingSyllabus}" Margin="0,0,10,0"
-                                        Command="{Binding DataContext.SettingSyllabusCommand, ElementName=Syllabus}" CommandParameter="{Binding}"/>
+                                        Command="{Binding DataContext.SettingScheduleCommand, ElementName=Schedules}" CommandParameter="{Binding}"/>
                                 <Button Grid.Column="3" Style="{StaticResource DeleteSyllabus}" Margin="0,0,10,0"
-                                        Command="{Binding DataContext.DelSyllabusCommand, ElementName=Syllabus}" CommandParameter="{Binding}"/>
+                                        Command="{Binding DataContext.DelScheduleCommand, ElementName=Schedules}" CommandParameter="{Binding}"/>
 
                             </Grid>
                         </Border>
@@ -145,10 +145,11 @@
 
         <Label Grid.Row="2" Content="Расписание" FontFamily="Calibri" Foreground="Gray" Margin="10,5,0,0" 
                Padding="0" FontSize="20" FontWeight="Bold"/>
+        
         <StackPanel Grid.Row="3">
             <Button Content="Создать расписание" Style="{StaticResource defaultButton}" HorizontalAlignment="Left"
                     Command="{Binding CreateScheduleCommand}" Margin="0,10,0,0"/>
-            <ListBox x:Name="Schedule" ItemContainerStyle="{StaticResource ListBoxItemSchedule}" Margin="10,0" MinHeight="250" 
+            <ListBox x:Name="Schedules" ItemContainerStyle="{StaticResource ListBoxItemSchedule}" Margin="10,0" MinHeight="250" 
                      ItemsSource="{Binding Schedules}"/>
         </StackPanel>
         

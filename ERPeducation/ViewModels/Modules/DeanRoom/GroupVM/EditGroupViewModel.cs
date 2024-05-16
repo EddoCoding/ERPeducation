@@ -6,7 +6,7 @@ using System;
 using ERPeducation.Models;
 using ReactiveUI.Fody.Helpers;
 using System.Collections.Generic;
-using ERPeducation.ViewModels.Modules.TrainingDivision.Repository;
+using ERPeducation.ViewModels.Modules.TrainingDivision.Service;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
 {

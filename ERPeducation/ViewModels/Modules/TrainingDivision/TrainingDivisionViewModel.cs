@@ -15,7 +15,6 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
         public ObservableCollection<Syllabus> Syllabus { get; set; } = new();
         public ObservableCollection<Schedule> Schedules { get; set; } = new();
 
-
         #region Команды Учебного плана
         public ReactiveCommand<Unit,Unit> CreateSyllabusCommand { get; set; }
         public ReactiveCommand<Syllabus,Unit> EditSyllabusCommand { get; set; }
@@ -24,9 +23,9 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
         #endregion
         #region Команды Расписания
         public ReactiveCommand<Unit,Unit> CreateScheduleCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> EditScheduleCommand = ReactiveCommand.Create(() => {});
-        public ReactiveCommand<Unit,Unit> SettingScheduleCommand = ReactiveCommand.Create(() => {});
-        public ReactiveCommand<Unit,Unit> DelScheduleCommand = ReactiveCommand.Create(() => {});
+        public ReactiveCommand<Unit,Unit> EditScheduleCommand { get; set; }
+        public ReactiveCommand<Schedule, Unit> SettingScheduleCommand { get; set; }
+        public ReactiveCommand<Schedule, Unit> DelScheduleCommand { get; set; }
         #endregion
 
         IScheduleService _scheduleService = new ScheduleService();
@@ -47,6 +46,7 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
                 if (e.Action == NotifyCollectionChangedAction.Add) Schedules.Add(e.NewItems[0] as Schedule);
                 else if (e.Action == NotifyCollectionChangedAction.Remove) Schedules.Remove(e.OldItems[0] as Schedule);
             };
+            _scheduleRepository.GetSchedules();
 
             #region Команды
             CreateSyllabusCommand = ReactiveCommand.Create(createSyllabus);
@@ -55,6 +55,9 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
             DelSyllabusCommand = ReactiveCommand.Create<Syllabus>(delSyllabus);
 
             CreateScheduleCommand = ReactiveCommand.Create(createSchedule);
+            EditScheduleCommand = ReactiveCommand.Create(editSchedule);
+            SettingScheduleCommand = ReactiveCommand.Create<Schedule>(settingSchedule);
+            DelScheduleCommand = ReactiveCommand.Create<Schedule>(delSchedule);
             #endregion
         }
 
@@ -67,8 +70,8 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
         #region Методы Расписания
         void createSchedule() => _scheduleService.OpenWindowCreateSchedule(_scheduleRepository, Syllabus);
         void editSchedule() { }
-        void settingSchedule() { }
-        void delSchedule() { }
+        void settingSchedule(Schedule schedule) => _scheduleService.OpenWindowSettingSchedule(schedule);
+        void delSchedule(Schedule schedule) => _scheduleRepository.DelSchedule(schedule);
         #endregion
     }
 }

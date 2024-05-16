@@ -1,6 +1,6 @@
 ﻿using ERPeducation.Models;
 using ERPeducation.Models.DeanRoom;
-using ERPeducation.ViewModels.Modules.TrainingDivision.Service;
+using ERPeducation.ViewModels.Modules.TrainingDivision.Repository;
 using ReactiveUI;
 using System;
 using System.Reactive;
