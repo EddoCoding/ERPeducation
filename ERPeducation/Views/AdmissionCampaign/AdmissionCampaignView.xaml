@@ -497,9 +497,9 @@
                         <TextBlock Text="Предмет:" FontWeight="Bold" Margin="3,0"/>
                         <TextBlock Text="{Binding Subject}"/>
                         <TextBlock Text="Когда:" FontWeight="Bold" Margin="3,0"/>
-                        <TextBlock Text="{Binding When}"/>
+                        <TextBlock Text="{Binding When, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}"/>
                         <TextBlock Text="Во сколько:" FontWeight="Bold" Margin="3,0"/>
-                        <TextBlock Text="{Binding AtWhatTime}"/>
+                        <TextBlock Text="{Binding AtWhatTime, Converter={StaticResource DateTimeToStringTimeFormat}}"/>
                         <TextBlock Text="Помещение:" FontWeight="Bold" Margin="3,0"/>
                         <TextBlock Text="{Binding Room}"/>
                     </StackPanel>
@@ -661,13 +661,13 @@
                     <TextBlock Text="Пол:" Margin="3" FontSize="14" FontWeight="Bold"/>
                     <TextBlock Text="{Binding SelectedEnrollee.Gender}" Margin="3" FontSize="14"/>
                     <TextBlock Text="Дата рождения:" Margin="3" FontSize="14" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedEnrollee.DateOfBirth}" Margin="3" FontSize="14"/>
+                    <TextBlock Text="{Binding SelectedEnrollee.DateOfBirth, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" Margin="3" FontSize="14"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Гражданство:" Margin="3" FontSize="14" FontWeight="Bold"/>
                     <TextBlock Text="{Binding SelectedEnrollee.Citizenship}" Margin="3" FontSize="14"/>
                     <TextBlock Text="До:" Margin="3" FontSize="14" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedEnrollee.DateCitizenship}" Margin="3" FontSize="14"/>
+                    <TextBlock Text="{Binding SelectedEnrollee.DateCitizenship, StringFormat='dd.MM.yyyy', Converter={StaticResource DateTimeToStringFormatConvert}}" Margin="3" FontSize="14"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Text="Персональные документы" Margin="3,3,3,0" FontSize="14" FontWeight="Bold"/>

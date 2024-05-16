@@ -2,12 +2,12 @@
 {
     public class EducationBak : EducationBase
     {
-        public string FormOfEducation { get; set; } = "Заочная";
-        public string RegistrationNumber { get; set; } = "Рег.НомерБак";
-        public string DiplomaSeries { get; set; } = "Серия дипломаБак";
-        public string DiplomaNumber { get; set; }  = "Номер дипломаБак";
-        public string SupplementSeries { get; set; } = "Серия приложенияБак";
-        public string SupplementNumber { get; set; } = "Номер приложенияБак";
+        public string FormOfEducation { get; set; } = string.Empty;
+        public string RegistrationNumber { get; set; } = string.Empty;
+        public string DiplomaSeries { get; set; } = string.Empty;
+        public string DiplomaNumber { get; set; }  = string.Empty;
+        public string SupplementSeries { get; set; } = string.Empty;
+        public string SupplementNumber { get; set; } = string.Empty;
 
         public EducationBak()
         {

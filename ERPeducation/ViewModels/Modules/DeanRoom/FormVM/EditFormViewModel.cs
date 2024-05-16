@@ -37,11 +37,36 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FormVM
         void Exit() => _closeWindow();
         void EditForm(FormsOfTraining form)
         {
+            if (NewNameForm.NameForm == OldNameForm.NameForm)
+            {
+                _closeWindow();
+                return;
+            }
+
             NewNameForm.TypeGroups = form.TypeGroups;
             NewNameForm.TitleFaculty = form.TitleFaculty;
             NewNameForm.TitleLevel = form.TitleLevel;
+            EditNesting();
+
             _repository.EditForm(form, NewNameForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
+        }
+
+        void EditNesting()
+        {
+            if (NewNameForm.TypeGroups != null)
+                foreach (var typeGroup in NewNameForm.TypeGroups)
+                {
+                    typeGroup.TitleForm = NewNameForm.NameForm;
+                    if (typeGroup.Groups != null)
+                        foreach (var group in typeGroup.Groups)
+                        {
+                            group.TitleForm = NewNameForm.NameForm;
+                            if (group.Students != null)
+                                foreach (var student in group.Students)
+                                    student.TitleForm = NewNameForm.NameForm;
+                        }
+                }
         }
     }
 }

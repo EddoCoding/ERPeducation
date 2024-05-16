@@ -31,15 +31,11 @@ namespace ERPeducation.Common.BD
 
             FileServer.PathIS = dialog.SelectedPath;
 
-
-
             //Добавление администратора - потом переделать, чтобы не создавался сам
             //т.е. вход в систему будет свободен сразу без пользователей
             //т.е. будет проверка происходить есть пользовати в ИС и если есть показать авторизацию, нет - войти
             //но в таком случае будет работать только модуль -- Администрирование --
             jsonService.CreateFileJson(FileServer.Users, "AdminAdmin.json", "Администратор", "AdminAdmin", true, true, true, true, true, true);
-
-
 
             return FileServer.PathIS;
         }

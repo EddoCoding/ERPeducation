@@ -2,12 +2,12 @@
 {
     public class EducationSPO : EducationBase
     {
-        public string FormOfEducation { get; set; } = "Очная";
-        public string RegistrationNumber { get; set; } = "Рег.НомерСПО";
-        public string DiplomaSeries { get; set; } = "Серия дипломаСПО";
-        public string DiplomaNumber { get; set; } = "Номер дипломаСПО";
-        public string SupplementSeries { get; set; } = "Серия приложенияСПО";
-        public string SupplementNumber { get; set; } = "Номер приложенияСПО";
+        public string FormOfEducation { get; set; } = string.Empty;
+        public string RegistrationNumber { get; set; } = string.Empty;
+        public string DiplomaSeries { get; set; } = string.Empty;
+        public string DiplomaNumber { get; set; } = string.Empty;
+        public string SupplementSeries { get; set; } = string.Empty;
+        public string SupplementNumber { get; set; } = string.Empty;
 
         public EducationSPO()
         {

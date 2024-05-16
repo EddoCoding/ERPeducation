@@ -69,8 +69,41 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                
+
                                 <TextBlock Grid.Column="0" Text="{Binding TitleSyllabus}" Margin="5" FontSize="13" VerticalAlignment="Center"/>
+
+                                <Button Grid.Column="1" Style="{StaticResource EditSyllabus}" HorizontalAlignment="Right" Margin="0,0,10,0"
+                                        Command="{Binding DataContext.EditSyllabusCommand, ElementName=Syllabus}" CommandParameter="{Binding}"/>
+                                <Button Grid.Column="2" Style="{StaticResource SettingSyllabus}" Margin="0,0,10,0"
+                                        Command="{Binding DataContext.SettingSyllabusCommand, ElementName=Syllabus}" CommandParameter="{Binding}"/>
+                                <Button Grid.Column="3" Style="{StaticResource DeleteSyllabus}" Margin="0,0,10,0"
+                                        Command="{Binding DataContext.DelSyllabusCommand, ElementName=Syllabus}" CommandParameter="{Binding}"/>
+
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListBoxItemSchedule" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{Binding TitleSchedule}" Margin="5" FontSize="13" VerticalAlignment="Center"/>
 
                                 <Button Grid.Column="1" Style="{StaticResource EditSyllabus}" HorizontalAlignment="Right" Margin="0,0,10,0"
                                         Command="{Binding DataContext.EditSyllabusCommand, ElementName=Syllabus}" CommandParameter="{Binding}"/>
@@ -102,7 +135,7 @@
 
         <Label Grid.Row="0" Content="Учебный план" FontFamily="Calibri" Foreground="Gray" Margin="10,5,0,0" 
                Padding="0" FontSize="20" FontWeight="Bold"/>
-        
+
         <StackPanel Grid.Row="1" Margin="0,10,0,0">
             <Button Content="Создать учебный план" Style="{StaticResource defaultButton}" HorizontalAlignment="Left"
                     Command="{Binding CreateSyllabusCommand}"/>
@@ -112,7 +145,13 @@
 
         <Label Grid.Row="2" Content="Расписание" FontFamily="Calibri" Foreground="Gray" Margin="10,5,0,0" 
                Padding="0" FontSize="20" FontWeight="Bold"/>
-        <ListBox Grid.Row="3" ItemContainerStyle="{Binding}" Margin="10" ItemsSource="{Binding}"/>
+        <StackPanel Grid.Row="3">
+            <Button Content="Создать расписание" Style="{StaticResource defaultButton}" HorizontalAlignment="Left"
+                    Command="{Binding CreateScheduleCommand}" Margin="0,10,0,0"/>
+            <ListBox x:Name="Schedule" ItemContainerStyle="{StaticResource ListBoxItemSchedule}" Margin="10,0" MinHeight="250" 
+                     ItemsSource="{Binding Schedules}"/>
+        </StackPanel>
+        
     </Grid>
 
 </UserControl>

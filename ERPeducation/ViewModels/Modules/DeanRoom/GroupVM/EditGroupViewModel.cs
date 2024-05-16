@@ -55,15 +55,33 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         void Exit() => _closeWindow();
         void EditGroup(Group group)
         {
+            if (NewGroup.NameGroup == OldGroup.NameGroup && NewGroup.Direction == OldGroup.Direction)
+            {
+                _closeWindow();
+                return;
+            }
+
             NewGroup.Students = group.Students;
             NewGroup.TitleFaculty = group.TitleFaculty;
             NewGroup.TitleLevel = group.TitleLevel;
             NewGroup.TitleForm = group.TitleForm;
             NewGroup.TitleTypeGroup = group.TitleTypeGroup;
             NewGroup.Syllabus = SelectedSyllabus;
+            EditNesting();
+
             _repository.EditGroup(group, NewGroup, SelectedTypeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }
+        void EditNesting()
+        {
+            if (NewGroup.Students != null)
+                foreach (var student in NewGroup.Students)
+                {
+                    student.TitleGroup = NewGroup.NameGroup;
+                    student.TitleDirection = NewGroup.Direction;
+                }
+        }
+
         void ShowInfoSllabus(Syllabus syllabus)
         {
             ISyllabusService service = new SyllabusService();

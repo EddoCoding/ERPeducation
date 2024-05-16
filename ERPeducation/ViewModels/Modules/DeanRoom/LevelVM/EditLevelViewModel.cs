@@ -35,10 +35,40 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.LevelVM
         void Exit() => _closeWindow();
         void EditLevel(LvlOfTraining level)
         {
+            if (NewNameLevel.NameLevel == OldNameLevel.NameLevel)
+            {
+                _closeWindow();
+                return;
+            }
+
             NewNameLevel.Forms = level.Forms;
             NewNameLevel.TitleFaculty = level.TitleFaculty;
+            EditNesting();
+
             _repository.EditLevel(level, NewNameLevel, SelectedFaculty);
             _closeWindow();
+        }
+
+        void EditNesting()
+        {
+            if (NewNameLevel.Forms != null)
+                foreach (var form in NewNameLevel.Forms)
+                {
+                    form.TitleLevel = NewNameLevel.NameLevel;
+                    if (form.TypeGroups != null)
+                        foreach (var typeGroup in form.TypeGroups)
+                        {
+                            typeGroup.TitleLevel = NewNameLevel.NameLevel;
+                            if (typeGroup.Groups != null)
+                                foreach (var group in typeGroup.Groups)
+                                {
+                                    group.TitleLevel = NewNameLevel.NameLevel;
+                                    if (group.Students != null)
+                                        foreach (var student in group.Students)
+                                            student.TitleLevel = NewNameLevel.NameLevel;
+                                }
+                        }
+                }
         }
     }
 }

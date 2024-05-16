@@ -32,9 +32,46 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.FacultyVM
         void Exit() => _closeWindow();
         void EditFaculty(Faculty faculty)
         {
+            if (NewNameFaculty.NameFaculty == OldNameFaculty.NameFaculty)
+            {
+                _closeWindow();
+                return;
+            }
+
             NewNameFaculty.Levels = faculty.Levels;
+            EditNesting();
+
             _repository.EditFaculty(faculty, NewNameFaculty);
             _closeWindow();
         }
+
+        void EditNesting()
+        {
+            if (NewNameFaculty.Levels != null)
+                foreach (var level in NewNameFaculty.Levels)
+                {
+                    level.TitleFaculty = NewNameFaculty.NameFaculty;
+                    if (level.Forms != null)
+                        foreach (var form in level.Forms)
+                        {
+                            form.TitleFaculty = NewNameFaculty.NameFaculty;
+                            if (form.TypeGroups != null)
+                                foreach (var typeGroup in form.TypeGroups)
+                                {
+                                    typeGroup.TitleFaculty = NewNameFaculty.NameFaculty;
+                                    if (typeGroup.Groups != null)
+                                        foreach (var group in typeGroup.Groups)
+                                        {
+                                            group.TitleFaculty = NewNameFaculty.NameFaculty;
+                                            if (group.Students != null)
+                                                foreach (var student in group.Students)
+                                                    student.TitleFaculty = NewNameFaculty.NameFaculty;
+                                        }
+                                }
+                        }
+                }
+        }
+
+
     }
 }

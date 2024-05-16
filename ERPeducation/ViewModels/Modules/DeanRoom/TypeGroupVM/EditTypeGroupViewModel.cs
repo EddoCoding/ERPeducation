@@ -39,12 +39,32 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.TypeGroupVM
         void Exit() => _closeWindow();
         void EditTypeGroup(TypeGroup typeGroup)
         {
+            if (NewNameTypeGroup.NameType == OldNameTypeGroup.NameType)
+            {
+                _closeWindow();
+                return;
+            }
+
             NewNameTypeGroup.Groups = typeGroup.Groups;
             NewNameTypeGroup.TitleFaculty = typeGroup.TitleFaculty;
             NewNameTypeGroup.TitleLevel = typeGroup.TitleLevel;
             NewNameTypeGroup.TitleForm = typeGroup.TitleForm;
+            EditNesting();
+
             _repository.EditTypeGroup(typeGroup, NewNameTypeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
+        }
+
+        void EditNesting()
+        {
+            if (NewNameTypeGroup.Groups != null)
+                foreach (var group in NewNameTypeGroup.Groups)
+                {
+                    group.TitleTypeGroup = NewNameTypeGroup.NameType;
+                    if (group.Students != null)
+                        foreach (var student in group.Students)
+                            student.TitleTypeGroup = NewNameTypeGroup.NameType;
+                }
         }
     }
 }

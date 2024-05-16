@@ -2,9 +2,9 @@
 {
     public class EducationEleven : EducationBase
     {
-        public string Code { get; set; } = "Код Eleven";
-        public string Series { get; set; } = "Серия Eleven";
-        public string Number { get; set; } = "Номер Eleven";
+        public string Code { get; set; } = string.Empty;
+        public string Series { get; set; } = string.Empty;
+        public string Number { get; set; } = string.Empty;
 
         public EducationEleven()
         {

@@ -3,6 +3,7 @@ using ERPeducation.ViewModels.Modules.DeanRoom.Repository;
 using ReactiveUI;
 using System.Reactive;
 using System;
+using System.Security.Cryptography;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
 {
@@ -46,6 +47,12 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.StudentVM
         void Exit() => _closeWindow();
         void EditStudent(Student student)
         {
+            if (NewStudent.SurName == OldStudent.SurName && NewStudent.Name == OldStudent.Name && NewStudent.MiddleName == OldStudent.MiddleName)
+            {
+                _closeWindow();
+                return;
+            }
+
             NewStudent.FullName = $"{NewStudent.SurName} {NewStudent.Name} {NewStudent.MiddleName}";
             student.FullName = $"{student.SurName} {student.Name} {student.MiddleName}";
             NewStudent.TitleFaculty = SelectedFaculty.NameFaculty;
