@@ -49,7 +49,12 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
 
             _closeWindow();
         }
-        void GenerationWeeks() => _settingShedule.GenerationWeekDataGrids();
+        void GenerationWeeks()
+        {
+            WeekDataGrids.Clear();
+            TimeSpan ts = SelectedSemester.ClassPeriodUpTo - SelectedSemester.ClassPeriodFrom;
+            _settingShedule.GenerationWeekDataGrids((int)Math.Ceiling(ts.TotalDays / 7));
+        }
         #endregion
     }
 }
