@@ -14,7 +14,7 @@ namespace ERPeducation.Models
 
 
         // -- Блок занятий --
-        public ObservableCollection<Discipline> Disciplines {  get; set; }
+        public ObservableCollection<Discipline> Disciplines { get; set; }
         public DateTime ClassPeriodFrom { get; set; }
         public DateTime ClassPeriodUpTo { get; set; }
         ObservableCollection<Coursework> сourseworks;

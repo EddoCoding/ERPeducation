@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 
 namespace ERPeducation.Models.TrainingDivision
 {

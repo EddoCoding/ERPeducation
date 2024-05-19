@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.TrainingDivision"
-        mc:Ignorable="d" Title="Настройка расписания" Height="450" Width="1200" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Настройка расписания" Height="800" Width="1400" FontFamily="Calibri">
     <Window.Resources>
         <Style x:Key="ComboBox" TargetType="ComboBox">
             <Setter Property="Template">
@@ -62,27 +62,62 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="Gray"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0,0,1,0" Width="Auto">
+                            <ContentPresenter Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="DataGrid">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="CanUserDeleteRows" Value="False"/>
             <Setter Property="CanUserAddRows" Value="False"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="Width" Value="Auto"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="DataGrid">
                         <StackPanel>
-                            <TextBlock Text="День недели"/>
-                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1,1,0,0">
+                            <TextBlock Text="Неделя"/>
+                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1,0,0,0" Width="Auto">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <DataGridColumnHeadersPresenter/>
+                                    <DataGridColumnHeadersPresenter Width="Auto"/>
 
                                     <ScrollViewer Grid.Row="1" x:Name="DG_ScrollViewer">
-                                        <ItemsPresenter />
+                                        <ItemsPresenter Width="Auto"/>
                                     </ScrollViewer>
                                     
                                 </Grid>
@@ -101,13 +136,23 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" Margin="10,5">
-                <TextBlock Text="Название:" FontWeight="Bold" FontSize="14"/>
-                <TextBlock Text="{Binding Schedule.TitleSchedule}" FontSize="14" Margin="5,0"/>
-            </StackPanel>
+            <Grid Margin="10,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Название:" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Schedule.TitleSchedule}" FontSize="14" Margin="5,0" VerticalAlignment="Center"/>
+                <Button Grid.Column="2" Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,0,10,0"
+                        Command="{Binding CloseWindowCommand}"/>
+                <Button Grid.Column="3" Content="Сохранить" Style="{StaticResource OkButton}" Margin="0,0,10,0"
+                        Command="{Binding SettingScheduleCommand}" CommandParameter="{Binding Schedule}"/>
+            </Grid>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0">
                 <TextBlock Text="Учебный план:" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
@@ -149,7 +194,7 @@
                 <StackPanel>
                     <TextBlock Text="Анализатор учебных предметов" Margin="10,0" FontSize="14" FontWeight="Bold"/>
                     <Button Content="Распределить предметы" Style="{StaticResource defaultButton}" HorizontalAlignment="Left"
-                            Command="{Binding GenerationWeeksCommand}"/>
+                            Command="{Binding DistributeSubjectCommand}"/>
                     <Border Margin="10,0" BorderBrush="Gray" BorderThickness="1">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Margin="5">
@@ -171,12 +216,10 @@
                             </StackPanel>
                             <StackPanel Margin="5">
                                 <TextBlock Text="Лекционные часы" FontSize="14"/>
-                                <ItemsControl ItemsSource="{Binding SelectedSemester.Disciplines}">
+                                <ItemsControl x:Name="Jopa1" ItemsSource="{Binding SelectedSemester.Disciplines}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                <TextBlock Text="{Binding LectureHours}" FontSize="13"/>
-                                                <TextBlock Text="/" FontSize="13"/>
                                                 <TextBlock Text="{Binding LectureHours}" FontSize="13"/>
                                             </StackPanel>
                                         </DataTemplate>
@@ -185,10 +228,22 @@
                             </StackPanel>
                             <StackPanel Margin="5">
                                 <TextBlock Text="Практические часы" FontSize="14"/>
+                                <ItemsControl x:Name="Jopa2" ItemsSource="{Binding SelectedSemester.Disciplines}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <TextBlock Text="{Binding PracticeHours}" FontSize="13" HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                            <StackPanel Margin="5">
+                                <TextBlock Text="Сумма часов" FontSize="14"/>
                                 <ItemsControl ItemsSource="{Binding SelectedSemester.Disciplines}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding PracticeHours}" FontSize="13" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding SumHours}" FontSize="13" HorizontalAlignment="Center"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
@@ -205,13 +260,6 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-
-            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Content="Отменить" Style="{StaticResource CancelButton}" Margin="0,0,10,10"
-                    Command="{Binding CloseWindowCommand}"/>
-                <Button Content="Сохранить" Style="{StaticResource OkButton}" Margin="0,0,10,10"
-                    Command="{Binding SettingScheduleCommand}" CommandParameter="{Binding Syllabus}"/>
-            </StackPanel>
 
         </Grid>
     </ScrollViewer>

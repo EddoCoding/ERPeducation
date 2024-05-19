@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using ERPeducation.Models.TrainingDivision;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 
 namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
@@ -7,5 +8,7 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
     {
         ObservableCollection<DataGrid> WeekDataGrids { get; set; }
         void GenerationWeekDataGrids(int countWeek);
+        void SaveSchedule(Schedule Schedule);
+        void GetInfoWeekDataGrids(Schedule schedule);
     }
 }

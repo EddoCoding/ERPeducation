@@ -11,16 +11,15 @@ using System.Windows.Controls;
 
 namespace ERPeducation.ViewModels.Modules.TrainingDivision
 {
-    public class SettingScheduleViewModel
+    public class SettingScheduleViewModel : ReactiveObject
     {
         public Schedule Schedule { get; set; }
         [Reactive] public Semestr SelectedSemester { get; set; }
-
         public ObservableCollection<DataGrid> WeekDataGrids { get; set; } = new();
 
         #region Команды
         public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> SettingScheduleCommand { get; set; }
+        public ReactiveCommand<Schedule, Unit> SettingScheduleCommand { get; set; }
         public ReactiveCommand<Unit, Unit> GenerationWeeksCommand { get; set; }
         #endregion
 
@@ -36,17 +35,18 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
             {
                 if (e.Action == NotifyCollectionChangedAction.Add) WeekDataGrids.Add(e.NewItems[0] as DataGrid);
             };
+            _settingShedule.GetInfoWeekDataGrids(Schedule);
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
-            SettingScheduleCommand = ReactiveCommand.Create(SettingSchedule);
+            SettingScheduleCommand = ReactiveCommand.Create<Schedule>(SettingSchedule);
             GenerationWeeksCommand = ReactiveCommand.Create(GenerationWeeks);
         }
 
         #region Методы
         void Exit() => _closeWindow();
-        void SettingSchedule()
+        void SettingSchedule(Schedule schedule)
         {
-
+            _settingShedule.SaveSchedule(schedule);
             _closeWindow();
         }
         void GenerationWeeks()

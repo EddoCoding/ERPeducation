@@ -1,7 +1,6 @@
 ﻿using ERPeducation.Models;
 using ERPeducation.Models.TrainingDivision;
 using ERPeducation.ViewModels.Modules.TrainingDivision.Repository;
-using ERPeducation.ViewModels.Modules.TrainingDivision.ScheduleVM;
 using ERPeducation.ViewModels.Modules.TrainingDivision.Service;
 using ReactiveUI;
 using System.Collections.ObjectModel;
