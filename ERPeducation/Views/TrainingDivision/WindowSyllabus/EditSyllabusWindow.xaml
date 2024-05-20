@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ERPeducation.Views.TrainingDivision.WindowSyllabus"
-            mc:Ignorable="d" Title="Создание учебного плана" Height="180" Width="600" FontFamily="Calibri">
+        mc:Ignorable="d" Title="Создание учебного плана" Height="180" Width="600" FontFamily="Calibri">
 
     <Grid>
         <Grid.RowDefinitions>

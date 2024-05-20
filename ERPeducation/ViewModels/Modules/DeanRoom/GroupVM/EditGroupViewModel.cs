@@ -7,6 +7,7 @@ using ERPeducation.Models;
 using ReactiveUI.Fody.Helpers;
 using System.Collections.Generic;
 using ERPeducation.ViewModels.Modules.TrainingDivision.Service;
+using ERPeducation.Models.TrainingDivision;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
 {
@@ -26,6 +27,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<Group, Unit> EditGroupCommand { get; set; }
         public ReactiveCommand<Syllabus, Unit> ShowInfoSyllabusCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> AcademicPerformanceCommand { get; set; }
 
         Action _closeWindow;
 
@@ -50,6 +52,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             EditGroupCommand = ReactiveCommand.Create<Group>(EditGroup);
             ShowInfoSyllabusCommand = ReactiveCommand.Create<Syllabus>(ShowInfoSllabus);
+            AcademicPerformanceCommand = ReactiveCommand.Create(ShowAcademicPerformance);
         }
 
         void Exit() => _closeWindow();
@@ -87,5 +90,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
             ISyllabusService service = new SyllabusService();
             service.OpenWindowShowSyllalbus(syllabus, OldGroup);
         }
+        void ShowAcademicPerformance() { }
     }
 }

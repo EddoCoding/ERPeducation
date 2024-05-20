@@ -6,6 +6,7 @@ namespace ERPeducation.Models.TrainingDivision
     public class Schedule
     {
         public string TitleSchedule { get; set; } = string.Empty;
-        public Syllabus Syllabus { get; set; }
+        public string TitleSyllabus { get; set; } = string.Empty;
+        public Semestr Semestr { get; set; } = new();
     }
 }

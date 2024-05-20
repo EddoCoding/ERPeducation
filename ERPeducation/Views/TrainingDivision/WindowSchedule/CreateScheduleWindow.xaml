@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ERPeducation.Views.TrainingDivision.WindowSchedule"
         mc:Ignorable="d" Title="Создание расписания" Height="200" Width="600" FontFamily="Calibri">
     <Window.Resources>
-        <Style x:Key="ComboBox" TargetType="ComboBox">
+        <Style x:Key="ComboBoxSyllabus" TargetType="ComboBox">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
@@ -44,7 +44,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="ComboBoxItem" TargetType="ComboBoxItem">
+        <Style x:Key="ComboBoxItemSyllabus" TargetType="ComboBoxItem">
             <Setter Property="FontFamily" Value="Calibri"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Template">
@@ -52,6 +52,62 @@
                     <ControlTemplate TargetType="ComboBoxItem">
                         <Border Background="White">
                             <ContentPresenter Content="{Binding TitleSyllabus}" Margin="3"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxSchedule" TargetType="ComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <StackPanel>
+                            <ToggleButton x:Name="togglebutton" Content="{Binding SelectedSemestr.NumberSemestr}" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, 
+                                RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" MinWidth="60" HorizontalAlignment="Left">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                            </Border>
+                                            <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="WhiteSmoke"/>
+                                                <Setter TargetName="Arrow" Property="Fill" Value="DarkCyan"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup x:Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" 
+                                   Focusable="True" PopupAnimation="Slide" MinWidth="60">
+                                <Border x:Name="DropDown" MinWidth="60" MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                        SnapsToDevicePixels="True" BorderBrush="Gray" BorderThickness="1">
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ComboBoxItemSchedule" TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="White">
+                            <ContentPresenter Content="{Binding NumberSemestr}" Margin="3"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -77,10 +133,17 @@
             <TextBlock Text="Например: Расписание для группы ПИ2" Foreground="Gray"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Margin="10,10,10,0">
-            <TextBlock Text="Выберите учебный план" FontWeight="Bold" FontSize="14"/>
-            <ComboBox Style="{StaticResource ComboBox}" ItemContainerStyle="{StaticResource ComboBoxItem}" 
-                      ItemsSource="{Binding Syllabus}" SelectedItem="{Binding SelectedSyllabus}"/>
+        <StackPanel  Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Margin="10,10,10,0">
+                <TextBlock Text="Выберите учебный план" FontWeight="Bold" FontSize="14"/>
+                <ComboBox Style="{StaticResource ComboBoxSyllabus}" ItemContainerStyle="{StaticResource ComboBoxItemSyllabus}" 
+                          ItemsSource="{Binding Syllabus}" SelectedItem="{Binding SelectedSyllabus}"/>
+            </StackPanel>
+            <StackPanel Margin="10,10,10,0">
+                <TextBlock Text="Выберите семестр" FontWeight="Bold" FontSize="14"/>
+                <ComboBox Style="{StaticResource ComboBoxSchedule}" ItemContainerStyle="{StaticResource ComboBoxItemSchedule}"
+                    ItemsSource="{Binding Semesters}" SelectedItem="{Binding SelectedSemestr}"/>
+            </StackPanel>
         </StackPanel>
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">

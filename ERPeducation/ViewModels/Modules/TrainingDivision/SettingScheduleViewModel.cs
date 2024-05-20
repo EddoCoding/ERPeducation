@@ -1,5 +1,4 @@
-﻿using ERPeducation.Models;
-using ERPeducation.Models.TrainingDivision;
+﻿using ERPeducation.Models.TrainingDivision;
 using ERPeducation.ViewModels.Modules.TrainingDivision.Repository;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -7,21 +6,23 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ERPeducation.ViewModels.Modules.TrainingDivision
 {
     public class SettingScheduleViewModel : ReactiveObject
     {
+        #region
+        //public Schedule Schedule { get; set; }
+        //[Reactive] public Semestr SelectedSemester { get; set; }
+        //public ObservableCollection<DataGrid> WeekDataGrids { get; set; } = new();
+        #endregion
+        
         public Schedule Schedule { get; set; }
-        [Reactive] public Semestr SelectedSemester { get; set; }
         public ObservableCollection<DataGrid> WeekDataGrids { get; set; } = new();
 
-        #region Команды
-        public ReactiveCommand<Unit,Unit> CloseWindowCommand { get; set; }
-        public ReactiveCommand<Schedule, Unit> SettingScheduleCommand { get; set; }
-        public ReactiveCommand<Unit, Unit> GenerationWeeksCommand { get; set; }
-        #endregion
+        [Reactive] public int Count { get; set; }
 
         Action _closeWindow;
 
@@ -42,6 +43,10 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
             GenerationWeeksCommand = ReactiveCommand.Create(GenerationWeeks);
         }
 
+        public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
+        public ReactiveCommand<Schedule, Unit> SettingScheduleCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> GenerationWeeksCommand { get; set; }
+
         #region Методы
         void Exit() => _closeWindow();
         void SettingSchedule(Schedule schedule)
@@ -52,7 +57,7 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision
         void GenerationWeeks()
         {
             WeekDataGrids.Clear();
-            TimeSpan ts = SelectedSemester.ClassPeriodUpTo - SelectedSemester.ClassPeriodFrom;
+            TimeSpan ts = Schedule.Semestr.ClassPeriodUpTo - Schedule.Semestr.ClassPeriodFrom;
             _settingShedule.GenerationWeekDataGrids((int)Math.Ceiling(ts.TotalDays / 7));
         }
         #endregion

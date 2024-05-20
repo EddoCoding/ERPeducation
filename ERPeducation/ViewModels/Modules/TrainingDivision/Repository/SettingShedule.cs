@@ -11,11 +11,11 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
 {
     public class SettingShedule : ISettingSchedule
     {
-        List<DayOfTheWeek> GetPoints()
+        List<DayOfTheWeek> GetWeeks()
         {
-            List<DayOfTheWeek> list = new List<DayOfTheWeek>();
-            for (int i = 0; i < 8; i++) list.Add(new DayOfTheWeek());
-            return list;
+            List<DayOfTheWeek> weeks = new List<DayOfTheWeek>();
+            for (int i = 0; i < 8; i++) weeks.Add(new DayOfTheWeek());
+            return weeks;
         } //Сделать получение количества предметов из статической переменной
 
         public ObservableCollection<DataGrid> WeekDataGrids { get; set; } = new();
@@ -24,7 +24,7 @@ namespace ERPeducation.ViewModels.Modules.TrainingDivision.Repository
             WeekDataGrids.Clear();
             for(int i = 0; i < countWeek; i++) WeekDataGrids.Add(new DataGrid()
             {
-                ItemsSource = new ObservableCollection<DayOfTheWeek>(GetPoints())
+                ItemsSource = new ObservableCollection<DayOfTheWeek>(GetWeeks())
             });
         }
         public void SaveSchedule(Schedule schedule)
