@@ -5,6 +5,7 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom
 {
@@ -138,6 +139,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         public ReactiveCommand<Student, Unit> DelStudentCommand { get; set; }
         #endregion
 
+        public ReactiveCommand<Student, Unit> ShowStudentProfileCommand { get; set; }
+
         IDeanRoomService _service;
         IDeanRoomRepository _repository;
         public DeanRoomViewModel(IDeanRoomService service, IDeanRoomRepository repository)
@@ -213,6 +216,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
             DelGroupCommand = ReactiveCommand.Create<Group>(DelGroup);
             DelStudentCommand = ReactiveCommand.Create<Student>(DelStudent);
             #endregion
+
+            ShowStudentProfileCommand = ReactiveCommand.Create<Student>(ShowStudentProfile);
         }
 
         #region Методы добавления
@@ -259,5 +264,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
         void DelGroup(Group group) => _repository.DeleteGroup(group, _typeGroup, _form, _level, _faculty);
         void DelStudent(Student student) => _repository.DeleteStudent(student, _group, _typeGroup, _form, _level, _faculty);
         #endregion
+
+        void ShowStudentProfile(Student student) => _service.OpenWindowStudentProfile(student);
     }
 }

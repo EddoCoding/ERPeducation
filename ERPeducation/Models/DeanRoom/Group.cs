@@ -14,7 +14,6 @@ namespace ERPeducation.Models.DeanRoom
         public string Direction { get; set; }
         public List<Student> Students { get; set; }
         public Syllabus Syllabus { get; set; }
-        public Performance Performance { get; set; }
 
         public Group() => Students = new List<Student>();
     }

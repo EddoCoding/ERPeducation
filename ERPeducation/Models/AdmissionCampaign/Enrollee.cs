@@ -12,6 +12,7 @@ namespace ERPeducation.Models.AdmissionCampaign
     [JsonObject]
     public class Enrollee : ReactiveObject
     {
+        // -- Личная информация --
         [Reactive] public string SurName { get; set; } = string.Empty;        // -- Фамилия --
         [Reactive] public string Name { get; set; } = string.Empty;           // -- Имя --
         [Reactive] public string MiddleName { get; set; } = string.Empty;     // -- Отчество --
@@ -19,7 +20,14 @@ namespace ERPeducation.Models.AdmissionCampaign
         [Reactive] public DateTime DateOfBirth { get; set; }                  // -- Дата рождения --
         [Reactive] public string Citizenship { get; set; } = string.Empty;    // -- Гражданство --
         [Reactive] public DateTime DateCitizenship { get; set; }              // -- Действует до --
-        
+
+        // -- Контактная информация --
+        [Reactive] public string ResidenceAddress { get; set; } = string.Empty;
+        [Reactive] public string RegistrationAddress { get; set; } = string.Empty;
+        [Reactive] public string HomePhone { get; set; } = string.Empty;
+        [Reactive] public string MobilePhone { get; set; } = string.Empty;
+
+
         ObservableCollection<DocumentBase> _documents;
         public ObservableCollection<DocumentBase> Documents
         {

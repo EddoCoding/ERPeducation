@@ -114,11 +114,21 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Service
             editStudentWindow.ShowDialog();
         }
 
+
         // -- Открытие окна добавления абитуриента
         public void OpenWindowAddEnrollee(Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty, IDeanRoomRepository deanRoomRepository)
         {
             AddEnrolleeGroupWindow window = new AddEnrolleeGroupWindow();
             window.DataContext = new AddEnrolleeGroupViewModel(group, typeGroup, form, level, faculty, deanRoomRepository, window.Close);
+            window.ShowDialog();
+        }
+
+
+        // -- Открытие окна профиля студента
+        public void OpenWindowStudentProfile(Student student)
+        {
+            ShowStudentProfileWindow window = new ShowStudentProfileWindow();
+            window.DataContext = new ShowStudentProfileViewModel(student, window.Close);
             window.ShowDialog();
         }
     }

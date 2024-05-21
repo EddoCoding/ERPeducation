@@ -305,7 +305,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             string json = JsonConvert.SerializeObject(faculty, new JsonSerializerSettings
             {
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
+                TypeNameHandling = TypeNameHandling.All
             });
             File.WriteAllText(Path.Combine(FileServer.DeanRoomData, $"{faculty.NameFaculty}.json"), json);
         }

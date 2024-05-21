@@ -1,4 +1,5 @@
-﻿using ERPeducation.Common.BD;
+﻿using DynamicData;
+using ERPeducation.Common.BD;
 using ERPeducation.Models.AdmissionCampaign;
 using ERPeducation.Models.DeanRoom;
 using ERPeducation.ViewModels.Modules.DeanRoom.Repository;
@@ -8,7 +9,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Reactive;
-using System.Windows.Forms;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.EnrolleeVM
 {
@@ -50,16 +50,33 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.EnrolleeVM
         void AddEnrollee(Enrollee enrollee)
         {
             Student student = new();
+            #region Личная информация
             student.SurName = enrollee.SurName;
             student.Name = enrollee.Name;
             student.MiddleName = enrollee.MiddleName;
             student.FullName = $"{enrollee.SurName} {enrollee.Name} {enrollee.MiddleName}";
+            student.Gender = enrollee.Gender;
+            student.DateOfBirth = enrollee.DateOfBirth;
+            student.Citizenship = enrollee.Citizenship;
+            student.DateCitizenship = enrollee.DateCitizenship;
+            #endregion
+            #region Контактная информация
+            student.ResidenceAddress = enrollee.ResidenceAddress;
+            student.RegistrationAddress = enrollee.RegistrationAddress;
+            student.HomePhone = enrollee.HomePhone;
+            student.MobilePhone = enrollee.MobilePhone;
+            #endregion
+
+            student.Documents = enrollee.Documents;
+
+            #region Учебная структура
             student.TitleFaculty = enrollee.SelectedDirection.NameFaculty;
             student.TitleLevel = enrollee.SelectedDirection.NameLevel;
             student.TitleForm = enrollee.SelectedDirection.NameForm;
             student.TitleTypeGroup = enrollee.SelectedDirection.NameType;
             student.TitleGroup = enrollee.SelectedDirection.NameGroup;
             student.TitleDirection = enrollee.SelectedDirection.NameDirection;
+            #endregion
 
             _deanRoomRepository.CreateStudent(student, Group, _typeGroup, _form, _level, _faculty);
             if (File.Exists(Path.Combine(FileServer.Enrollees, $"{enrollee.SurName}{enrollee.Name}{enrollee.MiddleName}.json")))

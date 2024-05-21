@@ -28,6 +28,7 @@
     <None Remove="Common\Image\rector.png" />
     <None Remove="Common\Image\search.png" />
     <None Remove="Common\Image\settingSyllabus.png" />
+    <None Remove="Common\Image\studentProfile.png" />
     <None Remove="Common\Image\syllabus.png" />
     <None Remove="Common\Image\teacher.png" />
     <None Remove="Common\Image\trainingDivision.png" />
@@ -101,6 +102,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\search.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Common\Image\studentProfile.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Common\Image\syllabus.png">

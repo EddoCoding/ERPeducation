@@ -281,13 +281,17 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
                                 <ContentPresenter Content="{Binding FullName}" Margin="3"/>
-                                <Button Grid.Column="1" Content="/Common/Image/editStudent.png" Style="{StaticResource ImageButton}"
+                                <Button Grid.Column="1" Content="/Common/Image/studentProfile.png" Style="{StaticResource ImageButton}"
+                                        HorizontalAlignment="Right" Margin="0,0,5,0" ToolTip="Профиль студента"
+                                        Command="{Binding DataContext.ShowStudentProfileCommand, ElementName=Students}" CommandParameter="{Binding}"/>
+                                <Button Grid.Column="2" Content="/Common/Image/editStudent.png" Style="{StaticResource ImageButton}"
                                         HorizontalAlignment="Right" Margin="0,0,5,0" ToolTip="Изменить студента"
                                         Command="{Binding DataContext.EditStudentCommand, ElementName=Students}" CommandParameter="{Binding}"/>
-                                <Button Grid.Column="2" Content="/Common/Image/deductstudent.png" Style="{StaticResource ImageButton}"
+                                <Button Grid.Column="3" Content="/Common/Image/deductstudent.png" Style="{StaticResource ImageButton}"
                                         HorizontalAlignment="Right" Margin="0,0,5,0" ToolTip="Отчислить студента"
                                         Command="{Binding DataContext.DelStudentCommand, ElementName=Students}" CommandParameter="{Binding}"/>
                             </Grid>
