@@ -1,6 +1,7 @@
 ﻿using ERPeducation.Common.BD;
 using ERPeducation.Models;
 using ERPeducation.Models.DeanRoom;
+using ERPeducation.Models.TrainingDivision;
 using Newtonsoft.Json;
 using ReactiveUI;
 using System.Collections.Generic;
@@ -97,6 +98,19 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
                     syllabus.Add(syllabusItem);
                 }
             return syllabus;
+        }
+        public IEnumerable<Schedule> GetSchedule()
+        {
+            ICollection<Schedule> schedule = new List<Schedule>();
+            var files = Directory.GetFiles(FileServer.Schedule, "*.json");
+            if (files.Length > 0)
+                foreach (var file in files)
+                {
+                    var json = File.ReadAllText(file);
+                    var scheduleItem = JsonConvert.DeserializeObject<Schedule>(json);
+                    schedule.Add(scheduleItem);
+                }
+            return schedule;
         }
 
         public void CreateFaculty(Faculty faculty)

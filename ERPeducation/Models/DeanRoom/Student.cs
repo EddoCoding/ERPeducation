@@ -1,5 +1,4 @@
-﻿using ERPeducation.Models.AdmissionCampaign.Educations;
-using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
+﻿using ERPeducation.ViewModels.Modules.AdmissionCampaign.Documents;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;

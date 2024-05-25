@@ -109,12 +109,16 @@
         <StackPanel Grid.Row="5">
 
             <Label Content="Выберете учебный план" Style="{StaticResource Label}"/>
-            
-            <ComboBox Style="{StaticResource ComboBoxGender}" ItemContainerStyle="{StaticResource ComboBoxItem}" Margin="10,0,10,0"
-                          ItemsSource="{Binding Syllabus}" SelectedItem="{Binding SelectedSyllabus}"/>
-            
-            <Button Content="Учебный план" Style="{StaticResource defaultButton}" VerticalAlignment="Center" Margin="0,10,0,5" HorizontalAlignment="Left"
-                    Command="{Binding ShowInfoSyllabusCommand}" CommandParameter="{Binding SelectedSyllabus}"/>
+
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Style="{StaticResource ComboBoxGender}" ItemContainerStyle="{StaticResource ComboBoxItem}" Margin="10,0,0,0"
+                              ItemsSource="{Binding Syllabus}" SelectedItem="{Binding SelectedSyllabus}"/>
+                <Button Content="Учебный план" Style="{StaticResource defaultButton}" VerticalAlignment="Center" HorizontalAlignment="Left"
+                        Command="{Binding ShowInfoSyllabusCommand}" CommandParameter="{Binding SelectedSyllabus}"/>
+            </StackPanel>
+
+            <Button Content="Расписание" Style="{StaticResource defaultButton}" VerticalAlignment="Center" Margin="0,10,0,5" HorizontalAlignment="Left"
+                    Command="{Binding ShowInfoScheduleCommand}"/>
 
             <Button Content="Успеваемость" Style="{StaticResource defaultButton}" VerticalAlignment="Center" HorizontalAlignment="Left"
                     Command="{Binding AcademicPerformanceCommand}"/>

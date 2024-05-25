@@ -1,13 +1,16 @@
-﻿using ERPeducation.Models.DeanRoom;
+﻿using ERPeducation.Models;
+using ERPeducation.Models.DeanRoom;
 using ERPeducation.ViewModels.Modules.DeanRoom.Repository;
-using ReactiveUI;
-using System.Reactive;
-using System;
-using ERPeducation.Models;
-using ReactiveUI.Fody.Helpers;
-using System.Collections.Generic;
+using ERPeducation.ViewModels.Modules.TrainingDivision.ScheduleVM;
 using ERPeducation.ViewModels.Modules.TrainingDivision.Service;
-using ERPeducation.Models.TrainingDivision;
+using ERPeducation.Views.TrainingDivision;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Reactive;
+using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
 {
@@ -24,15 +27,19 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         public ICollection<Syllabus> Syllabus { get; set; } = new List<Syllabus>();
         [Reactive] public Syllabus SelectedSyllabus { get; set; }
 
+        #region Команды
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
         public ReactiveCommand<Group, Unit> EditGroupCommand { get; set; }
         public ReactiveCommand<Syllabus, Unit> ShowInfoSyllabusCommand { get; set; }
+        public ReactiveCommand<Unit, Unit> ShowInfoScheduleCommand { get; set; }
         public ReactiveCommand<Unit, Unit> AcademicPerformanceCommand { get; set; }
+        #endregion
 
         Action _closeWindow;
 
         IDeanRoomRepository _repository;
-        public EditGroupViewModel(IDeanRoomRepository repository, Group group, TypeGroup typeGroup, FormsOfTraining selectedForm, LvlOfTraining selectedLevel, Faculty selectedFaculty, Action closeWindow)
+        public EditGroupViewModel(IDeanRoomRepository repository, Group group, TypeGroup typeGroup, FormsOfTraining selectedForm, 
+               LvlOfTraining selectedLevel, Faculty selectedFaculty, Action closeWindow)
         {
             _repository = repository;
             OldGroup = group;
@@ -51,7 +58,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             EditGroupCommand = ReactiveCommand.Create<Group>(EditGroup);
-            ShowInfoSyllabusCommand = ReactiveCommand.Create<Syllabus>(ShowInfoSllabus);
+            ShowInfoSyllabusCommand = ReactiveCommand.Create<Syllabus>(ShowInfoSyllabus);
+            ShowInfoScheduleCommand = ReactiveCommand.Create(ShowInfoSchedule);
             AcademicPerformanceCommand = ReactiveCommand.Create(ShowAcademicPerformance);
         }
 
@@ -85,11 +93,17 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
                 }
         }
 
-        void ShowInfoSllabus(Syllabus syllabus)
+        void ShowInfoSyllabus(Syllabus syllabus)
         {
             ISyllabusService service = new SyllabusService();
             service.OpenWindowShowSyllalbus(syllabus, OldGroup);
         }
+        void ShowInfoSchedule()
+        {
+            ShowScheduleWindow windowSchedule = new();
+            windowSchedule.DataContext = new ShowScheduleViewModel(OldGroup.Schedule, windowSchedule.Close);
+            windowSchedule.ShowDialog();
+        } //-- Вынести окно в сервис --
         void ShowAcademicPerformance() { }
     }
 }

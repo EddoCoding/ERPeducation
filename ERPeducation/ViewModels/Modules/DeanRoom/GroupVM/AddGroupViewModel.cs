@@ -7,6 +7,7 @@ using System.Collections;
 using ERPeducation.Models;
 using System.Collections.Generic;
 using ReactiveUI.Fody.Helpers;
+using ERPeducation.Models.TrainingDivision;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
 {
@@ -21,6 +22,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
 
         public ICollection<Syllabus> Syllabus { get; set; } = new List<Syllabus>();
         [Reactive] public Syllabus SelectedSyllabus { get; set; }
+        public ICollection<Schedule> Schedule { get; set; } = new List<Schedule>();
+        [Reactive] public Schedule SelectedSchedule { get; set; }
 
 
         public ReactiveCommand<Unit, Unit> CloseWindowCommand { get; set; }
@@ -29,7 +32,8 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
         Action _closeWindow;
 
         IDeanRoomRepository _repository;
-        public AddGroupViewModel(IDeanRoomRepository repository, TypeGroup typeGroup, FormsOfTraining selectedForm, LvlOfTraining selectedLevel, Faculty selectedFaculty, Action closeWindow)
+        public AddGroupViewModel(IDeanRoomRepository repository, TypeGroup typeGroup, FormsOfTraining selectedForm, 
+               LvlOfTraining selectedLevel, Faculty selectedFaculty, Action closeWindow)
         {
             _repository = repository;
             SelectedForm = selectedForm;
@@ -39,6 +43,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
             _closeWindow = closeWindow;
 
             foreach (var syllabus in repository.GetSyllabus()) Syllabus.Add(syllabus);
+            foreach (var schedule in repository.GetSchedule()) Schedule.Add(schedule);
 
             CloseWindowCommand = ReactiveCommand.Create(Exit);
             AddGroupCommand = ReactiveCommand.Create<Group>(AddGroup);
@@ -52,6 +57,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
             group.TitleForm = SelectedForm.NameForm;
             group.TitleTypeGroup = SelectedTypeGroup.NameType;
             group.Syllabus = SelectedSyllabus;
+            group.Schedule = SelectedSchedule.TitleSchedule;
             _repository.CreateGroup(group, SelectedTypeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();
         }

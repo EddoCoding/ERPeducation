@@ -6,19 +6,12 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace ERPeducation.ViewModels.Modules.TrainingDivision
 {
     public class SettingScheduleViewModel : ReactiveObject
     {
-        #region
-        //public Schedule Schedule { get; set; }
-        //[Reactive] public Semestr SelectedSemester { get; set; }
-        //public ObservableCollection<DataGrid> WeekDataGrids { get; set; } = new();
-        #endregion
-        
         public Schedule Schedule { get; set; }
         public ObservableCollection<DataGrid> WeekDataGrids { get; set; } = new();
 

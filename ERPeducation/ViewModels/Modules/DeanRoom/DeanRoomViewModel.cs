@@ -5,7 +5,6 @@ using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reactive;
-using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.DeanRoom
 {
