@@ -12,44 +12,47 @@ namespace ERPeducation.Models.AdmissionCampaign
     [JsonObject]
     public class Enrollee : ReactiveObject
     {
-        // -- Личная информация --
-        [Reactive] public string SurName { get; set; } = string.Empty;        // -- Фамилия --
-        [Reactive] public string Name { get; set; } = string.Empty;           // -- Имя --
-        [Reactive] public string MiddleName { get; set; } = string.Empty;     // -- Отчество --
-        [Reactive] public string Gender { get; set; } = string.Empty;         // -- Пол --
-        [Reactive] public DateTime DateOfBirth { get; set; }                  // -- Дата рождения --
-        [Reactive] public string Citizenship { get; set; } = string.Empty;    // -- Гражданство --
-        [Reactive] public DateTime DateCitizenship { get; set; }              // -- Действует до --
+        // -- Блок личной информации --
+        [Reactive] public string SurName { get; set; } = string.Empty;       
+        [Reactive] public string Name { get; set; } = string.Empty;          
+        [Reactive] public string MiddleName { get; set; } = string.Empty;    
+        [Reactive] public string Gender { get; set; } = string.Empty;        
+        [Reactive] public DateTime DateOfBirth { get; set; }                 
+        [Reactive] public string Citizenship { get; set; } = string.Empty;   
+        [Reactive] public DateTime DateCitizenship { get; set; }             
 
-        // -- Контактная информация --
+        // -- Блок контактной информации --
         [Reactive] public string ResidenceAddress { get; set; } = string.Empty;
         [Reactive] public string RegistrationAddress { get; set; } = string.Empty;
         [Reactive] public string HomePhone { get; set; } = string.Empty;
         [Reactive] public string MobilePhone { get; set; } = string.Empty;
 
-
+        // -- Коллекция персональных документов --
         ObservableCollection<DocumentBase> _documents;
         public ObservableCollection<DocumentBase> Documents
         {
             get => _documents;
             set => this.RaiseAndSetIfChanged(ref _documents, value);
-        }                // -- Коллекция персональных документов --
+        }
 
+        // -- Коллекция документов об образовании --
         ObservableCollection<EducationBase> _educations;
         public ObservableCollection<EducationBase> Educations
         {
             get => _educations;
             set => this.RaiseAndSetIfChanged(ref _educations, value);
-        }              // -- Коллекция документов об образовании --
+        }
 
+        // -- Коллекция выбранных направлений подготовки --
         ObservableCollection<DirectionOfAdmission> _directions;
         public ObservableCollection<DirectionOfAdmission> Directions
         {
             get => _directions;
             set => this.RaiseAndSetIfChanged(ref _directions, value);
-        }       // -- Коллекция выбранных направлений подготовки --
+        }
 
-        public DirectionOfAdmission SelectedDirection => Directions[0];       // -- Выбранное направление --
+        // -- Выбранное направление --
+        public DirectionOfAdmission SelectedDirection => Directions[0];       
 
         public Enrollee()
         {

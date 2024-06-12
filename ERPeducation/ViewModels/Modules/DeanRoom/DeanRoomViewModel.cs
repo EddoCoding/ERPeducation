@@ -11,12 +11,12 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom
     public class DeanRoomViewModel : ReactiveObject
     {
         #region Коллекции
-        public ObservableCollection<Faculty>? Faculties { get; set; }               // -- Факультеты --
-        public ObservableCollection<LvlOfTraining>? Lvl { get; set; }               // -- Уровни --
-        public ObservableCollection<FormsOfTraining>? Forms { get; set; }           // -- Формы --
-        public ObservableCollection<TypeGroup>? TypeGroups { get; set; }            // -- Тип групп --
-        public ObservableCollection<Group>? Groups { get; set; }                    // -- Группы --
-        public ObservableCollection<Student>? Students { get; set; }                // -- Студенты --
+        public ObservableCollection<Faculty>? Faculties { get; set; }               
+        public ObservableCollection<LvlOfTraining>? Lvl { get; set; }               
+        public ObservableCollection<FormsOfTraining>? Forms { get; set; }           
+        public ObservableCollection<TypeGroup>? TypeGroups { get; set; }            
+        public ObservableCollection<Group>? Groups { get; set; }                    
+        public ObservableCollection<Student>? Students { get; set; }                
         #endregion
         #region Свойства выбранных элементов
         Faculty _faculty;

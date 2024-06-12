@@ -13,24 +13,22 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
     {
         public Enrollee Enrollee { get; set; } = new();
 
-        //Добавить логику для радиобатонов
-
         #region Команды документов
-        public ReactiveCommand<string,Unit> AddDocumentCommand { get; set; }                // --- Добавление документа ---
-        public ReactiveCommand<DocumentBase, Unit> EditDocumentCommand { get; set; }        // --- Изменение документа ---
-        public ReactiveCommand<DocumentBase, Unit> DelDocumentCommand { get; set; }         // --- Удаление документа ---
-        #endregion
-        #region Команды образования
-        public ReactiveCommand<string, Unit> AddEducationCommand { get; set; }              // --- Добавление образования ---
-        public ReactiveCommand<EducationBase, Unit> EditEducationCommand { get; set; }      // --- Изменение образования ---
-        public ReactiveCommand<EducationBase, Unit> DelEducationCommand { get; set; }       // --- Удаление образования ---
+        public ReactiveCommand<string,Unit> AddDocumentCommand { get; set; }                              // --- Добавление документа ---
+        public ReactiveCommand<DocumentBase, Unit> EditDocumentCommand { get; set; }                      // --- Изменение документа ---
+        public ReactiveCommand<DocumentBase, Unit> DelDocumentCommand { get; set; }                       // --- Удаление документа ---
+        #endregion                                                                                        
+        #region Команды образования                                                                       
+        public ReactiveCommand<string, Unit> AddEducationCommand { get; set; }                            // --- Добавление образования ---
+        public ReactiveCommand<EducationBase, Unit> EditEducationCommand { get; set; }                    // --- Изменение образования ---
+        public ReactiveCommand<EducationBase, Unit> DelEducationCommand { get; set; }                     // --- Удаление образования ---
         #endregion
         #region Команды направления
         public ReactiveCommand<Unit, Unit> AddDirectionCommand { get; set; }                              // --- Добавление направления ---
         public ReactiveCommand<DirectionOfAdmission, Unit> DeleteDirectionCommand { get; set; }           // --- Удаление направления ---
         #endregion
         #region Команда добавления абитуриента
-        public ReactiveCommand<Enrollee, Unit> AddEnrolleeCommand { get; set; }                  // --- Добавление абитуриента ---
+        public ReactiveCommand<Enrollee, Unit> AddEnrolleeCommand { get; set; }                           // --- Добавление абитуриента ---
         #endregion
 
         IAdmissionRepository _admissionRepository;

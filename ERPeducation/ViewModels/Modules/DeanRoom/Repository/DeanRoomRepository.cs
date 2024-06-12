@@ -17,7 +17,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _faculties;
             set => this.RaiseAndSetIfChanged(ref _faculties, value);
-        }           //Факультеты
+        }          
 
 
         ObservableCollection<LvlOfTraining> _levels;
@@ -25,7 +25,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _levels;
             set => this.RaiseAndSetIfChanged(ref _levels, value);
-        }        //Уровни подготовки
+        }       
 
 
         ObservableCollection<FormsOfTraining> _forms;
@@ -33,7 +33,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _forms;
             set => this.RaiseAndSetIfChanged(ref _forms, value);
-        }       //Формы подготовки
+        }      
 
 
         ObservableCollection<TypeGroup> _types;
@@ -41,7 +41,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _types;
             set => this.RaiseAndSetIfChanged(ref _types, value);
-        }             //Типы групп
+        }            
 
 
         ObservableCollection<Group> _groups;
@@ -49,7 +49,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _groups;
             set => this.RaiseAndSetIfChanged(ref _groups, value);
-        }                //Учебные группы
+        }               
 
 
         ObservableCollection<Student> _students;
@@ -57,7 +57,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
         {
             get => _students;
             set => this.RaiseAndSetIfChanged(ref _students, value);
-        }            //Студенты
+        }           
 
         public DeanRoomRepository() 
         {
@@ -84,7 +84,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
                 }
 
             return faculties;
-        } //Десериализация факультетов -- чтобы можно было их выбрать изначально --
+        }
 
         public IEnumerable<Syllabus> GetSyllabus() 
         {
@@ -159,7 +159,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
             _levels.Remove(level);
         }
 
-
         public void CreateForm(FormsOfTraining form, LvlOfTraining level, Faculty faculty)
         {
             foreach(var levelItem in faculty.Levels)
@@ -186,7 +185,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
             }                                                                         
             _forms.Remove(form);                                                                               
         }
-
 
         public void CreateTypeGroup(TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
         {
@@ -216,7 +214,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
             }
             _types.Remove(typeGroup);
         }
-
 
         public void CreateGroup(Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
         {
@@ -248,7 +245,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
             }
             _groups.Remove(group);
         }
-
 
         public void CreateStudent(Student student, Group group, TypeGroup typeGroup, FormsOfTraining form, LvlOfTraining level, Faculty faculty)
         {
@@ -282,7 +278,6 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.Repository
             }
             _students.Remove(student);
         }
-
 
         public void SelectedFaculty(Faculty faculty)
         {

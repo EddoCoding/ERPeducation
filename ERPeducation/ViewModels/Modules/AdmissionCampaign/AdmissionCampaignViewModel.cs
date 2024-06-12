@@ -28,7 +28,7 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         public ReactiveCommand<Enrollee, Unit> EditEnrolleeCommand { get; set; }
         public ReactiveCommand<Enrollee, Unit> DelEnrolleeCommand { get; set; }
         public ReactiveCommand<Enrollee, Unit> InputDataTestCommand { get; set; }
-        public ReactiveCommand<Unit,Unit> PrintDocumentCommand { get; set; } //Сделать потом
+        public ReactiveCommand<Unit,Unit> PrintDocumentCommand { get; set; }
         #endregion
 
         IAdmissionRepository _repository;
