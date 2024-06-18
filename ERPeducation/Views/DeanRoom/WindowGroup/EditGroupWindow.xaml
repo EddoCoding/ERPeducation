@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ERPeducation.Views.DeanRoom.WindowGroup"
         mc:Ignorable="d" Title="Изменить группу" Height="340" Width="700" FontFamily="Calibri">
     <Window.Resources>
-        <Style x:Key="ComboBoxGender" TargetType="ComboBox">
+        <Style x:Key="ComboBoxSyllabus" TargetType="ComboBox">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
@@ -17,7 +17,7 @@
                                     <ControlTemplate TargetType="ToggleButton">
                                         <Grid>
                                             <Border x:Name="Border" Background="White" BorderThickness="1" BorderBrush="Gray" Height="25">
-                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                                <ContentPresenter VerticalAlignment="Center" Margin="5,0,25,0"/>
                                             </Border>
                                             <Path x:Name="Arrow" Fill="Gray" HorizontalAlignment="Right" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,10,0"/>
                                         </Grid>
@@ -111,7 +111,7 @@
             <Label Content="Выберете учебный план" Style="{StaticResource Label}"/>
 
             <StackPanel Orientation="Horizontal">
-                <ComboBox Style="{StaticResource ComboBoxGender}" ItemContainerStyle="{StaticResource ComboBoxItem}" Margin="10,0,0,0"
+                <ComboBox Style="{StaticResource ComboBoxSyllabus}" ItemContainerStyle="{StaticResource ComboBoxItem}" Margin="10,0,0,0"
                               ItemsSource="{Binding Syllabus}" SelectedItem="{Binding SelectedSyllabus}"/>
                 <Button Content="Учебный план" Style="{StaticResource defaultButton}" VerticalAlignment="Center" HorizontalAlignment="Left"
                         Command="{Binding ShowInfoSyllabusCommand}" CommandParameter="{Binding SelectedSyllabus}"/>
@@ -121,7 +121,7 @@
                     Command="{Binding ShowInfoScheduleCommand}"/>
 
             <Button Content="Успеваемость" Style="{StaticResource defaultButton}" VerticalAlignment="Center" HorizontalAlignment="Left"
-                    Command="{Binding AcademicPerformanceCommand}"/>
+                    Command="{Binding ShowAcademicPerformanceCommand}"/>
 
         </StackPanel>
         

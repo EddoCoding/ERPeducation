@@ -34,7 +34,5 @@ namespace ERPeducation.Models.DeanRoom
 
         public ObservableCollection<DocumentBase> Documents { get; set; } = new();
 
-        public ObservableCollection<string> qwerty1 { get; set; } = new(); // -- Список предметов, которые сдал --
-        public ObservableCollection<string> qwerty2 { get; set; } = new(); // -- Список предметов, которые не сдал --
     }
 }

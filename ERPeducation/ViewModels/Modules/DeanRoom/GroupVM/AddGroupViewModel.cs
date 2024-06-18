@@ -56,7 +56,7 @@ namespace ERPeducation.ViewModels.Modules.DeanRoom.GroupVM
             group.TitleLevel = SelectedLevel.NameLevel;
             group.TitleForm = SelectedForm.NameForm;
             group.TitleTypeGroup = SelectedTypeGroup.NameType;
-            group.Syllabus = SelectedSyllabus;
+            group.Syllabus = SelectedSyllabus.TitleSyllabus;
             group.Schedule = SelectedSchedule.TitleSchedule;
             _repository.CreateGroup(group, SelectedTypeGroup, SelectedForm, SelectedLevel, SelectedFaculty);
             _closeWindow();

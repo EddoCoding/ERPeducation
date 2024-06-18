@@ -13,10 +13,11 @@ namespace ERPeducation.Common.BD
         public static string DeanRoomData => Path.Combine(DeanRoom, "DeanRoomData"); //Путь к папке -- Данных для деканата --
 
 
-        public static string TrainingDivision => Path.Combine(PathIS, IS, "TrainingDivision"); //Путь к папке -- Учбеного отдела --
+        public static string TrainingDivision => Path.Combine(PathIS, IS, "TrainingDivision"); //Путь к папке -- Учебного отдела --
         public static string Syllabus => Path.Combine(TrainingDivision, "Syllabus"); //Путь к папке -- Учебный планов --
         public static string Schedule => Path.Combine(TrainingDivision, "Schedule"); //Путь к папке -- Расписания --
         public static string DataGrids => Path.Combine(TrainingDivision, "DataGrids"); //Путь к папке -- Таблицы недель --
+        public static string AcademicPerformance => Path.Combine(TrainingDivision, "AcademicPerformance"); //Путь к папке -- Успеваемости --
 
 
         public static string AdmissionCampaign => Path.Combine(PathIS, IS, "AdmissionCampaign"); //Путь к папке -- Приёмной кампании --

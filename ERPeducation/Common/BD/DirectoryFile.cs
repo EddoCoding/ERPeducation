@@ -23,6 +23,7 @@ namespace ERPeducation.Common.BD
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision", "Syllabus"));
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision", "Schedule"));
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision", "DataGrids"));
+            Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "TrainingDivision", "AcademicPerformance"));
 
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "AdmissionCampaign")); 
             Directory.CreateDirectory(Path.Combine(dialog.SelectedPath, "InformationSystems", "AdmissionCampaign", "Enrollees")); 
@@ -34,7 +35,7 @@ namespace ERPeducation.Common.BD
 
             //Добавление администратора - потом переделать, чтобы не создавался сам
             //т.е. вход в систему будет свободен сразу без пользователей
-            //т.е. будет проверка происходить есть пользовати в ИС и если есть показать авторизацию, нет - войти
+            //т.е. будет проверка происходить есть пользователи в ИС и если есть показать авторизацию, нет - войти
             //но в таком случае будет работать только модуль -- Администрирование --
             jsonService.CreateFileJson(FileServer.Users, "AdminAdmin.json", "Администратор", "AdminAdmin", true, true, true, true, true, true);
 
