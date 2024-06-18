@@ -9,6 +9,7 @@ using ReactiveUI;
 using System.Collections.Specialized;
 using System.IO;
 using System.Reactive;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
@@ -102,6 +103,27 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 
         void EditEnrollee(Enrollee enrollee)
         {
+            if (string.IsNullOrWhiteSpace(enrollee.SurName) || string.IsNullOrWhiteSpace(enrollee.Name))
+            {
+                MessageBox.Show("ФИО не заполнено!");
+                return;
+            }
+            if (enrollee.Documents.Count == 0)
+            {
+                MessageBox.Show("Документы не добавлены");
+                return;
+            }
+            if (enrollee.Educations.Count == 0)
+            {
+                MessageBox.Show("Образование не добавлено");
+                return;
+            }
+            if (enrollee.Directions.Count == 0)
+            {
+                MessageBox.Show("Направление подготовки не выбрано");
+                return;
+            }
+
             JsonSerializerSettings jsonSetting = new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.All,

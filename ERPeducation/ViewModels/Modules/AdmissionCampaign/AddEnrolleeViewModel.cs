@@ -6,6 +6,7 @@ using ERPeducation.ViewModels.Modules.AdmissionCampaign.Services;
 using ReactiveUI;
 using System.Collections.Specialized;
 using System.Reactive;
+using System.Windows;
 
 namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
 {
@@ -96,7 +97,30 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign
         void DelDirection(DirectionOfAdmission direction) => _repository.DeleteDirection(direction);
         #endregion
         #region Метод добавления абитуриента
-        void AddEnrollee(Enrollee enrollee) => _admissionRepository.CreateEnrollee(enrollee);
+        void AddEnrollee(Enrollee enrollee)
+        {
+            if(string.IsNullOrWhiteSpace(enrollee.SurName) || string.IsNullOrWhiteSpace(enrollee.Name))
+            {
+                MessageBox.Show("ФИО не заполнено!");
+                return;
+            }
+            if (enrollee.Documents.Count == 0)
+            {
+                MessageBox.Show("Документы не добавлены");
+                return;
+            }
+            if (enrollee.Educations.Count == 0)
+            {
+                MessageBox.Show("Образование не добавлено");
+                return;
+            }
+            if (enrollee.Directions.Count == 0)
+            {
+                MessageBox.Show("Направление подготовки не выбрано");
+                return;
+            }
+            _admissionRepository.CreateEnrollee(enrollee);
+        }
         #endregion
     }
 }
