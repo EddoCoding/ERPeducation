@@ -106,7 +106,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="5" Background="{TemplateBinding Background}">
-                            <Image Width="24" Height="22" Source="/Common/Image/change.png" Margin="3" Opacity="0.5"/>
+                            <Image Width="24" Height="22" Source="/Common/Image/editStudent.png" Margin="3" Opacity="0.5"/>
                             <Border.ToolTip>
                                 <ToolTip Content="Изменить данные пользователя" Style="{StaticResource MyStyleToolTip}"/>
                             </Border.ToolTip>
