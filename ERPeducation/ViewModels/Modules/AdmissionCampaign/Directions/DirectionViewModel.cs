@@ -166,6 +166,32 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
         void Exit() => _closeWindow();
         void AddDirection(DirectionOfAdmission direction)
         {
+            if (SelectedFaculty == null)
+            {
+                MessageBox.Show("Факультет не выбран");
+                return;
+            }
+            if (SelectedLevel == null)
+            {
+                MessageBox.Show("Уровень подготовки не выбран");
+                return;
+            }
+            if (SelectedForm == null)
+            {
+                MessageBox.Show("Форма подготовки не выбрана");
+                return;
+            }
+            if (SelectedType == null)
+            {
+                MessageBox.Show("Тип обучения не выбран");
+                return;
+            }
+            if (SelectedGroup == null)
+            {
+                MessageBox.Show("Направление подготовки не выбрано");
+                return;
+            }
+
             direction.NameFaculty = SelectedFaculty.NameFaculty;
             direction.NameLevel = SelectedLevel.NameLevel;
             direction.NameForm = SelectedForm.NameForm;
@@ -174,6 +200,11 @@ namespace ERPeducation.ViewModels.Modules.AdmissionCampaign.Directions
             direction.NameDirection = SelectedGroup.Direction;
 
             direction.Tests = Tests;
+            if (Tests.Count == 0)
+            {
+                MessageBox.Show("ЕГЭ или испытания не выбраны!");
+                return;
+            }
 
             _repository.CreateDirection(direction);
             _closeWindow();
